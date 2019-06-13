@@ -1,0 +1,6 @@
+CMP001;company1;CEO1
+CMP002;company2;CEO2
+CMP003;company3;CEO3
+CMP004;company4;CEO4
+CMP005;company5;CEO5
+CMP006;company6;CEO6

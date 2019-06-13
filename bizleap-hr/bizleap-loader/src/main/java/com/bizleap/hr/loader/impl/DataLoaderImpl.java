@@ -1,51 +1,44 @@
 package com.bizleap.hr.loader.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import com.bizleap.domain.entity.Company;
-import com.bizleap.domain.entity.Employee;
+import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.DataLoader;
+import com.bizleap.hr.loader.DataManager;
+import com.bizleap.hr.loader.FileLoader;
 
 public class DataLoaderImpl implements DataLoader {
+    DataManager dataManager;
+    FileLoader fileLoader;
 
-	FileLoaderImpl fileLoader = new FileLoaderImpl();
+    public DataLoaderImpl(DataManager dataManager) {
+        this.dataManager = dataManager;
+        fileLoader = new FileLoaderImpl();
+    }
 
-	public List<Employee> loadEmployee() throws Exception {
-		List<Employee> employeeList = new ArrayList<Employee>();
-		Employee employee;
-		String eachLine = null;
-		fileLoader.start("D://Emp.txt");
-		while (fileLoader.hasNext()) {
-			try {
-				eachLine = fileLoader.getLine();
-				employee = Employee.parseEmployee(eachLine);
-				if (employee != null)
-					employeeList.add(employee);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-		fileLoader.stop();
-		return employeeList;
-	}
+    public void loadEmployee() {
+        fileLoader.start("employee.txt");
 
-	public List<Company> loadCompany() throws Exception {
-		List<Company> companyList = new ArrayList<Company>();
-		Company company;
-		String eachLine = null;
-		fileLoader.start("D://Com.txt");
-		while (fileLoader.hasNext()) {
-			try {
-				eachLine = fileLoader.getLine();
-				company = Company.parseCompany(eachLine);
-				if (company != null)
-					companyList.add(company);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-		fileLoader.stop();
-		return companyList;
-	}
+        Employee employee;
+
+        while (fileLoader.hasNext()) {
+            employee = Employee.parse(fileLoader.getLine());
+            if (employee != null) {
+                dataManager.getEmployeeList().add(employee);
+            }
+        }
+    }
+
+    public void loadCompany() {
+        fileLoader.start("company.txt");
+
+        Company company;
+
+        while (fileLoader.hasNext()) {
+            company = Company.parse(fileLoader.getLine());
+            if (company != null) {
+                dataManager.getCompanyList().add(company);
+            }
+        }
+    }
 }

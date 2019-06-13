@@ -16,68 +16,52 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
-public class Company extends Entity {
+public class Company extends AbstractEntity {
+    private String ceo;
+    private List<Employee> employeeList;
 
-	private final static String DELI_METER = ",";
-	private String boId, name, address, email, phone, ceo;
-	private static StringTokenizer st;
-	private List<Employee> employeeList;
-	public Company(String boId) {
-		super(boId);
-	}
-	
-	public void setEmployeeList(Employee employee) {
-		if(employeeList==null) {
-			employeeList=new ArrayList<Employee>();
-		}
-		this.employeeList.add(employee);
-	}
-	
-	public List<Employee> getEmployeeList(){
-		return this.employeeList;
-	}
-	
-	public boolean checkEquality(Company company) {
-		
-		return getBoId().equals(company.getBoId());
-	}
-	
-	public Company(String boId, String name, String address, String email, String phone, String ceo) {
-		super(boId, phone, email);
-		this.name = name;
-		this.address = address;
-		this.ceo = ceo;
-	}
+    public Company() {
 
-	public String getName() {
-		return name;
-	}
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Company(String boId) {
+        super(boId);
+    }
 
-	public static Company parseCompany(String eachLine) {
-		String boId = null, name = null, address = null, email = null, phone = null, ceo = null;
-		st = new StringTokenizer(eachLine, DELI_METER);
-		while (st.hasMoreTokens()) {
-			boId = st.nextToken();
-			name = st.nextToken();
-			address = st.nextToken();
-			email = st.nextToken();
-			phone = st.nextToken();
-			ceo = st.nextToken();
-		}
-		//return new CompanyBuilder().boId(boId).name(name).address(address).email(email).phone(phone).ceo(ceo)
-			//	.buildCompany();
-		return null;
-	}
+    public String getCeo() {
+        return ceo;
+    }
 
-	@Override
-	public String toString() {
-		return super.toString() + this.name;
+    public void setCeo(String ceo) {
+        this.ceo = ceo;
+    }
 
-	}
+    public List<Employee> getEmployeeList() {
+        if(employeeList == null)
+            employeeList = new ArrayList<Employee>();
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public static Company parse(String line) {
+        Company company = new Company();
+        String[] tokens = line.split(";");
+        company.setBoId(tokens[0]);
+        company.setName(tokens[1]);
+        company.setCeo(tokens[2]);
+        return company;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "employeeList=" + employeeList +
+                ", boId='" + getBoId() + '\'' +
+                ", name='" + getName() + '\'' +
+                '}';
+    }
 }

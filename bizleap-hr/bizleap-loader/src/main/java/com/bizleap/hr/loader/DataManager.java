@@ -1,12 +1,12 @@
 package com.bizleap.hr.loader;
 
+import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.commons.domain.entity.Employee;
+
 import java.util.List;
 
-import com.bizleap.domain.entity.Company;
-import com.bizleap.domain.entity.Employee;
-
 public interface DataManager {
-	public String loadData();
-	public List<Employee> getEmployeeList();
-	public List<Company> getCompanyList();
+    void load(DataLoader dataLoader);
+    List<Employee> getEmployeeList();
+    List<Company> getCompanyList();
 }

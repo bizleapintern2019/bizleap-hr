@@ -2,38 +2,47 @@ package com.bizleap.hr.loader.impl;
 
 import com.bizleap.hr.loader.FileLoader;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileLoaderImpl implements FileLoader {
-	static int count;
-	BufferedReader reader;
-	private String eachLine;
+    private FileReader fileReader;
+    private BufferedReader bufferedReader;
+    private String line = null;
 
-	public void start(String fileReader) throws Exception {
-		count=0;
-		reader = new BufferedReader(new FileReader(fileReader));
-	}
+    public void start(String fileName) {
+        try {
+            fileReader = new FileReader(getFileFromResources(fileName));
+            bufferedReader = new BufferedReader(fileReader);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public boolean hasNext() throws IOException {
-		if ((eachLine = reader.readLine()) != null) {
-			count++;
-			return true;
-		}
-		return false;
-	}
+    public void finish() {
+        try {
+            fileReader.close();
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public String getLine() {
-		return eachLine;
-	}
+    public String getLine() {
+        return line;
+    }
 
-	public void stop() throws Exception {
-		if(reader!=null)
-			reader.close();
-	}
-	
-	public int getLineNumber() {
-		return count;
-	}
+    public boolean hasNext() {
+        try {
+            line = bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return line != null;
+    }
+
+    private File getFileFromResources(String fileName) {
+        return new File(
+                getClass().getClassLoader().getResource(fileName).getFile()
+        );
+    }
 }
