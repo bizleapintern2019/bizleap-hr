@@ -7,14 +7,14 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.bizleap.commons</groupId>
-  <artifactId>bizleap-commons</artifactId>
+  <groupId>com.bizleap.hr</groupId>
+  <artifactId>bizleap-hr</artifactId>
   <packaging>pom</packaging>
-  <description>bizleap-commons</description>
+  <description>bizleap-hr</description>
 
   <modules>
-     <module>bizleap-domain</module>
-     <module>bizleap-utils</module>
+     <module>bizleap-loader</module>
+     <module>bizleap-service</module>
   </modules>
 
   <build>

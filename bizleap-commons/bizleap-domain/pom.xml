@@ -6,14 +6,13 @@
     <artifactId>bizleap-commons</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-
   <artifactId>bizleap-domain</artifactId>
   <packaging>jar</packaging>
   <name>bizleap-domain</name>
   <description>bizleap domain</description>
 
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <!--  <sourceDirectory>src</sourceDirectory>
     <resources>
       <resource>
         <directory>src</directory>
@@ -21,7 +20,7 @@
           <exclude>**/*.java</exclude>
         </excludes>
       </resource>
-    </resources>
+    </resources>-->
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
