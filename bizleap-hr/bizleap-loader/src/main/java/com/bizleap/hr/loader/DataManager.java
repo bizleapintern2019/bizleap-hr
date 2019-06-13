@@ -2,8 +2,8 @@ package com.bizleap.hr.loader;
 
 import java.util.List;
 
-import com.bizleap.domains.entity.Company;
-import com.bizleap.domains.entity.Employee;
+import com.bizleap.domain.entity.Company;
+import com.bizleap.domain.entity.Employee;
 
 public interface DataManager {
 	public String loadData();

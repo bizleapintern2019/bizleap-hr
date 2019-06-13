@@ -12,7 +12,7 @@ John Mark -- works for Adobe
 2) Find out what commonality do the two entity classes have and reimplement it
  by using the inheritance features of Java. 
 */
-package com.bizleap.domains.entity;
+package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;

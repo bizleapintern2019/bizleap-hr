@@ -1,4 +1,4 @@
-package com.bizleap.domains.entity;
+package com.bizleap.commons.domain.entity;
 /*
 Assignment 4
 There are three persons and three companies (you can add more):

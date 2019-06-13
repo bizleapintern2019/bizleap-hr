@@ -12,7 +12,22 @@
   <description>bizleap-loader</description>
 
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <directory>${project.basedir}/target</directory>
+    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+    <finalName>${project.artifactId}-${project.version}</finalName>
+    <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+    <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+    <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>${project.basedir}/src/test/resources</directory>
+      </testResource>
+    </testResources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -24,11 +39,12 @@
       </plugin>
     </plugins>
   </build>
- <dependencies>
+
+  <dependencies>
  	<dependency>
  	  <groupId>com.bizleap.commons</groupId>
     <artifactId>bizleap-domain</artifactId>
     <version>0.0.1-SNAPSHOT</version>
  	</dependency>
- </dependencies>
+  </dependencies>
 </project>

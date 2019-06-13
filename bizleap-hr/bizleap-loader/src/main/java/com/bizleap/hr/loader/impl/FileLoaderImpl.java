@@ -1,4 +1,6 @@
-package com.bizleap.hr.loader;
+package com.bizleap.hr.loader.impl;
+
+import com.bizleap.hr.loader.FileLoader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

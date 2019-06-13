@@ -2,7 +2,7 @@ package com.bizleap.hr.loader;
 
 import org.junit.Test;
 
-import com.bizleap.hr.loader.DataManagerImpl;
+import com.bizleap.hr.loader.impl.DataManagerImpl;
 
 public class DataManagerTest {
 	

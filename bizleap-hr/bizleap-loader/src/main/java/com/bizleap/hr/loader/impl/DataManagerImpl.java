@@ -1,9 +1,10 @@
-package com.bizleap.hr.loader;
+package com.bizleap.hr.loader.impl;
 
 import java.util.List;
 
-import com.bizleap.domains.entity.Company;
-import com.bizleap.domains.entity.Employee;
+import com.bizleap.domain.entity.Company;
+import com.bizleap.domain.entity.Employee;
+import com.bizleap.hr.loader.DataManager;
 
 public class DataManagerImpl implements DataManager {
 	DataLoaderImpl dataLoader = new DataLoaderImpl();

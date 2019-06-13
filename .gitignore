@@ -5,3 +5,5 @@
 RemoteSystemsTempFiles/
 .metadata/
 .recommenders/
+.idea/
+*.iml
