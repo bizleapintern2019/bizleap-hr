@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.service.EmployeeService;
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		PreparedStatement ps;
 		try{
 			connection=jdbcService.getJDBCConnection();
-			ps=(PreparedStatement) connection.prepareStatement("insert into employee"
+			ps=connection.prepareStatement("insert into employee"
 					+"( boId,firstName,lastName,age,title,salary,email,phone,companyBoId)"
 					+"values (?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, employee.getBoId());

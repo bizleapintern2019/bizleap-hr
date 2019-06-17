@@ -31,17 +31,18 @@ public class Employee extends Entity {
 	private String email;
 	private String phone;
 	private Company workFor;
-	int	count=0;
+	int count = 0;
 	private static List<Integer> lineNumbers;
 
-	public Employee(String boid){
+	public Employee(String boid) {
 		super(boid);
 	}
 
-	public Employee(String employeeId, String firstName, String lastName, int age, String title, int salary, String email, String phone, String boid) {
+	public Employee(String employeeId, String firstName, String lastName, int age, String title, int salary,
+			String email, String phone, String boid) {
 		super(boid);
 		this.firstName = firstName;
-		this.lastName = lastName;	
+		this.lastName = lastName;
 		this.age = age;
 		this.title = title;
 		this.salary = salary;
@@ -112,17 +113,17 @@ public class Employee extends Entity {
 	public void setWorkFor(Company workFor) {
 		this.workFor = workFor;
 	}
-	
-	public static List<Integer> getLineNumberList(){
+
+	public static List<Integer> getLineNumberList() {
 		return lineNumbers;
 	}
-	
+
 	public static Employee parseEmployee(String line, int lineNumber) {
-		if(lineNumbers == null)
+		if (lineNumbers == null)
 			lineNumbers = new ArrayList<Integer>();
 		else
 			lineNumbers.add(lineNumber);
-		
+
 		String boid, firstName, lastName, title, email, phone, companyBoid;
 		int age, salary;
 
@@ -138,30 +139,20 @@ public class Employee extends Entity {
 		phone = st.nextToken();
 		companyBoid = st.nextToken();
 
-		Employee employee = new EmployeeBuilder()
-				.boid(boid)
-				.firstName(firstName)
-				.lastName(lastName)
-				.age(age)
-				.title(title)
-				.salary(salary)
-				.email(email)
-				.phone(phone)
-				.buildEmployee();
+		Employee employee = new EmployeeBuilder().boid(boid).firstName(firstName).lastName(lastName).age(age)
+				.title(title).salary(salary).email(email).phone(phone).buildEmployee();
 		employee.setWorkFor(new Company(companyBoid));
 		return employee;
 	}
-	
+
 	public boolean checkEmployee(String boid) {
 		return getWorkFor().getBoId().equals(boid);
 	}
 
 	@Override
 	public String toString() {
-		return 	super.toString()+
-				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("firstname",getFirstName())
-				.append("lastname",getLastName())
-				.append("work for",getWorkFor().getBoId());
+		return super.toString()
+				+ new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).append("firstname", getFirstName())
+						.append("lastname", getLastName()).append("work for", getWorkFor().getBoId());
 	}
 }

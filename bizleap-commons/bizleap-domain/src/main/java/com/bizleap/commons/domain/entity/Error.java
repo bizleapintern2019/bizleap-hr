@@ -68,7 +68,7 @@ public class Error {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append(getMessage())
+				//.append(getMessage())
 				.append("Source Object : "+getSource()+" Line number: "+getLineNumber()+"\n")
 				.build();
 	}

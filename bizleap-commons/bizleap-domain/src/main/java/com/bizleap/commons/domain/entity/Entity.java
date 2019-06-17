@@ -19,12 +19,24 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Entity {
 
+	private long id;
 	private String boId;
 
 	public Entity() {
 
 	}
 
+	public Entity(long id){
+		this.id=id;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	public Entity(String boId) {
 		this.boId = boId;
 	}

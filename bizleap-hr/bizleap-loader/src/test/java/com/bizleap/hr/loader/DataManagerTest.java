@@ -11,6 +11,9 @@ public class DataManagerTest {
 	public void dataTest() throws Exception {
 		DataManagerImpl dataManager = new DataManagerImpl();
 		dataManager.loadData();
-		new AssociationMapperImpl(dataManager).setUpAssociations(); 
+		AssociationMapper association =new AssociationMapperImpl(dataManager);
+		association.setUpAssociations(); 
+		if(association.getErrorHashMap()!=null)
+		System.out.println("\t\t\t\t Linked Error\n"+association.getErrorHashMap());
 	}
 }

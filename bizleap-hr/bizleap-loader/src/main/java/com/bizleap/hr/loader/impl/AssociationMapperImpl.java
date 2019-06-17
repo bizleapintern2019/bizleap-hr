@@ -3,6 +3,7 @@ package com.bizleap.hr.loader.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
@@ -13,7 +14,7 @@ import com.bizleap.hr.loader.DataManager;
 public class AssociationMapperImpl implements AssociationMapper {
 
 	private DataManager dataManager;
-	private HashMap<Integer, Error> errorHashMap;
+	private Map<Integer, Error> errorHashMap;
 	private List<Integer> lineNumbers = new ArrayList<Integer>();
 	private int i=0;
 
@@ -29,7 +30,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		this.dataManager = dataManager;
 	}
 
-	public HashMap<Integer, Error> getErrorHashMap() {
+	public Map<Integer, Error> getErrorHashMap() {
 		return errorHashMap;
 	}
 
@@ -57,6 +58,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			if (company.checkCompany(employee.getWorkFor().getBoId())) {
 				employee.setWorkFor(company);
 				i++;
+				System.out.println(employee);
 				return;
 			}
 		}
@@ -67,7 +69,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpEmployeeAssociation() {
 		for (Employee employee : dataManager.getEmployeesList()) {
 			addCompanyToEmployee(employee);
-			System.out.println(employee);
 		}
 	}
 

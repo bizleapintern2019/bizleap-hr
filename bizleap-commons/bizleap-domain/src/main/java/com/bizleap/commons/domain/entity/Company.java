@@ -93,7 +93,7 @@ public class Company extends Entity {
 	}
 	
 	public boolean checkCompany(String boid) {
-		return getBoId().equals(boid);
+		return this.getBoId().equals(boid);
 	}
 
 	public static Company parseCompany(String line) {

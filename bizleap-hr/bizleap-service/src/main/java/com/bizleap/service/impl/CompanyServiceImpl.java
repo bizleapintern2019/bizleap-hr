@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.service.CompanyService;
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class CompanyServiceImpl implements CompanyService {
 	JDBCService jdbcService=new JDBCServiceImpl();
@@ -18,7 +18,7 @@ public class CompanyServiceImpl implements CompanyService {
 		PreparedStatement ps;
 		try{
 			connection=jdbcService.getJDBCConnection();
-			ps=(PreparedStatement) connection.prepareStatement("insert into company"+"(boId,name,address,phone,email,ceo)"+"values(?,?,?,?,?,?)");
+			ps= connection.prepareStatement("insert into company"+"(boId,name,address,phone,email,ceo)"+"values(?,?,?,?,?,?)");
 			ps.setString(1, company.getBoId());
 			ps.setString(2, company.getName());
 			ps.setString(3, company.getAddress());

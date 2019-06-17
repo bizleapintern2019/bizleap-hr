@@ -12,7 +12,7 @@ public class EmployeeServiceImplTest {
 	EmployeeService employeeService=new EmployeeServiceImpl();
 	@Test
 	public void testSavingEmployee(){
-		Employee employee=new Employee("EMP001");
+		Employee employee=new Employee("EMP002");
 		employee.setFirstName("ThuYa");
 		employee.setLastName("Oo");
 		employee.setAge(21);

@@ -4,7 +4,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
+//import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 public class JDBCServiceImpl implements JDBCService {
 
@@ -18,7 +19,7 @@ public class JDBCServiceImpl implements JDBCService {
 	 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection=(Connection) DriverManager.getConnection("jdbc:mysql://localhost/"+dbName+"?user="+userName+"&password="+password);
+			connection=DriverManager.getConnection("jdbc:mysql://localhost/"+dbName+"?user="+userName+"&password="+password);
 
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.getMessage());

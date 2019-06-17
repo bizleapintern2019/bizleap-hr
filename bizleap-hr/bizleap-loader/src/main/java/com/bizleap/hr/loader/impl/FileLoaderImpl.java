@@ -20,7 +20,6 @@ public class FileLoaderImpl implements FileLoader {
 
 		if ((line = bufferedReader.readLine()) != null) {
 			if(line.startsWith("#")){
-				lineCount++;
 				line = bufferedReader.readLine();
 				return true;
 			}
