@@ -3,8 +3,8 @@ package com.bizleap.service.impl;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.service.EmployeeService;
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -18,7 +18,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		PreparedStatement ps;
 		try {
 			connection = jdbcService.getJDBConnection();
-			ps = (PreparedStatement) connection.prepareStatement(
+			ps = connection.prepareStatement(
 					"insert into employee" + "(boId,firstName,lastName,age,title,salary,email,phoneNumber,companyBoId)"
 							+ " values(?,?,?,?,?,?,?,?,?)");
 

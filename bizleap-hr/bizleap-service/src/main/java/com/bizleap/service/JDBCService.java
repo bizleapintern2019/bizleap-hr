@@ -1,6 +1,6 @@
 package com.bizleap.service;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 public interface JDBCService {
 	public Connection getJDBConnection();

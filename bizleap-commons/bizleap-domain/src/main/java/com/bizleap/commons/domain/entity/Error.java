@@ -10,6 +10,12 @@ public class Error {
 	
 	public Error() {}
 	
+	public Error(int lineNumber, String source, String message) {
+		this.lineNumber = lineNumber;
+		this.source = source;
+		this.message = message;
+	}
+	
 	public Error(int lineNumber, Object source, String message) {
 		this.lineNumber = lineNumber;
 		this.source = source;
