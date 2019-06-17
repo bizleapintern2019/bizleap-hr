@@ -14,33 +14,41 @@ John Mark -- works for Adobe
 */
 package com.bizleap.commons.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Employee extends Entity {
 
-	private final static String DELI_METER = ",";
-	private String boId, firstName, lastName, age, title, salary, email, phone;
-	private static StringTokenizer st;
+	private String firstName;
+	private String lastName;
+	private int age;
+	private String title;
+	private int salary;
+	private String email;
+	private String phone;
 	private Company workFor;
-	public Employee(String boId, String firstName, String lastName, String age, String title, String salary,
-			String email, String phone) {
-		super(boId, phone, email);
+	int	count=0;
+	private static List<Integer> lineNumbers;
+
+	public Employee(String boid){
+		super(boid);
+	}
+
+	public Employee(String employeeId, String firstName, String lastName, int age, String title, int salary, String email, String phone, String boid) {
+		super(boid);
 		this.firstName = firstName;
-		this.lastName = lastName;
+		this.lastName = lastName;	
 		this.age = age;
 		this.title = title;
 		this.salary = salary;
-
+		this.email = email;
+		this.phone = phone;
 	}
 
-	public Company getWorkFor() {
-		return workFor;
-	}
-	
-	public void setWorkFor(Company workFor) {
-		this.workFor=workFor;
-	}
-	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -57,34 +65,103 @@ public class Employee extends Entity {
 		this.lastName = lastName;
 	}
 
-	public static Employee parseEmployee(String eachLine) {
-		String boid = null, firstName = null, lastName = null, age = null, title = null, salary = null, email = null,
-				phone = null,companyBoId=null;
-		st = new StringTokenizer(eachLine, DELI_METER);
-		while (st.hasMoreTokens()) {
-			boid = st.nextToken();
-			companyBoId=st.nextToken();
-			firstName = st.nextToken();
-			lastName = st.nextToken();
-			age = st.nextToken();
-			title = st.nextToken();
-			salary = st.nextToken();
-			email = st.nextToken();
-			phone = st.nextToken();
-			System.out.println(boid);
-		}
-		//Employee employee=new EmployeeBuilder().boId(boid).firstName(firstName).lastName(lastName).age(age).title(title)
-			//	.salary(salary).email(email).phone(phone).buildEmployee();
-		//employee.setWorkFor(new Company(companyBoId));
-		return null;
+	public int getAge() {
+		return age;
 	}
 
-	public boolean checkEquality(String boId) {
-		return getWorkFor().getBoId().equals(boId);
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public Company getWorkFor() {
+		return workFor;
+	}
+
+	public void setWorkFor(Company workFor) {
+		this.workFor = workFor;
 	}
 	
+	public static List<Integer> getLineNumberList(){
+		return lineNumbers;
+	}
+	
+	public static Employee parseEmployee(String line, int lineNumber) {
+		if(lineNumbers == null)
+			lineNumbers = new ArrayList<Integer>();
+		else
+			lineNumbers.add(lineNumber);
+		
+		String boid, firstName, lastName, title, email, phone, companyBoid;
+		int age, salary;
+
+		StringTokenizer st = new StringTokenizer(line, ",");
+
+		boid = st.nextToken();
+		firstName = st.nextToken();
+		lastName = st.nextToken();
+		age = Integer.parseInt(st.nextToken());
+		title = st.nextToken();
+		salary = Integer.parseInt(st.nextToken());
+		email = st.nextToken();
+		phone = st.nextToken();
+		companyBoid = st.nextToken();
+
+		Employee employee = new EmployeeBuilder()
+				.boid(boid)
+				.firstName(firstName)
+				.lastName(lastName)
+				.age(age)
+				.title(title)
+				.salary(salary)
+				.email(email)
+				.phone(phone)
+				.buildEmployee();
+		employee.setWorkFor(new Company(companyBoid));
+		return employee;
+	}
+	
+	public boolean checkEmployee(String boid) {
+		return getWorkFor().getBoId().equals(boid);
+	}
+
 	@Override
 	public String toString() {
-		return this.getFirstName() + " " + this.getLastName();
+		return 	super.toString()+
+				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("firstname",getFirstName())
+				.append("lastname",getLastName())
+				.append("work for",getWorkFor().getBoId());
 	}
 }
