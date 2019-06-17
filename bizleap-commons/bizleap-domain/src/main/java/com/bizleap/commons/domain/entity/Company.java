@@ -1,83 +1,163 @@
-/*
-Assignment 4
-There are three persons and three companies (you can add more):
-Alice Kim -- works for Apple
-Bob Gilman -- works for IBM
-John Mark -- works for Adobe
-
-1) Write a java program that will read the above employees' first name, last name, age, title, salary,
- email, phone ( add more fields to above people) from a file as well as to read the company names, address,
-  phone, email, CEO (make up some one for each company) from a second file and print out the company then 
-  it's employee(s) for all companies.
-2) Find out what commonality do the two entity classes have and reimplement it
- by using the inheritance features of Java. 
-*/
 package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Company extends Entity {
 
-	private final static String DELI_METER = ",";
-	private String boId, name, address, email, phone, ceo;
-	private static StringTokenizer st;
+	private String companyName, address, phone, email, ceo;
 	private List<Employee> employeeList;
-	public Company(String boId) {
-		super(boId);
+
+	public Company() {
+		super();
 	}
-	
-	public void setEmployeeList(Employee employee) {
-		if(employeeList==null) {
-			employeeList=new ArrayList<Employee>();
-		}
-		this.employeeList.add(employee);
+
+	public Company(String workForBoId) {
+		super(workForBoId);
 	}
-	
-	public List<Employee> getEmployeeList(){
-		return this.employeeList;
-	}
-	
-	public boolean checkEquality(Company company) {
-		
-		return getBoId().equals(company.getBoId());
-	}
-	
-	public Company(String boId, String name, String address, String email, String phone, String ceo) {
-		super(boId, phone, email);
-		this.name = name;
+
+	public Company(String boId,String companyName, String address, String phone, String email, String ceo) {
+
+		super.setBoId(boId);
+		this.companyName = companyName;
 		this.address = address;
+		this.phone = phone;
+		this.email = email;
 		this.ceo = ceo;
 	}
 
-	public String getName() {
-		return name;
+	public List<Employee> getEmployeeList() {
+		return employeeList;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setEmployeeList(List<Employee> employeeList) {
+		this.employeeList = employeeList;
 	}
 
-	public static Company parseCompany(String eachLine) {
-		String boId = null, name = null, address = null, email = null, phone = null, ceo = null;
-		st = new StringTokenizer(eachLine, DELI_METER);
-		while (st.hasMoreTokens()) {
-			boId = st.nextToken();
-			name = st.nextToken();
-			address = st.nextToken();
-			email = st.nextToken();
-			phone = st.nextToken();
-			ceo = st.nextToken();
+	public void addEmployee(Employee employee) {
+
+		if(employeeList == null){
+			employeeList = new ArrayList<Employee>();
 		}
-		//return new CompanyBuilder().boId(boId).name(name).address(address).email(email).phone(phone).ceo(ceo)
-			//	.buildCompany();
-		return null;
+		employeeList.add(employee);
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCeo() {
+		return ceo;
+	}
+
+	public void setCeo(String ceo) {
+		this.ceo = ceo;
+	}
+
+	public boolean boIdIsEqual(String boId){
+		return super.getBoId().equals(boId);
+	}
+
+	public static class Builder {
+		private String boId,companyName, address, phone, email, ceo;
+
+		public Builder(){
+
+		}
+
+		public Builder setBoId(String boId) {
+			this.boId = boId;
+			return this;
+		}
+
+		public Builder setCompanyName(String companyName) {
+			this.companyName = companyName;
+			return this;
+		}
+
+		public Builder setAddress(String address) {
+			this.address = address;
+			return this;
+		}
+
+		public Builder setPhone(String phone) {
+			this.phone = phone;
+			return this;
+		}
+
+		public Builder setEmail(String email) {
+			this.email = email;
+			return this;
+		}
+
+		public Builder setCeo(String ceo) {
+			this.ceo = ceo;
+			return this;
+		}
+
+		public Company build() {
+			return new Company(boId,companyName,address,phone,email,ceo);
+		}
+	}
+
+	public static Company parseCompany(String dataLine) {
+
+		String boId, companyName,address, phone,email,ceo;
+
+		StringTokenizer tokenizer = new StringTokenizer(dataLine, ",");
+
+		boId = tokenizer.nextToken();
+		companyName = tokenizer.nextToken();
+		address = tokenizer.nextToken();
+		phone = tokenizer.nextToken();
+		email = tokenizer.nextToken();
+		ceo = tokenizer.nextToken();
+		return new Company.Builder().setAddress(address)
+				.setBoId(boId)
+				.setCeo(ceo)
+				.setCompanyName(companyName)
+				.setEmail(email)
+				.setPhone(phone)
+				.build();
+
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + this.name;
-
+		return  "Company: "+ super.toString() + new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("Company Name: " + getCompanyName())
+				.append("Employee list: " + getEmployeeList());
 	}
 }
