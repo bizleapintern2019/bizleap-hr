@@ -10,8 +10,7 @@ import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.FileLoader;
 
-
-public class DataLoaderImpl implements DataLoader{
+public class DataLoaderImpl implements DataLoader {
 
 	FileLoader fileLoader = new FileLoaderImpl();
 	DataManager dataManager = new DataManagerImpl();
@@ -25,14 +24,14 @@ public class DataLoaderImpl implements DataLoader{
 		while (fileLoader.hasNext()) {
 			try {
 				line = fileLoader.getLine();
-				employee = Employee.parseEmployee(line,fileLoader.getLineNumber());
+				employee = Employee.parseEmployee(line, fileLoader.getLineNumber());
 				if (employee != null)
 					dataManager.getEmployeesList().add(employee);
 			} catch (Exception e) {
-				if(errorHashMap == null)
+				if (errorHashMap == null)
 					errorHashMap = new HashMap<Integer, Error>();
 				int lineNumber = fileLoader.getLineNumber();
-				errorHashMap.put(lineNumber, new Error(lineNumber,employee,e.toString()));
+				errorHashMap.put(lineNumber, new Error(lineNumber, employee, e.toString()));
 			}
 		}
 		fileLoader.stop();
@@ -51,15 +50,17 @@ public class DataLoaderImpl implements DataLoader{
 				if (company != null)
 					dataManager.getCompanyList().add(company);
 			} catch (Exception e) {
+				if (errorHashMap == null)
+					errorHashMap = new HashMap<Integer, Error>();
 				int lineNumber = fileLoader.getLineNumber();
-				errorHashMap.put(lineNumber, new Error(lineNumber,company,e.toString()));
+				errorHashMap.put(lineNumber, new Error(lineNumber, company, e.toString()));
 			}
 		}
 		fileLoader.stop();
 		return dataManager.getCompanyList();
 	}
-	
-	public HashMap<Integer, Error> getError() {
+
+	public HashMap<Integer, Error> getFileError() {
 		return errorHashMap;
 	}
 }

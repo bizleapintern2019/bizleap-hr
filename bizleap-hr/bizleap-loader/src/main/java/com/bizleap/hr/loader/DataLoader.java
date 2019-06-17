@@ -12,5 +12,5 @@ public interface DataLoader {
 
 	public List<Company> loadCompany() throws Exception;
 	
-	public HashMap<Integer, Error> getError();
+	public HashMap<Integer, Error> getFileError();
 }
