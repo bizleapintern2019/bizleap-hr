@@ -3,6 +3,7 @@ package com.bizleap.hr.loader.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
@@ -13,7 +14,7 @@ import com.bizleap.hr.loader.DataManager;
 public class AssociationMapperImpl implements AssociationMapper {
 
 	private DataManager dataManager;
-	private HashMap<Integer, Error> errorHashMap;
+	private Map<Integer, Error> errorMap;
 	private List<Integer> lineNumbers = new ArrayList<Integer>();
 	private int i=0;
 	
@@ -25,7 +26,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 		this.dataManager=dataManager;
 	}
 	
-
 	public DataManager getDataManager() {
 		return dataManager;
 	}
@@ -34,13 +34,12 @@ public class AssociationMapperImpl implements AssociationMapper {
 		this.dataManager = dataManager;
 	}
 	
-	
-	public HashMap<Integer, Error> getErrorHashMap() {
-		return errorHashMap;
+	public Map<Integer, Error> getErrorHashMap() {
+		return errorMap;
 	}
 
-	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap) {
-		this.errorHashMap = errorHashMap;
+	public void setErrorHashMap(Map<Integer, Error> errorMap) {
+		this.errorMap = errorMap;
 	}
 	
 	private void addEmployeesToCompany(Company company) {
@@ -100,10 +99,10 @@ public class AssociationMapperImpl implements AssociationMapper {
 //		System.out.println("Source object : "+source);
 //		System.out.println("--------------------------------------------------------------------------------------------");
 //		System.exit(0);
-		if (errorHashMap == null)
-			errorHashMap = new HashMap<Integer, Error>();
+		if (errorMap == null)
+			errorMap = new HashMap<Integer, Error>();
 
 		Error error = new Error(lineNumber, source, message);
-		errorHashMap.put(lineNumber, error);
+		errorMap.put(lineNumber, error);
 	}
 }

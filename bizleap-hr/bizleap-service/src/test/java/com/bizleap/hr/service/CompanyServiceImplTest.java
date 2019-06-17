@@ -9,7 +9,7 @@ import com.bizleap.service.Impl.CompanyServiceImpl;
 public class CompanyServiceImplTest {
 
 	CompanyService companyService=new CompanyServiceImpl();
-	//@Test
+	@Test
 	public void testSavingEmployee() {
 		Company company=new Company("COM001");
 		company.setAddress("ads");

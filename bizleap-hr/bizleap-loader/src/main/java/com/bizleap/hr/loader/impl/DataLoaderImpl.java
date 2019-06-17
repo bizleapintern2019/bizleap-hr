@@ -1,8 +1,9 @@
 package com.bizleap.hr.loader.impl;
 
+
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.DataLoader;
@@ -14,7 +15,8 @@ public class DataLoaderImpl implements DataLoader {
 
 	FileLoader fileLoader = new FileLoaderImpl();
 	DataManager dataManager=new DataManagerImpl();
-	private HashMap<Integer, Error> errorHashMap;
+	private Map<Integer, Error> errorMap;
+	private int index=0;
 
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("D:\\leap/employee.txt");
@@ -28,10 +30,7 @@ public class DataLoaderImpl implements DataLoader {
 				if (employee != null)
 					dataManager.getEmployeeList().add(employee);
 			} catch (Exception e) {
-				if(errorHashMap == null)
-					errorHashMap = new HashMap<Integer, Error>();
-				int lineNumber = fileLoader.getLineNumber();
-				errorHashMap.put(lineNumber, new Error(lineNumber,employee,e.toString()));
+				handleFileError(fileLoader.getLineNumber(), e.toString(), line);
 			}
 		}
 		fileLoader.stop();
@@ -50,17 +49,20 @@ public class DataLoaderImpl implements DataLoader {
 				if (company != null)
 					dataManager.getCompanyList().add(company);
 			} catch (Exception e) {
-				if(errorHashMap==null)
-					errorHashMap=new HashMap<Integer,Error>();
-				int lineNumber = fileLoader.getLineNumber();
-				errorHashMap.put(lineNumber, new Error(lineNumber,company,e.toString()));
+				handleFileError(fileLoader.getLineNumber(), e.toString(), line);
 			}
 		}
 		fileLoader.stop();
 		return dataManager.getCompanyList();
 	}
 	
-	public HashMap<Integer, Error> getFileError() {
-		return errorHashMap;
+	public void handleFileError(int lineNumber,String message,String source) {
+		if (errorMap==null)
+			errorMap=new HashMap<Integer,Error>();
+		errorMap.put(index++, new Error(lineNumber, source, message));
+	}
+	
+	public Map<Integer, Error> getFileError() {
+		return errorMap;
 	}
 }

@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.service.EmployeeService;
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -16,7 +16,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Connection connection=null;
 		try {
 			connection=jdbcService.getJDBCConnection();
-			PreparedStatement ps= (PreparedStatement) connection.prepareStatement("insert into employee"+"(boId,firstName,lastName,age,title,salary,email,phoneNumber,companyBoId)"+"values(?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps=  connection.prepareStatement("insert into employee"+"(boId,firstName,lastName,age,title,salary,email,phoneNumber,companyBoId)"+"values(?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, employee.getBoId());
 			ps.setString(2, employee.getFirstname());
 			ps.setString(3,employee.getLastname());

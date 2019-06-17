@@ -102,7 +102,7 @@ public class Company extends Entity {
 		this.ceo = ceo;
 	}
 	
-	public boolean boIdIsEqual(String boId){
+	public boolean boIdIsEqual(String boId) {
 		return super.getBoId().equals(boId);
 	}
 	

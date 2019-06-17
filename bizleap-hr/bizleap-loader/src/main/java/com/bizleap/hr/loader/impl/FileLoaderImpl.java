@@ -18,8 +18,7 @@ public class FileLoaderImpl implements FileLoader {
 
 	public boolean hasNext() throws IOException {
 		if ((line = bufferedReader.readLine()) != null) {
-			if(line.startsWith("#")){
-				lineCount++;
+			if(line.startsWith("#")) {
 				line = bufferedReader.readLine();
 				return true;
 			}

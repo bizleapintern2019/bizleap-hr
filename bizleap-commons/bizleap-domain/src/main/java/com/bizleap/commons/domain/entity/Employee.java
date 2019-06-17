@@ -112,11 +112,11 @@ public class Employee extends Entity {
 		this.phone = phone;
 	}
 	
-	public static List<Integer> getLineNumberList(){
+	public static List<Integer> getLineNumberList() {
 		return lineNumbers;
 	}
 	
-	public boolean workForBoIdIsEqual(String companyBoId){
+	public boolean workForBoIdIsEqual(String companyBoId) {
 		return getWorkForBoId().equals(companyBoId);
 	}
 	

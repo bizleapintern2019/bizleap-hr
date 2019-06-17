@@ -1,6 +1,7 @@
 package com.bizleap.commons.domain.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Error {
 	private int lineNumber;
@@ -9,6 +10,12 @@ public class Error {
 	
 	public Error() {
 		
+	}
+	
+	public Error(int lineNumber, String source, String message) {
+		this.lineNumber = lineNumber;
+		this.source = source;
+		this.message = message;
 	}
 	
 	public Error(int lineNumber, Object source, String message) {
@@ -41,7 +48,7 @@ public class Error {
 		this.message = message;
 	}
 
-	public static class ErrorBuilder{
+	public static class ErrorBuilder {
 		String message;
 		Object source;
 		int lineNumber;
@@ -68,13 +75,9 @@ public class Error {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this)
-				.append("---------------------------------------------------------------"+"\n")
-				.append("\t\t\t\t\tERROR\n")
-				.append("---------------------------------------------------------------"+"\n")
-				.append(getMessage()+"\n")
+		return new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append(getMessage())
 				.append("Source Object : "+getSource()+" at line number "+getLineNumber()+"\n")
-				.append("---------------------------------------------------------------")
 				.build();
 	}	
 }

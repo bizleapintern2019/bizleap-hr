@@ -15,6 +15,6 @@ public class DataManagerTest {
 		dataManager.loadData();
 		AssociationMapper assocaiationMapper=new AssociationMapperImpl(dataManager);
 		assocaiationMapper.setUpAssociations();
-		System.out.println("\t\t\t"+assocaiationMapper.getErrorHashMap());
+		System.out.println("\n\t\t\t Linked Error is the line below this source : "+"\n"+assocaiationMapper.getErrorHashMap());
 	}
 }
