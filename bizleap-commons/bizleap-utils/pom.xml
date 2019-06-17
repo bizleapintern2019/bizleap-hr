@@ -8,7 +8,7 @@
   </parent>
   <artifactId>bizleap-utils</artifactId>
   <packaging>jar</packaging>
-  <name>bizleap-domain</name>
+  <name>bizleap-utils</name>
   <description>bizleap utils</description>
 
   <build>

@@ -14,19 +14,19 @@ John Mark -- works for Adobe
  by using the inheritance features of Java. 
 */
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Entity {
 
-	private String boId, phone, email;
-
-	public Entity(String boId, String phone, String email) {
-		super();
-		this.boId = boId;
-		this.phone = phone;
-		this.email = email;
+	private String boId;
+	
+	public Entity() {
+	
 	}
 
 	public Entity(String boId) {
-		this.boId=boId;
+		this.boId = boId;
 	}
 
 	public String getBoId() {
@@ -36,26 +36,20 @@ public class Entity {
 	public void setBoId(String boId) {
 		this.boId = boId;
 	}
-
-	public String getPhone() {
-		return phone;
+	
+	public boolean isEqual(String boId) {
+		return this.boId.equals(boId);
 	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	
+	public boolean sameBoId(Entity entity) {
+		if(entity!=null)
+			return this.getBoId().equals(entity.getBoId());
+		return false;
 	}
 
 	@Override
 	public String toString() {
-		return "ModifiedEntity [boId=" + boId + ", phone=" + phone + ", email=" + email + "]";
+		return  new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("BoId = "+getBoId()).toString();
 	}
-
 }

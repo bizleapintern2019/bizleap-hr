@@ -1,51 +1,66 @@
 package com.bizleap.hr.loader.impl;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import com.bizleap.domain.entity.Company;
-import com.bizleap.domain.entity.Employee;
+import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.DataLoader;
+import com.bizleap.hr.loader.DataManager;
+import com.bizleap.hr.loader.FileLoader;
+import com.bizleap.commons.domain.entity.Error;
 
 public class DataLoaderImpl implements DataLoader {
 
-	FileLoaderImpl fileLoader = new FileLoaderImpl();
+	FileLoader fileLoader = new FileLoaderImpl();
+	DataManager dataManager=new DataManagerImpl();
+	private HashMap<Integer, Error> errorHashMap;
 
 	public List<Employee> loadEmployee() throws Exception {
-		List<Employee> employeeList = new ArrayList<Employee>();
-		Employee employee;
-		String eachLine = null;
-		fileLoader.start("D://Emp.txt");
+		fileLoader.start("D:\\leap/employee.txt");
+		String line = null;
+		Employee employee = null;
+
 		while (fileLoader.hasNext()) {
 			try {
-				eachLine = fileLoader.getLine();
-				employee = Employee.parseEmployee(eachLine);
+				line = fileLoader.getLine();
+				employee = Employee.parseEmployee(line,fileLoader.getLineNumber());
 				if (employee != null)
-					employeeList.add(employee);
-			} catch (Exception ex) {
-				ex.printStackTrace();
+					dataManager.getEmployeeList().add(employee);
+			} catch (Exception e) {
+				if(errorHashMap == null)
+					errorHashMap = new HashMap<Integer, Error>();
+				int lineNumber = fileLoader.getLineNumber();
+				errorHashMap.put(lineNumber, new Error(lineNumber,employee,e.toString()));
 			}
 		}
 		fileLoader.stop();
-		return employeeList;
+		return dataManager.getEmployeeList();
 	}
 
 	public List<Company> loadCompany() throws Exception {
-		List<Company> companyList = new ArrayList<Company>();
-		Company company;
-		String eachLine = null;
-		fileLoader.start("D://Com.txt");
+		fileLoader.start("D:\\leap/company.txt");
+		String line = null;
+		Company company = null;
+
 		while (fileLoader.hasNext()) {
 			try {
-				eachLine = fileLoader.getLine();
-				company = Company.parseCompany(eachLine);
+				line = fileLoader.getLine();
+				company = Company.parseCompany(line);
 				if (company != null)
-					companyList.add(company);
-			} catch (Exception ex) {
-				ex.printStackTrace();
+					dataManager.getCompanyList().add(company);
+			} catch (Exception e) {
+				if(errorHashMap==null)
+					errorHashMap=new HashMap<Integer,Error>();
+				int lineNumber = fileLoader.getLineNumber();
+				errorHashMap.put(lineNumber, new Error(lineNumber,company,e.toString()));
 			}
 		}
 		fileLoader.stop();
-		return companyList;
+		return dataManager.getCompanyList();
+	}
+	
+	public HashMap<Integer, Error> getFileError() {
+		return errorHashMap;
 	}
 }

@@ -7,33 +7,38 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class FileLoaderImpl implements FileLoader {
-	static int count;
-	BufferedReader reader;
-	private String eachLine;
+	private BufferedReader bufferedReader;
+	private int lineCount = 0;
+	private String line = null;
 
 	public void start(String fileReader) throws Exception {
-		count=0;
-		reader = new BufferedReader(new FileReader(fileReader));
+		lineCount=0;
+		bufferedReader = new BufferedReader(new FileReader(fileReader));
 	}
 
 	public boolean hasNext() throws IOException {
-		if ((eachLine = reader.readLine()) != null) {
-			count++;
+		if ((line = bufferedReader.readLine()) != null) {
+			if(line.startsWith("#")){
+				lineCount++;
+				line = bufferedReader.readLine();
+				return true;
+			}
+			lineCount++;
 			return true;
-		}
+			}
 		return false;
 	}
 
 	public String getLine() {
-		return eachLine;
-	}
-
-	public void stop() throws Exception {
-		if(reader!=null)
-			reader.close();
+		return line;
 	}
 	
 	public int getLineNumber() {
-		return count;
+		return lineCount;
+	}
+
+	public void stop() throws Exception {
+		if(bufferedReader!=null)
+			bufferedReader.close();
 	}
 }
