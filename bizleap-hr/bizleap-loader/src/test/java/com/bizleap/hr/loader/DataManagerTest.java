@@ -2,18 +2,15 @@ package com.bizleap.hr.loader;
 
 import org.junit.Test;
 
+import com.bizleap.hr.loader.impl.AssociationMapperImpl;
 import com.bizleap.hr.loader.impl.DataManagerImpl;
 
 public class DataManagerTest {
 	
-	//static Company company;
-	//static Employee employee;
-	
 	@Test
-	public void dataTest() {
+	public void dataTest() throws Exception {
 		DataManagerImpl dataManager = new DataManagerImpl();
-		System.out.println(dataManager.loadData());
-		//AssociationMapperImpl ass=new AssociationMapperImpl(dataManager);
-		//ass.setUpAssociations();
+		dataManager.loadData();
+		new AssociationMapperImpl(dataManager).setUpAssociations(); 
 	}
 }

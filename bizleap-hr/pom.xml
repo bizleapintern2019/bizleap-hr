@@ -45,5 +45,11 @@
       </plugin>
     </plugins>
   </build>
-
+<dependencies>
+ 	<dependency>
+ 	  <groupId>com.bizleap.commons</groupId>
+    <artifactId>bizleap-domain</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+ 	</dependency>
+  </dependencies>
 </project>

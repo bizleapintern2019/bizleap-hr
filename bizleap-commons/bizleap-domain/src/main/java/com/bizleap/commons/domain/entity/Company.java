@@ -18,36 +18,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+
 public class Company extends Entity {
 
-	private final static String DELI_METER = ",";
-	private String boId, name, address, email, phone, ceo;
-	private static StringTokenizer st;
-	private List<Employee> employeeList;
-	public Company(String boId) {
-		super(boId);
-	}
+	private String name;
+	private String address;
+	private String ceo;
+	private String phone;
+	private String email;
+	private List<Employee> employeeList = new ArrayList<Employee>();
 	
-	public void setEmployeeList(Employee employee) {
-		if(employeeList==null) {
-			employeeList=new ArrayList<Employee>();
-		}
-		this.employeeList.add(employee);
+	public Company(String boid) {
+		super(boid);
 	}
-	
-	public List<Employee> getEmployeeList(){
-		return this.employeeList;
-	}
-	
-	public boolean checkEquality(Company company) {
-		
-		return getBoId().equals(company.getBoId());
-	}
-	
-	public Company(String boId, String name, String address, String email, String phone, String ceo) {
-		super(boId, phone, email);
+
+	public Company(String boid, String name, String address, String phone, String email, String ceo) {
+		super(boid);
 		this.name = name;
 		this.address = address;
+		this.phone = phone;
+		this.email = email;
 		this.ceo = ceo;
 	}
 
@@ -59,25 +52,72 @@ public class Company extends Entity {
 		this.name = name;
 	}
 
-	public static Company parseCompany(String eachLine) {
-		String boId = null, name = null, address = null, email = null, phone = null, ceo = null;
-		st = new StringTokenizer(eachLine, DELI_METER);
-		while (st.hasMoreTokens()) {
-			boId = st.nextToken();
-			name = st.nextToken();
-			address = st.nextToken();
-			email = st.nextToken();
-			phone = st.nextToken();
-			ceo = st.nextToken();
-		}
-		//return new CompanyBuilder().boId(boId).name(name).address(address).email(email).phone(phone).ceo(ceo)
-			//	.buildCompany();
-		return null;
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCeo() {
+		return ceo;
+	}
+
+	public void setCeo(String ceo) {
+		this.ceo = ceo;
+	}
+	
+	public List<Employee> getEmployeeList() {
+		return employeeList;
+	}
+
+	public void setEmployeeList(Employee employee) {
+		this.employeeList.add(employee);
+	}
+	
+	public boolean checkCompany(String boid) {
+		return getBoId().equals(boid);
+	}
+
+	public static Company parseCompany(String line) {
+		String boid, companyName, address, phone, email, ceo;
+		StringTokenizer st = new StringTokenizer(line, ",");
+		boid = st.nextToken();
+		companyName = st.nextToken();
+		address = st.nextToken();
+		phone = st.nextToken();
+		email = st.nextToken();
+		ceo = st.nextToken();
+		return new CompanyBuilder()
+				.boid(boid)
+				.name(companyName)
+				.address(address)
+				.phone(phone)
+				.email(email)
+				.ceo(ceo)
+				.buildCompany();
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + this.name;
-
+		return super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("Employee list ",this.getEmployeeList());
 	}
 }
