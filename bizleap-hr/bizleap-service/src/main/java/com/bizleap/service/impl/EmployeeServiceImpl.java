@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			ps.setInt(6, employee.getSalary());
 			ps.setString(7, employee.getEmail());
 			ps.setString(8, employee.getPhone());
-			
+
 			if (employee.getWorkFor() != null)
 				ps.setString(9, employee.getWorkFor().getBoId());
 

@@ -16,7 +16,7 @@ public class DataLoaderImpl implements DataLoader {
 	FileLoader fileLoader = new FileLoaderImpl();
 	DataManager dataManager = new DataManagerImpl();
 	private Map<Integer, Error> errorMap;
-	int index = 0;
+	private int index = 0;
 	
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("E:\\Eclipse Project/employee.txt");
@@ -63,7 +63,11 @@ public class DataLoaderImpl implements DataLoader {
 		errorMap.put(index++, new Error(lineNumber, source, message));
 	}
 
-	public Map<Integer, Error> getFileError() {
+	public boolean hasError(){
+		return errorMap != null && !errorMap.isEmpty();
+	}
+	
+	public Map<Integer, Error> getFileErrorMap() {
 		return errorMap;
 	}
 }

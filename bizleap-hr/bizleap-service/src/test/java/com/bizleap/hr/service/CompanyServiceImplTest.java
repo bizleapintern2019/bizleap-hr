@@ -18,6 +18,6 @@ public class CompanyServiceImplTest {
 		company.setCeo("asd");
 		company.setName("Shine");
 
-		comployeeService.saveCompany(company);
+		//comployeeService.saveCompany(company);
 	}
 }

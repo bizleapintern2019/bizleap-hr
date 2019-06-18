@@ -148,6 +148,7 @@ public class Employee extends Entity {
 				.phone(phone)
 				.buildEmployee();
 		employee.setWorkFor(new Company(companyBoid));
+		
 		return employee;
 	}
 	

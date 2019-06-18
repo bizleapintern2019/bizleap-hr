@@ -11,8 +11,8 @@ public class CompanyServiceImpl implements CompanyService {
 	JDBCService jdbcService = new JDBCServiceImpl();
 
 	@Override
-	public void saveCompany(Company comployee) {
-		if (comployee == null)
+	public void saveCompany(Company company) {
+		if (company == null)
 			return;
 		Connection connection = null;
 		PreparedStatement ps;
@@ -22,12 +22,12 @@ public class CompanyServiceImpl implements CompanyService {
 					"insert into company" + "(boId,name,address,phoneNumber,email,ceo)"
 							+ " values(?,?,?,?,?,?)");
 
-			ps.setString(1, comployee.getBoId());
-			ps.setString(2, comployee.getName());
-			ps.setString(3, comployee.getAddress());
-			ps.setString(4, comployee.getPhone());
-			ps.setString(5, comployee.getEmail());
-			ps.setString(6, comployee.getCeo());
+			ps.setString(1, company.getBoId());
+			ps.setString(2, company.getName());
+			ps.setString(3, company.getAddress());
+			ps.setString(4, company.getPhone());
+			ps.setString(5, company.getEmail());
+			ps.setString(6, company.getCeo());
 
 			ps.executeUpdate();
 			ps.close();	
