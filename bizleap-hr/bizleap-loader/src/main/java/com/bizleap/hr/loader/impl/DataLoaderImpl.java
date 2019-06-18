@@ -9,16 +9,19 @@ import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.ErrorCollection;
 import com.bizleap.hr.loader.DataLoader;
+import com.bizleap.hr.loader.DataManager;
+import com.bizleap.hr.loader.ErrorCollector;
 import com.bizleap.hr.loader.FileLoader;
 
 public class DataLoaderImpl implements DataLoader {
 	FileLoader fileLoader= new FileLoaderImpl();
-	//private DataManager dataManager;
+	private DataManager dataManager;
+	ErrorCollector errorCollector;
 	public Map<Integer,ErrorCollection> errorHashMap;
 	public int index =1;
 
-	public DataLoaderImpl() {
-		System.out.println("Data Loader Created");
+	public DataLoaderImpl(ErrorCollector errorCollector) {
+		this.errorCollector = errorCollector;
 	}
 
 	public Map<Integer, ErrorCollection> getErrorHashMap() {
@@ -54,8 +57,8 @@ public class DataLoaderImpl implements DataLoader {
 					employeeList.add(employee);
 				}
 			}catch (Exception e) {
-				handleLoadingError(index,fileLoader.getLineNumber(),"Employee file loading.",dataLine);
-				System.out.println(index);
+				errorCollector.handleLoadingError(index,fileLoader.getLineNumber(),"Employee file loading.",dataLine);
+				//System.out.println(index);
 				index++;
 			}
 		}
@@ -80,8 +83,7 @@ public class DataLoaderImpl implements DataLoader {
 					companyList.add(company);
 				}
 			}catch (Exception e) {
-
-				handleLoadingError(index,fileLoader.getLineNumber(),"Company file loading.",dataLine);
+				errorCollector.handleLoadingError(index,fileLoader.getLineNumber(),"Company file loading.",dataLine);
 				index++;
 				
 			}
@@ -90,29 +92,34 @@ public class DataLoaderImpl implements DataLoader {
 		return companyList;
 	}
 
+//	public void handleLoadingError(int indexNumber, int lineNumber, String message, Object source) {
+//		System.out.println("Index in Loading Error"+index);
+//		ErrorCollection error= new ErrorCollection(indexNumber,source,message);
+//		if(errorHashMap == null){
+//			errorHashMap = new HashMap<Integer, ErrorCollection>();
+//		}
+//		errorHashMap.put(index,error);
+//		
+//	}
+//
+//	public void handleLinkedError(int indexNumer, String message, Object source) {
+//		System.out.println("Index in Linked Error"+index);
+//		
+//		ErrorCollection error= new ErrorCollection(source,message);
+//		if(errorHashMap == null){
+//			errorHashMap = new HashMap<Integer, ErrorCollection>();
+//		}
+//		
+//		errorHashMap.put(index,error);
+//		
+//	}
 
-	
-
-	public void handleLoadingError(int indexNumber, int lineNumber, String message, Object source) {
-		System.out.println("Index in Loading Error"+index);
-		ErrorCollection error= new ErrorCollection(indexNumber,source,message);
-		if(errorHashMap == null){
-			errorHashMap = new HashMap<Integer, ErrorCollection>();
-		}
-		
-		errorHashMap.put(index,error);
-		
+	public ErrorCollector getErrorCollection() {
+		return errorCollector;
 	}
 
-	public void handleLinkedError(int indexNumer, String message, Object source) {
-System.out.println("Index in Linked Error"+index);
-		
-		ErrorCollection error= new ErrorCollection(source,message);
-		if(errorHashMap == null){
-			errorHashMap = new HashMap<Integer, ErrorCollection>();
-		}
-		
-		errorHashMap.put(index,error);
+	public void setErrorCollection(ErrorCollector errorCollection) {
+		// TODO Auto-generated method stub
 		
 	}
 
