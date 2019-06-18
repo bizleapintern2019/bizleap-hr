@@ -13,8 +13,8 @@
   <description>bizleap-commons</description>
 
   <modules>
-     <module>bizleap-domain</module>
-     <module>bizleap-utils</module>
+    <module>bizleap-domain</module>
+    <module>bizleap-utils</module>
   </modules>
 
   <build>

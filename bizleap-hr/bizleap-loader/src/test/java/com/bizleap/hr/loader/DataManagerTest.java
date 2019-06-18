@@ -19,18 +19,18 @@ public class DataManagerTest {
         DataLoader dataLoader = new DataLoaderImpl(dataManager);
         AssociationMapper associationMapper = new AssociationMapperImpl(dataManager);
 
-        dataManager.load(dataLoader);
-
-        for (Company company : dataManager.getCompanyList()) {
-            System.out.println(company);
-        }
-
-        for (Employee employee : dataManager.getEmployeeList()) {
-            System.out.println(employee);
-        }
+//        dataManager.load(dataLoader);
+//
+//        for (Company company : dataManager.getCompanyList()) {
+//            System.out.println(company);
+//        }
+//
+//        for (Employee employee : dataManager.getEmployeeList()) {
+//            System.out.println(employee);
+//        }
 
         associationMapper.setUpAssociations();
 
-        System.out.println(dataManager.getCompanyList().get(0));
+//        System.out.println(dataManager.getCompanyList().get(0));
     }
 }

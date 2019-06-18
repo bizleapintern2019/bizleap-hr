@@ -4,8 +4,11 @@ import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
+import org.apache.log4j.Logger;
 
 public class AssociationMapperImpl implements AssociationMapper {
+
+    private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
 
     DataManager dataManager;
 
@@ -42,8 +45,9 @@ public class AssociationMapperImpl implements AssociationMapper {
     }
 
     public void setUpAssociations() {
-        setUpCompanyAssociations();
-        setUpEmployeeAssociations();
+        logger.info("Calling setup associations");
+//        setUpCompanyAssociations();
+//        setUpEmployeeAssociations();
     }
 
     public void handleLinkageError(String message, Object source) {
