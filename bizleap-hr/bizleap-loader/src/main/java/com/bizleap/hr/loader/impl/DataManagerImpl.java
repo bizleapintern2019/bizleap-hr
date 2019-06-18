@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
+import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
+import com.bizleap.service.Saver;
+import com.bizleap.service.impl.SaverImpl;
 
 public class DataManagerImpl implements DataManager {
 	private List<Employee> employeeList;
@@ -29,9 +32,36 @@ public class DataManagerImpl implements DataManager {
 		this.companyList = companyList;
 	}
 
-	public void loadData() throws Exception {
+	public void loadData() {
 		DataLoader dataLoader = new DataLoaderImpl();
-		employeeList = dataLoader.loadEmployee();
-		companyList = dataLoader.loadCompany();
+		try {
+			employeeList = dataLoader.loadEmployee();
+			companyList = dataLoader.loadCompany();
+		} catch (Exception e) {
+			System.out.println(e+ " ");
+		}
+	}
+	
+	private void associateData() {
+		AssociationMapper associationMapper = new AssociationMapperImpl();
+		associationMapper.setUpAssociations();
+	}
+	
+	private void saveData () {
+		Saver saver = new SaverImpl();
+		for(Company company : companyList) {
+			if(company != null)
+				saver.companySave(company);
+		}
+		for(Employee employee : employeeList) {
+			if(employee != null)
+				saver.employeesave(employee);
+		}
+	}
+	
+	public void load() {
+		loadData();
+		associateData();
+		saveData();
 	}
 }
