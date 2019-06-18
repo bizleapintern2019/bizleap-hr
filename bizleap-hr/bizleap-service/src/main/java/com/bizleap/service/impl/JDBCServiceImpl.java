@@ -4,14 +4,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 public class JDBCServiceImpl implements JDBCService{
 
 	@Override
 	public Connection getJDBCconnection() {
 		Connection connection=null;
-		String dBName="intern_hr";
+		String dBName="internhr";
 		String userName="root";
 		String password="root";
 			try {
