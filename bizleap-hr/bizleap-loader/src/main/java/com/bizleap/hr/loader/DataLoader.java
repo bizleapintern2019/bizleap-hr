@@ -1,6 +1,5 @@
 package com.bizleap.hr.loader;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,4 +13,6 @@ public interface DataLoader {
 	public List<Company> loadCompany() throws Exception;
 	
 	public Map<Integer, Error> getFileError();
+	
+	public boolean isError();
 }

@@ -10,4 +10,6 @@ public interface FileLoader {
 	public void stop()throws Exception;
 	
 	public int getLineNumber();
+	
+	//public boolean isError();
 }

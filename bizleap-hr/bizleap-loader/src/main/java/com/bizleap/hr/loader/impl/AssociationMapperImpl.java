@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
@@ -13,8 +15,9 @@ import com.bizleap.hr.loader.DataManager;
 
 public class AssociationMapperImpl implements AssociationMapper {
 
+	private Logger logger=Logger.getLogger(AssociationMapperImpl.class);
 	private DataManager dataManager;
-	private Map<Integer, Error> errorHashMap;
+	private Map<Integer, Error> errorMap;
 	private List<Integer> lineNumbers = new ArrayList<Integer>();
 	private int i=0;
 
@@ -31,11 +34,11 @@ public class AssociationMapperImpl implements AssociationMapper {
 	}
 
 	public Map<Integer, Error> getErrorHashMap() {
-		return errorHashMap;
+		return errorMap;
 	}
 
 	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap) {
-		this.errorHashMap = errorHashMap;
+		this.errorMap = errorHashMap;
 
 	}
 
@@ -49,7 +52,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpCompanyAssociation() {
 		for (Company company : dataManager.getCompanyList()) {
 			addEmployeesToCompany(company);
-			System.out.println(company);
+			logger.info(company);
 		}
 	}
 
@@ -58,11 +61,11 @@ public class AssociationMapperImpl implements AssociationMapper {
 			if (company.checkCompany(employee.getWorkFor().getBoId())) {
 				employee.setWorkFor(company);
 				i++;
-				System.out.println(employee);
+				logger.info(employee);
 				return;
 			}
 		}
-		handleLinkedError(lineNumbers.get(i), "Company in employee cannot be linked.", employee);
+		handleLinkedError(lineNumbers.get(i),"Company in employee cannot be linked.", employee);
 		i++;
 	}
 
@@ -79,8 +82,12 @@ public class AssociationMapperImpl implements AssociationMapper {
 	}
 
 	public void handleLinkedError(int lineNumber, String message, Object source) {
-		if (errorHashMap == null)
-			errorHashMap = new HashMap<Integer, Error>();
-		errorHashMap.put(lineNumber,new Error(lineNumber, source, message));
+		if (!isError())
+			errorMap = new HashMap<Integer, Error>();
+		errorMap.put(lineNumber,new Error(lineNumber, source, message));
+	}
+	
+	public boolean isError(){
+		return errorMap!=null && !errorMap.isEmpty();
 	}
 }

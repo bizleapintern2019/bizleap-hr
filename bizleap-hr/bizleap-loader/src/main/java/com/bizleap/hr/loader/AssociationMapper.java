@@ -13,4 +13,6 @@ public interface AssociationMapper {
 	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap);
 	
 	public Map<Integer, Error> getErrorHashMap();
+	
+	public boolean isError();
 }

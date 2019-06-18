@@ -8,6 +8,7 @@ import com.bizleap.service.impl.CompanyServiceImpl;
 
 public class CompanyServiceImplTest {
 	CompanyService companyservice=new CompanyServiceImpl();
+	//FileLoader fileLoader=new FileLoaderImpl();
 	@Test
 	public void testSavingCompany(){
 		Company company=new Company("COM001");

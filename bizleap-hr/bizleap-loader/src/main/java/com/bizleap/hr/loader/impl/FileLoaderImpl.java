@@ -9,23 +9,23 @@ import java.io.IOException;
 public class FileLoaderImpl implements FileLoader {
 	private BufferedReader bufferedReader;
 	private String line = null;
-	private int lineCount = 0;
+	private int lineCount;
 
 	public void start(String fileReader) throws Exception {
-		lineCount = 0;
+		lineCount = 1;
 		bufferedReader = new BufferedReader(new FileReader(fileReader));
 	}
 
 	public boolean hasNext() throws IOException {
 
 		if ((line = bufferedReader.readLine()) != null) {
-			if(line.startsWith("#")){
+			if (line.startsWith("#")) {
 				line = bufferedReader.readLine();
 				return true;
 			}
 			lineCount++;
 			return true;
-			}
+		}
 		return false;
 	}
 

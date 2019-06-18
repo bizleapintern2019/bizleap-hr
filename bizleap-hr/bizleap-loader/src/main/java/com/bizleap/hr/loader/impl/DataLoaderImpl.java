@@ -11,13 +11,12 @@ import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.FileLoader;
 
-
 public class DataLoaderImpl implements DataLoader{
 
 	FileLoader fileLoader = new FileLoaderImpl();
 	DataManager dataManager = new DataManagerImpl();
 	private Map<Integer, Error> errorMap;
-
+	 
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("D:\\BizLeap/bizleap-workspace/Employee.txt");
 		String line = null;
@@ -30,10 +29,7 @@ public class DataLoaderImpl implements DataLoader{
 				if (employee != null)
 					dataManager.getEmployeesList().add(employee);
 			} catch (Exception e) {
-				if(errorMap == null)
-					errorMap = new HashMap<Integer, Error>();
-				int lineNumber = fileLoader.getLineNumber();
-				errorMap.put(lineNumber, new Error(lineNumber,employee,e.toString()));
+				 errorException(employee,e);
 			}
 		}
 		fileLoader.stop();
@@ -52,17 +48,25 @@ public class DataLoaderImpl implements DataLoader{
 				if (company != null)
 					dataManager.getCompanyList().add(company);
 			} catch (Exception e) {
-				if(errorMap == null)
-					errorMap = new HashMap<Integer, Error>();
-				int lineNumber = fileLoader.getLineNumber();
-				errorMap.put(lineNumber, new Error(lineNumber,company,e.toString()));
+				errorException(line,e);
 			}
 		}
 		fileLoader.stop();
 		return dataManager.getCompanyList();
 	}
 	
+	public void errorException(Object source,Exception e){
+		if(!isError())
+			errorMap = new HashMap<Integer, Error>();
+		int lineNumber = fileLoader.getLineNumber();
+		errorMap.put(lineNumber, new Error(lineNumber,source.toString(),e.toString()));
+	}
+	
 	public Map<Integer, Error> getFileError() {
 		return errorMap;
+	}
+	
+	public boolean isError(){
+		return getFileError()!=null && !getFileError().isEmpty();
 	}
 }

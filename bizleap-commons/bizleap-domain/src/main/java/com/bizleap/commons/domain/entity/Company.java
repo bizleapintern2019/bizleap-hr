@@ -98,13 +98,13 @@ public class Company extends Entity {
 
 	public static Company parseCompany(String line) {
 		String boid, companyName, address, phone, email, ceo;
-		StringTokenizer st = new StringTokenizer(line, ",");
-		boid = st.nextToken();
-		companyName = st.nextToken();
-		address = st.nextToken();
-		phone = st.nextToken();
-		email = st.nextToken();
-		ceo = st.nextToken();
+		StringTokenizer stringTokenizer = new StringTokenizer(line, ",");
+		boid = stringTokenizer.nextToken();
+		companyName = stringTokenizer.nextToken();
+		address = stringTokenizer.nextToken();
+		phone = stringTokenizer.nextToken();
+		email = stringTokenizer.nextToken();
+		ceo = stringTokenizer.nextToken();
 		return new CompanyBuilder()
 				.boid(boid)
 				.name(companyName)

@@ -10,5 +10,5 @@ public interface DataManager {
 
 	public List<Company> getCompanyList();
 
-	public void loadData() throws Exception;
+	public void load() throws Exception;
 }
