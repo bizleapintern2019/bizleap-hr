@@ -7,7 +7,8 @@ import com.bizleap.commons.domain.entity.Employee;
 
 
 public interface DataManager {
-	public void loadData() throws Exception;
+	public void load() throws Exception;
 	public List<Employee> getEmployeeList();
 	public List<Company> getCompanyList();
+
 }

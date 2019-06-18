@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import org.apache.log4j.Logger;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
@@ -17,6 +17,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private Map<Integer, Error> errorMap;
 	private List<Integer> lineNumbers = new ArrayList<Integer>();
 	private int i=0;
+	private Logger logger=Logger.getLogger(AssociationMapperImpl.class);
 	
 	public AssociationMapperImpl() {
 	
@@ -53,7 +54,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpCompanyAssociations() {
 		for(Company company:dataManager.getCompanyList()){
 			addEmployeesToCompany(company);
-			//System.out.println(company);
+			System.out.println(company);
 		}	
 	}
 	
@@ -62,7 +63,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			if(company.boIdIsEqual(employee.getWorkFor().getBoId())){
 				employee.setWorkFor(company);
 				i++;
-				System.out.println(employee);
+				logger.info(employee);
 				return;
 				
 			}
@@ -81,7 +82,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpEmployeeAssociations() {
 		for(Employee employee:dataManager.getEmployeeList()) {
 			addCompanyToEmployee(employee);
-			
 		}
 	}
 	
