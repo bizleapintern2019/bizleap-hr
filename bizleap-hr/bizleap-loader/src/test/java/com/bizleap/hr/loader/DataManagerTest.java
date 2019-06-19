@@ -9,6 +9,6 @@ public class DataManagerTest {
 	@Test
 	public void DataTest() throws Exception {
 		DataManager dataManager= new DataManagerImpl();
-		dataManager.loadData();
+		dataManager.load();
 	}
 }

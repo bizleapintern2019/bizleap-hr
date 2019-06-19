@@ -9,14 +9,6 @@ public class ErrorCollection {
 	
 	public ErrorCollection() {}
 	
-	
-	public ErrorCollection(Object source, String message) {
-		this.lineNumber=0;
-		this.source = source;
-		this.message = message;
-	}
-
-
 	public ErrorCollection(int lineNumber, Object source, String message) {
 		this.lineNumber = lineNumber;
 		this.source = source;
@@ -74,17 +66,15 @@ public class ErrorCollection {
 
 	@Override
 	public String toString() {
-		String lineString="";
-	/*	if(getLineNumber()!=0){
-			lineString="at line number "+ getLineNumber();
-		}*/
-		return new ToStringBuilder(source, null)
+		return new ToStringBuilder(this)
 				.append("---------------------------------------------------------------"+"\n")
 				.append("\t\t\t\t\tERROR\n")
 				.append("---------------------------------------------------------------"+"\n")
 				.append(getMessage()+"\n")
-				.append("Source Object : "+getSource()+"At line Number "+getLineNumber()+"\n")
+				.append("Source Object : "+getSource()+" at line number "+getLineNumber()+"\n")
 				.append("---------------------------------------------------------------")
 				.build();
 	}
+	
+	
 }
