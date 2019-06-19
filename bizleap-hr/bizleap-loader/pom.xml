@@ -46,5 +46,11 @@
     <artifactId>bizleap-domain</artifactId>
     <version>0.0.1-SNAPSHOT</version>
  	</dependency>
+ 	
+ 	<dependency>
+ 	  <groupId>com.bizleap.hr</groupId>
+    <artifactId>bizleap-service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+ 	</dependency>
   </dependencies>
 </project>

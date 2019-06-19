@@ -6,6 +6,7 @@
     <artifactId>bizleap-commons</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  
   <artifactId>bizleap-domain</artifactId>
   <packaging>jar</packaging>
   <name>bizleap-domain</name>
