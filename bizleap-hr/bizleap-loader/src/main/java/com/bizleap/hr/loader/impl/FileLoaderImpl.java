@@ -1,15 +1,18 @@
 package com.bizleap.hr.loader.impl;
 
+import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.FileLoader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 
 public class FileLoaderImpl implements FileLoader {
 	private BufferedReader bufferedReader;
 	private String line = null;
 	private int lineCount;
+	private Map<Integer, Error> errorMap;
 
 	public void start(String fileReader) throws Exception {
 		lineCount = 1;
@@ -40,5 +43,9 @@ public class FileLoaderImpl implements FileLoader {
 
 	public int getLineNumber() {
 		return lineCount;
+	}
+	
+	public Map<Integer, Error> getFileError() {
+		return errorMap;
 	}
 }

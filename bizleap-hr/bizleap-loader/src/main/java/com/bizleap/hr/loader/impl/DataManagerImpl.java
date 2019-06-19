@@ -31,7 +31,7 @@ public class DataManagerImpl implements DataManager {
 		employeesList = dataLoader.loadEmployee();
 		companyList = dataLoader.loadCompany();
 		if (dataLoader.isError()) {
-			logger.info("\t\t\t\t\tFileERROR\n" + "Error in this line" + dataLoader.getFileError());
+			logger.info("\t\t\t\tFileERROR\n" + "Error in this line" + dataLoader.getFileError());
 			System.exit(0);
 		}
 	}
