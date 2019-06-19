@@ -9,19 +9,19 @@ import com.bizleap.service.impl.EmployeeServiceImpl;
 
 public class EmployeeServiceImplTest {
 	EmployeeService employeeService = new EmployeeServiceImpl();
-	@Test
+//	@Test
 	public void testSavingEmployee() {
-		Employee employee=new Employee("EMP001");
-		employee.setAge(22);
-		employee.setFirstName("Saung Hnin");
-		employee.setLastName("Phyu");
-		employee.setEmail("gg@gmail.com");
-		employee.setPhone("0996655099999");
-		employee.setSalary(100000);
-		employee.setTitle("Developer");
-		Company workFor=new Company("Biz001");
-		workFor.setCompanyName("BizLeap Technology");
-		employee.setWorkFor(workFor);
-		employeeService.saveEmployee(employee);
+//		Employee employee=new Employee("EMP001");
+//		employee.setAge(22);
+//		employee.setFirstName("Saung Hnin");
+//		employee.setLastName("Phyu");
+//		employee.setEmail("gg@gmail.com");
+//		employee.setPhone("0996655099999");
+//		employee.setSalary(100000);
+//		employee.setTitle("Developer");
+//		Company workFor=new Company("Biz001");
+//		workFor.setCompanyName("BizLeap Technology");
+//		employee.setWorkFor(workFor);
+//		employeeService.saveEmployee(employee);
 	}
 }

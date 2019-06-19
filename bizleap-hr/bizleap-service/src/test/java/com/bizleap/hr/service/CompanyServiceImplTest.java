@@ -8,14 +8,14 @@ import com.bizleap.service.impl.CompanyServiceImpl;
 
 public class CompanyServiceImplTest {
 	CompanyService companyService = new CompanyServiceImpl();
-	@Test
+//	@Test
 	public void testSavingEmployee() {
-		Company company=new Company("Biz001");
-		company.setCompanyName("Bizleap Technology");
-		company.setAddress("Yangon");
-		company.setPhone("09999898");
-		company.setEmail("cc@gmail.com");
-		company.setCeo("Robot");
-		companyService.saveCompany(company);
+//		Company company=new Company("Biz001");
+//		company.setCompanyName("Bizleap Technology");
+//		company.setAddress("Yangon");
+//		company.setPhone("09999898");
+//		company.setEmail("cc@gmail.com");
+//		company.setCeo("Robot");
+//		companyService.saveCompany(company);
 	}
 }

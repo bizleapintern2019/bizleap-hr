@@ -1,26 +1,26 @@
 package com.bizleap.hr.loader.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.ErrorCollection;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
-
+import com.bizleap.commons.domain.entity.Error;
 
 public class AssociationMapperImpl implements AssociationMapper {
 	private DataManager dataManager;
-	public HashMap<Integer,ErrorCollection> errorHashMap;
-	
-	public AssociationMapperImpl() {
-	
-	}
-	
+	private Map<Integer, Error> errorMap;
+	private List<Integer> lineNumbers = new ArrayList<Integer>();
+	private int i=0;
+	private int index=0;
+
 	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager=dataManager;
+		this.dataManager = dataManager;
 	}
-	
 
 	public DataManager getDataManager() {
 		return dataManager;
@@ -29,77 +29,64 @@ public class AssociationMapperImpl implements AssociationMapper {
 	public void setDataManager(DataManager dataManager) {
 		this.dataManager = dataManager;
 	}
+	
+	@Override
+	public void setErrorHashMap(HashMap<Integer, Error> errorMap) {
+		this.errorMap = errorMap;
+		
+	}
 
+	@Override
+	public Map<Integer, Error> getErrorHashMap() {
+		return errorMap;
+	}
+	
 	private void addEmployeesToCompany(Company company) {
-		for(Employee employee:dataManager.getEmployeeList()){
-			if(employee.getWorkFor().isEqual(company.getBoId())) {
-				company.addEmployee(employee);
-			}
+		for (Employee employee : dataManager.getEmployeesList()) {
+			if (employee.checkEmployee(company.getBoId()))
+				company.setEmployeeList(employee);
 		}
 	}
-	
-	/*private void addEmployeesToCompany2(Company company) {
-		for(Employee employee:dataManager.getEmployeeList()){
-			if(company.sameBoId(employee.getWorkFor())) {
-				company.addEmployee(employee);
-			}
-		}
-	}*/
-	
-	private void setUpCompanyAssociations() {
-		for(Company company:dataManager.getCompanyList()){
+
+	private void setUpCompanyAssociation() {
+		for (Company company : dataManager.getCompanyList()) {
 			addEmployeesToCompany(company);
-			System.out.println(company);
-		}	
+			// System.out.println(company);
+		}
 	}
-	
+
 	private void addCompanyToEmployee(Employee employee) {
-		for(Company company:dataManager.getCompanyList()){
-			if(company.sameBoId(employee.getWorkFor())){
+		for (Company company : dataManager.getCompanyList()) {
+			if (company.checkCompany(employee.getWorkFor().getBoId())) {
 				employee.setWorkFor(company);
+				i++;
 				return;
 			}
 		}
-		handleLinkedError(122,"Company in employee cannot be linked.", employee);
+		handleLinkedError(lineNumbers.get(i), "Company in employee cannot be linked.", employee);
+		i++;
 	}
-	
-	private void addCompanyToEmployee2(Employee employee) {
-		for(Company company:dataManager.getCompanyList()){
-			if(company.isEqual(employee.getWorkForBoId())){
-				employee.setWorkFor(company);
-			}
+
+	private void setUpEmployeeAssociation() {
+		for (Employee employee : dataManager.getEmployeesList()) {
+			addCompanyToEmployee(employee);
+			// System.out.println(employee);
 		}
 	}
-	
-	private void setUpEmployeeAssociations() {
-		for(Employee employee:dataManager.getEmployeeList()) {
-			addCompanyToEmployee2(employee);
-			System.out.println(employee);
-		}
-	}
-	
+
 	public void setUpAssociations() {
-		setUpCompanyAssociations();
-		setUpEmployeeAssociations();
+		lineNumbers = Employee.getLineNumberList();
+		setUpCompanyAssociation();
+		setUpEmployeeAssociation();
 	}
 
-	public void handleLinkedError(int lineNumber,String message, Object source) {
-		
-		ErrorCollection error=new ErrorCollection(lineNumber,source,message);
-		if(errorHashMap == null){
-			errorHashMap = new HashMap<Integer, ErrorCollection>();
-		}
-		errorHashMap.put(122,error);
-	}
+	public void handleLinkedError(int lineNumber, String message, Object source) {
+		if (errorMap == null)
+			errorMap = new HashMap<Integer, Error>();
 
-	public HashMap<Integer, ErrorCollection> getHashMap() {
-		
-		return this.errorHashMap;
+		errorMap.put(index++, new Error(lineNumber, source, message));
 	}
-
-	public void setHasnMap(HashMap<Integer, ErrorCollection> errorHashMap) {
-		
-		this.errorHashMap=errorHashMap;
-	}
-
 }
+
+
+

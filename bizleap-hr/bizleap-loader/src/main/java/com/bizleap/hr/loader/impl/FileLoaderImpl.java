@@ -10,34 +10,38 @@ import com.bizleap.hr.loader.FileLoader;
 
 public class FileLoaderImpl implements FileLoader {
 	
-	private BufferedReader dataReader;
-	private String dataLine = "";
-	private int lineNumber;
-	
-	public FileLoaderImpl() {	
-	}
-	
-	public void start(String filePath) throws Exception {
-		lineNumber=0;
-		dataReader = new BufferedReader(new FileReader(filePath));
+	private BufferedReader bufferedReader;
+	private String line = null;
+	private int lineCount = 0;
+
+	public void start(String fileReader) throws Exception {
+		lineCount = 0;
+		bufferedReader = new BufferedReader(new FileReader(fileReader));
 	}
 
-	public void finish() throws Exception {
-		if(dataReader!= null)
-			dataReader.close();
+	public boolean hasNext() throws IOException {
+
+		if ((line = bufferedReader.readLine()) != null) {
+			if(line.startsWith("#")){
+				line = bufferedReader.readLine();
+				return true;
+			}
+			lineCount++;
+			return true;
+			}
+		return false;
 	}
 
-	public boolean hasMore() throws Exception {
-		lineNumber++;
-		return (dataLine=dataReader.readLine())!=null;
-	}
-	
 	public String getLine() {
-		return dataLine;
+		return line;
+	}
+
+	public void stop() throws Exception {
+		if (bufferedReader != null)
+			bufferedReader.close();
 	}
 
 	public int getLineNumber() {
-		return lineNumber;
+		return lineCount;
 	}
-
 }

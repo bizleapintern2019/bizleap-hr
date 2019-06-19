@@ -1,11 +1,15 @@
 package com.bizleap.hr.loader;
 
 import java.util.HashMap;
+import java.util.Map;
+import com.bizleap.commons.domain.entity.Error;
 
-import com.bizleap.commons.domain.entity.ErrorCollection;
 public interface AssociationMapper {
 	public void setUpAssociations();
-	public void handleLinkedError(int lineNumber,String message,Object source);
-	public HashMap<Integer,ErrorCollection> getHashMap();
-	public void setHasnMap(HashMap<Integer,ErrorCollection> errorHashMap);
+
+	public void handleLinkedError(int lineNumber,String message, Object source);
+	
+	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap);
+	
+	public Map<Integer, Error> getErrorHashMap();
 }

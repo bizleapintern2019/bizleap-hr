@@ -1,188 +1,153 @@
 package com.bizleap.commons.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Employee extends Entity{
-	private String firstName,lastName,title,email,phone;
-	private int age,salary;
-	private Company workFor= new Company();
-	
-	
-	public Employee(String boId) {
-		super(boId);
+	private String firstName;
+	private String lastName;
+	private int age;
+	private String title;
+	private int salary;
+	private String email;
+	private String phone;
+	private Company workFor;
+	int	count=0;
+	private static List<Integer> lineNumbers;
+
+	public Employee(String boid){
+		super(boid);
 	}
 
-	public Employee(String boId,String firstName, String lastName, String title, String email, String phone, int age, int salary) {
-		super.setBoId(boId);
+	public Employee(String employeeId, String firstName, String lastName, int age, String title, int salary, String email, String phone, String boid) {
+		super(boid);
 		this.firstName = firstName;
-		this.lastName = lastName;
+		this.lastName = lastName;	
+		this.age = age;
 		this.title = title;
+		this.salary = salary;
 		this.email = email;
 		this.phone = phone;
-		this.age = age;
-		this.salary = salary;
-	}
-	
-	public Company getWorkFor() {
-		return workFor;
-	}
-
-
-	public void setWorkFor(Company workFor) {
-		this.workFor = workFor;
-	}
-	
-	public String getWorkForBoId() {
-		return this.workFor.getBoId();
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
-	
-	public void setFirstName(String firstname) {
-		this.firstName = firstname;
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
-	
-	public void setLastName(String lastname) {
-		this.lastName = lastname;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	
+
 	public int getAge() {
 		return age;
 	}
-	
+
 	public void setAge(int age) {
 		this.age = age;
 	}
-	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public int getSalary() {
 		return salary;
 	}
-	
+
 	public void setSalary(int salary) {
 		this.salary = salary;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPhone() {
 		return phone;
 	}
-	
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	public boolean workForBoIdIsEqual(String companyBoId){
-		return getWorkForBoId().equals(companyBoId);
+
+	public Company getWorkFor() {
+		return workFor;
 	}
 
-	public static class Builder {
-		private String boId,firstName,lastName,title,phone,email;
-		private int age, salary;
-
-		public Builder(){}
-		
-		public Builder setBoId(String boId) {
-			this.boId = boId;
-			return this;
-		}
-		public Builder setFirstName(String firstName) {
-			this.firstName = firstName;
-			return this;
-		}
-		
-		public Builder setLastName(String lastName) {
-			this.lastName = lastName;
-			return this;
-		}
-	
-		public Builder setAge(int age) {
-			this.age = age;
-			return this;
-		}
-		
-		public Builder setTitle(String title) {
-			this.title = title;
-			return this;
-		}
-		
-		public Builder setPhone(String phone) {
-			this.phone = phone;
-			return this;
-		}
-	
-		public Builder setSalary(int salary) {
-			this.salary = salary;
-			return this;
-		}
-		
-		public Builder setEmail(String email) {
-			this.email = email;
-			return this;
-		}
-		
-		public Employee build() {
-			return new Employee(boId,firstName,lastName,title,email,phone,age,salary);
-		}
+	public void setWorkFor(Company workFor) {
+		this.workFor = workFor;
 	}
-
-	public static Employee parseEmployee(String dataLine) {
+	
+	public static List<Integer> getLineNumberList(){
+		return lineNumbers;
+	}
+	
+	public static Employee parseEmployee(String line, int lineNumber) {
+		if(lineNumbers == null)
+			lineNumbers = new ArrayList<Integer>();
+		else
+			lineNumbers.add(lineNumber);
 		
-		String boId, firstName,lastName, title,email,phone,workForBoId;
+		String boid, firstName, lastName, title, email, phone, companyBoid;
 		int age, salary;
-		StringTokenizer tokenizer = new StringTokenizer(dataLine, ",");
-		boId = tokenizer.nextToken();
-		workForBoId = tokenizer.nextToken();
-		firstName = tokenizer.nextToken();
-		lastName = tokenizer.nextToken();
-		age = Integer.parseInt(tokenizer.nextToken());
-		title = tokenizer.nextToken();
-		salary = Integer.parseInt(tokenizer.nextToken());
-		email = tokenizer.nextToken();
-		phone = tokenizer.nextToken();
-		
-		Employee employee= new Employee.Builder().setAge(age)
-									 .setBoId(boId)
-									 .setEmail(email)
-									 .setFirstName(firstName)
-									 .setLastName(lastName)
-									 .setPhone(phone)
-									 .setSalary(salary)
-									 .setTitle(title)
-									 .build();
-		employee.setWorkFor(new Company(workForBoId));
+
+		StringTokenizer st = new StringTokenizer(line, ",");
+
+		boid = st.nextToken();
+		firstName = st.nextToken();
+		lastName = st.nextToken();
+		age = Integer.parseInt(st.nextToken());
+		title = st.nextToken();
+		salary = Integer.parseInt(st.nextToken());
+		email = st.nextToken();
+		phone = st.nextToken();
+		companyBoid = st.nextToken();
+
+		Employee employee = new EmployeeBuilder()
+				.boid(boid)
+				.firstName(firstName)
+				.lastName(lastName)
+				.age(age)
+				.title(title)
+				.salary(salary)
+				.email(email)
+				.phone(phone)
+				.buildEmployee();
+		employee.setWorkFor(new Company(companyBoid));
 		return employee;
 	}
 	
+	public boolean checkEmployee(String boid) {
+		return getWorkFor().getBoId().equals(boid);
+	}
+
 	@Override
 	public String toString() {
-		return  "Employee :"+super.toString()+
-				new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("FirstName :"+ getFirstName())
-				.append("LastName :"+getLastName())
-				.append("work for :"+getWorkFor().getBoId());
+		return 	super.toString()+
+				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("firstname",getFirstName())
+				.append("lastname",getLastName())
+				.append("work for",getWorkFor().getBoId());
 	}
 }
+
+

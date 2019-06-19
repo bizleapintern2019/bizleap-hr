@@ -9,51 +9,32 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 public class Company extends Entity{
-	private String companyName;
+	private String name;
 	private String address;
+	private String ceo;
 	private String phone;
 	private String email;
-	private String ceo;
-	private List<Employee> employeeList;
+	private List<Employee> employeeList = new ArrayList<Employee>();
+	
+	public Company(String boid) {
+		super(boid);
+	}
 
-	Company() {
-		super();
-	}
-	
-	public Company(String workForBoId) {
-		super(workForBoId);
-	}
-	
-	public Company(String boId,String companyName, String address, String phone, String email, String ceo) {
-		super.setBoId(boId);
-		this.companyName = companyName;
+	public Company(String boid, String name, String address, String phone, String email, String ceo) {
+		super(boid);
+		this.name = name;
 		this.address = address;
 		this.phone = phone;
 		this.email = email;
 		this.ceo = ceo;
 	}
 
-	public List<Employee> getEmployeeList() {
-		return employeeList;
+	public String getName() {
+		return name;
 	}
 
-	public void setEmployeeList(List<Employee> employeeList) {
-		this.employeeList = employeeList;
-	}
-
-	public void addEmployee(Employee employee) {
-		if(employeeList == null){
-			employeeList = new ArrayList<Employee>();
-		}
-		employeeList.add(employee);
-	}
-	
-	public String getCompanyName() {
-		return companyName;
-	}
-
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddress() {
@@ -88,76 +69,42 @@ public class Company extends Entity{
 		this.ceo = ceo;
 	}
 	
-	public boolean boIdIsEqual(String boId){
-		return super.getBoId().equals(boId);
+	public List<Employee> getEmployeeList() {
+		return employeeList;
+	}
+
+	public void setEmployeeList(Employee employee) {
+		this.employeeList.add(employee);
 	}
 	
-	public static class Builder {
-		private String boId,companyName, address, phone, email, ceo;
-
-		public Builder(){}
-		
-		public Builder setBoId(String boId) {
-			this.boId = boId;
-			return this;
-		}
-		
-		public Builder setCompanyName(String companyName) {
-			this.companyName = companyName;
-			return this;
-		}
-		
-		public Builder setAddress(String address) {
-			this.address = address;
-			return this;
-		}
-		
-		public Builder setPhone(String phone) {
-			this.phone = phone;
-			return this;
-		}
-
-		public Builder setEmail(String email) {
-			this.email = email;
-			return this;
-		}
-		
-		public Builder setCeo(String ceo) {
-			this.ceo = ceo;
-			return this;
-		}
-		
-		public Company build() {
-			return new Company(boId,companyName,address,phone,email,ceo);
-		}
+	public boolean checkCompany(String boid) {
+		return getBoId().equals(boid);
 	}
 
-	public static Company parseCompany(String dataLine) {
-		String boId, companyName,address, phone,email,ceo;
-		
-		StringTokenizer tokenizer = new StringTokenizer(dataLine, ",");
-		boId = tokenizer.nextToken();
-		companyName = tokenizer.nextToken();
-		address = tokenizer.nextToken();
-		phone = tokenizer.nextToken();
-		email = tokenizer.nextToken();
-		ceo = tokenizer.nextToken();
-		return new Company.Builder().setAddress(address)
-									.setBoId(boId)
-									.setCeo(ceo)
-									.setCompanyName(companyName)
-									.setEmail(email)
-									.setPhone(phone)
-									.build();
-									
+	public static Company parseCompany(String line) {
+		String boid, companyName, address, phone, email, ceo;
+		StringTokenizer st = new StringTokenizer(line, ",");
+		boid = st.nextToken();
+		companyName = st.nextToken();
+		address = st.nextToken();
+		phone = st.nextToken();
+		email = st.nextToken();
+		ceo = st.nextToken();
+		return new CompanyBuilder()
+				.boid(boid)
+				.name(companyName)
+				.address(address)
+				.phone(phone)
+				.email(email)
+				.ceo(ceo)
+				.buildCompany();
 	}
 
 	@Override
 	public String toString() {
-		return  "Company: "+super.toString()+
-				new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("Company Name :"+ getCompanyName())
-				.append("Employee list :"+ getEmployeeList());
+		return super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("Employee list ",getEmployeeList());
 	}
-	
 }
+
+

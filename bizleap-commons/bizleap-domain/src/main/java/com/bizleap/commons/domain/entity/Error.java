@@ -2,14 +2,20 @@ package com.bizleap.commons.domain.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class ErrorCollection {
+public class Error {
 	private int lineNumber;
 	private Object source;
 	private String message="";
 	
-	public ErrorCollection() {}
+	public Error() {}
 	
-	public ErrorCollection(int lineNumber, Object source, String message) {
+	public Error(int lineNumber, String source, String message) {
+		this.lineNumber = lineNumber;
+		this.source = source;
+		this.message = message;
+	}
+	
+	public Error(int lineNumber, Object source, String message) {
 		this.lineNumber = lineNumber;
 		this.source = source;
 		this.message = message;
@@ -59,22 +65,18 @@ public class ErrorCollection {
 			return this;
 		}
 		
-		public ErrorCollection build() {
-			return new ErrorCollection(lineNumber,source,message);
+		public Error build() {
+			return new Error(lineNumber,source,message);
 		}
 	}
 
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-				.append("---------------------------------------------------------------"+"\n")
-				.append("\t\t\t\t\tERROR\n")
-				.append("---------------------------------------------------------------"+"\n")
-				.append(getMessage()+"\n")
-				.append("Source Object : "+getSource()+" at line number "+getLineNumber()+"\n")
-				.append("---------------------------------------------------------------")
+				.append(getMessage())
+				.append("Source Object : "+getSource()+" Line number: "+getLineNumber()+"\n")
 				.build();
 	}
-	
-	
 }
+
+

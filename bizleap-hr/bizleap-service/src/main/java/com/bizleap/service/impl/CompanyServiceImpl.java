@@ -12,34 +12,34 @@ public class CompanyServiceImpl implements CompanyService {
 	JDBCService jdbcService = new JDBCServiceImpl();
 	@Override
 	public void saveCompany(Company company) {
-		Connection connection =null;
-		if(company==null)
+		Connection connection = null;
+		
+		if(company == null)
 			return;
-		connection= jdbcService.getJDBCconnection();
-		if(connection==null) {
-			System.out.println("Connection Fail");
-		}
-		try {
-			PreparedStatement ps = (PreparedStatement) connection.prepareStatement("insert into company "+"(boId,name,address,phoneNo,email,ceo)"+" values (?,?,?,?,?,?)");
-			ps.setString(1, company.getBoId());
-			ps.setString(2, company.getCompanyName());
-			ps.setString(3, company.getAddress());
-			ps.setString(4, company.getPhone());
-			ps.setString(5, company.getEmail());
-			ps.setString(6, company.getCeo());
-			ps.executeUpdate();
-			ps.close();
+		PreparedStatement statement;
+		
+		try{
+			connection = jdbcService.getJDBCConnection();
+			statement = (PreparedStatement)connection.prepareStatement("insert into company "
+					+ "(boId,name,address,phoneNumber,email,ceo)"
+					+ "values(?,?,?,?,?,?)");
+			
+			statement.setString(1, company.getBoId());
+			statement.setString(2, company.getName());
+			statement.setString(3, company.getAddress());
+			statement.setString(4, company.getPhone());
+			statement.setString(5, company.getEmail());
+			statement.setString(6, company.getCeo());
+			
+			statement.executeUpdate();
+			statement.close();
 			connection.close();
-		} catch (SQLException e) {
+		}
+		catch(SQLException e){
 			System.out.println(e.getMessage());
-	}
-}
-		
-
-	@Override
-	public void openJBBCconnection() {
-		// TODO Auto-generated method stub
-		
+		}
 	}
 
 }
+
+
