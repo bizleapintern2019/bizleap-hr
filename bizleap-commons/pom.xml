@@ -7,7 +7,6 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.bizleap.commons</groupId>
   <artifactId>bizleap-commons</artifactId>
   <packaging>pom</packaging>
   <description>bizleap-commons</description>

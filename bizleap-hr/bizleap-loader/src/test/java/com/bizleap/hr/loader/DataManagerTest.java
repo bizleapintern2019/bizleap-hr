@@ -1,19 +1,13 @@
 package com.bizleap.hr.loader;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
-
 import com.bizleap.hr.loader.impl.DataManagerImpl;
 
 public class DataManagerTest {
-	
-	//static Company company;
-	//static Employee employee;
-	
 	@Test
-	public void dataTest() {
-		DataManagerImpl dataManager = new DataManagerImpl();
-		System.out.println(dataManager.loadData());
-		//AssociationMapperImpl ass=new AssociationMapperImpl(dataManager);
-		//ass.setUpAssociations();
+	public void dataManagerTest() {	
+	DataManager dataManager= new DataManagerImpl();
+		dataManager.load();
 	}
 }
