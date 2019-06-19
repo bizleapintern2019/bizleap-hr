@@ -1,12 +1,12 @@
 package com.bizleap.service.impl;
 
 import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.service.EmployeeService;
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -17,12 +17,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Connection connection = null;
 		if(employee == null)
 			return;
-
-		connection = jdbcService.getJDBCConnection();
 		
+		PreparedStatement statement;
+				
 		try {
 			
-			PreparedStatement statement = (PreparedStatement) connection.prepareStatement("insert into employee " 
+			connection = jdbcService.getJDBCConnection();
+			
+			statement = connection.prepareStatement("insert into employee " 
 					+ "(boId, firstName, lastName, age, title, salary, email, phoneNumber, companyBoId)"
 					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 

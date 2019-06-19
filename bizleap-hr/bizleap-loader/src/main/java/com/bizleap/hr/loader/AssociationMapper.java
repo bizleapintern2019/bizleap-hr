@@ -8,7 +8,5 @@ public interface AssociationMapper {
 	
 	public void setUpAssociations();
 	
-	public void handleLinkedError(String message,Object source);
-	
-	public Map<Integer, Error> getErrorHashMap();
+	public Map<Integer, Error> getErrorMap();
 }

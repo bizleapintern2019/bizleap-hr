@@ -87,7 +87,7 @@ public class Error {
 		}
 		
 		return new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("---------------------------------------------------------------" + "\n")
+				.append("\n------------------------------------------------------------------" + "\n")
 				.append("\t\t\t\t\tERROR\n")
 				.append("------------------------------------------------------------------" + "\n")
 				.append(getMessage() + "\n")

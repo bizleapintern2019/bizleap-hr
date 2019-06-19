@@ -13,8 +13,6 @@ public interface DataLoader {
 	
 	public List<Company> loadCompany() throws Exception;
 	
-	public void handleLoadingError(int lineNumber,String message,Object source);
-	
 	public Map<Integer,Error> getErrorMap();
 	
 	public void setErrorMap(Map<Integer,Error> errorHashMap);

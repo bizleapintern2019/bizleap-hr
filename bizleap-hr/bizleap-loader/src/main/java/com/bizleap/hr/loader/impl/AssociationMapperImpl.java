@@ -3,17 +3,23 @@ package com.bizleap.hr.loader.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.AssociationMapper;
-import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
+import com.bizleap.hr.loader.ErrorHandler;
 
-public class AssociationMapperImpl implements AssociationMapper{
+public class AssociationMapperImpl implements AssociationMapper {
+	
+	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
 
 	private DataManager dataManager;
-	private Map<Integer, Error> errorHashMap;
+	ErrorHandler errorHandler;
+	private Map<Integer, Error> errorMap;
+	int index = 0;
 	
 	public AssociationMapperImpl() {
 
@@ -22,7 +28,11 @@ public class AssociationMapperImpl implements AssociationMapper{
 	public AssociationMapperImpl(DataManager dataManager) {
 		this.dataManager = dataManager;
 	}
-
+	
+	public AssociationMapperImpl(DataManager dataManager, ErrorHandler errorHandler) {
+		this.dataManager = dataManager;
+		this.errorHandler = errorHandler;
+	}
 
 	public DataManager getDataManager() {
 		return dataManager;
@@ -32,17 +42,25 @@ public class AssociationMapperImpl implements AssociationMapper{
 		this.dataManager = dataManager;
 	}
 
-	public Map<Integer, Error> getErrorHashMap() {
-		return this.errorHashMap;
+	public Map<Integer, Error> getErrorMap() {
+		return this.errorMap;
+	}
+	
+	public void setErrorMap(HashMap<Integer, Error> errorMap) {
+		this.errorMap = errorMap;
+	}
+	
+	public int getIndex() {
+		return index;
 	}
 
-	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap) {
-		this.errorHashMap = errorHashMap;
+	public void setIndex(int index) {
+		this.index = index;
 	}
-
+	
 	private void addEmployeesToCompany(Company company) {
 
-		for(Employee employee:dataManager.getEmployeeList()){
+		for(Employee employee : dataManager.getEmployeeList()){
 
 			if(company.sameBoId(employee.getWorkFor())) {
 				company.addEmployee(employee);
@@ -51,51 +69,37 @@ public class AssociationMapperImpl implements AssociationMapper{
 	}
 
 	private void setUpCompanyAssociations() {
-		for(Company company:dataManager.getCompanyList()){
+		for(Company company : dataManager.getCompanyList()){
 
 			addEmployeesToCompany(company);
-			System.out.println(company);
+			logger.info(company);
 		}	
 	}
 
 	private void addCompanyToEmployee(Employee employee) {
+		
 
-		for(Company company:dataManager.getCompanyList()){
+		for(Company company : dataManager.getCompanyList()){
 
 			if(company.isEqual(employee.getWorkForBoId())){
 				employee.setWorkFor(company);
 				return; 
 			}
 		}
-		handleLinkedError("Company in employee cannot be linked.", employee);
+		errorHandler.handleLinkedError(++index, "Company in employee cannot be linked.", employee);
 	}
 
 	private void setUpEmployeeAssociations() {
 
-		for(Employee employee:dataManager.getEmployeeList()) {
+		for(Employee employee : dataManager.getEmployeeList()) {
 
 			addCompanyToEmployee(employee);
-			System.out.println(employee);
+			logger.info(employee);
 		}
 	}
 
 	public void setUpAssociations() {
 		setUpCompanyAssociations();
 		setUpEmployeeAssociations();
-	}
-
-	public void handleLinkedError(String message, Object source) {
-
-		DataLoader dataLoader = dataManager.getDataLoader();
-		int index = dataLoader.getIndex();
-		errorHashMap = dataLoader.getErrorMap();
-		Error error = new Error(source,message);
-
-		if(errorHashMap == null) {
-			errorHashMap = new HashMap<Integer, Error>();
-		}
-		errorHashMap.put(index, error);
-		dataLoader.setErrorMap(errorHashMap);
-		dataLoader.setIndex(index++);
 	}
 }

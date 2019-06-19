@@ -8,17 +8,23 @@ import java.util.Map;
 import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
+
 import com.bizleap.hr.loader.DataLoader;
+import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.hr.loader.FileLoader;
 
 public class DataLoaderImpl implements DataLoader {
 
 	FileLoader fileLoader= new FileLoaderImpl();
-	
-	Map<Integer,Error> errorMap = new HashMap<Integer, Error>();
 
-	int index = 1;
-	
+	Map<Integer,Error> errorMap = new HashMap<Integer, Error>();
+	ErrorHandler errorHandle;
+	int index = 0;
+
+	public DataLoaderImpl(ErrorHandler errorHandler) {
+		this.errorHandle = errorHandler;
+	}
+
 	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
 	}
@@ -26,7 +32,7 @@ public class DataLoaderImpl implements DataLoader {
 	public void setErrorMap(Map<Integer, Error> errorHashMap) {
 		this.errorMap = errorHashMap;
 	}
-	
+
 	public int getIndex() {
 		return index;
 	}
@@ -34,43 +40,34 @@ public class DataLoaderImpl implements DataLoader {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
-	public void handleLoadingError(int lineNumber, String message, Object source) {
-		Error error = new Error(lineNumber, source, message);
-		
-		if(errorMap == null) {
-			errorMap = new HashMap<Integer, Error>();
-		}
-		errorMap.put(index++, error);
-	}
 
 	public List<Employee> loadEmployee() throws Exception {
-		
+
 		fileLoader.start("E:\\Example\\Employees.txt");
 		String dataLine = "";
-		
+
 		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee = null;
-		
+
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				
+
 				if(dataLine.startsWith("#")) {
-					
+
 					if(fileLoader.hasMore())
-					dataLine = fileLoader.getLine();
+						dataLine = fileLoader.getLine();
 				}
-				
+
 				employee = Employee.parseEmployee(dataLine);
-				
+
 				if(employee != null){
 					employeeList.add(employee);
 				}
-				
+
 			}
 			catch (Exception e) {
-				handleLoadingError(fileLoader.getLineNumber(), "Employee file loading.", dataLine);
+				errorHandle.handleLoadingError(++index, fileLoader.getLineNumber(), "Employee file loading.", dataLine);
 			}
 		}
 		fileLoader.finish();
@@ -78,32 +75,32 @@ public class DataLoaderImpl implements DataLoader {
 	}
 
 	public List<Company> loadCompany() throws Exception {
-		
+
 		fileLoader.start("E:\\Example\\Companies.txt");
 		String dataLine = "";
-		
+
 		List<Company> companyList = new ArrayList<Company>();
 		Company company = null;
-		
+
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				
+
 				if(dataLine.startsWith("#")) {
-					
+
 					if(fileLoader.hasMore())
-					dataLine=fileLoader.getLine();
+						dataLine=fileLoader.getLine();
 				}
-				
+
 				company = Company.parseCompany(dataLine);
-				
+
 				if(company != null) {
 					companyList.add(company);
 				}
-				
+
 			}
 			catch (Exception e) {
-				handleLoadingError(fileLoader.getLineNumber(), "Company file loading.", dataLine);
+				errorHandle.handleLoadingError(++index, fileLoader.getLineNumber(), "Company file loading.", dataLine);
 			}
 		}
 		fileLoader.finish();
