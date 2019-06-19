@@ -2,22 +2,28 @@ package com.bizleap.hr.loader.impl;
 
 import com.bizleap.hr.loader.FileLoader;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 
 public class FileLoaderImpl implements FileLoader {
-	static int count;
-	BufferedReader reader;
-	private String eachLine;
+	private String line=null;
+	private int count;
+	private BufferedReader bufferedReader;
 
-	public void start(String fileReader) throws Exception {
-		count=0;
-		reader = new BufferedReader(new FileReader(fileReader));
+	public void start(String filePath) throws Exception {
+		count =0;
+		bufferedReader = new BufferedReader(new FileReader(filePath));
+		System.out.println("Data is ready to be read.");
 	}
 
-	public boolean hasNext() throws IOException {
-		if ((eachLine = reader.readLine()) != null) {
+	public void finish() throws Exception {
+		if(bufferedReader != null)
+			bufferedReader.close();
+	}
+
+	public boolean hasNext() throws Exception {
+		if((line = bufferedReader.readLine()) != null){
 			count++;
 			return true;
 		}
@@ -25,14 +31,9 @@ public class FileLoaderImpl implements FileLoader {
 	}
 
 	public String getLine() {
-		return eachLine;
+		return line;
 	}
 
-	public void stop() throws Exception {
-		if(reader!=null)
-			reader.close();
-	}
-	
 	public int getLineNumber() {
 		return count;
 	}

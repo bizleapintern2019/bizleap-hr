@@ -16,31 +16,37 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.StringTokenizer;
 
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class Employee extends Entity {
-
-	private final static String DELI_METER = ",";
-	private String boId, firstName, lastName, age, title, salary, email, phone;
-	private static StringTokenizer st;
+	
+	private String id;
+	private String firstName;
+	private String lastName;
+	private int age;
+	private String title;
+	private int salary;
+	private String email;
+	private String phone;
 	private Company workFor;
-	public Employee(String boId, String firstName, String lastName, String age, String title, String salary,
-			String email, String phone) {
-		super(boId, phone, email);
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.age = age;
-		this.title = title;
-		this.salary = salary;
-
-	}
-
+	
 	public Company getWorkFor() {
 		return workFor;
 	}
-	
+
 	public void setWorkFor(Company workFor) {
-		this.workFor=workFor;
+		this.workFor = workFor;
 	}
-	
+
+	public String getBoId() {
+		return id;
+	}
+
+	public void setBoId(String id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -57,34 +63,170 @@ public class Employee extends Entity {
 		this.lastName = lastName;
 	}
 
-	public static Employee parseEmployee(String eachLine) {
-		String boid = null, firstName = null, lastName = null, age = null, title = null, salary = null, email = null,
-				phone = null,companyBoId=null;
-		st = new StringTokenizer(eachLine, DELI_METER);
-		while (st.hasMoreTokens()) {
-			boid = st.nextToken();
-			companyBoId=st.nextToken();
-			firstName = st.nextToken();
-			lastName = st.nextToken();
-			age = st.nextToken();
-			title = st.nextToken();
-			salary = st.nextToken();
-			email = st.nextToken();
-			phone = st.nextToken();
-			System.out.println(boid);
-		}
-		//Employee employee=new EmployeeBuilder().boId(boid).firstName(firstName).lastName(lastName).age(age).title(title)
-			//	.salary(salary).email(email).phone(phone).buildEmployee();
-		//employee.setWorkFor(new Company(companyBoId));
-		return null;
+	public int getAge() {
+		return age;
 	}
 
-	public boolean checkEquality(String boId) {
-		return getWorkFor().getBoId().equals(boId);
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getSalary() {
+		return salary;
+	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public Employee(String boId){
+		super(boId);
+	}
+
+	public Employee(String boId,String firstName, String lastName, int age, String title, int salary, String email, String phone) {
+		this.id = boId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.title = title;
+		this.salary = salary;
+		this.email = email;
+		this.phone = phone;
+	}
+
+	public Employee() {
+
+	}
+
+	public static class Builder {
+		private String boId;
+		private String firstName;
+		private String lastName;
+		private int age;
+		private String title;
+		private int salary;
+		private String email;
+		private String phone;
+		
+
+		public Builder() {}
+
+		public Builder setFirstName(String firstName) {
+			this.firstName = firstName;
+			return this;
+		}
+
+		public Builder setLastName(String lastName) {
+			this.lastName = lastName;
+			return this;
+		}
+
+		public Builder setAge(int age) {
+			this.age = age;
+			return this;
+		}
+
+		public Builder setTitle(String title) {
+			this.title = title;
+			return this;
+		}
+
+		public Builder setSalary(int salary) {
+			this.salary = salary;
+			return this;
+		}
+
+		public Builder setEmail(String eEmail) {
+			this.email = eEmail;
+			return this;
+		}
+
+		public Builder setPhone(String phone) {
+			this.phone = phone;
+			return this;
+		}
+
+		public Builder setBoId(String boId) {
+			this.boId = boId;
+			return this;
+		}
+		
+	
+        
+		public Employee build() {
+			return new Employee(boId,firstName,lastName,age,title,salary,email,phone);
+		}
+	}
+
+	public static Employee parseEmployee(String line) throws Exception {
+		
+		StringTokenizer tokenizer;
+		String delimeter =",";
+		String firstName, lastName, title, empEmail, phone,boId,companyBoId; 
+		int age, salary;
+		tokenizer = new StringTokenizer(line,delimeter);
+		boId = tokenizer.nextToken();
+		firstName = tokenizer.nextToken();
+		lastName = tokenizer.nextToken();
+		age = Integer.parseInt(tokenizer.nextToken());
+		title = tokenizer.nextToken();
+		salary = Integer.parseInt(tokenizer.nextToken());
+		empEmail = tokenizer.nextToken();
+		phone = tokenizer.nextToken();
+		 companyBoId = tokenizer.nextToken();
+		 
+		Employee employee = new Employee.Builder()
+				.setFirstName(firstName)
+				.setLastName(lastName)
+				.setAge(age)
+				.setTitle(title)
+				.setSalary(salary)
+				.setEmail(empEmail)
+				.setPhone(phone)
+				.setBoId(boId)
+				.build();
+		employee.setWorkFor(new Company(companyBoId));
+		return employee;
 	}
 	
+	public void displayInfo() {
+	   String.format("COMPANY ID  -> %s, First Name -> %s, Last Name -> %s", getBoId(),firstName,lastName);
+	}
 	@Override
 	public String toString() {
-		return this.getFirstName() + " " + this.getLastName();
+		return "Employee:"+super.toString()+
+				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("boId",getBoId())
+				.append("firstName",getFirstName())
+				.append("lastName",getLastName())
+				.append("age",getAge())
+//				.append("title",getTitle())
+//				.append("salary",getSalary())
+//				.append("email",getEmail())
+//				.append("phone",getPhone())
+				.append("companyBoId",getWorkFor().getBoId());
 	}
 }

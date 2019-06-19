@@ -1,48 +1,99 @@
 package com.bizleap.hr.loader.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.bizleap.domain.entity.Company;
-import com.bizleap.domain.entity.Employee;
+import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.commons.domain.entity.Employee;
+import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
+import com.bizleap.hr.loader.ErrorCollector;
+import com.bizleap.service.Saver;
+import com.bizleap.service.impl.SaverImpl;
+
 
 public class DataManagerImpl implements DataManager {
-	DataLoaderImpl dataLoader = new DataLoaderImpl();
+	DataLoaderImpl dataLoader;
+	Map<Integer,Error> errorMap = new HashMap<Integer,Error>();
 	List<Employee> employeeList;
 	List<Company> companyList;
+	ErrorCollector errorCollector;
 	
-	public List<Employee> getEmployeeList(){
+	public DataManagerImpl() {
+		errorCollector =new ErrorCollectorImpl();
+	}
+
+	public DataLoaderImpl getDataLoader() {
+		return dataLoader;
+	}
+
+	public void setDataLoader(DataLoaderImpl dataLoader) {
+		this.dataLoader = dataLoader;
+	}
+
+	public List<Employee> getEmployeeList() {
 		return employeeList;
 	}
-	
+
 	public void setEmployeeList(List<Employee> employeeList) {
 		this.employeeList=employeeList;
 	}
-	
-	public List<Company> getCompanyList(){
+
+	public List<Company> getCompanyList() {
 		return companyList;
 	}
-	
+
 	public void setCompanyList(List<Company> companyList) {
 		this.companyList=companyList;
 	}
 
-	public String loadData() {
-		String result = "";
+	public void loadData() {
 		try {
-			employeeList = dataLoader.loadEmployee();
+			dataLoader = new DataLoaderImpl(errorCollector);
 			companyList = dataLoader.loadCompany();
-			for (Company company : companyList) {
-				for (Employee employee : employeeList) {
-					if (company.getBoId().equals(employee.getBoId())) {
-						result += employee.getFirstName() + " " + employee.getLastName() + "---- works for "
-								+ company.getName() + "\n";
-					}
-				}
-			}
+			employeeList = dataLoader.loadEmployee();
+
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			System.out.println(ex+"");
 		}
-		return result;
+	}
+
+	@Override
+	public void save() {
+		Saver save = new SaverImpl();
+		
+		for(Company company: companyList) {
+			if(company != null) {
+				save.saveCompany(company);
+			}
+		}
+		
+		for(Employee employee: employeeList) {
+			if(employee != null) {
+				save.saveEmployee(employee);
+			}
+		}
+	}
+	
+	public void associateData() {
+		if(!errorCollector.hasError()){
+		AssociationMapper associationMapper = new AssociationMapperImpl(this,errorCollector);
+		associationMapper.setUpAssociations();
+		return;
+		}
+		System.out.println("Error occurs.");
+	}
+
+	public void load() {
+		loadData();
+		associateData();
+		if(!errorCollector.hasError())
+			save();
+	}
+
+	@Override
+	public ErrorCollector getErrorCollector() {
+		return errorCollector;
 	}
 }
