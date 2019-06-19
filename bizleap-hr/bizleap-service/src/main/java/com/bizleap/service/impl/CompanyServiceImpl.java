@@ -1,12 +1,12 @@
 package com.bizleap.service.impl;
 
 import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.service.CompanyService;
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 
 public class CompanyServiceImpl implements CompanyService {
 
@@ -14,9 +14,14 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public void saveCompany(Company company) {
 		Connection connection = null;
-		connection = jdbcService.getJDBCConnection();
+		
+		if(company == null)
+			return;
+		PreparedStatement statement;
+		
 		try{
-			PreparedStatement statement = (PreparedStatement)connection.prepareStatement("insert into company "
+			connection = jdbcService.getJDBCConnection();
+			statement = (PreparedStatement)connection.prepareStatement("insert into company "
 					+ "(boId,name,address,phoneNumber,email,ceo)"
 					+ "values(?,?,?,?,?,?)");
 			

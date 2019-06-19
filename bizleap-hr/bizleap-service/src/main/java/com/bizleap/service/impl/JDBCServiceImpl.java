@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 public class JDBCServiceImpl implements JDBCService{
 	public Connection getJDBCConnection(){

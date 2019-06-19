@@ -2,6 +2,7 @@ package com.bizleap.hr.loader.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
@@ -10,13 +11,17 @@ import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.FileLoader;
 
+public class DataLoaderImpl implements DataLoader {
 
-public class DataLoaderImpl implements DataLoader{
-
-	FileLoader fileLoader = new FileLoaderImpl();
+	FileLoader fileLoader;
 	DataManager dataManager = new DataManagerImpl();
-	private HashMap<Integer, Error> errorMap;
-
+	private Map<Integer, Error> errorMap;
+	private int index = 0;
+	
+	public DataLoaderImpl(FileLoader fileLoader) {
+		this.fileLoader = fileLoader;
+	}
+	
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("E:\\git note\\Employee.txt");
 		String line = null;
@@ -25,14 +30,11 @@ public class DataLoaderImpl implements DataLoader{
 		while (fileLoader.hasNext()) {
 			try {
 				line = fileLoader.getLine();
-				employee = Employee.parseEmployee(line,fileLoader.getLineNumber());
+				employee = Employee.parseEmployee(line, fileLoader.getLineNumber());
 				if (employee != null)
 					dataManager.getEmployeesList().add(employee);
 			} catch (Exception e) {
-				if(errorMap == null)
-					errorMap = new HashMap<Integer, Error>();
-				int lineNumber = fileLoader.getLineNumber();
-				errorMap.put(lineNumber, new Error(lineNumber,employee,e.toString()));
+				handleFileError(fileLoader.getLineNumber(), e.toString(), line);
 			}
 		}
 		fileLoader.stop();
@@ -51,15 +53,21 @@ public class DataLoaderImpl implements DataLoader{
 				if (company != null)
 					dataManager.getCompanyList().add(company);
 			} catch (Exception e) {
-				int lineNumber = fileLoader.getLineNumber();
-				errorMap.put(lineNumber, new Error(lineNumber,company,e.toString()));
+				handleFileError(fileLoader.getLineNumber(), e.toString(), line);
 			}
 		}
 		fileLoader.stop();
 		return dataManager.getCompanyList();
 	}
-	
-	public HashMap<Integer, Error> getFileError() {
+
+	public void handleFileError(int lineNumber, String message, String source) {
+		if (errorMap == null)
+			errorMap = new HashMap<Integer, Error>();
+
+		errorMap.put(index++, new Error(lineNumber, source, message));
+	}
+
+	public Map<Integer, Error> getFileError() {
 		return errorMap;
 	}
 }

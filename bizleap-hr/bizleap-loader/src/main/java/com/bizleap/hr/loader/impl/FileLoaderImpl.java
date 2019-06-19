@@ -10,9 +10,18 @@ public class FileLoaderImpl implements FileLoader {
 	private BufferedReader bufferedReader;
 	private String line = null;
 	private int lineCount = 0;
+	private boolean hasError = false;
+
+	public boolean hasError() {
+		return hasError;
+	}
+
+	public void setHasError(boolean hasError) {
+		this.hasError = hasError;
+	}
 
 	public void start(String fileReader) throws Exception {
-		lineCount = 0;
+		lineCount = 1;
 		bufferedReader = new BufferedReader(new FileReader(fileReader));
 	}
 
