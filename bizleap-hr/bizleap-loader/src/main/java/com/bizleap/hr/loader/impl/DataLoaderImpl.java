@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.LoadingError;
@@ -12,15 +15,16 @@ import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.hr.loader.FileLoader;
 
+@Service
 public class DataLoaderImpl implements DataLoader {
-	FileLoader fileLoader = new FileLoaderImpl();
+	@Autowired
+	FileLoader fileLoader;
+	
+	@Autowired
 	ErrorHandler errorHandler;
+	
 	public Map<Integer, LoadingError> errorMap = new HashMap<>();
 	public int index = 1;
-
-	public DataLoaderImpl(ErrorHandler errorHandler) {
-		this.errorHandler = errorHandler;
-	}
 	
 	public Map<Integer, LoadingError> getErrorMap() {
 		return errorMap;
@@ -36,14 +40,6 @@ public class DataLoaderImpl implements DataLoader {
 
 	public void setIndex(int index) {
 		this.index = index;
-	}
-
-	public ErrorHandler getErrorHandler() {
-		return errorHandler;
-	}
-
-	public void setErrorHandler(ErrorHandler errrorHandler) {
-		this.errorHandler = errrorHandler;
 	}
 
 	public List<Employee> loadEmployee() throws Exception {

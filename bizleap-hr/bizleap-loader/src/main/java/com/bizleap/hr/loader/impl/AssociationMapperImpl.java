@@ -1,28 +1,31 @@
 package com.bizleap.hr.loader.impl;
 
+import javax.persistence.AttributeOverride;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorHandler;
 
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
-	private DataManager dataManager;
-	ErrorHandler errorHandler;
-	int lineNumber = 0;
+	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
 	
-	public AssociationMapperImpl() {
-
-	}
-
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-
-	public AssociationMapperImpl(DataManager dataManager, ErrorHandler errorHandler) {
-		this.dataManager = dataManager;
-		this.errorHandler = errorHandler;
-	}
+	@Autowired
+	DataManager dataManager;
+	
+	@Autowired
+	DataLoader dataLoader;
+	
+	@Autowired
+	ErrorHandler errorHandler;
+	
+	int lineNumber = 0;
 	
 	public ErrorHandler getErrorHandler() {
 		return errorHandler;
@@ -30,14 +33,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 
 	public void setErrorHandler(ErrorHandler errorHandler) {
 		this.errorHandler = errorHandler;
-	}
-
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
 	}
 
 	private void addEmployeesToCompany(Company company) {
@@ -51,7 +46,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpCompanyAssociations() {
 		for(Company company : dataManager.getCompanyList()) {
 			addEmployeesToCompany(company);
-			System.out.println(company);
 		}		
 	}
 
@@ -62,10 +56,10 @@ public class AssociationMapperImpl implements AssociationMapper {
 				return;
 			}
 		}
-		lineNumber = dataManager.getDataLoader().getIndex();
+		lineNumber = dataLoader.getIndex();
 		errorHandler.handleLinkedError(lineNumber, "Company and employee cannot be linked.", employee);
 		lineNumber++;
-		dataManager.getDataLoader().setIndex(lineNumber);
+		dataLoader.setIndex(lineNumber);
 	}
 
 	private void setUpEmployeeAssociations() {

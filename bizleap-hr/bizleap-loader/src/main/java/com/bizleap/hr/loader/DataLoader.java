@@ -14,6 +14,4 @@ public interface DataLoader {
 	public void setErrorMap(Map<Integer,LoadingError> errorHashMap);
 	public int getIndex();
 	public void setIndex(int index);
-	public ErrorHandler getErrorHandler();
-	public void setErrorHandler(ErrorHandler errorCollector);
 }

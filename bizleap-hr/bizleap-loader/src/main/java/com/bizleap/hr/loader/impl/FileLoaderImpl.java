@@ -3,15 +3,15 @@ package com.bizleap.hr.loader.impl;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import org.springframework.stereotype.Service;
+
 import com.bizleap.hr.loader.FileLoader;
 
+@Service
 public class FileLoaderImpl implements FileLoader {
 	private BufferedReader dataReader;
 	private String dataLine = "";
 	private int lineNumber;
-	
-	public FileLoaderImpl() {	
-	}
 	
 	public void start(String filePath) throws Exception {
 		lineNumber = 0;

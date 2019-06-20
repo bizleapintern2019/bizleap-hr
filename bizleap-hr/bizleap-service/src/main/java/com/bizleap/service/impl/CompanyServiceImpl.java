@@ -2,12 +2,16 @@ package com.bizleap.service.impl;
 
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.service.CompanyService;
 import com.bizleap.service.JDBCService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+@Service
 public class CompanyServiceImpl implements CompanyService {
 	JDBCService jdbcservice = new JDBCServiceImpl();
 	

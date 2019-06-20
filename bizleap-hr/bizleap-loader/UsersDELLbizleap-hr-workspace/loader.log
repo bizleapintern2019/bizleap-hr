@@ -1,0 +1,28 @@
+Error occurs. Data cannot be associated.
+{1=com.bizleap.commons.domain.entity.LoadingError@1ebcae2[
+---------------------------------------------------------
+,		 [ERROR]
+,---------------------------------------------------------
+,Employee file loading
+,Source Object: EMP003,John,Mark,35,Manager,1800000,johnmark@gmail.com097770005927,C003 at line number 4
+,---------------------------------------------------------], 2=com.bizleap.commons.domain.entity.LoadingError@1a23b66[
+---------------------------------------------------------
+,		 [ERROR]
+,---------------------------------------------------------
+,Company and employee cannot be linked.
+,Source Object: Employee: [boId:=EMP002][boId:=EMP002,FirstName:Bob,LastName:Gilman,Worked for:null] at line number 0
+,---------------------------------------------------------]}
+Error occurs. Data cannot be associated.
+{1=com.bizleap.commons.domain.entity.LoadingError@1ebcae2[
+---------------------------------------------------------
+,		 [ERROR]
+,---------------------------------------------------------
+,Employee file loading
+,Source Object: EMP003,John,Mark,35,Manager,1800000,johnmark@gmail.com097770005927,C003 at line number 4
+,---------------------------------------------------------], 2=com.bizleap.commons.domain.entity.LoadingError@1a23b66[
+---------------------------------------------------------
+,		 [ERROR]
+,---------------------------------------------------------
+,Company and employee cannot be linked.
+,Source Object: Employee: [boId:=EMP002][boId:=EMP002,FirstName:Bob,LastName:Gilman,Worked for:null] at line number 0
+,---------------------------------------------------------]}

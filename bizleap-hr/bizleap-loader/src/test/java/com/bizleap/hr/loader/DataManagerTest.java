@@ -1,18 +1,18 @@
 package com.bizleap.hr.loader;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
-import com.bizleap.hr.loader.impl.DataManagerImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class DataManagerTest {
+import com.bizleap.hr.loader.impl.test.ServiceTest;
 
-	private Logger logger = Logger.getLogger(DataManagerTest.class);
+public class DataManagerTest extends ServiceTest {
+	
+	@Autowired
+	DataManager dataManager;
 	
 	@Test
 	public void DataTest() {
-		DataManager dataManager = new DataManagerImpl();
 		dataManager.load();
-		logger.info("Result hashmap: " + dataManager.getErrorHandler().getErrorMap());
 		//logger.info("test logger");
 	}
 }

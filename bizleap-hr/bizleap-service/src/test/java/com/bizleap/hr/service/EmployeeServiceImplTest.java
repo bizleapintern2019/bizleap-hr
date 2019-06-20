@@ -1,5 +1,6 @@
 package com.bizleap.hr.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
@@ -10,7 +11,8 @@ import com.bizleap.service.impl.EmployeeServiceImpl;
 public class EmployeeServiceImplTest {
 
 	EmployeeService employeeService = new EmployeeServiceImpl();
-	@Test
+	
+	@Ignore
 	public void testSavingEmployee() {
 		Employee employee = new Employee();
 		employee.setBoId("EMP004");
