@@ -1,13 +1,17 @@
-package com.bizleap.service.impl;
+package com.bizleap.hr.service.impl;
 
 import java.sql.SQLException;
+
+import org.springframework.stereotype.Service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
-import com.bizleap.service.JDBCService;
+import com.bizleap.hr.service.EmployeeService;
+import com.bizleap.hr.service.JDBCService;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
 
 	JDBCService jdbcService = new JDBCServiceImpl();

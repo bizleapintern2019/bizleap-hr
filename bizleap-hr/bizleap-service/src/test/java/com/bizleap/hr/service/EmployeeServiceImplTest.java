@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
-import com.bizleap.service.impl.EmployeeServiceImpl;
+import com.bizleap.hr.service.EmployeeService;
+import com.bizleap.hr.service.impl.EmployeeServiceImpl;
 
 public class EmployeeServiceImplTest {
 	
@@ -15,16 +15,16 @@ public class EmployeeServiceImplTest {
 	public void testSavingEmployee() {
 		
 		Employee employee = new Employee();
-		employee.setBoId("EMP001");
-		employee.setFirstName("Roger");
-		employee.setLastName("Bob");
+		employee.setBoId("EMP006");
+		employee.setFirstName("Ron");
+		employee.setLastName("James");
 		employee.setAge(22);
 		employee.setTitle("Developer");
 		employee.setSalary(500000);
-		employee.setEmail("roger@gmail.com");
+		employee.setEmail("ron@gmail.com");
 		employee.setPhone("0946245215");
 		
-		Company workFor = new Company("COM001");
+		Company workFor = new Company("COM002");
 		employee.setWorkFor(workFor);
 		employeeService.saveEmployee(employee);
 	}

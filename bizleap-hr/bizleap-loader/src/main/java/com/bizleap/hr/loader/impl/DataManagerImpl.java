@@ -1,34 +1,40 @@
 package com.bizleap.hr.loader.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
+import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorHandler;
-import com.bizleap.service.Saver;
-import com.bizleap.service.impl.SaverImpl;
+import com.bizleap.hr.service.Saver;
 
+@Service
 public class DataManagerImpl implements DataManager {
-	
-	private Logger logger = Logger.getLogger(DataManagerImpl.class);
 
-	DataLoaderImpl dataLoader;
-	ErrorHandler errorHandler = new ErrorHandlerImpl();
+	private Logger logger = Logger.getLogger(ErrorHandlerImpl.class);
+	
+	@Autowired
+	ErrorHandler errorHandler;
+	
+	@Autowired
+	AssociationMapper associationMapper;
+	
+	@Autowired
+	DataLoader dataLoader;
+	
+	@Autowired
+	Saver saver;
 
 	List<Employee> employeeList;
 	List<Company> companyList;
-
-	public DataLoaderImpl getDataLoader() {
-		return dataLoader;
-	}
-
-	public void setDataLoader(DataLoaderImpl dataLoader) {
-		this.dataLoader = dataLoader;
-	}
 
 	public List<Employee> getEmployeeList(){
 		return employeeList;
@@ -46,33 +52,30 @@ public class DataManagerImpl implements DataManager {
 		this.companyList=companyList;
 	}
 
-	public void loadData() throws Exception {
+	private void reportError(Map<Integer, Error> errorMap) {
 
-		dataLoader = new DataLoaderImpl(errorHandler);
+		if(errorMap != null && !errorMap.isEmpty()) {
+			logger.info("\n" + errorMap);
+			System.exit(0);
+		}
+	}
+
+	private void loadData() throws Exception {
+	
 		employeeList = dataLoader.loadEmployee();
 		companyList = dataLoader.loadCompany();
-		
-		if(errorHandler.hasError()) {
-			logger.info("\n" + errorHandler.getErrorMap());
-			System.exit(0);
-		}
-		
+
+		reportError(errorHandler.getErrorMap());		
 	}
 
-	public void associateData() {
+	private void associateData() {
 		
-		AssociationMapper associationMapper = new AssociationMapperImpl(this, errorHandler);
 		associationMapper.setUpAssociations();
-		
-		if(errorHandler.hasError()) {
-			logger.info("\n" + errorHandler.getErrorMap());
-			System.exit(0);
-		}
+		reportError(errorHandler.getErrorMap());
 	}
 
-	public void saveData() {
+	private void saveData() {
 		
-		Saver saver = new SaverImpl();
 		saver.saveCompanies(companyList);
 		saver.saveEmployees(employeeList);
 	}

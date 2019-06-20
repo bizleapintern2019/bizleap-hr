@@ -1,37 +1,27 @@
 package com.bizleap.hr.loader.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.bizleap.commons.domain.entity.Error;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.hr.loader.FileLoader;
 
+@Service
 public class DataLoaderImpl implements DataLoader {
-
-	FileLoader fileLoader= new FileLoaderImpl();
-
-	Map<Integer,Error> errorMap = new HashMap<Integer, Error>();
-	ErrorHandler errorHandle;
+	
+	@Autowired
+	FileLoader fileLoader;
+	
+	@Autowired
+	ErrorHandler errorHandler;
+	
 	int index = 0;
-
-	public DataLoaderImpl(ErrorHandler errorHandler) {
-		this.errorHandle = errorHandler;
-	}
-
-	public Map<Integer, Error> getErrorMap() {
-		return errorMap;
-	}
-
-	public void setErrorMap(Map<Integer, Error> errorHashMap) {
-		this.errorMap = errorHashMap;
-	}
 
 	public int getIndex() {
 		return index;
@@ -67,7 +57,7 @@ public class DataLoaderImpl implements DataLoader {
 
 			}
 			catch (Exception e) {
-				errorHandle.handleLoadingError(++index, fileLoader.getLineNumber(), "Employee file loading.", dataLine);
+				errorHandler.handleLoadingError(++index, fileLoader.getLineNumber(), "Employee file loading.", dataLine);
 			}
 		}
 		fileLoader.finish();
@@ -100,7 +90,7 @@ public class DataLoaderImpl implements DataLoader {
 
 			}
 			catch (Exception e) {
-				errorHandle.handleLoadingError(++index, fileLoader.getLineNumber(), "Company file loading.", dataLine);
+				errorHandler.handleLoadingError(++index, fileLoader.getLineNumber(), "Company file loading.", dataLine);
 			}
 		}
 		fileLoader.finish();

@@ -1,17 +1,18 @@
-package com.bizleap.service.impl;
+package com.bizleap.hr.service.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
-import com.bizleap.service.CompanyService;
-import com.bizleap.service.JDBCService;
-
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.hr.service.CompanyService;
+import com.bizleap.hr.service.JDBCService;
 
+@Service
 public class CompanyServiceImpl implements CompanyService {
-
+	
 	JDBCService jdbcService = new JDBCServiceImpl();
 
 	public void saveCompany(Company company) {

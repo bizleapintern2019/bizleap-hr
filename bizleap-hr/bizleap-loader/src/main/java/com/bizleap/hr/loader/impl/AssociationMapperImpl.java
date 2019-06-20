@@ -1,54 +1,27 @@
 package com.bizleap.hr.loader.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorHandler;
 
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
 	
 	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
-
+	
+	@Autowired
 	private DataManager dataManager;
+	
+	@Autowired
 	ErrorHandler errorHandler;
-	private Map<Integer, Error> errorMap;
-	int index = 0;
 	
-	public AssociationMapperImpl() {
-
-	}
-
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-	
-	public AssociationMapperImpl(DataManager dataManager, ErrorHandler errorHandler) {
-		this.dataManager = dataManager;
-		this.errorHandler = errorHandler;
-	}
-
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-
-	public Map<Integer, Error> getErrorMap() {
-		return this.errorMap;
-	}
-	
-	public void setErrorMap(HashMap<Integer, Error> errorMap) {
-		this.errorMap = errorMap;
-	}
+	int index = 0;	
 	
 	public int getIndex() {
 		return index;
@@ -78,7 +51,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 
 	private void addCompanyToEmployee(Employee employee) {
 		
-
 		for(Company company : dataManager.getCompanyList()){
 
 			if(company.isEqual(employee.getWorkForBoId())){
