@@ -8,7 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class FileLoaderImpl implements FileLoader {
+	
 	private BufferedReader bufferedReader;
 	private String line = null;
 	private int lineCount;
@@ -45,7 +49,7 @@ public class FileLoaderImpl implements FileLoader {
 		return lineCount;
 	}
 	
-	public Map<Integer, Error> getFileError() {
+	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
 	}
 }

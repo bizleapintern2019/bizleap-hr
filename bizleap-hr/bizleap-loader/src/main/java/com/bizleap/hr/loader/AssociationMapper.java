@@ -10,9 +10,8 @@ public interface AssociationMapper {
 
 	public void handleLinkedError(int lineNumber,String message, Object source);
 	
-	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap);
+	public void setErrorMap(HashMap<Integer, Error> errorHashMap);
 	
-	public Map<Integer, Error> getErrorHashMap();
+	public Map<Integer, Error> getErrorMap();
 	
-	public boolean isError();
 }

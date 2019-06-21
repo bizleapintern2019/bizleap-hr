@@ -1,14 +1,16 @@
 package com.bizleap.hr.loader;
 
 import org.junit.Test;
-import com.bizleap.hr.loader.impl.DataManagerImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class DataManagerTest {
+import com.bizleap.hr.loader.impl.test.ServiceTest;
+
+public class DataManagerTest  extends ServiceTest{
+	@Autowired
+	DataManager dataManager;
 	
 	@Test
 	public void dataTest() throws Exception {
-		DataManagerImpl dataManager = new DataManagerImpl();
 		dataManager.load();
-		//new  AssociationMapperImpl(null).setUpAssociations();
 	}
 }

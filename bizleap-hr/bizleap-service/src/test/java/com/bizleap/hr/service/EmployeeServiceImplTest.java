@@ -1,14 +1,16 @@
 package com.bizleap.hr.service;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
-import com.bizleap.service.impl.EmployeeServiceImpl;
+import com.bizleap.service.EmployeeServiceJDBC;
+import com.bizleap.service.impl.EmployeeServiceJDBCImpl;
 
 public class EmployeeServiceImplTest {
-	EmployeeService employeeService=new EmployeeServiceImpl();
+	EmployeeServiceJDBC employeeService=new EmployeeServiceJDBCImpl();
+	@Ignore
 	@Test
 	public void testSavingEmployee(){
 		Employee employee=new Employee("EMP002");

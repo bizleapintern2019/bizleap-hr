@@ -6,38 +6,31 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
-
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
 
 	private Logger logger=Logger.getLogger(AssociationMapperImpl.class);
-	private DataManager dataManager;
+	
+	@Autowired
+	DataManager dataManager;
+	
 	private Map<Integer, Error> errorMap;
 	private List<Integer> lineNumbers = new ArrayList<Integer>();
 	private int i=0;
 
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-
-	public Map<Integer, Error> getErrorHashMap() {
+	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
 	}
 
-	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap) {
+	public void setErrorMap(HashMap<Integer, Error> errorHashMap) {
 		this.errorMap = errorHashMap;
 
 	}
@@ -66,7 +59,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 			}
 		}
 		handleLinkedError(lineNumbers.get(i),"Company in employee cannot be linked.", employee);
-		i++;
 	}
 
 	private void setUpEmployeeAssociation() {
@@ -82,12 +74,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 	}
 
 	public void handleLinkedError(int lineNumber, String message, Object source) {
-		if (!isError())
+		if (errorMap==null)
 			errorMap = new HashMap<Integer, Error>();
 		errorMap.put(lineNumber,new Error(lineNumber, source, message));
-	}
-	
-	public boolean isError(){
-		return errorMap!=null && !errorMap.isEmpty();
-	}
+	}	 
 }

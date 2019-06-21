@@ -4,17 +4,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.FileLoader;
-
+@Service
 public class DataLoaderImpl implements DataLoader {
 
-	FileLoader fileLoader = new FileLoaderImpl();
-	DataManager dataManager = new DataManagerImpl();
+	@Autowired
+	 FileLoader fileLoader;
+	
+	@Autowired
+	 DataManager dataManager;
+	
 	private Map<Integer, Error> errorMap;
 
 	public List<Employee> loadEmployee() throws Exception {
@@ -29,7 +36,7 @@ public class DataLoaderImpl implements DataLoader {
 				if (employee != null)
 					dataManager.getEmployeesList().add(employee);
 			} catch (Exception e) {
-				errorException(employee, e);
+				handleFileError(employee, e);
 			}
 		}
 		fileLoader.stop();
@@ -48,25 +55,21 @@ public class DataLoaderImpl implements DataLoader {
 				if (company != null)
 					dataManager.getCompanyList().add(company);
 			} catch (Exception e) {
-				errorException(line, e);
+				handleFileError(line, e);
 			}
 		}
 		fileLoader.stop();
 		return dataManager.getCompanyList();
 	}
 
-	public void errorException(Object source, Exception e) {
-		if (!isError())
+	public void handleFileError(Object source, Exception e) {
+		if (errorMap==null)
 			errorMap = new HashMap<Integer, Error>();
 		int lineNumber = fileLoader.getLineNumber();
 		errorMap.put(lineNumber, new Error(lineNumber, source, e.toString()));
 	}
 
-	public Map<Integer, Error> getFileError() {
+	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
-	}
-
-	public boolean isError() {
-		return getFileError() != null && !getFileError().isEmpty();
 	}
 }
