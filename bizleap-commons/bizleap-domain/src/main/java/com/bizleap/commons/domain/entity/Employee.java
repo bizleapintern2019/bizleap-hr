@@ -2,14 +2,23 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.StringTokenizer;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Employee extends Entity{
+@Entity
+@Table(name="employee")
+public class Employee extends AbstractEntity{
 	private String firstName,lastName,title,email,phone;
 	private int age,salary;
-	private Company workFor= new Company();
 	
+	@ManyToOne
+	@JoinColumn(name="companyId")
+	private Company workFor;
 	
 	public Employee(String boId) {
 		super(boId);

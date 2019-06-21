@@ -1,13 +1,15 @@
 package com.bizleap.hr.service;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bizleap.commons.domain.entity.Company;
-import com.bizleap.service.CompanyService;
-import com.bizleap.service.impl.CompanyServiceImpl;
+import com.bizleap.service.CompanyServiceJDBC;
+import com.bizleap.service.impl.CompanyServiceJDBCImpl;
 
 public class CompanyServiceImplTest {
-	CompanyService companyService = new CompanyServiceImpl();
+	@Autowired
+	CompanyServiceJDBC companyService; 
 	@Test
 	public void testSavingEmployee() {
 		Company company=new Company("Biz001");

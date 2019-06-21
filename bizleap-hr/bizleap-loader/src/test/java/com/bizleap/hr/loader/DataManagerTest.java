@@ -1,19 +1,23 @@
 package com.bizleap.hr.loader;
 
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import com.bizleap.hr.loader.impl.AssociationMapperImpl;
-import com.bizleap.hr.loader.impl.DataManagerImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class DataManagerTest {
-	private Logger logger =Logger.getLogger(DataManagerTest.class);
+import com.bizleap.hr.loader.impl.test.ServiceTest;
+
+public class DataManagerTest extends ServiceTest {
+	private Logger logger = Logger.getLogger(DataManagerTest.class);
+
+	@Autowired
+	DataManager dataManager;
+
+	@Autowired
+	ErrorCollector errorCollector;
+
 	@Test
 	public void dataManagerTest() {
-		
-	DataManager dataManager= new DataManagerImpl();
 		dataManager.load();
-		//logger.info("Printing hashmap :"+dataManager.getErrorCollector().getErrorHashMap());
+		logger.info("Printing hashmap :" + errorCollector.getErrorHashMap());
 	}
 }

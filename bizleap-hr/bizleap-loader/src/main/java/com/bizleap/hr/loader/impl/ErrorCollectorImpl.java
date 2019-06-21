@@ -3,41 +3,40 @@ package com.bizleap.hr.loader.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.bizleap.commons.domain.entity.ErrorCollection;
-import com.bizleap.hr.loader.DataManager;
+import org.springframework.stereotype.Service;
+
+import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.ErrorCollector;
 
-public class ErrorCollectorImpl implements ErrorCollector{
-public Map<Integer,ErrorCollection> errorMap;
+@Service
+public class ErrorCollectorImpl implements ErrorCollector {
 
-	public ErrorCollectorImpl() {
-		
-	}
-	
-	public Map<Integer, ErrorCollection> getErrorHashMap() {
+	private Map<Integer, Error> errorMap;
+
+	public Map<Integer, Error> getErrorHashMap() {
 		return errorMap;
 	}
-	
-	public void setErrorHashMap(Map<Integer, ErrorCollection> errorHashMap) {
+
+	public void setErrorHashMap(Map<Integer, Error> errorHashMap) {
 		this.errorMap = errorHashMap;
 	}
 
-	
-public void handleLoadingError(int indexNumber, int lineNumber, String message, Object source) {
-	System.out.println("Index in Loading Error"+indexNumber);
-	ErrorCollection error= new ErrorCollection(indexNumber,source,message);
-	if(errorMap == null){
-		errorMap = new HashMap<Integer, ErrorCollection>();
+	public void insertError(int index, Error error) {
+		if (errorMap == null) {
+			errorMap = new HashMap<Integer, Error>();
+		}
+		errorMap.put(index, error);
 	}
-	errorMap.put(indexNumber,error);
-}
 
-public void handleLinkedError(int indexNumber, String message, Object source) {
-	System.out.println("Index in Linked Error"+indexNumber);
-	ErrorCollection error= new ErrorCollection(source,message);
-	if(errorMap == null){
-		errorMap = new HashMap<Integer, ErrorCollection>();
+	public void handleLoadingError(int index, int lineNumber, String message, Object source) {
+		insertError(index, new Error(lineNumber, source, message));
 	}
-	errorMap.put(indexNumber,error);
-}
+
+	public void handleLinkedError(int index, String message, Object source) {
+		insertError(index, new Error(source, message));
+	}
+
+	public boolean hasError() {
+		return errorMap != null && !errorMap.isEmpty();
+	}
 }

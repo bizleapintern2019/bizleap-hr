@@ -1,89 +1,66 @@
 package com.bizleap.hr.loader.impl;
 
-import java.util.Map;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorCollector;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.ErrorCollection;
 
-public class AssociationMapperImpl implements AssociationMapper{
+@Service
+public class AssociationMapperImpl implements AssociationMapper {
+	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
+
+	@Autowired
 	private DataManager dataManager;
-	//private Map<Integer, ErrorCollection> errorHashMap;
-	ErrorCollector errorCollector;
-	int lineNumber=0;
-	
-	public AssociationMapperImpl() {
-	}
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager=dataManager;
-	}
-	public AssociationMapperImpl(DataManager dataManager,ErrorCollector errorCollector) {
-		this.dataManager=dataManager;
-		this.errorCollector=errorCollector;
-	}
-	
-	
-	public ErrorCollector getErrorCollector() {
-		return errorCollector;
-	}
 
-	public void setErrorCollector(ErrorCollector errorCollector) {
-		this.errorCollector = errorCollector;
-	}
+	@Autowired
+	private ErrorCollector errorCollector;
 
-	public DataManager getDataManager() {
-		return dataManager;
-	}
+	@Autowired
+	private DataLoader dataLoader;
 
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-	
+	private int lineNumber = 0;
+
 	private void addEmployeesToCompany(Company company) {
-		for(Employee employee:dataManager.getEmployeeList()){
-			if(employee.getWorkFor().isEqual(company.getBoId())) {
+		for (Employee employee : dataManager.getEmployeeList()) {
+			if (company.sameBoId(employee.getWorkFor())) {
 				company.addEmployee(employee);
 			}
 		}
 	}
 
-	
 	private void setUpCompanyAssociations() {
-		for(Company company:dataManager.getCompanyList()){
+		for (Company company : dataManager.getCompanyList()) {
 			addEmployeesToCompany(company);
-		}	
+		}
 	}
-	
+
 	private void addCompanyToEmployee(Employee employee) {
-		for(Company company:dataManager.getCompanyList()){
-			if(company.sameBoId(employee.getWorkFor())){
+		for (Company company : dataManager.getCompanyList()) {
+			if (company.sameBoId(employee.getWorkFor())) {
 				employee.setWorkFor(company);
 				return;
 			}
 		}
-		lineNumber=dataManager.getDataLoader().getIndex();
-		errorCollector.handleLinkedError(lineNumber,"Company in employee cannot be linked.", employee);
+		lineNumber = dataLoader.getIndex();
+		errorCollector.handleLinkedError(lineNumber, "Company and employee cannot be linked.", employee);
 		lineNumber++;
-		dataManager.getDataLoader().setIndex(lineNumber);
+		dataLoader.setIndex(lineNumber);
 	}
-	
-	
+
 	private void setUpEmployeeAssociations() {
-		for(Employee employee:dataManager.getEmployeeList()) {
+		for (Employee employee : dataManager.getEmployeeList()) {
 			addCompanyToEmployee(employee);
-			
 		}
 	}
-	
+
 	public void setUpAssociations() {
 		setUpCompanyAssociations();
 		setUpEmployeeAssociations();
-	}
-
-	public Map<Integer, ErrorCollection> getErrorHashMap() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

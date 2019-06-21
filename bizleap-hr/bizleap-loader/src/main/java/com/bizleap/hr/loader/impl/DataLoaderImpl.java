@@ -1,34 +1,37 @@
 package com.bizleap.hr.loader.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.ErrorCollection;
+import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorCollector;
 import com.bizleap.hr.loader.FileLoader;
 
+@Service
 public class DataLoaderImpl implements DataLoader {
-	FileLoader fileLoader= new FileLoaderImpl();
-	private DataManager dataManager;
-	ErrorCollector errorCollector;
-	public Map<Integer,ErrorCollection> errorHashMap;
-	public int index =1;
 
-	public DataLoaderImpl(ErrorCollector errorCollector) {
-		this.errorCollector = errorCollector;
-	}
+	@Autowired
+	private FileLoader fileLoader;
 
-	public Map<Integer, ErrorCollection> getErrorHashMap() {
+	@Autowired
+	private ErrorCollector errorCollector;
+
+	public Map<Integer, Error> errorHashMap;
+	public int index = 1;
+
+	public Map<Integer, Error> getErrorHashMap() {
 		return errorHashMap;
 	}
 
-	public void setErrorHashMap(Map<Integer, ErrorCollection> errorHashMap) {
+	public void setErrorHashMap(Map<Integer, Error> errorHashMap) {
 		this.errorHashMap = errorHashMap;
 	}
 
@@ -42,23 +45,24 @@ public class DataLoaderImpl implements DataLoader {
 
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("D://Emp.txt");
-		String dataLine="";
-		List<Employee> employeeList= new ArrayList<Employee>();
+		String dataLine = "";
+		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee = null;
-		while(fileLoader.hasMore()) {
+		while (fileLoader.hasMore()) {
 			try {
-				dataLine=fileLoader.getLine();
-				/*if(dataLine.startsWith("#")){
-					if(fileLoader.hasMore())
-					dataLine=fileLoader.getLine();
-				}*/
+				dataLine = fileLoader.getLine();
+				/*
+				 * if(dataLine.startsWith("#")){ if(fileLoader.hasMore())
+				 * dataLine=fileLoader.getLine(); }
+				 */
 				employee = Employee.parseEmployee(dataLine);
-				if(employee != null){
+				if (employee != null) {
 					employeeList.add(employee);
 				}
-			}catch (Exception e) {
-				errorCollector.handleLoadingError(index,fileLoader.getLineNumber(),"Employee file loading.",dataLine);
-				//System.out.println(index);
+			} catch (Exception e) {
+				errorCollector.handleLoadingError(index, fileLoader.getLineNumber(), "Employee file loading.",
+						dataLine);
+				// System.out.println(index);
 				index++;
 			}
 		}
@@ -68,51 +72,28 @@ public class DataLoaderImpl implements DataLoader {
 
 	public List<Company> loadCompany() throws Exception {
 		fileLoader.start("D://Com.txt");
-		String dataLine="";
-		List<Company> companyList= new ArrayList<Company>();
-		Company company=null;
-		while(fileLoader.hasMore()) {
+		String dataLine = "";
+		List<Company> companyList = new ArrayList<Company>();
+		Company company = null;
+		while (fileLoader.hasMore()) {
 			try {
-				dataLine=fileLoader.getLine();
-				/*if(dataLine.startsWith("#")){
-					if(fileLoader.hasMore())
-					dataLine=fileLoader.getLine();
-				}*/
+				dataLine = fileLoader.getLine();
+				/*
+				 * if(dataLine.startsWith("#")){ if(fileLoader.hasMore())
+				 * dataLine=fileLoader.getLine(); }
+				 */
 				company = Company.parseCompany(dataLine);
-				if(company != null){
+				if (company != null) {
 					companyList.add(company);
 				}
-			}catch (Exception e) {
-				errorCollector.handleLoadingError(index,fileLoader.getLineNumber(),"Company file loading.",dataLine);
+			} catch (Exception e) {
+				errorCollector.handleLoadingError(index, fileLoader.getLineNumber(), "Company file loading.", dataLine);
 				index++;
-				
 			}
 		}
 		fileLoader.finish();
 		return companyList;
 	}
-
-//	public void handleLoadingError(int indexNumber, int lineNumber, String message, Object source) {
-//		System.out.println("Index in Loading Error"+index);
-//		ErrorCollection error= new ErrorCollection(indexNumber,source,message);
-//		if(errorHashMap == null){
-//			errorHashMap = new HashMap<Integer, ErrorCollection>();
-//		}
-//		errorHashMap.put(index,error);
-//		
-//	}
-//
-//	public void handleLinkedError(int indexNumer, String message, Object source) {
-//		System.out.println("Index in Linked Error"+index);
-//		
-//		ErrorCollection error= new ErrorCollection(source,message);
-//		if(errorHashMap == null){
-//			errorHashMap = new HashMap<Integer, ErrorCollection>();
-//		}
-//		
-//		errorHashMap.put(index,error);
-//		
-//	}
 
 	public ErrorCollector getErrorCollection() {
 		return errorCollector;
@@ -120,7 +101,6 @@ public class DataLoaderImpl implements DataLoader {
 
 	public void setErrorCollection(ErrorCollector errorCollection) {
 		// TODO Auto-generated method stub
-		
+		this.errorCollector = errorCollection;
 	}
-
 }
