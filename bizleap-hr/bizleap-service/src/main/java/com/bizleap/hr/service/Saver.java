@@ -1,4 +1,4 @@
-package com.bizleap.service;
+package com.bizleap.hr.service;
 
 import java.util.List;
 

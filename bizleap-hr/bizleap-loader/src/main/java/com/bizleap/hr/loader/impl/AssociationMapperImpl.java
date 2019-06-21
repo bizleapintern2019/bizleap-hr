@@ -5,39 +5,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
 
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
-
+    
+	@Autowired
 	private DataManager dataManager;
+	
 	private Map<Integer, Error> errorMap;
 	private List<Integer> lineNumbers = new ArrayList<Integer>();
 	private int i=0;
 	private int index=0;
 
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
 
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-
-	public Map<Integer, Error> getLinkedErrorMap() {
+	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
 	}
 
-	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap) {
-		this.errorMap = errorHashMap;
-
+	public void setErrorMap(HashMap<Integer, Error> errorMap) {
+		this.errorMap = errorMap;
 	}
 
 	private void addEmployeesToCompany(Company company) {
@@ -84,9 +78,5 @@ public class AssociationMapperImpl implements AssociationMapper {
 			errorMap = new HashMap<Integer, Error>();
 
 		errorMap.put(index++, new Error(lineNumber, source, message));
-	}
-	
-	public boolean hasError() {
-		return errorMap != null && !errorMap.isEmpty();
 	}
 }

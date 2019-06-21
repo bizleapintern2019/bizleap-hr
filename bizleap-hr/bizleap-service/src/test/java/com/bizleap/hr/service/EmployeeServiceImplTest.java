@@ -4,8 +4,8 @@ import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
-import com.bizleap.service.impl.EmployeeServiceImpl;
+import com.bizleap.hr.service.EmployeeService;
+import com.bizleap.hr.service.impl.EmployeeServiceImpl;
 
 public class EmployeeServiceImplTest {
 	

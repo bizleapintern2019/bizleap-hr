@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
@@ -11,17 +14,18 @@ import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.FileLoader;
 
+@Service
 public class DataLoaderImpl implements DataLoader {
 
-	FileLoader fileLoader;
-	DataManager dataManager = new DataManagerImpl();
+	@Autowired
+	private FileLoader fileLoader;
+	
+	@Autowired
+	private DataManager dataManager;
+	
 	private Map<Integer, Error> errorMap;
 	private int index = 0;
-	
-	public DataLoaderImpl(FileLoader fileLoader) {
-		this.fileLoader = fileLoader;
-	}
-	
+
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("E:\\git note\\Employee.txt");
 		String line = null;
@@ -67,7 +71,7 @@ public class DataLoaderImpl implements DataLoader {
 		errorMap.put(index++, new Error(lineNumber, source, message));
 	}
 
-	public Map<Integer, Error> getFileError() {
+	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
 	}
 }

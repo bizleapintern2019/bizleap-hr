@@ -3,8 +3,8 @@ package com.bizleap.hr.service;
 import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
-import com.bizleap.service.CompanyService;
-import com.bizleap.service.impl.CompanyServiceImpl;
+import com.bizleap.hr.service.CompanyService;
+import com.bizleap.hr.service.impl.CompanyServiceImpl;
 
 public class CompanyServiceImplTest {
 	CompanyService companyService = new CompanyServiceImpl();
