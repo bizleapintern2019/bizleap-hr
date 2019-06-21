@@ -1,14 +1,16 @@
 package com.bizleap.service.impl;
 
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
+import com.bizleap.service.EmployeeServiceJDBC;
 import com.bizleap.service.JDBCService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import org.springframework.stereotype.Service;
 
-public class EmployeeServiceImpl implements EmployeeService {
+@Service
+public class EmployeeServiceJDBCImpl implements EmployeeServiceJDBC {
 
-	JDBCService jdbcService = new JDBCServiceImpl();
+	private JDBCService jdbcService = new JDBCServiceImpl();
 
 	@Override
 	public void saveEmployee(Employee employee) {

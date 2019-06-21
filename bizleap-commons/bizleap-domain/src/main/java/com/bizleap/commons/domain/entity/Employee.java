@@ -18,11 +18,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Employee extends Entity {
+@Entity
+@Table(name = "employee")
+public class Employee extends AbstractEntity {
 
+	@ManyToOne
+	@JoinColumn(name="companyId")
+	private Company workFor;
+	
 	private String firstName;
 	private String lastName;
 	private int age;
@@ -30,7 +41,6 @@ public class Employee extends Entity {
 	private int salary;
 	private String email;
 	private String phone;
-	private Company workFor;
 	private static List<Integer> lineNumbers;
 
 	public Employee(String boid){

@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
@@ -13,34 +14,25 @@ import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
 
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
-
+	
+	//private Logger logger = Logger.getLogger(DataManagerImpl.class);
+	
+	@Autowired
 	private DataManager dataManager;
+	
 	private Map<Integer, Error> errorMap;
 	private List<Integer> lineNumbers = new ArrayList<Integer>();
-	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
-	private int i=0;
-	private int index=0;
+	private int i = 0;
+	private int index = 0;
 
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-
-	public Map<Integer, Error> getAssociateErrorMap() {
+	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
 	}
 
-	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap) {
-		this.errorMap = errorHashMap;
-
+	public void setErrorMap(Map<Integer, Error> errorMap) {
+		this.errorMap = errorMap;
 	}
 
 	private void addEmployeesToCompany(Company company) {
@@ -53,7 +45,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpCompanyAssociation() {
 		for (Company company : dataManager.getCompanyList()) {
 			addEmployeesToCompany(company);
-			 logger.info(company);
+			//logger.info(company);
 		}
 	}
 
@@ -72,7 +64,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpEmployeeAssociation() {
 		for (Employee employee : dataManager.getEmployeesList()) {
 			addCompanyToEmployee(employee);
-			// System.out.println(employee);
+			//logger.info(employee);
 		}
 	}
 
@@ -87,9 +79,5 @@ public class AssociationMapperImpl implements AssociationMapper {
 			errorMap = new HashMap<Integer, Error>();
 
 		errorMap.put(index++, new Error(lineNumber, source, message));
-	}
-	
-	public boolean hasError() {
-		return errorMap != null && !errorMap.isEmpty();
 	}
 }

@@ -1,8 +1,7 @@
 package com.bizleap.hr.loader;
 
-import java.util.HashMap;
-import java.util.Map;
 
+import java.util.Map;
 import com.bizleap.commons.domain.entity.Error;
 
 public interface AssociationMapper {
@@ -10,9 +9,7 @@ public interface AssociationMapper {
 
 	public void handleLinkedError(int lineNumber,String message, Object source);
 	
-	public void setErrorHashMap(HashMap<Integer, Error> errorHashMap);
+	public void setErrorMap(Map<Integer, Error> errorHashMap);
 	
-	public Map<Integer, Error> getAssociateErrorMap();
-	
-	public boolean hasError();
+	public Map<Integer, Error> getErrorMap();
 }
