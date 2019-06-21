@@ -14,9 +14,18 @@ John Mark -- works for Adobe
 */
 package com.bizleap.commons.domain.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.StringTokenizer;
 
+@Entity
+@Table(name = "employee")
 public class Employee extends AbstractEntity {
+
+    @ManyToOne
+    @JoinColumn(name="companyId")
     private Company workForCompany;
 
     public Company getWorkForCompany() {

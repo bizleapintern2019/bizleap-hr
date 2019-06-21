@@ -14,7 +14,16 @@ John Mark -- works for Adobe
  by using the inheritance features of Java. 
 */
 
-public class AbstractEntity {
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
+public abstract class AbstractEntity {
+
+    @Id
+    @GeneratedValue
+    private long id;
     private String boId;
     private String name;
 

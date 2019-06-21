@@ -5,7 +5,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@Import({ RepositoryConfig.class })
+//@Import({ RepositoryConfig.class })
 @EnableScheduling
 @EnableAsync
 @EnableAspectJAutoProxy

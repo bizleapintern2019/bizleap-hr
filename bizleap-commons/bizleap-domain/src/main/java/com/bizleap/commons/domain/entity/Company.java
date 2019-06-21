@@ -14,11 +14,16 @@ John Mark -- works for Adobe
 */
 package com.bizleap.commons.domain.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "company")
 public class Company extends AbstractEntity {
     private String ceo;
+
+    @OneToMany( mappedBy="workForCompany", fetch= FetchType.EAGER, cascade= CascadeType.ALL)
     private List<Employee> employeeList;
 
     public Company() {

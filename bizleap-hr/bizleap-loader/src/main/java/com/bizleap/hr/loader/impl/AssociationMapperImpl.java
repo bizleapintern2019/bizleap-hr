@@ -45,9 +45,8 @@ public class AssociationMapperImpl implements AssociationMapper {
     }
 
     public void setUpAssociations() {
-        logger.info("Calling setup associations");
-//        setUpCompanyAssociations();
-//        setUpEmployeeAssociations();
+        setUpCompanyAssociations();
+        setUpEmployeeAssociations();
     }
 
     public void handleLinkageError(String message, Object source) {
