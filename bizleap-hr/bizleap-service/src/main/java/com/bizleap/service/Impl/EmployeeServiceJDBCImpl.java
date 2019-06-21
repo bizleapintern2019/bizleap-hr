@@ -1,15 +1,19 @@
 package com.bizleap.service.Impl;
 
 import java.sql.SQLException;
+
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
+import com.bizleap.service.EmployeeServiceJDBC;
 import com.bizleap.service.JDBCService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class EmployeeServiceImpl implements EmployeeService {
+@Service
+public class EmployeeServiceJDBCImpl implements EmployeeServiceJDBC {
 
-	JDBCService jdbcService = new JDBCServiceImpl();
+	private JDBCService jdbcService =new JDBCServiceImpl();
 
 	@Override
 	public void saveEmployee(Employee employee) {

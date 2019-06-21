@@ -4,47 +4,40 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
 
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
 
-	private DataManager dataManager;
-	private Map<Integer, Error> errorMap;
-	private List<Integer> lineNumbers = new ArrayList<Integer>();
-	private int i=0;
 	private Logger logger=Logger.getLogger(AssociationMapperImpl.class);
 	
-	public AssociationMapperImpl() {
+	@Autowired
+	private DataManager dataManager;
 	
-	}
+	private Map<Integer, Error> errorMap;
+	private List<Integer> lineNumbers =new ArrayList<Integer>();
+	private int i=0;
 	
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager=dataManager;
-	}
 	
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-	
-	public Map<Integer, Error> getErrorHashMap() {
+	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
 	}
 
-	public void setErrorHashMap(Map<Integer, Error> errorMap) {
+	public void setErrorMap(Map<Integer, Error> errorMap) {
 		this.errorMap = errorMap;
 	}
 	
 	private void addEmployeesToCompany(Company company) {
-		for(Employee employee:dataManager.getEmployeeList()){
+		for(Employee employee:dataManager.getEmployeeList()) {
 			if(company.sameBoId(employee.getWorkFor())) {
 				company.addEmployee(employee);
 			}
@@ -52,20 +45,19 @@ public class AssociationMapperImpl implements AssociationMapper {
 	}
 	
 	private void setUpCompanyAssociations() {
-		for(Company company:dataManager.getCompanyList()){
+		for(Company company:dataManager.getCompanyList()) {
 			addEmployeesToCompany(company);
-			System.out.println(company);
+			logger.info(company);
 		}	
 	}
 	
 	private void addCompanyToEmployee(Employee employee) {
-		for(Company company:dataManager.getCompanyList()){
-			if(company.boIdIsEqual(employee.getWorkFor().getBoId())){
+		for(Company company:dataManager.getCompanyList()) {
+			if(company.boIdIsEqual(employee.getWorkFor().getBoId())) {
 				employee.setWorkFor(company);
 				i++;
 				logger.info(employee);
 				return;
-				
 			}
 		}
 		handleLinkedError(lineNumbers.get(i),"Company in employee cannot be linked.", employee);
@@ -90,6 +82,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		setUpCompanyAssociations();
 		setUpEmployeeAssociations();
 	}
+	
 
 	public void handleLinkedError(int lineNumber,String message, Object source) {
 //		System.out.println("--------------------------------------------------------------------------------------------");
@@ -101,8 +94,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 //		System.exit(0);
 		if (errorMap == null)
 			errorMap = new HashMap<Integer, Error>();
-
-		Error error = new Error(lineNumber, source, message);
-		errorMap.put(lineNumber, error);
+		errorMap.put(lineNumber,new Error(lineNumber, source, message));
 	}
 }

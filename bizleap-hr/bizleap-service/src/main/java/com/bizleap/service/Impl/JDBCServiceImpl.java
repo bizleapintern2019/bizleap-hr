@@ -3,9 +3,12 @@ package com.bizleap.service.Impl;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Service;
+
 import com.bizleap.service.JDBCService;
 import java.sql.Connection;
 
+@Service
 public class JDBCServiceImpl implements JDBCService{
 
 	@Override

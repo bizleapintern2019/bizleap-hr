@@ -2,14 +2,14 @@ package com.bizleap.hr.service;
 import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
-import com.bizleap.service.CompanyService;
-import com.bizleap.service.Impl.CompanyServiceImpl;
+import com.bizleap.service.CompanyServiceJDBC;
+import com.bizleap.service.Impl.CompanyServiceJDBCImpl;
 
 
-public class CompanyServiceImplTest {
+public class CompanyServiceJDBCImplTest {
 
-	CompanyService companyService=new CompanyServiceImpl();
-	@Test
+	CompanyServiceJDBC companyService=new CompanyServiceJDBCImpl();
+	//@Test
 	public void testSavingEmployee() {
 		Company company=new Company("COM001");
 		company.setAddress("ads");

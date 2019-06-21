@@ -12,24 +12,35 @@ John Mark -- works for Adobe
 2) Find out what commonality do the two entity classes have and reimplement it
  by using the inheritance features of Java. 
 */
+
 package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Company extends Entity {
+@Entity
+@Table(name="company")
+public class Company extends AbstractEntity {
 
+	@OneToMany(mappedBy="workFor", fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+	private List<Employee> employeeList=new ArrayList<Employee>();
+	
 	private String companyName;
 	private String address;
 	private String phone;
 	private String email;
 	private String ceo;
-	private List<Employee> employeeList;
-
+	
 	Company() {
 		super();
 	}
@@ -56,7 +67,7 @@ public class Company extends Entity {
 	}
 
 	public void addEmployee(Employee employee) {
-		if(employeeList == null){
+		if(employeeList == null) {
 			employeeList = new ArrayList<Employee>();
 		}
 		employeeList.add(employee);

@@ -1,60 +1,91 @@
 package com.bizleap.hr.loader.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.CompanySaver;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
-import com.bizleap.service.Saver;
-import com.bizleap.service.Impl.SaverImpl;
+import com.bizleap.service.SaverJDBC;
+import com.bizleap.commons.domain.entity.Error;
+import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
+@Service
 public class DataManagerImpl implements DataManager {
+
+	private Logger logger = Logger.getLogger(DataManagerImpl.class);
 	
-	private List<Employee> employeeList=new ArrayList<Employee>();
-	private List<Company> companyList=new ArrayList<Company>();
-	private Logger logger=Logger.getLogger(DataManagerImpl.class);
+	@Autowired
+	private AssociationMapper associationMapper;
 	
+	@Autowired
+	private DataLoader dataLoader;
+	
+//	@Autowired
+//	private SaverJDBC saver;
+	
+	@Autowired
+	CompanySaver companySaver;
+	
+	private List<Employee> employeeList = new ArrayList<Employee>();
+	private List<Company> companyList = new ArrayList<Company>();
+	
+
 	public List<Employee> getEmployeeList() {
 		return employeeList;
 	}
-	
+
 	public List<Company> getCompanyList() {
 		return companyList;
 	}
-	
-	public void loadData() throws Exception {
-		DataLoader dataLoader = new DataLoaderImpl();
+
+	private void reportError(Map<Integer, Error> map) {
+		if (map != null && !map.isEmpty()) {
+			logger.info("\t\t\t Error \n" + map);
+			System.exit(0);
+		}
+	}
+
+	private void loadData() throws Exception {
 		employeeList = dataLoader.loadEmployee();
 		companyList = dataLoader.loadCompany();
-		if(dataLoader.getFileError()!=null) {
-			logger.info("\t\t\t\t\t\tFileErrorr\n "+dataLoader.getFileError());
-			System.exit(0);
+		reportError(dataLoader.getErrorMap());
+	}
+
+	private void associateData() {
+		associationMapper.setUpAssociations();
+		reportError(associationMapper.getErrorMap());
+	}
+
+//	private void saveData() {
+//		saver.saveCompanies(companyList);
+//		saver.saveEmployees(employeeList);
+//	}
+	private void saveData() {
+		companySaver.setCompanyList(companyList);
+		try {
+			companySaver.savePass1();
+		} catch (ServiceUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-	
-	public void saveData() {
-		Saver saver=new SaverImpl();
-		saver.saveCompanies(companyList);
-		saver.saveEmployees(employeeList);
-	}
-	
-	public void associateData() {
-		AssociationMapper assocaiationMapper=new AssociationMapperImpl(this);
-		assocaiationMapper.setUpAssociations();
-		if(assocaiationMapper.getErrorHashMap()!=null) {
-			logger.info("\t\t\t Linked Error \n"+assocaiationMapper.getErrorHashMap());
-			System.exit(0);
-		}
-	}
-	
-	public void load() throws Exception {
+
+	public void load() throws Exception{
 		loadData();
 		associateData();
-		//saveData();
+		saveData();
 	}
 }

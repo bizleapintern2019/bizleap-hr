@@ -6,13 +6,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class FileLoaderImpl implements FileLoader {
+	
 	private BufferedReader bufferedReader;
 	private int lineCount = 0;
 	private String line = null;
 
 	public void start(String fileReader) throws Exception {
-		lineCount = 0;
+		lineCount = 1;
 		bufferedReader = new BufferedReader(new FileReader(fileReader));
 	}
 
