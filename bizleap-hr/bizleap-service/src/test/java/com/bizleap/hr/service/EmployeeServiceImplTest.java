@@ -4,12 +4,12 @@ import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.hr.service.EmployeeService;
-import com.bizleap.hr.service.impl.EmployeeServiceImpl;
+import com.bizleap.hr.service.EmployeeServiceJDBC;
+import com.bizleap.hr.service.impl.EmployeeServiceJDBCImpl;
 
 public class EmployeeServiceImplTest {
 	
-	EmployeeService employeeService = new EmployeeServiceImpl();
+	EmployeeServiceJDBC employeeServiceJDBC = new EmployeeServiceJDBCImpl();
 	
 	@Test
 	public void testSavingEmployee() {
@@ -26,6 +26,6 @@ public class EmployeeServiceImplTest {
 		
 		Company workFor = new Company("COM002");
 		employee.setWorkFor(workFor);
-		employeeService.saveEmployee(employee);
+		employeeServiceJDBC.saveEmployee(employee);
 	}
 }

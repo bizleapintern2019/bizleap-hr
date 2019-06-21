@@ -1,5 +1,6 @@
 package com.bizleap.hr.loader.impl;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -10,33 +11,38 @@ import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
+import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.CompanySaver;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorHandler;
-import com.bizleap.hr.service.Saver;
+//import com.bizleap.hr.service.SaverJDBC;
 
 @Service
 public class DataManagerImpl implements DataManager {
 
-	private Logger logger = Logger.getLogger(ErrorHandlerImpl.class);
+	private Logger logger = Logger.getLogger(DataManagerImpl.class);
 	
 	@Autowired
-	ErrorHandler errorHandler;
+	private ErrorHandler errorHandler;
 	
 	@Autowired
-	AssociationMapper associationMapper;
+	private AssociationMapper associationMapper;
 	
 	@Autowired
-	DataLoader dataLoader;
+	private DataLoader dataLoader;
 	
 	@Autowired
-	Saver saver;
+	private CompanySaver companySaver;
+	
+//	@Autowired
+//	private SaverJDBC saverJDBC;
 
-	List<Employee> employeeList;
-	List<Company> companyList;
+	private List<Employee> employeeList;
+	private List<Company> companyList;
 
-	public List<Employee> getEmployeeList(){
+	public List<Employee> getEmployeeList() {
 		return employeeList;
 	}
 
@@ -64,7 +70,6 @@ public class DataManagerImpl implements DataManager {
 	
 		employeeList = dataLoader.loadEmployee();
 		companyList = dataLoader.loadCompany();
-
 		reportError(errorHandler.getErrorMap());		
 	}
 
@@ -74,16 +79,34 @@ public class DataManagerImpl implements DataManager {
 		reportError(errorHandler.getErrorMap());
 	}
 
-	private void saveData() {
+	/*private void saveData() {
 		
-		saver.saveCompanies(companyList);
-		saver.saveEmployees(employeeList);
-	}
+		saverJDBC.saveCompanies(companyList);
+		saverJDBC.saveEmployees(employeeList);
+	}*/
+	
+	public void load() {
 
-	public void load() throws Exception{
-
-		loadData();
+		try {
+			loadData();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		associateData();
-		saveData();
+		
+		companySaver.setCompanyList(companyList);
+		
+		try {
+			companySaver.savePass1();
+		} 
+		catch (ServiceUnavailableException e) {
+			e.printStackTrace();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+//		saveData();
 	}
 }

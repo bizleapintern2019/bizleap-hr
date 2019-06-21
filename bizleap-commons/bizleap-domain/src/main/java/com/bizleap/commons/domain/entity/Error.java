@@ -4,7 +4,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class Error {
-
 	
 	private int lineNumber;
 	private Object source;
@@ -14,13 +13,11 @@ public class Error {
 		
 	}
 	
-	
 	public Error(Object source, String message) {
 		this.lineNumber = 0;
 		this.source = source;
 		this.message = message;
 	}
-
 
 	public Error(int lineNumber, Object source, String message) {
 		this.lineNumber = lineNumber;
@@ -52,7 +49,8 @@ public class Error {
 		this.message = message;
 	}
 
-	public static class Builder{
+	public static class Builder {
+		
 		String message;
 		Object source;
 		int lineNumber;
@@ -82,7 +80,7 @@ public class Error {
 		
 		String lineString = "";
 		
-		if(getLineNumber() != 0){
+		if(getLineNumber() != 0) {
 			lineString = " at line number " + getLineNumber();
 		}
 		

@@ -7,28 +7,28 @@ import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.hr.service.CompanyService;
-import com.bizleap.hr.service.EmployeeService;
-import com.bizleap.hr.service.Saver;
+import com.bizleap.hr.service.CompanyServiceJDBC;
+import com.bizleap.hr.service.EmployeeServiceJDBC;
+import com.bizleap.hr.service.SaverJDBC;
 
 @Service
-public class SaverImpl implements Saver{
+public class SaverJDBCImpl implements SaverJDBC{
 	
 	@Autowired
-	CompanyService companyService;
+	private CompanyServiceJDBC companyServiceJDBC;
 	
 	@Autowired
-	EmployeeService employeeService;
+	private EmployeeServiceJDBC employeeServiceJDBC;
 	
 	public void saveCompanies(List<Company> companies) {
 		
 		for(Company company : companies) 
-			companyService.saveCompany(company);
+			companyServiceJDBC.saveCompany(company);
 	}
 
 	public void saveEmployees(List<Employee> employees) {
 
 		for(Employee employee : employees)
-			employeeService.saveEmployee(employee);
+			employeeServiceJDBC.saveEmployee(employee);
 	}
 }

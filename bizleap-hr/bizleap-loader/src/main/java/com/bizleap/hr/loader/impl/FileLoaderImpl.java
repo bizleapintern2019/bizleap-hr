@@ -14,10 +14,6 @@ public class FileLoaderImpl implements FileLoader {
 	private String dataLine = "";
 	private int lineNumber;
 
-	public FileLoaderImpl() {	
-		
-	}
-
 	public void start(String filePath) throws Exception {
 		lineNumber = 0;
 		dataReader = new BufferedReader(new FileReader(filePath));

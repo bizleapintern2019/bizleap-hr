@@ -14,14 +14,14 @@ import com.bizleap.hr.loader.FileLoader;
 
 @Service
 public class DataLoaderImpl implements DataLoader {
-	
+
 	@Autowired
-	FileLoader fileLoader;
-	
+	private FileLoader fileLoader;
+
 	@Autowired
-	ErrorHandler errorHandler;
-	
-	int index = 0;
+	private ErrorHandler errorHandler;
+
+	private int index = 0;
 
 	public int getIndex() {
 		return index;
@@ -54,8 +54,8 @@ public class DataLoaderImpl implements DataLoader {
 				if(employee != null){
 					employeeList.add(employee);
 				}
-
 			}
+			
 			catch (Exception e) {
 				errorHandler.handleLoadingError(++index, fileLoader.getLineNumber(), "Employee file loading.", dataLine);
 			}
@@ -87,8 +87,8 @@ public class DataLoaderImpl implements DataLoader {
 				if(company != null) {
 					companyList.add(company);
 				}
-
 			}
+			
 			catch (Exception e) {
 				errorHandler.handleLoadingError(++index, fileLoader.getLineNumber(), "Company file loading.", dataLine);
 			}

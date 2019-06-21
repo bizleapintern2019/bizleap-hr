@@ -4,12 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Company extends Entity {
+@Entity
+@Table(name = "company")
+public class Company extends AbstractEntity {
 
 	private String companyName, address, phone, email, ceo;
+	
+	@OneToMany(mappedBy="workFor", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Employee> employeeList;
 
 	public Company() {
@@ -86,14 +96,14 @@ public class Company extends Entity {
 		this.ceo = ceo;
 	}
 
-	public boolean boIdIsEqual(String boId){
+	public boolean boIdIsEqual(String boId) {
 		return super.getBoId().equals(boId);
 	}
 
 	public static class Builder {
 		private String boId,companyName, address, phone, email, ceo;
 
-		public Builder(){
+		public Builder() {
 
 		}
 
@@ -144,6 +154,7 @@ public class Company extends Entity {
 		phone = tokenizer.nextToken();
 		email = tokenizer.nextToken();
 		ceo = tokenizer.nextToken();
+		
 		return new Company.Builder().setAddress(address)
 				.setBoId(boId)
 				.setCeo(ceo)

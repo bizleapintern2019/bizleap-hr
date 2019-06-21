@@ -1,6 +1,5 @@
 package com.bizleap.hr.loader.impl;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +11,15 @@ import com.bizleap.hr.loader.ErrorHandler;
 
 @Service
 public class AssociationMapperImpl implements AssociationMapper {
-	
-	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
-	
+
 	@Autowired
 	private DataManager dataManager;
-	
+
 	@Autowired
-	ErrorHandler errorHandler;
-	
-	int index = 0;	
-	
+	private ErrorHandler errorHandler;
+
+	private int index = 0;	
+
 	public int getIndex() {
 		return index;
 	}
@@ -30,10 +27,10 @@ public class AssociationMapperImpl implements AssociationMapper {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
+
 	private void addEmployeesToCompany(Company company) {
 
-		for(Employee employee : dataManager.getEmployeeList()){
+		for(Employee employee : dataManager.getEmployeeList()) {
 
 			if(company.sameBoId(employee.getWorkFor())) {
 				company.addEmployee(employee);
@@ -42,18 +39,17 @@ public class AssociationMapperImpl implements AssociationMapper {
 	}
 
 	private void setUpCompanyAssociations() {
-		for(Company company : dataManager.getCompanyList()){
 
+		for(Company company : dataManager.getCompanyList()) {
 			addEmployeesToCompany(company);
-			logger.info(company);
 		}	
 	}
 
 	private void addCompanyToEmployee(Employee employee) {
-		
-		for(Company company : dataManager.getCompanyList()){
 
-			if(company.isEqual(employee.getWorkForBoId())){
+		for(Company company : dataManager.getCompanyList()) {
+
+			if(company.isEqual(employee.getWorkForBoId())) {
 				employee.setWorkFor(company);
 				return; 
 			}
@@ -64,9 +60,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpEmployeeAssociations() {
 
 		for(Employee employee : dataManager.getEmployeeList()) {
-
 			addCompanyToEmployee(employee);
-			logger.info(employee);
 		}
 	}
 
