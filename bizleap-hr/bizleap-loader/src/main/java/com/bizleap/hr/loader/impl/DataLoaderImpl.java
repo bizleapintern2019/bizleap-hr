@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.LoadingError;
@@ -18,13 +17,13 @@ import com.bizleap.hr.loader.FileLoader;
 @Service
 public class DataLoaderImpl implements DataLoader {
 	@Autowired
-	FileLoader fileLoader;
+	private FileLoader fileLoader;
 	
 	@Autowired
-	ErrorHandler errorHandler;
+	private ErrorHandler errorHandler;
 	
-	public Map<Integer, LoadingError> errorMap = new HashMap<>();
-	public int index = 1;
+	private Map<Integer, LoadingError> errorMap = new HashMap<>();
+	private int index = 1;
 	
 	public Map<Integer, LoadingError> getErrorMap() {
 		return errorMap;
@@ -45,14 +44,12 @@ public class DataLoaderImpl implements DataLoader {
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("D:\\San Thinzar Linn\\Bizleap\\EmployeeData.txt");
 		String dataLine = "";
-		//		String lineNumber = "";
 		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee = null;
 
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-//				lineNumber=fileLoader.getLineNumber() + "";
 
 				if(dataLine.startsWith("#")) {
 					if(fileLoader.hasMore())
@@ -75,14 +72,12 @@ public class DataLoaderImpl implements DataLoader {
 	public List<Company> loadCompany() throws Exception {
 		fileLoader.start("D:\\San Thinzar Linn\\Bizleap\\CompanyData.txt");
 		String dataLine = "";
-//		String lineNumber = "";
 		List<Company> companyList = new ArrayList<Company>();
 		Company company = null;
 
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				//				lineNumber=fileLoader.getLineNumber() + "";
 
 				if(dataLine.startsWith("#")) {
 					if(fileLoader.hasMore())

@@ -13,6 +13,6 @@ public interface DataManager {
 	public List<Company> getCompanyList();
 	public Map<Integer,LoadingError> getErrorMap();
 	public void setErrorMap(Map<Integer,LoadingError> errorMap);
-	public void saveData();
+//	public void saveData();
 	public void load();
 }

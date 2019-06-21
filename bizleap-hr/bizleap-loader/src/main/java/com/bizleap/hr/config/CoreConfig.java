@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Import;
 @Import({ AppConfig.class })
 @ComponentScan(basePackages = {
 		"com.bizleap.commons",
-		"com.bizleap.hr",
-		"com.bizleap.service"
+		"com.bizleap.hr"
 })
 public class CoreConfig {
 

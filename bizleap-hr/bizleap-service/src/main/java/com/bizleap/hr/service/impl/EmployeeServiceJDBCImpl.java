@@ -1,4 +1,4 @@
-package com.bizleap.service.impl;
+package com.bizleap.hr.service.impl;
 
 import java.sql.SQLException;
 
@@ -6,16 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
-import com.bizleap.service.JDBCService;
+import com.bizleap.hr.service.EmployeeServiceJDBC;
+import com.bizleap.hr.service.JDBCService;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceJDBCImpl implements EmployeeServiceJDBC {
 
 	@Autowired
-	JDBCService jdbcservice;
+	private JDBCService jdbcservice;
 	
 	@Override
 	public void saveEmployee(Employee employee) {

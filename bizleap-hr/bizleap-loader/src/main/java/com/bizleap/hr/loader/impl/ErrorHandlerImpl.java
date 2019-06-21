@@ -2,16 +2,13 @@ package com.bizleap.hr.loader.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.stereotype.Service;
-
 import com.bizleap.commons.domain.entity.LoadingError;
 import com.bizleap.hr.loader.ErrorHandler;
 
 @Service
 public class ErrorHandlerImpl implements ErrorHandler {
-
-	public Map<Integer,LoadingError> errorMap;
+	private Map<Integer,LoadingError> errorMap;
 
 	public ErrorHandlerImpl() {
 		

@@ -1,8 +1,5 @@
 package com.bizleap.hr.loader.impl;
 
-import javax.persistence.AttributeOverride;
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Company;
@@ -14,18 +11,17 @@ import com.bizleap.hr.loader.ErrorHandler;
 
 @Service
 public class AssociationMapperImpl implements AssociationMapper {
-	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
 	
 	@Autowired
-	DataManager dataManager;
+	private DataManager dataManager;
 	
 	@Autowired
-	DataLoader dataLoader;
+	private DataLoader dataLoader;
 	
 	@Autowired
-	ErrorHandler errorHandler;
+	private ErrorHandler errorHandler;
 	
-	int lineNumber = 0;
+	private int lineNumber = 0;
 	
 	public ErrorHandler getErrorHandler() {
 		return errorHandler;

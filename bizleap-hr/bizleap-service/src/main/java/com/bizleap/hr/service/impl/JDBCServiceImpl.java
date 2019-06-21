@@ -1,11 +1,12 @@
-package com.bizleap.service.impl;
+package com.bizleap.hr.service.impl;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import org.springframework.stereotype.Service;
 
-import com.bizleap.service.JDBCService;
+import com.bizleap.hr.service.JDBCService;
+
 import java.sql.Connection;
 
 @Service
