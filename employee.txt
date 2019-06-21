@@ -1,0 +1,5 @@
+Alice,Kim,35,Product Manager,1500000,alicekim@gmail.com,0912233344,Apple
+
+Bob,Gillman,28,Administrator,1000000,bobgillman@gmail.com,09223334444,IBM
+
+John,Mark,45,Director,20000000,johnmark@gmail.com,09333444455,Adobe

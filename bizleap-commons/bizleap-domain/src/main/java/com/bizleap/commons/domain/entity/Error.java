@@ -10,13 +10,11 @@ public class Error {
 
 	public Error() {}
 
-
 	public Error(Object source, String message) {
 		this.lineNumber=0;
 		this.source = source;
 		this.message = message;
 	}
-
 
 	public Error(int lineNumber, Object source, String message) {
 		this.lineNumber = lineNumber;
@@ -48,7 +46,7 @@ public class Error {
 		this.message = message;
 	}
 
-	public static class Builder{
+	public static class Builder {
 		String message;
 		Object source;
 		int lineNumber;
@@ -83,5 +81,4 @@ public class Error {
 				.append("----------------------------------------------------------------------------------")
 				.build();
 	}
-
 }

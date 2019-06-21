@@ -7,5 +7,4 @@ import com.bizleap.commons.domain.entity.Error;
 public interface AssociationMapper {
 	public void setUpAssociations();
 	public HashMap<Integer, Error> getErrorMap();
-	public ErrorCollector getErrorCollector();
 }

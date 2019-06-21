@@ -1,0 +1,5 @@
+Apple,Inc. 1 Infinite Loop Cupertino:CA 95014,(800) 275-2273,apple@gmail.com,Tim Cook
+
+IBM,1 New Orchard Rd Armonk:New York 10504,(914)765-1900,ibm@gmail.com,Ginni Rometty
+
+Adobe,Inc. 345 Park Ave. San Jose:CA 95110-2704,(800) 833-6687,adobe@gmail.com,Shantanu Narayen

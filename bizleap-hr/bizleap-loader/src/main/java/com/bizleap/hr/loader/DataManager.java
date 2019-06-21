@@ -9,8 +9,6 @@ public interface DataManager {
 	public void loadData() throws Exception;
 	public List<Employee> getEmployeeList();
 	public List<Company> getCompanyList();
-	public DataLoader getDataLoader();
-	public void save();
+//	public void saveData();
 	public void load();
-	public ErrorCollector getErrorCollector();
 }

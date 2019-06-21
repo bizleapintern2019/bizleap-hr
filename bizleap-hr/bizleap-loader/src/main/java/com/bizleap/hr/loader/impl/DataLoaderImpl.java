@@ -5,26 +5,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.DataLoader;
-import com.bizleap.hr.loader.DataManager;
-import com.bizleap.hr.loader.ErrorCollector;
+import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.hr.loader.FileLoader;
 
-
+@Service
 public class DataLoaderImpl implements DataLoader {
 
-	FileLoader fileLoader= new FileLoaderImpl();
-	Map<Integer,Error> errorMap = new HashMap<>();
-    DataManager dataManager;
-	ErrorCollector errorCollector;
-	int index =0;
+	@Autowired
+	private FileLoader fileLoader;
 
-	public DataLoaderImpl(ErrorCollector errorCollector) {
-		this.errorCollector = errorCollector;
-	}
+	@Autowired
+	private ErrorHandler errorHandler;
+
+	private Map<Integer,Error> errorMap = new HashMap<>();
+
+
+	int index =0;
 
 	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
@@ -42,68 +45,6 @@ public class DataLoaderImpl implements DataLoader {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	
-	public ErrorCollector getErrorCollection() {
-		return errorCollector;
-	}
-
-	public void setErrorCollection(ErrorCollector errorCollection) {
-		// TODO Auto-generated method stub
-		
-	}
-
-//	@Override
-//	public void handleLoadingError(int lineNumber,String message, Object source) {
-//		index++;
-//		Error error= new Error(lineNumber,source,message);
-//		if(errorMap == null) {
-//			errorMap = new HashMap<Integer, Error>();
-//		}
-//		errorMap.put(index,error);
-////		setErrorMap(errorMap);
-//	}
-//
-//	public void handleLinkedError(String message, Object source) {
-//		index++;
-//
-//		Error error= new Error(source,message);
-//
-//		if(errorMap == null) {
-//			errorMap = new HashMap<Integer, Error>();
-//		}
-//		errorMap.put(index,error);
-////		setErrorMap(errorMap);
-//	}
-
-
-	public List<Employee> loadEmployee() throws Exception {
-		fileLoader.start("E:\\AAWE-1\\employee.txt");
-		String dataLine="";
-		List<Employee> employeeList= new ArrayList<Employee>();
-		Employee employee = null;
-		while(fileLoader.hasNext()) {
-			try {
-				dataLine=fileLoader.getLine();
-				if(dataLine.startsWith("#") ) {
-					if(fileLoader.hasNext())
-						dataLine=fileLoader.getLine();
-				}
-				if(dataLine.startsWith(" ")) {
-					return null;
-				}
-				employee = Employee.parseEmployee(dataLine);
-				if(employee != null) {
-					employeeList.add(employee);
-				}
-			}catch (Exception e) {
-				errorCollector.handleLoadingError(index,fileLoader.getLineNumber(),"Employee file loading.",dataLine);
-				index++;
-			}
-		}
-		fileLoader.finish();
-		return employeeList;
-	}
-
 
 	public List<Company> loadCompany() throws Exception {
 		fileLoader.start("E:\\AAWE-1\\company.txt");
@@ -125,7 +66,7 @@ public class DataLoaderImpl implements DataLoader {
 					companyList.add(company);
 				}
 			}catch (Exception e) {
-				errorCollector.handleLoadingError(index,fileLoader.getLineNumber(),"Company file loading.",dataLine);
+				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Company file loading.",dataLine);
 				index++;
 
 			}
@@ -133,7 +74,32 @@ public class DataLoaderImpl implements DataLoader {
 		fileLoader.finish();
 		return companyList;
 	}
-
-
-
+	
+	public List<Employee> loadEmployee() throws Exception {
+		fileLoader.start("E:\\AAWE-1\\employee.txt");
+		String dataLine="";
+		List<Employee> employeeList= new ArrayList<Employee>();
+		Employee employee = null;
+		while(fileLoader.hasNext()) {
+			try {
+				dataLine=fileLoader.getLine();
+				if(dataLine.startsWith("#") ) {
+					if(fileLoader.hasNext())
+						dataLine=fileLoader.getLine();
+				}
+				if(dataLine.startsWith(" ")) {
+					return null;
+				}
+				employee = Employee.parseEmployee(dataLine);
+				if(employee != null) {
+					employeeList.add(employee);
+				}
+			}catch (Exception e) {
+				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Employee file loading.",dataLine);
+				index++;
+			}
+		}
+		fileLoader.finish();
+		return employeeList;
+	}
 }

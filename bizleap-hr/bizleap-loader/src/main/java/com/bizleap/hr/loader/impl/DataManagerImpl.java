@@ -1,36 +1,46 @@
 package com.bizleap.hr.loader.impl;
 
+import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
+import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.CompanySaver;
 import com.bizleap.hr.loader.DataManager;
-import com.bizleap.hr.loader.ErrorCollector;
-import com.bizleap.service.Saver;
-import com.bizleap.service.impl.SaverImpl;
+import com.bizleap.hr.loader.ErrorHandler;
+//import com.bizleap.hr.service.SaverJDBC;
 
-
+@Service
 public class DataManagerImpl implements DataManager {
-	DataLoaderImpl dataLoader;
-	Map<Integer,Error> errorMap = new HashMap<Integer,Error>();
-	List<Employee> employeeList;
-	List<Company> companyList;
-	ErrorCollector errorCollector;
+	private Logger logger = Logger.getLogger(DataManagerImpl.class);
+
+	@Autowired
+	private DataLoaderImpl dataLoader;
+
+	@Autowired
+	private ErrorHandler errorHandler;
+
+	@Autowired
+	private AssociationMapper associationMapper;
+
+//	@Autowired
+//	private CompanySaver companySaver;
 	
-	public DataManagerImpl() {
-		errorCollector =new ErrorCollectorImpl();
-	}
+//	@Autowired
+//	private SaverJDBC saver;
 
-	public DataLoaderImpl getDataLoader() {
-		return dataLoader;
-	}
-
-	public void setDataLoader(DataLoaderImpl dataLoader) {
-		this.dataLoader = dataLoader;
-	}
+	private Map<Integer,Error> errorMap = new HashMap<Integer,Error>();
+	private List<Employee> employeeList;
+	private List<Company> companyList;
 
 	public List<Employee> getEmployeeList() {
 		return employeeList;
@@ -48,52 +58,61 @@ public class DataManagerImpl implements DataManager {
 		this.companyList=companyList;
 	}
 
+	public Map<Integer,Error> getErrorMap() {
+		return errorMap;
+	}
+
+	public void setErrorMap(Map<Integer,Error> errorMap) {
+		this.errorMap = errorMap;
+	}
+
 	public void loadData() {
 		try {
-			dataLoader = new DataLoaderImpl(errorCollector);
 			companyList = dataLoader.loadCompany();
 			employeeList = dataLoader.loadEmployee();
-
 		} catch (Exception ex) {
-			System.out.println(ex+"");
+			logger.error(ex);
 		}
 	}
 
-	@Override
-	public void save() {
-		Saver save = new SaverImpl();
-		
-		for(Company company: companyList) {
-			if(company != null) {
-				save.saveCompany(company);
-			}
-		}
-		
-		for(Employee employee: employeeList) {
-			if(employee != null) {
-				save.saveEmployee(employee);
-			}
-		}
+	public void associateData() {
+		if(!errorHandler.hasError())
+			 associationMapper.setUpAssociations();		
 	}
 	
-	public void associateData() {
-		if(!errorCollector.hasError()){
-		AssociationMapper associationMapper = new AssociationMapperImpl(this,errorCollector);
-		associationMapper.setUpAssociations();
-		return;
-		}
-		System.out.println("Error occurs.");
-	}
+//	JDBC saver method
+//	@Override
+//	public void saveData() {
+//		if(errorHandler.hasError())
+//			return;
+//
+//		for(Company company: getCompanyList()) {
+//			if(company != null) {
+//				saver.saveCompany(company);
+//			}
+//		}
+//
+//		for(Employee employee: getEmployeeList()) {
+//			if(employee != null) {
+//				saver.saveEmployee(employee);
+//			}
+//		}
+//	}
 
 	public void load() {
+		
 		loadData();
 		associateData();
-		if(!errorCollector.hasError())
-			save();
-	}
-
-	@Override
-	public ErrorCollector getErrorCollector() {
-		return errorCollector;
+//		companySaver.setCompanyList(companyList);
+//		try {
+//			companySaver.savePass1();
+//		} catch (ServiceUnavailableException e) {
+//			logger.error(e);
+//		} catch (IOException e) {
+//			logger.error(e);
+//		}
+//		saveData();
+		if(errorHandler.hasError())
+			logger.error("Errors: "+errorHandler.getErrorMap());
 	}
 }

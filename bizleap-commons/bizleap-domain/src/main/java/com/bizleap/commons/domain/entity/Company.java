@@ -19,10 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Company extends Entity {
+@Entity
+@Table(name = "company")
+public class Company extends AbstractEntity {
 
 	//	private String id;
 	private String name;
@@ -30,16 +38,18 @@ public class Company extends Entity {
 	private String phone;
 	private String email;
 	private String ceo;
+	
+	@OneToMany( mappedBy="workFor", fetch= FetchType.EAGER, cascade= CascadeType.ALL)
 	private List<Employee> employeeList ;
 
 	public Company() {
 	}
 	
-	public Company(String boId){
+	public Company(String boId) {
 		super(boId);
 	}
 	
-	public Company(String boId,String name, String address, String phone, String email,String ceo){
+	public Company(String boId,String name, String address, String phone, String email,String ceo) {
 		//	this.id = id;
 		super.setBoId(boId);
 		this.name = name;
@@ -89,7 +99,7 @@ public class Company extends Entity {
 	}
 	
 	public void addEmployee(Employee employee){
-		if(employeeList==null){
+		if(employeeList==null) {
 			employeeList = new ArrayList<Employee>();
 		}
 		employeeList.add(employee);
@@ -139,7 +149,7 @@ public class Company extends Entity {
 		}
 	}
 
-	public static Company parseCompany(String line) throws Exception{
+	public static Company parseCompany(String line) throws Exception {
 		StringTokenizer tokenizer;
 		String delimeter =",";
 		String boId,cName,address,cEmail,ceo; 
@@ -172,10 +182,7 @@ public class Company extends Entity {
 //				.append("phone",getPhone())
 //				.append("email",getEmail())
 //				.append("ceo",getCeo());
-				.append("Company name:"+getName())
-				.append("EmployeeList:"+getEmployeeList());		
+				.append("Company Name:"+getName())
+				.append("Employee List:"+getEmployeeList());		
 	}
-
-
-
 }

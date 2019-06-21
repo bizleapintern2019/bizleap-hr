@@ -16,11 +16,17 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.StringTokenizer;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Employee extends Entity {
+@Entity
+@Table( name  = "employee")
+public class Employee extends AbstractEntity {
 	
 	private String id;
 	private String firstName;
@@ -30,6 +36,9 @@ public class Employee extends Entity {
 	private int salary;
 	private String email;
 	private String phone;
+	
+	@ManyToOne
+	@JoinColumn(name="companyId")
 	private Company workFor;
 	
 	public Company getWorkFor() {
@@ -102,7 +111,7 @@ public class Employee extends Entity {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Employee(String boId){
+	public Employee(String boId) {
 		super(boId);
 	}
 
@@ -117,9 +126,7 @@ public class Employee extends Entity {
 		this.phone = phone;
 	}
 
-	public Employee() {
-
-	}
+	public Employee() {}
 
 	public static class Builder {
 		private String boId;
@@ -173,9 +180,7 @@ public class Employee extends Entity {
 			this.boId = boId;
 			return this;
 		}
-		
 	
-        
 		public Employee build() {
 			return new Employee(boId,firstName,lastName,age,title,salary,email,phone);
 		}
@@ -215,6 +220,7 @@ public class Employee extends Entity {
 	public void displayInfo() {
 	   String.format("COMPANY ID  -> %s, First Name -> %s, Last Name -> %s", getBoId(),firstName,lastName);
 	}
+	
 	@Override
 	public String toString() {
 		return "Employee:"+super.toString()+

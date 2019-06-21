@@ -1,21 +1,30 @@
-package com.bizleap.service.impl;
+package com.bizleap.hr.service.impl;
 
 import java.sql.SQLException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
-import com.bizleap.service.JDBCService;
+import com.bizleap.hr.service.EmployeeServiceJDBC;
+import com.bizleap.hr.service.JDBCService;
+
 import java.sql.PreparedStatement;
 import com.mysql.jdbc.Connection;
 //import com.mysql.jdbc.PreparedStatement;
+@Service
+public class EmployeeServiceJDBCImpl implements EmployeeServiceJDBC {
 
-public class EmployeeServiceImpl implements EmployeeService {
-	JDBCService jdbcService = new JDBCServiceImpl();
+	@Autowired
+	private JDBCService jdbcService;
+
 	@Override
 	public void saveEmployee(Employee employee) {
 		Connection connection=null;
 		if(employee == null)
 			return;
 		connection = jdbcService.getJDBCConnection();
+		
 		try {
 			PreparedStatement pStatement = connection.prepareStatement("insert into employee"+"(boId,firstName,lastName,age,title,salary,email,phoneNumber,companyBoId)"+"values(?,?,?,?,?,?,?,?,?)");
 			pStatement.setString(1, employee.getBoId());
@@ -32,12 +41,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			pStatement.executeUpdate();
 			pStatement.close();
 			connection.close();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-
 }

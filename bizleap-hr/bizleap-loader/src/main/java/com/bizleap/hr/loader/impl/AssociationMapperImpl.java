@@ -3,43 +3,32 @@ package com.bizleap.hr.loader.impl;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
-import com.bizleap.hr.loader.ErrorCollector;
+import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.commons.domain.entity.Error;
 
-
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
-	private DataManager dataManager;
-	private HashMap<Integer,Error> errorMap;
-	private ErrorCollector errorCollector;
-	int lineNumber =0;
 	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
 
-	public AssociationMapperImpl() {
+	@Autowired 
+	private DataManager dataManager;
 
-	}
+	@Autowired
+	private ErrorHandler errorHandler;
 
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
-	
-	public AssociationMapperImpl(DataManager dataManager,ErrorCollector errorCollector) {
-		this.dataManager=dataManager;
-		this.errorCollector=errorCollector;
-	}
+	@Autowired
+	private DataLoader dataLoader;
 
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
+	private HashMap<Integer,Error> errorMap;
+	int lineNumber =0;
 
 	public HashMap<Integer, Error> getErrorMap() {
 		return errorMap;
@@ -47,15 +36,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 
 	public void setErrorMap(HashMap<Integer, Error> errorHashMap) {
 		this.errorMap = errorHashMap;
-	}
-
-	public void setErrorCollector(ErrorCollector errorCollector) {
-		this.errorCollector = errorCollector;
-	}
-
-	@Override
-	public ErrorCollector getErrorCollector() {
-		return errorCollector;
 	}
 
 	private void addEmployeesToCompany(Company company) {
@@ -80,10 +60,10 @@ public class AssociationMapperImpl implements AssociationMapper {
 				return;
 			}
 		}
-		lineNumber=dataManager.getDataLoader().getIndex();
-		errorCollector.handleLinkedError(lineNumber,"Company in employee cannot be linked.", employee);
+		lineNumber=dataLoader.getIndex();
+		errorHandler.handleLinkedError(lineNumber,"Company in employee cannot be linked.", employee);
 		lineNumber++;
-		dataManager.getDataLoader().setIndex(lineNumber);
+		dataLoader.setIndex(lineNumber);
 	}
 
 	private void setUpEmployeeAssociations() {

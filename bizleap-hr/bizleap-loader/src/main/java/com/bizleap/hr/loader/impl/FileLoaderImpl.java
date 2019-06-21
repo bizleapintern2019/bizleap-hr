@@ -6,7 +6,11 @@ import com.bizleap.hr.loader.FileLoader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class FileLoaderImpl implements FileLoader {
+
 	private String line=null;
 	private int count;
 	private BufferedReader bufferedReader;
@@ -23,7 +27,7 @@ public class FileLoaderImpl implements FileLoader {
 	}
 
 	public boolean hasNext() throws Exception {
-		if((line = bufferedReader.readLine()) != null){
+		if((line = bufferedReader.readLine()) != null) {
 			count++;
 			return true;
 		}
