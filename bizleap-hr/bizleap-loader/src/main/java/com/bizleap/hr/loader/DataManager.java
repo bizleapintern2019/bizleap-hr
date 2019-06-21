@@ -6,7 +6,7 @@ import com.bizleap.commons.domain.entity.Employee;
 import java.util.List;
 
 public interface DataManager {
-    void load(DataLoader dataLoader);
+    void load();
     List<Employee> getEmployeeList();
     List<Company> getCompanyList();
 }

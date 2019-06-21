@@ -4,16 +4,23 @@ import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Service
 public class DataManagerImpl implements DataManager {
+
+    @Autowired
+    DataLoader dataLoader;
+
     List<Employee> employeeList;
     List<Company> companyList;
 
-    public void load(DataLoader dataLoader) {
+    public void load() {
         dataLoader.loadCompany();
         dataLoader.loadEmployee();
     }

@@ -6,15 +6,16 @@ import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.FileLoader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DataLoaderImpl implements DataLoader {
+    @Autowired
     DataManager dataManager;
-    FileLoader fileLoader;
 
-    public DataLoaderImpl(DataManager dataManager) {
-        this.dataManager = dataManager;
-        fileLoader = new FileLoaderImpl();
-    }
+    @Autowired
+    FileLoader fileLoader;
 
     public void loadEmployee() {
         fileLoader.start("employee.txt");

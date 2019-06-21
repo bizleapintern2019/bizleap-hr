@@ -1,9 +1,11 @@
 package com.bizleap.hr.loader.impl;
 
 import com.bizleap.hr.loader.FileLoader;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 
+@Service
 public class FileLoaderImpl implements FileLoader {
     private FileReader fileReader;
     private BufferedReader bufferedReader;

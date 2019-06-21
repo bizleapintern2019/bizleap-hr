@@ -5,16 +5,16 @@ import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
 
     private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
 
+    @Autowired
     DataManager dataManager;
-
-    public AssociationMapperImpl(DataManager dataManager) {
-        this.dataManager = dataManager;
-    }
 
     private void addEmployeesToCompany(Company company) {
         for (Employee employee: dataManager.getEmployeeList()) {
