@@ -1,13 +1,13 @@
 package com.bizleap.hr.loader.impl;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.StringTokenizer;
+
+import org.springframework.stereotype.Service;
 
 import com.bizleap.hr.loader.FileLoader;
 
+@Service
 public class FileLoaderImpl implements FileLoader {
 	
 	private BufferedReader dataReader;

@@ -1,50 +1,28 @@
 package com.bizleap.hr.loader.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.ErrorCollection;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorCollector;
 
-
+@Service
 public class AssociationMapperImpl implements AssociationMapper {
+	@Autowired
 	private DataManager dataManager;
 	//private Map<Integer, ErrorCollection> errorHashMap;
-	ErrorCollector errorCollector;
+	@Autowired
+	private ErrorCollector errorCollector;
+	@Autowired
+	private DataLoader dataLoader;
 	int lineNumber=0;
-	
-	public AssociationMapperImpl() {
-	}
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager=dataManager;
-	}
-	public AssociationMapperImpl(DataManager dataManager,ErrorCollector errorCollector) {
-		this.dataManager=dataManager;
-		this.errorCollector=errorCollector;
-	}
-	
-	
-	public ErrorCollector getErrorCollector() {
-		return errorCollector;
-	}
-
-	public void setErrorCollector(ErrorCollector errorCollector) {
-		this.errorCollector = errorCollector;
-	}
-
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
 	
 	private void addEmployeesToCompany(Company company) {
 		for(Employee employee:dataManager.getEmployeeList()){
@@ -54,7 +32,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 		}
 	}
 
-	
 	private void setUpCompanyAssociations() {
 		for(Company company:dataManager.getCompanyList()){
 			addEmployeesToCompany(company);
@@ -68,10 +45,10 @@ public class AssociationMapperImpl implements AssociationMapper {
 				return;
 			}
 		}
-		lineNumber=dataManager.getDataLoader().getIndex();
+		lineNumber=dataLoader.getIndex();
 		errorCollector.handleLinkedError(lineNumber,"Company in employee cannot be linked.", employee);
 		lineNumber++;
-		dataManager.getDataLoader().setIndex(lineNumber);
+		dataLoader.setIndex(lineNumber);
 	}
 	
 	

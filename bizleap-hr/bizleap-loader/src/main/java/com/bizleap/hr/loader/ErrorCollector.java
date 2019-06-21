@@ -8,4 +8,5 @@ public interface ErrorCollector {
 	public void handleLoadingError(int index,int lineNumber, String message, Object source);
 	public void handleLinkedError(int index,String message, Object source);
 	public Map<Integer,ErrorCollection> getErrorHashMap();
+	public boolean hasError();
 }

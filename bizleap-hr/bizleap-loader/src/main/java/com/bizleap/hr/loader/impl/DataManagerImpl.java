@@ -1,39 +1,43 @@
 package com.bizleap.hr.loader.impl;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.ErrorCollection;
+import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.CompanySaver;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorCollector;
-import com.bizleap.service.Saver;
-import com.bizleap.service.impl.SaverImpl;
+import com.bizleap.service.SaverJDBC;
 
+@Service
 public class DataManagerImpl implements DataManager {
-	DataLoaderImpl dataLoader;
-	Map<Integer,ErrorCollection> errorMap = new HashMap<Integer,ErrorCollection>();
-	List<Employee> employeeList;
-	List<Company> companyList;
-	ErrorCollector errorCollector;
+	@Autowired
+	private DataLoaderImpl dataLoader;
+	@Autowired
+	private ErrorCollector errorCollector;
+	@Autowired
+	private AssociationMapper associationMapper;
+//	@Autowired
+//	private SaverJDBC saver;
+	@Autowired
+	private CompanySaver companySaver;
 	
-	public DataManagerImpl() {
-		errorCollector =new ErrorCollectorImpl();
-	}
-
-	public DataLoaderImpl getDataLoader() {
-		return dataLoader;
-	}
-
-	public void setDataLoader(DataLoaderImpl dataLoader) {
-		this.dataLoader = dataLoader;
-	}
-
+	private Map<Integer,ErrorCollection> errorMap = new HashMap<Integer,ErrorCollection>();
+	private List<Employee> employeeList;
+	private List<Company> companyList;
+	
+	private Logger logger = Logger.getLogger(DataManagerImpl.class);
+	
 	public List<Employee> getEmployeeList(){
 		return employeeList;
 	}
@@ -54,49 +58,53 @@ public class DataManagerImpl implements DataManager {
 		return errorMap;
 	}
 
-	public void setErrorMap(Map<Integer, ErrorCollection> errorMap) {
-		this.errorMap = errorMap;
-	}
-
-	public ErrorCollector getErrorCollector() {
-		return errorCollector;
-	}
-
 	public void setErrorCollector(ErrorCollector errorCollector) {
 		this.errorCollector = errorCollector;
 	}
 
 	public void loadData() {
 		try {
-			dataLoader = new DataLoaderImpl(errorCollector);
-			employeeList = dataLoader.loadEmployee();
-			companyList = dataLoader.loadCompany();
-			AssociationMapper associationMapper = new AssociationMapperImpl(this,errorCollector);
-			associationMapper.setUpAssociations();
-		} catch (Exception ex) {
-			System.out.println(ex+"");
-		}
-	}
-	public void save() {
-		Saver save =new SaverImpl();
-		for(Company company: companyList) {
-			if(company!=null) {
-				save.companySave(company);
+				employeeList = dataLoader.loadEmployee();
+				companyList = dataLoader.loadCompany();
+			} catch (Exception e) {
+				logger.error(e);
 			}
-		}
-		for(Employee employee: employeeList) {
-			if(employee!=null) {
-				save.employeesave(employee);
-			}
-		}
 	}
+	
+//	public void saveData() {
+//		if(errorCollector.hasError())
+//			return;
+//		for(Company company: getCompanyList()) {
+//			if(company!=null) {
+//				saver.saveCompany(company);
+//			}
+//		}
+//		for(Employee employee: getEmployeeList()) {
+//			if(employee!=null) {
+//				saver.saveEmployee(employee);
+//			}
+//		}
+//	}
+	
 	public void associateData() {
-		AssociationMapper associationMapper = new AssociationMapperImpl(this);
-		associationMapper.setUpAssociations();
+		if(!errorCollector.hasError()) 
+			//return ;
+			associationMapper.setUpAssociations();
 	}
+	
 	public void load() {
 		loadData();
 		associateData();
-		save();
+		companySaver.setCompanyList(companyList);
+		try {
+			companySaver.savePass1();
+		} catch (ServiceUnavailableException e) {
+			logger.error(e);
+		} catch (IOException e) {
+			logger.error(e);
+		}
+		if(errorCollector.hasError()) {
+			logger.error("Error Occur. Error map is "+ errorCollector.getErrorHashMap());
+		}
 	}
 }

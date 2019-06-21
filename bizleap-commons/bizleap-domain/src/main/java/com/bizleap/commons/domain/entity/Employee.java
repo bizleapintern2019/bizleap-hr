@@ -2,12 +2,21 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.StringTokenizer;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Employee extends Entity{
+@Entity
+@Table(name = "employee")
+public class Employee extends AbstractEntity{
 	private String firstName,lastName,title,email,phone;
 	private int age,salary;
+	@ManyToOne
+	@JoinColumn(name="companyId")
 	private Company workFor= new Company();
 	
 	
@@ -29,7 +38,6 @@ public class Employee extends Entity{
 	public Company getWorkFor() {
 		return workFor;
 	}
-
 
 	public void setWorkFor(Company workFor) {
 		this.workFor = workFor;
@@ -183,6 +191,6 @@ public class Employee extends Entity{
 				new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("FirstName :"+ getFirstName())
 				.append("LastName :"+getLastName())
-				.append("work for :"+getWorkFor().getBoId());
+				.append("Work for :"+getWorkFor().getBoId());
 	}
 }

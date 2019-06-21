@@ -12,8 +12,4 @@ public interface DataLoader {
 	public List<Company> loadCompany() throws Exception;
 	public int getIndex();
 	public void setIndex(int index);
-	public ErrorCollector getErrorCollection();
-	public void setErrorCollection(ErrorCollector errorCollection);
-	public Map<Integer, ErrorCollection> getErrorHashMap();
-	public void setErrorHashMap(Map<Integer, ErrorCollection> errorHashMap);
 }

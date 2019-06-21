@@ -3,13 +3,20 @@ package com.bizleap.service.impl;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.EmployeeService;
+import com.bizleap.service.EmployeeServiceJDBC;
 import com.bizleap.service.JDBCService;
 import java.sql.PreparedStatement;
 
-public class EmployeeServiceImpl implements EmployeeService {
-	JDBCService jdbcService = new JDBCServiceImpl();
+@Service
+public class EmployeeServiceJDBCImpl implements EmployeeServiceJDBC {
+	@Autowired
+	JDBCService jdbcService;
+	Logger logger = Logger.getLogger(EmployeeServiceJDBCImpl.class);
 	@Override
 	public void saveEmployee(Employee employee) {
 		Connection connection =null;
@@ -17,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return;
 		connection= jdbcService.getJDBCconnection();
 		if(connection==null) {
-			System.out.println("Connection Fail");
+			logger.info("Connection Fail");
 		}
 		try {
 			PreparedStatement ps = connection.prepareStatement("insert into employee "+"(boId,firstName,lastName,age,salary,email,title,phoneNo,comBoId)"+" values (?,?,?,?,?,?,?,?,?)");
@@ -35,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			ps.close();
 			connection.close();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 		}
 	}
 
