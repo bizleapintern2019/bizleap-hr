@@ -7,11 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.hr.service.EmployeeService;
+import com.bizleap.hr.service.EmployeeServiceJDBC;
 import com.bizleap.hr.service.JDBCService;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceJDBCImpl implements EmployeeServiceJDBC {
 
 	JDBCService jdbcService = new JDBCServiceImpl();
 	

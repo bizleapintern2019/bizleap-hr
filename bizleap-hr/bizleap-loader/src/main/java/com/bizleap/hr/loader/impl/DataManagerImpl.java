@@ -1,5 +1,6 @@
 package com.bizleap.hr.loader.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,12 @@ import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
+import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.loader.AssociationMapper;
+import com.bizleap.hr.loader.CompanySaver;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
-import com.bizleap.hr.service.Saver;
+import com.bizleap.hr.service.SaverJDBC;
 
 @Service
 public class DataManagerImpl implements DataManager {
@@ -27,7 +30,10 @@ public class DataManagerImpl implements DataManager {
 	private AssociationMapper associationMapper;
 	
 	@Autowired
-	private Saver saver;
+	private CompanySaver companySaver;
+	
+	//@Autowired
+	//private SaverJDBC saver;
 	
 	private List<Employee> employeesList = new ArrayList<Employee>();
 	private List<Company> companyList = new ArrayList<Company>();
@@ -59,14 +65,26 @@ public class DataManagerImpl implements DataManager {
 		reportError(associationMapper.getErrorMap());
 	}
 
-	public void saveData() {
+	/*public void saveData() {
 		saver.saveCompanies(companyList);
 		saver.saveEmployees(employeesList);
-	}
+	}*/
 
-	public void load() throws Exception {
-		loadData();
+	public void load() {
+		try {
+			loadData();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		associateData();
-		saveData();
+		companySaver.setCompanyList(companyList);
+		try {
+			companySaver.savePass1();
+		} catch (ServiceUnavailableException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//saveData();
 	}
 }

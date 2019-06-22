@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FileLoaderImpl implements FileLoader {
+	
 	private BufferedReader bufferedReader;
 	private String line = null;
 	private int lineCount = 0;

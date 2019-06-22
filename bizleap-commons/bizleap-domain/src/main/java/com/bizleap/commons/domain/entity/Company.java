@@ -18,17 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
-public class Company extends Entity {
+@Entity
+@Table(name="company")
+public class Company extends AbstractEntity {
 
 	private String name;
 	private String address;
 	private String ceo;
 	private String phone;
 	private String email;
+	
+	@OneToMany(mappedBy="workFor",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Employee> employeeList = new ArrayList<Employee>();
 	
 	public Company(String boid) {

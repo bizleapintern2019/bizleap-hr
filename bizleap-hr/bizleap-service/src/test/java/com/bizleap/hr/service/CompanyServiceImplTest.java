@@ -3,11 +3,11 @@ package com.bizleap.hr.service;
 import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
-import com.bizleap.hr.service.CompanyService;
-import com.bizleap.hr.service.impl.CompanyServiceImpl;
+import com.bizleap.hr.service.CompanyServiceJDBC;
+import com.bizleap.hr.service.impl.CompanyServiceJDBCImpl;
 
 public class CompanyServiceImplTest {
-	CompanyService companyService = new CompanyServiceImpl();
+	CompanyServiceJDBC companyService = new CompanyServiceJDBCImpl();
 	@Test
 	public void testSavingCompany(){
 		Company company = new Company("COM001");

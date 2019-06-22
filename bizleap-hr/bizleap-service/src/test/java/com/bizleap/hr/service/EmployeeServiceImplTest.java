@@ -4,12 +4,12 @@ import org.junit.Test;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.hr.service.EmployeeService;
-import com.bizleap.hr.service.impl.EmployeeServiceImpl;
+import com.bizleap.hr.service.EmployeeServiceJDBC;
+import com.bizleap.hr.service.impl.EmployeeServiceJDBCImpl;
 
 public class EmployeeServiceImplTest {
 	
-	EmployeeService employeeService = new EmployeeServiceImpl();
+	EmployeeServiceJDBC employeeService = new EmployeeServiceJDBCImpl();
 	@Test
 	public void testSavingEmployee(){
 		Employee employee = new Employee("EMP001");
