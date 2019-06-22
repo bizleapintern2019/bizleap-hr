@@ -14,18 +14,35 @@ John Mark -- works for Adobe
  by using the inheritance features of Java. 
 */
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Entity {
+@MappedSuperclass
+public abstract class AbstractEntity {
+	
+	@Id
+	@GeneratedValue
+	private long id;
 	private String boId;
 	
-	public Entity() {
+	public AbstractEntity() {
 	
 	}
 
-	public Entity(String boId) {
+	public AbstractEntity(String boId) {
 		this.boId = boId;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getBoId() {
@@ -40,7 +57,7 @@ public class Entity {
 		return this.boId.equals(boId);
 	}
 	
-	public boolean sameBoId(Entity entity) {
+	public boolean sameBoId(AbstractEntity entity) {
 		if(entity!=null)
 			return this.getBoId().equals(entity.getBoId());
 		return false;

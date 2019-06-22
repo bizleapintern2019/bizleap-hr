@@ -2,32 +2,24 @@ package com.bizleap.hr.loader.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.hr.loader.FileLoader;
 
+@Service
 public class DataLoaderImpl implements DataLoader {
-	FileLoader fileLoader= new FileLoaderImpl();
-	ErrorHandler errorHandler;
-	public Map<Integer,Error> errorMap;
+	@Autowired
+	private FileLoader fileLoader;
+	@Autowired
+	private ErrorHandler errorHandler;
+
 	public int index =1;
-
-	public DataLoaderImpl(ErrorHandler errorHandler) {
-		this.errorHandler = errorHandler;
-	}
-
-	public Map<Integer, Error> getErrorMap() {
-		return errorMap;
-	}
-
-	public void setErrorMap(Map<Integer, Error> errorMap) {
-		this.errorMap = errorMap;
-	}
 
 	public int getIndex() {
 		return index;
@@ -89,15 +81,5 @@ public class DataLoaderImpl implements DataLoader {
 		}
 		fileLoader.finish();
 		return companyList;
-	}
-
-	public ErrorHandler getErrorHandler() {
-		return errorHandler;
-	}
-
-	@Override
-	public void setErrorHandler(ErrorHandler errorHandler) {
-		this.errorHandler = errorHandler;
-		
 	}
 }

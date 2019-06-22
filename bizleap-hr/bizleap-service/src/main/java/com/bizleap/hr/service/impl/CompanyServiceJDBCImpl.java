@@ -1,15 +1,20 @@
-package com.bizleap.service.impl;
+package com.bizleap.hr.service.impl;
 
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
-import com.bizleap.service.CompanyService;
-import com.bizleap.service.JDBCService;
+import com.bizleap.hr.service.CompanyServiceJDBC;
+import com.bizleap.hr.service.JDBCService;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class CompanyServiceImpl implements CompanyService {
-	JDBCService jdbcService = new JDBCServiceImpl();
+@Service
+public class CompanyServiceJDBCImpl implements CompanyServiceJDBC {
+	@Autowired
+	JDBCService jdbcService;
 	
 	public void saveCompany(Company company) {
 		Connection connection= null;

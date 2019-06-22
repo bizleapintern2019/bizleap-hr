@@ -1,10 +1,14 @@
-package com.bizleap.service.impl;
+package com.bizleap.hr.service.impl;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import com.bizleap.service.JDBCService;
+
+import org.springframework.stereotype.Service;
+
+import com.bizleap.hr.service.JDBCService;
 import com.mysql.jdbc.Connection;
 
+@Service
 public class JDBCServiceImpl implements JDBCService {
 
 	@Override

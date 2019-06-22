@@ -4,16 +4,17 @@ import com.bizleap.hr.loader.FileLoader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class FileLoaderImpl implements FileLoader {
 
 	private BufferedReader dataReader;
 	private String dataLine = "";
 	private int lineNumber;
-	
-	public FileLoaderImpl() {	
-	}
-	
+
 	public void start(String filePath) throws Exception {
 		lineNumber=0;
 		dataReader = new BufferedReader(new FileReader(filePath));

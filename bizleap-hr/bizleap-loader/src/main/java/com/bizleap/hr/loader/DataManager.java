@@ -10,8 +10,6 @@ public interface DataManager {
 	public void loadData();
 	public List<Employee> getEmployeeList();
 	public List<Company> getCompanyList();
-	public DataLoader getDataLoader();
-	public ErrorHandler getErrorHandler();
-	public void save();
+	//public void saveData();
 	public void load();
 }
