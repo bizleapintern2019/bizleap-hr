@@ -23,7 +23,7 @@ import java.util.List;
 public class Company extends AbstractEntity {
     private String ceo;
 
-    @OneToMany( mappedBy="workForCompany", fetch= FetchType.EAGER, cascade= CascadeType.ALL)
+    @OneToMany( mappedBy="workForCompany", fetch= FetchType.LAZY, cascade= CascadeType.ALL)
     private List<Employee> employeeList;
 
     public Company() {

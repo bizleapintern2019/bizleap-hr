@@ -18,4 +18,5 @@ public class CompanyDaoImpl extends AbstractDaoImpl<Company, String> implements 
     public void save(Company company) throws ServiceUnavailableException {
         saveOrUpdate(company);
     }
+
 }
