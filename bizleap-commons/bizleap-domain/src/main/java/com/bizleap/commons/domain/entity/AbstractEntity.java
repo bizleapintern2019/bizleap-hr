@@ -1,16 +1,31 @@
 package com.bizleap.commons.domain.entity;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Entity {
+@MappedSuperclass
+public abstract class AbstractEntity {
+	@Id
+	@GeneratedValue
+	private long id;
 	private String boId;
 	
-	public Entity() {
+	public AbstractEntity() {
 	
 	}
 
-	public Entity(String boId) {
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public AbstractEntity(String boId) {
 		this.boId = boId;
 	}
 
@@ -26,7 +41,7 @@ public class Entity {
 		return this.boId.equals(boId);
 	}
 	
-	public boolean sameBoId(Entity entity) {
+	public boolean sameBoId(AbstractEntity entity) {
 		if(entity!=null)
 			return this.getBoId().equals(entity.getBoId());
 		return false;
@@ -35,6 +50,6 @@ public class Entity {
 	@Override
 	public String toString() {
 		return ""+new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("boId :", getBoId());
+				.append("boId", getBoId());
 	}
 }

@@ -2,14 +2,15 @@ package com.bizleap.service.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
+import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Company;
-import com.bizleap.service.CompanyService;
+import com.bizleap.service.CompanyServiceJDBC;
 import com.bizleap.service.JDBCService;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.PreparedStatement;
+@Service
+public class CompanyServiceJDBCImpl implements CompanyServiceJDBC {
 
-public class CompanyServiceImpl implements CompanyService {
-	JDBCService jdbcService = new JDBCServiceImpl();
+	JDBCService jdbcService=new JDBCServiceImpl();
 	@Override
 	public void saveCompany(Company company) {
 		Connection connection = null;
@@ -20,7 +21,7 @@ public class CompanyServiceImpl implements CompanyService {
 		
 		try{
 			connection = jdbcService.getJDBCConnection();
-			statement = (PreparedStatement)connection.prepareStatement("insert into company "
+			statement = connection.prepareStatement("insert into company "
 					+ "(boId,name,address,phoneNumber,email,ceo)"
 					+ "values(?,?,?,?,?,?)");
 			

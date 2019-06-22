@@ -3,8 +3,11 @@ package com.bizleap.service.impl;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Service;
+
 import com.bizleap.service.JDBCService;
 import com.mysql.jdbc.Connection;
+
 
 public class JDBCServiceImpl implements JDBCService{
 	public Connection getJDBCConnection(){
