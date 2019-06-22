@@ -1,0 +1,8 @@
+#employeeID#firstName,#lastName,#age,#title,#salary,#email,#phone,#companyID
+EMP001,Alice,Kim,28,Software Engineer,1500000,alicekim@gmail.com,09693934636,C001
+EMP002,Bob,Gilman,34,Manager,500000,bobgilman@gmail.com,09693934637,C002
+EMP003,John,Mark,50,staff,300000,johnmark@gmail.com,09693934638,C003
+EMP004,kcmt,chanmyae,28,Software Engineer,1500000,alicekim@gmail.com,09693934636,C001
+EMP005,Bob,Gilman,34,Manager,500000,bobgilman@gmail.com,09693934637,C002
+EMP006,John,Mark,50,staff,300000,johnmark@gmail.com,09693934638,C003
+EMP007,John,Mark,50,staff,300000,johnmark@gmail.com,09693934638,C003

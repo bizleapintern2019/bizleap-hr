@@ -1,0 +1,4 @@
+#companyID#companyName#address#phone#email#ceo
+C001,Apple,Apple,800-692-7753,apple@gmail.com,Tim Cook
+C002,IBM,1 New,(914) 765-1900,ibm@gmail.com,Ginni Rometty
+C003,Adobe,Adobe,(800) 833-6687,adobe@gmail.com,Shantanu Narayen
