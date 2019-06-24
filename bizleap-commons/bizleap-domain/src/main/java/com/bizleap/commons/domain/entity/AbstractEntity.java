@@ -12,6 +12,7 @@ public abstract class AbstractEntity {
 	@Id
 	@GeneratedValue
 	private long id;
+	
 	private String boId;
 	
 	public AbstractEntity() {

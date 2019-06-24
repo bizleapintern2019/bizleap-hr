@@ -17,9 +17,9 @@ public class CompanySaverImpl implements CompanySaver {
     private static Printer printer = new Printer(logger);
 
     @Autowired
-    CompanyService companyService;
+    private CompanyService companyService;
 
-    List<Company> companyList;
+    private List<Company> companyList;
 
     @Override
     public void savePass1() throws ServiceUnavailableException, IOException {

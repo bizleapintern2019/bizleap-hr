@@ -25,7 +25,7 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
     private int pageSize = 30;
 
     private static Logger logger = Logger.getLogger(AbstractDaoImpl.class);
-    private static Printer printer = new Printer( logger );
+    private static Printer printer = new Printer(logger);
 
     protected AbstractDaoImpl(Class<E> entityClass) {
         this.entityClass = entityClass;

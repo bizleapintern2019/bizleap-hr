@@ -35,10 +35,9 @@ public class DataManagerImpl implements DataManager {
 	
 //	@Autowired
 //	private SaverJDBC saver;
-//	
+
 	private List<Employee> employeeList;
 	private List<Company> companyList;
-	private Map<Integer, LoadingError> errorMap = new HashMap<Integer, LoadingError>();
 
 	public void setDataLoader(DataLoaderImpl dataLoader) {
 		this.dataLoader = dataLoader;
@@ -58,14 +57,6 @@ public class DataManagerImpl implements DataManager {
 
 	public void setCompanyList(List<Company> companyList) {
 		this.companyList = companyList;
-	}
-
-	public Map<Integer, LoadingError> getErrorMap() {
-		return errorMap;
-	}
-
-	public void setErrorMap(Map<Integer, LoadingError> errorMap) {
-		this.errorMap = errorMap;
 	}
 
 	private void reportError() {
