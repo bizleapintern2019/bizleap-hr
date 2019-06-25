@@ -100,63 +100,14 @@ public class Company extends AbstractEntity{
 		return super.getBoId().equals(boId);
 	}
 	
-	public static class Builder {
-		private String boId,companyName, address, phone, email, ceo;
-
-		public Builder(){}
-		
-		public Builder setBoId(String boId) {
-			this.boId = boId;
-			return this;
-		}
-		
-		public Builder setCompanyName(String companyName) {
-			this.companyName = companyName;
-			return this;
-		}
-		
-		public Builder setAddress(String address) {
-			this.address = address;
-			return this;
-		}
-		
-		public Builder setPhone(String phone) {
-			this.phone = phone;
-			return this;
-		}
-
-		public Builder setEmail(String email) {
-			this.email = email;
-			return this;
-		}
-		
-		public Builder setCeo(String ceo) {
-			this.ceo = ceo;
-			return this;
-		}
-		
-		public Company build() {
-			return new Company(boId,companyName,address,phone,email,ceo);
-		}
-	}
 
 	public static Company parseCompany(String dataLine) {
-		String boId, companyName,address, phone,email,ceo;
-		
-		StringTokenizer tokenizer = new StringTokenizer(dataLine, ",");
-		boId = tokenizer.nextToken();
-		companyName = tokenizer.nextToken();
-		address = tokenizer.nextToken();
-		phone = tokenizer.nextToken();
-		email = tokenizer.nextToken();
-		ceo = tokenizer.nextToken();
-		return new Company.Builder().setAddress(address)
-									.setBoId(boId)
-									.setCeo(ceo)
-									.setCompanyName(companyName)
-									.setEmail(email)
-									.setPhone(phone)
-									.build();								
+        Company company = new Company();
+        String[] tokens = dataLine.split(";");
+        company.setBoId(tokens[0]);
+        company.setCompanyName(tokens[1]);
+        company.setCeo(tokens[2]);
+        return company;							
 	}
 
 	@Override
