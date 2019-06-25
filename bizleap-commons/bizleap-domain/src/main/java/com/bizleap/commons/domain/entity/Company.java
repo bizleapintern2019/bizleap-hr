@@ -96,7 +96,7 @@ public class Company extends AbstractEntity{
 		this.ceo = ceo;
 	}
 	
-	public boolean boIdIsEqual(String boId){
+	public boolean sameBoId(String boId){
 		return super.getBoId().equals(boId);
 	}
 	

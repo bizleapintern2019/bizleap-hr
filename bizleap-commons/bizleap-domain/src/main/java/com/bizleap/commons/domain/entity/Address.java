@@ -73,7 +73,7 @@ public class Address extends AbstractEntity{
 		this.country = country;
 	}
 	
-	public static Address parse(String dataLine) {
+	public static Address parseAddress(String dataLine) {
 		Address address = new Address();
 		String[] tokens = dataLine.split(";");
 		address.setBoId(tokens[0]);
