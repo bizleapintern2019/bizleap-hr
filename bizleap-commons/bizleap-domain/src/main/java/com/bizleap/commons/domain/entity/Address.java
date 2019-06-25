@@ -1,6 +1,5 @@
 package com.bizleap.commons.domain.entity;
 
-<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -96,8 +95,4 @@ public class Address extends AbstractEntity{
 		 		.append("State :"+getState())
 		 		.append("Country :"+getCountry());
 	}
-=======
-public class Address {
-
->>>>>>> 648de4acf9293affdde9b06313eafb329ab15316
 }
