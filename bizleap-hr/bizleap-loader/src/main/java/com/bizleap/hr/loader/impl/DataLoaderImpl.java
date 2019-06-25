@@ -66,7 +66,6 @@ public class DataLoaderImpl implements DataLoader {
 		return employeeList;
 	}
 
-	
 	public List<Location> loadLocation() throws Exception {
 		fileLoader.start("D://Com.txt");
 		String dataLine="";
