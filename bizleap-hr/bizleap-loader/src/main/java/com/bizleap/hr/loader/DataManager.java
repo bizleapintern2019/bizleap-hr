@@ -14,7 +14,6 @@ import com.bizleap.commons.domain.entity.Position;
 public interface DataManager {
 	void loadData();
 	List<Employee> getEmployeeList();
-	List<Company> getCompanyList();
 	List<Department> getDepartmentList(); 
 	List<Job> getJobList();
 	List<Location> getLocationList();

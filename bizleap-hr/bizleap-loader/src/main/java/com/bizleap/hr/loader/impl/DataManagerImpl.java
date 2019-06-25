@@ -34,11 +34,10 @@ public class DataManagerImpl implements DataManager {
 //	@Autowired
 //	private SaverJDBC saver;
 	@Autowired
-	private CompanySaver companySaver;
+	private LocationSaver locationSaver;
 	
 	private Map<Integer,ErrorCollection> errorMap = new HashMap<Integer,ErrorCollection>();
 	private List<Employee> employeeList;
-	private List<Company> companyList;
 	private List<Department> departmentList;
 	private List<Job> jobList;
 	private List<Location> locationList;
@@ -53,16 +52,6 @@ public class DataManagerImpl implements DataManager {
 	public void setEmployeeList(List<Employee> employeeList) {
 		this.employeeList=employeeList;
 	}
-	
-	public List<Company> getCompanyList(){
-		return companyList;
-	}
-	
-	public void setCompanyList(List<Company> companyList) {
-		this.companyList=companyList;
-	}
-	
-	
 
 	public List<Department> getDepartmentList() {
 		return departmentList;
@@ -107,7 +96,10 @@ public class DataManagerImpl implements DataManager {
 	public void loadData() {
 		try {
 				employeeList = dataLoader.loadEmployee();
-				companyList = dataLoader.loadCompany();
+				departmentList= dataLoader.loadDepartment();
+				jobList = dataLoader.loadJob();
+				locationList = dataLoader.loadLocation();
+				positionList = dataLoader.loadPosition();
 			} catch (Exception e) {
 				logger.error(e);
 			}
@@ -130,16 +122,15 @@ public class DataManagerImpl implements DataManager {
 	
 	public void associateData() {
 		if(!errorCollector.hasError()) 
-			//return ;
 			associationMapper.setUpAssociations();
 	}
 	
 	public void load() {
 		loadData();
 		associateData();
-		companySaver.setCompanyList(companyList);
+		locationSaver.setCompanyList(locationList);
 		try {
-			companySaver.savePass1();
+			locationSaver.savePass1();
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		} catch (IOException e) {
