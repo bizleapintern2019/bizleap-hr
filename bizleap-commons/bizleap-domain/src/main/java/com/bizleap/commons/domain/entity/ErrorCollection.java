@@ -47,31 +47,6 @@ public class ErrorCollection {
 		this.message = message;
 	}
 
-	public static class Builder{
-		String message;
-		Object source;
-		int lineNumber;
-		
-		public Builder setLineNumber(int lineNumber) {
-			this.lineNumber = lineNumber;
-			return this;
-		}
-		
-		public Builder setSource(Object source) {
-			this.source = source;
-			return this;
-		}
-		
-		public Builder setMessage(String message) {
-			this.message = message;
-			return this;
-		}
-		
-		public ErrorCollection build() {
-			return new ErrorCollection(lineNumber,source,message);
-		}
-	}
-
 	@Override
 	public String toString() {
 		String lineString="";
