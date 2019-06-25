@@ -33,7 +33,7 @@ public class ErrorHandlerImpl implements ErrorHandler {
 		insertError(index, new Error(lineNumber, source, message));
 	}
 
-	public void handleLinkedError(int index, String message, Object source) {
+	public void handleLinkageError(int index, String message, Object source) {
 		insertError(index, new Error(source,message));
 	}
 }

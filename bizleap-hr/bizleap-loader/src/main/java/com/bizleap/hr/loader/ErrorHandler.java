@@ -10,5 +10,5 @@ public interface ErrorHandler {
 	
 	public void handleLoadingError(int index, int lineNumber, String message, Object source);
 	
-	public void handleLinkedError(int index, String message, Object source);
+	public void handleLinkageError(int index, String message, Object source);
 }

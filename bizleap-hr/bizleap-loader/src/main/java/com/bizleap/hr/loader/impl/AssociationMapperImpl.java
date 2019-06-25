@@ -54,7 +54,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 				return; 
 			}
 		}
-		errorHandler.handleLinkedError(++index, "Company in employee cannot be linked.", employee);
+		errorHandler.handleLinkageError(++index, "Company in employee cannot be linked.", employee);
 	}
 
 	private void setUpEmployeeAssociations() {

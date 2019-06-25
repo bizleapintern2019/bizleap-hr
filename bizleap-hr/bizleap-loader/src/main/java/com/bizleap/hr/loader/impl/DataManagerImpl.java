@@ -23,21 +23,21 @@ import com.bizleap.hr.loader.ErrorHandler;
 public class DataManagerImpl implements DataManager {
 
 	private Logger logger = Logger.getLogger(DataManagerImpl.class);
-	
+
 	@Autowired
 	private ErrorHandler errorHandler;
-	
+
 	@Autowired
 	private AssociationMapper associationMapper;
-	
+
 	@Autowired
 	private DataLoader dataLoader;
-	
+
 	@Autowired
 	private CompanySaver companySaver;
-	
-//	@Autowired
-//	private SaverJDBC saverJDBC;
+
+	//	@Autowired
+	//	private SaverJDBC saverJDBC;
 
 	private List<Employee> employeeList;
 	private List<Company> companyList;
@@ -66,47 +66,52 @@ public class DataManagerImpl implements DataManager {
 		}
 	}
 
-	private void loadData() throws Exception {
-	
-		employeeList = dataLoader.loadEmployee();
-		companyList = dataLoader.loadCompany();
-		reportError(errorHandler.getErrorMap());		
+	private void loadData()  {
+
+		try {
+			employeeList = dataLoader.loadEmployee();
+			companyList = dataLoader.loadCompany();
+			reportError(errorHandler.getErrorMap());	
+		} 
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void associateData() {
-		
+
 		associationMapper.setUpAssociations();
 		reportError(errorHandler.getErrorMap());
 	}
 
 	/*private void saveData() {
-		
+
 		saverJDBC.saveCompanies(companyList);
 		saverJDBC.saveEmployees(employeeList);
 	}*/
-	
-	public void load() {
 
-		try {
-			loadData();
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		associateData();
-		
+	private void saveData() {
+
 		companySaver.setCompanyList(companyList);
-		
+
 		try {
 			companySaver.savePass1();
 		} 
+
 		catch (ServiceUnavailableException e) {
 			e.printStackTrace();
-		} 
+		}
+
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-//		saveData();
+	}
+
+	public void load() {
+		
+		loadData();
+		associateData();
+		saveData();
 	}
 }
