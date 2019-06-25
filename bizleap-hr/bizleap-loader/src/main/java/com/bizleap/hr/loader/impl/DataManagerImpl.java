@@ -47,7 +47,7 @@ public class DataManagerImpl implements DataManager {
 	
 	public void reportError(Map<Integer,Error> map) {
 		if(map!=null && !map.isEmpty()){
-			logger.info("\t\t\t\t\t\tFileERRORr\n"+map);
+			logger.error("\t\t\t\t\t\tFileError\n"+map);
 			//System.exit(0);
 		}
 	}
@@ -70,16 +70,17 @@ public class DataManagerImpl implements DataManager {
 
 	public void load() {
 		try{
-		loadData();
+			loadData();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		
 		associateData();
 		companySaver.setCompanyList(companyList);
-		
+
 		try{
-		companySaver.savePass1();
+			companySaver.savePass();
 		}catch(ServiceUnavailableException e){
 			e.printStackTrace();
 		}catch(IOException e){

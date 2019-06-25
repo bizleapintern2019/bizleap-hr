@@ -22,7 +22,7 @@ public class Company extends AbstractEntity {
 	private String email;
 	
 	@OneToMany(mappedBy="workFor",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	private List<Employee> employeeList = new ArrayList<Employee>();
+	private List<Employee> employeeList ;
 	
 	public Company(String boid) {
 		super(boid);
@@ -80,9 +80,10 @@ public class Company extends AbstractEntity {
 	public List<Employee> getEmployeeList() {
 		return employeeList;
 	}
-
-	public void setEmployeeList(Employee employee) {
-		this.employeeList.add(employee);
+	public void addEmployee(Employee employee){
+		if(employeeList==null)
+			employeeList=new ArrayList<Employee>();
+		employeeList.add(employee);
 	}
 	
 	public boolean checkCompany(String boid) {
