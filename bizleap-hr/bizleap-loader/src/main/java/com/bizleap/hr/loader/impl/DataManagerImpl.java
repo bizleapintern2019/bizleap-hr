@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
@@ -42,6 +43,7 @@ public class DataManagerImpl implements DataManager {
 	private List<Job> jobList;
 	private List<Location> locationList;
 	private List<Position> positionList;
+	private List<Address> addressList;
 	
 	private Logger logger = Logger.getLogger(DataManagerImpl.class);
 	
@@ -83,6 +85,14 @@ public class DataManagerImpl implements DataManager {
 
 	public void setPositionList(List<Position> positionList) {
 		this.positionList = positionList;
+	}
+
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
 	}
 
 	public Map<Integer, ErrorCollection> getErrorMap() {

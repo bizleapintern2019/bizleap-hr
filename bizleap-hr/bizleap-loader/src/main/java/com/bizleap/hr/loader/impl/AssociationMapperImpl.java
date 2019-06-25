@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
@@ -21,102 +22,140 @@ import com.bizleap.hr.loader.ErrorCollector;
 public class AssociationMapperImpl implements AssociationMapper {
 	@Autowired
 	private DataManager dataManager;
-	//private Map<Integer, ErrorCollection> errorHashMap;
+	
 	@Autowired
 	private ErrorCollector errorCollector;
+	
 	@Autowired
 	private DataLoader dataLoader;
-	int lineNumber=0;
 	
-	private void addEmployeesToCompany(Company company) {
-		for(Employee employee:dataManager.getEmployeeList()){
-			if(employee.getWorkFor().isEqual(company.getBoId())) {
-				company.addEmployee(employee);
-			}
-		}
-	}
-
-	private void setUpCompanyAssociations() {
-		for(Company company:dataManager.getCompanyList()){
-			addEmployeesToCompany(company);
-			addLocationToCompany(company);
-		}	
-	}
+	int lineNumber = 0;
 	
-	private void addCompanyToEmployee(Employee employee) {
-		for(Company company:dataManager.getCompanyList()){
-			if(company.sameBoId(employee.getWorkFor())){
-				employee.setWorkFor(company);
-				return;
-			}
-		}
-		lineNumber=dataLoader.getIndex();
-		errorCollector.handleLinkageError(lineNumber,"Company in employee cannot be linked.", employee);
-		lineNumber++;
-		dataLoader.setIndex(lineNumber);
-	}
-	
-	
-	private void setUpEmployeeAssociations() {
-		for(Employee employee:dataManager.getEmployeeList()) {
-			addCompanyToEmployee(employee);
-			addAddressToEmployee(employee);
-		}
-	}
-	
-	private void addLocationToCompany(Company company) {
-		
-	}
+//	private void addEmployeesToCompany(Company company) {
+//		for(Employee employee : dataManager.getEmployeeList()) {
+//			if(employee.getWorkFor().isEqual(company.getBoId())) {
+//				company.addEmployee(employee);
+//			}
+//		}
+//	}
+//
+//	private void setUpCompanyAssociations() {
+//		for(Company company : dataManager.getCompanyList()) {
+//			addEmployeesToCompany(company);
+//			addLocationToCompany(company);
+//		}	
+//	}
+//	
+//	private void addCompanyToEmployee(Employee employee) {
+//		for(Company company : dataManager.getCompanyList()) {
+//			if(company.sameBoId(employee.getWorkFor())) {
+//				employee.setWorkFor(company);
+//				return;
+//			}
+//		}
+//		lineNumber=dataLoader.getIndex();
+//		errorCollector.handleLinkageError(lineNumber,"Company in employee cannot be linked.", employee);
+//		lineNumber++;
+//	}
+//	
+//	private void addLocationToCompany(Company company) {
+//		for(Location location : dataManager.getLocationList()) {
+//			if(location.sameBoId(company.getBoId())) {
+//				company.addLocation(location);
+//			}
+//		}
+//	}
 	
 	private void setUpLocationAssociations() {
-		for(Location location:dataManager.getLocationList()) {
+		for(Location location : dataManager.getLocationList()) {
 			addDepartmentToLocation(location);
 		}
 	}
 	
 	private void addDepartmentToLocation(Location location) {
-		
+		for(Department department : dataManager.getDepartmentList()) {
+			if(department.sameBoId(location.getBoId())) {
+				location.addDepartment(department);
+			}
+		}
+		lineNumber=dataLoader.getIndex();
+		errorCollector.handleLinkageError(lineNumber,"Department in location cannot be linked.", location);
+		lineNumber++;
 	}
 	
 	private void setUpDepartmentAssociations() {
-		for(Department department:dataManager.getDepartmentList()) {
+		for(Department department : dataManager.getDepartmentList()) {
 			addJobToDepartment(department);
 		}
 	}
 	
 	private void addJobToDepartment(Department department) {
-		
+		for(Job job : dataManager.getJobList()) {
+			if(job.sameBoId(department.getBoId())) {
+				department.addJob(job);
+			}
+		}
+		lineNumber=dataLoader.getIndex();
+		errorCollector.handleLinkageError(lineNumber,"Job in department cannot be linked.", department);
+		lineNumber++;
 	}
 	
 	private void setUpJobAssociations() {
-		for(Job job:dataManager.getJobList()) {
+		for(Job job : dataManager.getJobList()) {
 			addPositionToJob(job);
 		}
 	}
+	
 	private void addPositionToJob(Job job) {
-		
+		for(Position position : dataManager.getPositionList()) {
+			if(position.sameBoId(job.getBoId())) {
+				job.addPosition(position);
+			}
+		}
+		lineNumber=dataLoader.getIndex();
+		errorCollector.handleLinkageError(lineNumber,"Position in job cannot be linked.", job);
+		lineNumber++;
 	}
 	
-	private void setUpPositionAssociation() {
-		for(Position position:dataManager.getPositionList()){
+	private void setUpPositionAssociations() {
+		for(Position position : dataManager.getPositionList()) {
 			addEmployeeToPosition(position);
 		}
 	}
+	
 	private void addEmployeeToPosition(Position position) {
-		
+		for(Employee employee : dataManager.getEmployeeList()) {
+			if(employee.sameBoId(position.getBoId())) {
+				position.addEmployee(employee);
+			}
+		}
+		lineNumber=dataLoader.getIndex();
+		errorCollector.handleLinkageError(lineNumber,"Employee in position cannot be linked.", position);
+		lineNumber++;
+	}
+	
+	private void setUpEmployeeAssociations() {
+		for(Employee employee : dataManager.getEmployeeList()) {
+			addAddressToEmployee(employee);
+		}
 	}
 	
 	private void addAddressToEmployee(Employee employee) {
-		
+		for(Address address : dataManager.getAddressList()) {
+			if(address.sameBoId(employee.getBoId())) {
+				employee.addAddress(address);
+			}
+		}
+		lineNumber=dataLoader.getIndex();
+		errorCollector.handleLinkageError(lineNumber,"Address in employee cannot be linked.", employee);
+		lineNumber++;
 	}
 	
 	public void setUpAssociations() {
-		setUpCompanyAssociations();
-		setUpEmployeeAssociations();
+		setUpLocationAssociations();
+		setUpDepartmentAssociations();
+		setUpJobAssociations();
+		setUpPositionAssociations();
+		setUpEmployeeAssociations();	
 	}
-
-//	public Map<Integer, ErrorCollection> getErrorHashMap() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 }
