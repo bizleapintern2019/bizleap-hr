@@ -1,6 +1,5 @@
 package com.bizleap.commons.domain.entity;
 
-<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -44,8 +43,4 @@ public class Location extends AbstractEntity {
 				.append("Location Name: " + getLocationName());
 
 	}
-=======
-public class Location {
->>>>>>> 648de4acf9293affdde9b06313eafb329ab15316
-
 }
