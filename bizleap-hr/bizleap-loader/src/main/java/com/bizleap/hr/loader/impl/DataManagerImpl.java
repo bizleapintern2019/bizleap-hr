@@ -9,9 +9,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.ErrorCollection;
+import com.bizleap.commons.domain.entity.Job;
+import com.bizleap.commons.domain.entity.Location;
+import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.CompanySaver;
@@ -30,11 +35,15 @@ public class DataManagerImpl implements DataManager {
 //	@Autowired
 //	private SaverJDBC saver;
 	@Autowired
-	private CompanySaver companySaver;
+	private LocationSaver locationSaver;
 	
 	private Map<Integer,ErrorCollection> errorMap = new HashMap<Integer,ErrorCollection>();
 	private List<Employee> employeeList;
-	private List<Company> companyList;
+	private List<Department> departmentList;
+	private List<Job> jobList;
+	private List<Location> locationList;
+	private List<Position> positionList;
+	private List<Address> addressList;
 	
 	private Logger logger = Logger.getLogger(DataManagerImpl.class);
 	
@@ -45,13 +54,45 @@ public class DataManagerImpl implements DataManager {
 	public void setEmployeeList(List<Employee> employeeList) {
 		this.employeeList=employeeList;
 	}
-	
-	public List<Company> getCompanyList(){
-		return companyList;
+
+	public List<Department> getDepartmentList() {
+		return departmentList;
 	}
-	
-	public void setCompanyList(List<Company> companyList) {
-		this.companyList=companyList;
+
+	public void setDepartmentList(List<Department> departmentList) {
+		this.departmentList = departmentList;
+	}
+
+	public List<Job> getJobList() {
+		return jobList;
+	}
+
+	public void setJobList(List<Job> jobList) {
+		this.jobList = jobList;
+	}
+
+	public List<Location> getLocationList() {
+		return locationList;
+	}
+
+	public void setLocationList(List<Location> locationList) {
+		this.locationList = locationList;
+	}
+
+	public List<Position> getPositionList() {
+		return positionList;
+	}
+
+	public void setPositionList(List<Position> positionList) {
+		this.positionList = positionList;
+	}
+
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
 	}
 
 	public Map<Integer, ErrorCollection> getErrorMap() {
@@ -65,7 +106,10 @@ public class DataManagerImpl implements DataManager {
 	public void loadData() {
 		try {
 				employeeList = dataLoader.loadEmployee();
-				companyList = dataLoader.loadCompany();
+				departmentList= dataLoader.loadDepartment();
+				jobList = dataLoader.loadJob();
+				locationList = dataLoader.loadLocation();
+				positionList = dataLoader.loadPosition();
 			} catch (Exception e) {
 				logger.error(e);
 			}
@@ -88,16 +132,15 @@ public class DataManagerImpl implements DataManager {
 	
 	public void associateData() {
 		if(!errorCollector.hasError()) 
-			//return ;
 			associationMapper.setUpAssociations();
 	}
 	
 	public void load() {
 		loadData();
 		associateData();
-		companySaver.setCompanyList(companyList);
+		locationSaver.setCompanyList(locationList);
 		try {
-			companySaver.savePass1();
+			locationSaver.savePass1();
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		} catch (IOException e) {
