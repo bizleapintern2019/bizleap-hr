@@ -1,6 +1,5 @@
 package com.bizleap.commons.domain.entity;
 
-<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -64,8 +63,4 @@ public class Position extends AbstractEntity {
 		return "Position " + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("JobId" + getJobId()).append("ReportTo" + getReportTo()).append("Report By" + getReportBy());
 	}
-=======
-public class Position {
-
->>>>>>> 648de4acf9293affdde9b06313eafb329ab15316
 }
