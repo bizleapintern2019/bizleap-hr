@@ -34,17 +34,21 @@ public class DataManagerImpl implements DataManager {
 //	private SaverJDBC saver;
 	
 	@Autowired
-	CompanySaver companySaver;
+	private CompanySaver companySaver;
 	
-	private List<Employee> employeeList = new ArrayList<Employee>();
-	private List<Company> companyList = new ArrayList<Company>();
+	private List<Employee> employeeList;
+	private List<Company> companyList;
 	
 
 	public List<Employee> getEmployeeList() {
+		if(employeeList == null) 
+			employeeList = new ArrayList<Employee>();
 		return employeeList;
 	}
 
 	public List<Company> getCompanyList() {
+		if(companyList == null)
+			companyList = new ArrayList<Company>();
 		return companyList;
 	}
 

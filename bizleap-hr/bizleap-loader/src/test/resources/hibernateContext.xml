@@ -27,7 +27,7 @@
         <property name="dataSource" ref="dataSource"/>    
         <property name="packagesToScan">
 		    <list>
-		        <value>com.bizleap.commons</value>
+		        <value>com.bizleap.commons.domain.entity</value>
 		    </list>
 		</property>     
         <property name="hibernateProperties">

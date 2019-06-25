@@ -20,7 +20,7 @@ public class CompanySaverImpl implements CompanySaver {
     @Autowired
     private CompanyService companyService;
 
-    List<Company> companyList;
+    private List<Company> companyList;
 
     @Override
     public void savePass1() throws ServiceUnavailableException, IOException {

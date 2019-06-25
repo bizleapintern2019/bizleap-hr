@@ -17,8 +17,6 @@ import com.bizleap.hr.loader.DataManager;
 
 @Service
 public class AssociationMapperImpl implements AssociationMapper {
-
-	private Logger logger=Logger.getLogger(AssociationMapperImpl.class);
 	
 	@Autowired
 	private DataManager dataManager;
@@ -26,8 +24,9 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private Map<Integer, Error> errorMap;
 	private List<Integer> lineNumbers =new ArrayList<Integer>();
 	private int i=0;
-	
-	
+	private int index=0;
+	private Logger logger=Logger.getLogger(AssociationMapperImpl.class);
+		
 	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
 	}
@@ -60,7 +59,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 				return;
 			}
 		}
-		handleLinkedError(lineNumbers.get(i),"Company in employee cannot be linked.", employee);
+		handleLinkageError(lineNumbers.get(i),"Company in employee cannot be linked.", employee);
 	}
 	
 //	private void addCompanyToEmployee2(Employee employee) {
@@ -84,7 +83,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	}
 	
 
-	public void handleLinkedError(int lineNumber,String message, Object source) {
+	public void handleLinkageError(int lineNumber,String message, Object source) {
 //		System.out.println("--------------------------------------------------------------------------------------------");
 //		System.out.println("\t\t\t\tERROR");
 //		System.out.println("--------------------------------------------------------------------------------------------");
@@ -94,6 +93,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 //		System.exit(0);
 		if (errorMap == null)
 			errorMap = new HashMap<Integer, Error>();
-		errorMap.put(lineNumber,new Error(lineNumber, source, message));
+		errorMap.put(index++,new Error(lineNumber, source, message));
 	}
 }
