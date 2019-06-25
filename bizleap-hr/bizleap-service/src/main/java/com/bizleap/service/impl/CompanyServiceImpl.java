@@ -12,9 +12,10 @@ import com.bizleap.service.dao.CompanyDao;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
+	
 	@Autowired
-	private CompanyDao companyDao;
-
+	CompanyDao companyDao;
+	
 	@Override
 	public void saveCompany(Company company) throws IOException, ServiceUnavailableException {
 		companyDao.save(company);

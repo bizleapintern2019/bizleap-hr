@@ -1,0 +1,5 @@
+EMP002,C002,Bob,Gilman,34,Manager,30000,def@gmail.com,853454 
+EMP001,C001,Alice,Kim,31,Developer,10000,abc@gmail.com,09876465 
+EMP003,C003,John,Mark,32,Staff,30000,446thuya446@gmail.com,09434323 
+EMP004,C001,David,William,32,AssistantManager,30000,446urena446@gmail.com,0979555
+EMP005,C001,John,Wick,45,Actor,11919199,fakdjfklj@gmail.com,2090298

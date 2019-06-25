@@ -1,0 +1,3 @@
+C001,Apple,London,09554,345543@gmail.com,JohnPeter
+C002,IBM,Norway,32322,ggfdsf@gmail.com,RepterY
+C003,Adobe,China,097955,446thuya446@gmail.com,Reive
