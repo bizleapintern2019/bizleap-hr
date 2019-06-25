@@ -1,0 +1,7 @@
+#boId,#jobTitle,#salary,#department-id
+JOB001;CEO;800000;DEPT001
+JOB002;Senior Software Engineer;400000;DEPT002
+JOB003;Software Engineer;300000;DEPT002
+JOB004;General Manager;400000;DEPT002
+JOB005;Technical lead;300000;DEPT002
+JOB006;InternShip;40000;DEPT003
