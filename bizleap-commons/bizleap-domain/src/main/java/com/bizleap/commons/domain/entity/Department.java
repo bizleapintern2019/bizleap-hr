@@ -1,5 +1,8 @@
 package com.bizleap.commons.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,6 +15,7 @@ public class Department extends AbstractEntity {
 	private String departmentName;
 	private String parentDepartment;
 	private String locationId;
+	private List<Job> jobList;
 
 	public Department() {
 		super();
@@ -48,6 +52,21 @@ public class Department extends AbstractEntity {
 		this.locationId = locationId;
 	}
 
+	public List<Job> getJobList() {
+		return jobList;
+	}
+
+	public void setJobList(List<Job> jobList) {
+		this.jobList = jobList;
+	}
+
+	public void addJob(Job job) {
+		if(jobList == null){
+			jobList = new ArrayList<Job>();
+		}
+		jobList.add(job);
+	}
+	
 	public static Department parseDepartment(String dataLine) {
 		Department department = new Department();
 		String[] tokens = dataLine.split(";");
@@ -65,4 +84,8 @@ public class Department extends AbstractEntity {
 						.append("DepartmentName :" + getDepartmentName())
 						.append("ParentDepartment :" + getParentDepartment()).append("Location ID :" + getLocationId());
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 328f33956f334350f66232f79c18cb1fa42c523c

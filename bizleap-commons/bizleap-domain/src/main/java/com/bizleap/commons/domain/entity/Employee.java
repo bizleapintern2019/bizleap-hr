@@ -1,5 +1,8 @@
 package com.bizleap.commons.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
  
 import javax.persistence.Table;
@@ -12,6 +15,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Employee extends AbstractEntity{
 	private String firstName,lastName,title,email,phone;
 	private int age,salary;
+	private List<Address> addressList;
 	
 	public Employee(){
 		super();
@@ -31,7 +35,7 @@ public class Employee extends AbstractEntity{
 		this.age = age;
 		this.salary = salary;
 	}
-
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -88,6 +92,12 @@ public class Employee extends AbstractEntity{
 		this.phone = phone;
 	}
 
+	public void addAddress(Address address) {
+		if(addressList == null) {
+			addressList = new ArrayList<Address>();
+		}
+		addressList.add(address);
+	}
 	public static Employee parseEmployee(String dataLine) {
 		Employee employee = new Employee();
         String[] tokens = dataLine.split(";");

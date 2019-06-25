@@ -1,5 +1,7 @@
 package com.bizleap.commons.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,6 +14,7 @@ public class Job extends AbstractEntity {
 	private String jobTitle;
 	private int salary;
 	private String departmentId;
+	private List<Position> positionList;
 
 	public Job() {
 		super();
@@ -46,6 +49,13 @@ public class Job extends AbstractEntity {
 
 	public void setDepartmentId(String departmentId) {
 		this.departmentId = departmentId;
+	}
+	
+	public void addPosition(Position position) {
+		if(positionList == null) {
+			positionList = new ArrayList<Position>();
+		}
+		positionList.add(position);
 	}
 
 	public static Job parseJob(String dataLine) {
