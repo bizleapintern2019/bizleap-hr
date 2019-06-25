@@ -9,8 +9,8 @@ import com.bizleap.hr.config.CoreConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(classes = CoreConfig.class)
-//@ContextConfiguration(locations = {"classpath:/applicationContext.xml","classpath:/hibernateContext.xml"})
-@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath:/applicationContext.xml","classpath:/hibernateContext.xml"})
+//@ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class ServiceTest {
 
 }

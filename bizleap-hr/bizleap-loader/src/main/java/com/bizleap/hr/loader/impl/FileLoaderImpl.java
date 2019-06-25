@@ -37,5 +37,4 @@ public class FileLoaderImpl implements FileLoader {
 	public int getLineNumber() {
 		return lineNumber;
 	}
-
 }

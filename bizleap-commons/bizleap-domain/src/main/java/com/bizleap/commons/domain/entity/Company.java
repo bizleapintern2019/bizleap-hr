@@ -30,19 +30,18 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name = "company")
 public class Company extends AbstractEntity{
+	
+	@OneToMany( mappedBy="workFor", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private List<Employee> employeeList;
+	
+	private int lineNumber=0;
 	private String companyName;
 	private String address;
 	private String phone;
 	private String email;
 	private String ceo;
 	
-	@OneToMany( mappedBy="workFor", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	private List<Employee> employeeList;
-	private int lineNumber=0;
-
-	public Company() {
-		
-	}
+	public Company() {}
 	
 	public Company(String workForBoId) {
 		super(workForBoId);
@@ -181,8 +180,7 @@ public class Company extends AbstractEntity{
 									.setEmail(email)
 									.setPhone(phone)
 									.build();
-		return company;
-									
+		return company;							
 	}
 
 	@Override

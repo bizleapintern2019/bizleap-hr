@@ -14,8 +14,10 @@ import com.bizleap.commons.domain.entity.Employee;
 public class AssociationMapperImpl implements AssociationMapper{
 	@Autowired
 	private DataManager dataManager;
+	
 	@Autowired
 	private ErrorHandler errorHandler;
+	
 	@Autowired
 	private DataLoader dataLoader;
 	
@@ -43,16 +45,14 @@ public class AssociationMapperImpl implements AssociationMapper{
 			}
 		}
 		lineNumber=dataLoader.getIndex();
-		errorHandler.handleLinkedError(lineNumber,"Company in employee cannot be linked.", employee);
+		errorHandler.handleLinkageError(lineNumber,"Company in employee cannot be linked.", employee);
 		lineNumber++;
 		dataLoader.setIndex(lineNumber);
 	}
 	
-	
 	private void setUpEmployeeAssociations() {
 		for(Employee employee:dataManager.getEmployeeList()) {
-			addCompanyToEmployee(employee);
-			
+			addCompanyToEmployee(employee);	
 		}
 	}
 	
@@ -60,5 +60,4 @@ public class AssociationMapperImpl implements AssociationMapper{
 		setUpCompanyAssociations();
 		setUpEmployeeAssociations();
 	}
-
 }

@@ -16,10 +16,11 @@ import com.bizleap.hr.loader.FileLoader;
 public class DataLoaderImpl implements DataLoader {
 	@Autowired
 	private FileLoader fileLoader;
+	
 	@Autowired
 	private ErrorHandler errorHandler;
 
-	public int index =1;
+	public int index = 1;
 
 	public int getIndex() {
 		return index;

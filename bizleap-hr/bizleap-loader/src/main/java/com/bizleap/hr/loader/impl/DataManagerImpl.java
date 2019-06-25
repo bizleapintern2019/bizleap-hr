@@ -22,12 +22,16 @@ public class DataManagerImpl implements DataManager {
 	private Logger logger =Logger.getLogger(DataManagerImpl.class);
 	@Autowired
 	private DataLoader dataLoader;
+	
 	@Autowired
 	private ErrorHandler errorHandler;
+	
 	@Autowired
 	private AssociationMapper associationMapper;
-//	@Autowired
-//	private CompanySaver companySaver;
+	
+	@Autowired
+	private CompanySaver companySaver;
+	
 //	@Autowired
 //	private SaverJDBC saver;
 	
@@ -88,11 +92,11 @@ public class DataManagerImpl implements DataManager {
 		loadData();
 		associateData();
 		//saveData();
-//		companySaver.setCompanyList(companyList);
-//			try {
-//				companySaver.savePass1();
-//			} catch (ServiceUnavailableException | IOException e) {
-//				logger.error(e);
-//			}
+		companySaver.setCompanyList(companyList);
+			try {
+				companySaver.savePass1();
+			} catch (ServiceUnavailableException | IOException e) {
+				logger.error(e);
+			}
 	}
 }
