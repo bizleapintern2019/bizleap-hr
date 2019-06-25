@@ -35,7 +35,7 @@ public class ErrorCollectorImpl implements ErrorCollector{
 		errorMap.put(indexNumber,error);
 	}
 
-	public void handleLinkedError(int indexNumber, String message, Object source) {
+	public void handleLinkageError(int indexNumber, String message, Object source) {
 		logger.info("Index in Linked Error"+indexNumber);
 		ErrorCollection error= new ErrorCollection(source,message);
 		if(errorMap == null){
