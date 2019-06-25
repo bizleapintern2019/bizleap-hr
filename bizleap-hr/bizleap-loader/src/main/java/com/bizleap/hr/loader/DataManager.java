@@ -4,13 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.ErrorCollection;
+import com.bizleap.commons.domain.entity.Job;
+import com.bizleap.commons.domain.entity.Location;
+import com.bizleap.commons.domain.entity.Position;
 
 public interface DataManager {
-	public void loadData();
-	public List<Employee> getEmployeeList();
-	public List<Company> getCompanyList();
-	public Map<Integer,ErrorCollection> getErrorMap();
-	public void load();
+	void loadData();
+	List<Employee> getEmployeeList();
+	List<Company> getCompanyList();
+	List<Department> getDepartmentList(); 
+	List<Job> getJobList();
+	List<Location> getLocationList();
+	List<Position> getPositionList();
+	Map<Integer,ErrorCollection> getErrorMap();
+	void load();
 }

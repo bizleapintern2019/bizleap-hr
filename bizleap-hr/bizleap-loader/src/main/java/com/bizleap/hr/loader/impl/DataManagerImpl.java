@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.ErrorCollection;
+import com.bizleap.commons.domain.entity.Job;
+import com.bizleap.commons.domain.entity.Location;
+import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.CompanySaver;
@@ -35,6 +39,10 @@ public class DataManagerImpl implements DataManager {
 	private Map<Integer,ErrorCollection> errorMap = new HashMap<Integer,ErrorCollection>();
 	private List<Employee> employeeList;
 	private List<Company> companyList;
+	private List<Department> departmentList;
+	private List<Job> jobList;
+	private List<Location> locationList;
+	private List<Position> positionList;
 	
 	private Logger logger = Logger.getLogger(DataManagerImpl.class);
 	
@@ -52,6 +60,40 @@ public class DataManagerImpl implements DataManager {
 	
 	public void setCompanyList(List<Company> companyList) {
 		this.companyList=companyList;
+	}
+	
+	
+
+	public List<Department> getDepartmentList() {
+		return departmentList;
+	}
+
+	public void setDepartmentList(List<Department> departmentList) {
+		this.departmentList = departmentList;
+	}
+
+	public List<Job> getJobList() {
+		return jobList;
+	}
+
+	public void setJobList(List<Job> jobList) {
+		this.jobList = jobList;
+	}
+
+	public List<Location> getLocationList() {
+		return locationList;
+	}
+
+	public void setLocationList(List<Location> locationList) {
+		this.locationList = locationList;
+	}
+
+	public List<Position> getPositionList() {
+		return positionList;
+	}
+
+	public void setPositionList(List<Position> positionList) {
+		this.positionList = positionList;
 	}
 
 	public Map<Integer, ErrorCollection> getErrorMap() {

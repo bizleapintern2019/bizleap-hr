@@ -109,6 +109,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void addAddressToEmployee(Employee employee) {
 		
 	}
+	
 	public void setUpAssociations() {
 		setUpCompanyAssociations();
 		setUpEmployeeAssociations();
