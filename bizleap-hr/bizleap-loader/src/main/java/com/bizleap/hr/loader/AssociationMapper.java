@@ -8,7 +8,7 @@ import com.bizleap.commons.domain.entity.Error;
 public interface AssociationMapper {
 	public void setUpAssociations();
 
-	public void handleLinkedError(int lineNumber,String message, Object source);
+	public void handleLinkageError(int lineNumber,String message, Object source);
 	
 	public void setErrorMap(HashMap<Integer, Error> errorHashMap);
 	
