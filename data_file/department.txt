@@ -1,0 +1,5 @@
+#boid, #name, #location-id, #parentDepartment
+DEPT001; BOD; LOC001; null
+DEPT002; Engineering; LOC001; DEPT001
+DEPT003; Internship; LOC001; DEPT002
+DEPT004; Customer Support; LOC002; DEPT002
