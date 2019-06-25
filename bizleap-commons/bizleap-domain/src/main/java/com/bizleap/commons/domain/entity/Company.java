@@ -17,10 +17,19 @@ package com.bizleap.commons.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Company extends Entity{
+@Entity
+@Table(name="company")
+public class Company extends AbstractEntity{
 	private String companyName;
 	private String address;
 	private String phone;
@@ -53,7 +62,8 @@ public class Company extends Entity{
 	public void setLineNumber(int lineNumber) {
 		this.lineNumber = lineNumber;
 	}
-
+	
+	@OneToMany(mappedBy="workFor",fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	public List<Employee> getEmployeeList() {
 		return employeeList;
 	}
@@ -163,12 +173,13 @@ public class Company extends Entity{
 		phone = tokenizer.nextToken();
 		email = tokenizer.nextToken();
 		ceo = tokenizer.nextToken();
-		Company company=new Company.Builder().setAddress(address)
-									.setBoId(boId)
-									.setCeo(ceo)
+		Company company=new Company.Builder()
+									.setBoId(boId)									
 									.setCompanyName(companyName)
-									.setEmail(email)
+									.setAddress(address)
 									.setPhone(phone)
+									.setEmail(email)
+									.setCeo(ceo)
 									.build();
 		return company;
 									

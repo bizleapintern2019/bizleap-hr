@@ -2,17 +2,21 @@ package com.bizleap.service.impl;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import org.springframework.stereotype.Service;
+
 import com.bizleap.service.JDBCService;
 import com.mysql.jdbc.Connection;
 
+@Service
 public class JDBCServiceImpl implements JDBCService {
 
 	@Override
 	public Connection getJDBCConnection() {
 		Connection connection = null;
-		String dBName="internhr";
-		String userName="root";
-		String password="root";
+		String dBName="intern_hr";
+		String userName="admin";
+		String password="admin";
 		try {
 				Class.forName("com.mysql.jdbc.Driver");
 				connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/"+dBName +"?user="+userName+"&password="+password);

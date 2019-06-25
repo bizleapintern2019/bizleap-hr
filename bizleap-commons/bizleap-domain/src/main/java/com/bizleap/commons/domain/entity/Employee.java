@@ -14,16 +14,28 @@ John Mark -- works for Adobe
 */
 package com.bizleap.commons.domain.entity;
 
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class Employee extends Entity{
-	private String firstName,lastName,title,email,phone;
-	private int age,salary,lineNumber;
+@Entity
+@Table(name="employee")
+public class Employee extends AbstractEntity{
+	
+	@ManyToOne
+	@JoinColumn(name="BOID")
+	
 	private Company workFor= new Company();
 	
+	private String firstName,lastName,title,email,phone;
+	private int age,salary,lineNumber;	
 	
 	public Employee() {
 		
@@ -33,21 +45,20 @@ public class Employee extends Entity{
 		super(boId);
 	}
 
-	public Employee(String boId,String firstName, String lastName, String title, String email, String phone, int age, int salary) {
+	public Employee(String boId,String firstName, String lastName,int age, String title,  String phone,int salary,String email) {
 		super.setBoId(boId);
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.title = title;
-		this.email = email;
-		this.phone = phone;
 		this.age = age;
+		this.title = title;
+		this.phone = phone;
 		this.salary = salary;
+		this.email = email;		
 	}
 	
 	public Company getWorkFor() {
 		return workFor;
 	}
-
 
 	public void setWorkFor(Company workFor) {
 		this.workFor = workFor;
@@ -163,11 +174,11 @@ public class Employee extends Entity{
 		}
 		
 		public Employee build() {
-			return new Employee(boId,firstName,lastName,title,email,phone,age,salary);
+			return new Employee(boId,firstName,lastName,age,title,phone,salary,email);
 		}
 	}
 
-	public static Employee parseEmployee(String dataLine) {
+	public static Employee parseEmployee(String dataLine) throws NoSuchElementException{
 		
 		String boId, firstName,lastName, title,email,phone,workForBoId;
 		int age, salary;
@@ -177,19 +188,20 @@ public class Employee extends Entity{
 		lastName = tokenizer.nextToken();
 		age = Integer.parseInt(tokenizer.nextToken());
 		title = tokenizer.nextToken();
-		salary = Integer.parseInt(tokenizer.nextToken());
-		email = tokenizer.nextToken();
 		phone = tokenizer.nextToken();
+		salary = Integer.parseInt(tokenizer.nextToken());
+		email = tokenizer.nextToken();		
 		workForBoId = tokenizer.nextToken();
 		
-		Employee employee= new Employee.Builder().setAge(age)
-									 .setBoId(boId)
-									 .setEmail(email)
+		Employee employee= new Employee.Builder()
+									 .setBoId(boId)									 
 									 .setFirstName(firstName)
 									 .setLastName(lastName)
+									 .setAge(age)
+									 .setTitle(title)
 									 .setPhone(phone)
 									 .setSalary(salary)
-									 .setTitle(title)
+									 .setEmail(email)									 
 									 .build();
 		employee.setWorkFor(new Company(workForBoId));
 		return employee;

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
@@ -11,15 +14,17 @@ import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.hr.loader.FileLoader;
 
+@Service
 public class DataLoaderImpl implements DataLoader {
-	FileLoader fileLoader= new FileLoaderImpl();
-	ErrorHandler errorHandler;
-	public Map<Integer,Error> errorMap;
-	public int index =1;
 
-	public DataLoaderImpl(ErrorHandler errorHandler) {
-		this.errorHandler = errorHandler;
-	}
+	@Autowired
+	private ErrorHandler errorHandler;
+	
+	@Autowired
+	private FileLoader fileLoader;	
+	
+	public Map<Integer,Error> errorMap;	
+	public int index =1;
 
 	public Map<Integer, Error> getErrorMap() {
 		return errorMap;
@@ -38,7 +43,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 
 	public List<Employee> loadEmployee() throws Exception {
-		fileLoader.start("E:\\test\\EmployeeData.txt");
+		fileLoader.start("F:\\Emp.txt");
 		String dataLine="";
 		List<Employee> employeeList= new ArrayList<Employee>();
 		Employee employee = null;
@@ -66,7 +71,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 
 	public List<Company> loadCompany() throws Exception {
-		fileLoader.start("E:\\test\\CompanyData.txt");
+		fileLoader.start("F:\\Com.txt");
 		String dataLine="";
 		List<Company> companyList= new ArrayList<Company>();
 		Company company=null;
@@ -83,8 +88,7 @@ public class DataLoaderImpl implements DataLoader {
 				}
 			}catch (Exception e) {
 				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Company file loading.",dataLine);
-				index++;
-				
+				index++;				
 			}
 		}
 		fileLoader.finish();

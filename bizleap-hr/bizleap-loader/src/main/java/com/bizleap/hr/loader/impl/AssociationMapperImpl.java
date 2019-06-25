@@ -3,6 +3,9 @@ package com.bizleap.hr.loader.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
@@ -11,36 +14,19 @@ import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Error;
 
+@Service
 public class AssociationMapperImpl implements AssociationMapper{
+
+	@Autowired
+	private DataLoader dataLoader;
+	
+	@Autowired
 	private DataManager dataManager;
-	ErrorHandler errorHandler;
-	int lineNumber=0;
 	
-	public AssociationMapperImpl() {
-	}
-	public AssociationMapperImpl(DataManager dataManager) {
-		this.dataManager=dataManager;
-	}
-	public AssociationMapperImpl(DataManager dataManager,ErrorHandler errorHandler) {
-		this.dataManager=dataManager;
-		this.errorHandler=errorHandler;
-	}
+	@Autowired
+	private ErrorHandler errorHandler;
 	
-	public ErrorHandler getErrorHandler() {
-		return errorHandler;
-	}
-
-	public void setErrorHandler(ErrorHandler errorHandler) {
-		this.errorHandler = errorHandler;
-	}
-
-	public DataManager getDataManager() {
-		return dataManager;
-	}
-
-	public void setDataManager(DataManager dataManager) {
-		this.dataManager = dataManager;
-	}
+	private int lineNumber=0;
 	
 	private void addEmployeesToCompany(Company company) {
 		for(Employee employee:dataManager.getEmployeeList()){
@@ -49,7 +35,6 @@ public class AssociationMapperImpl implements AssociationMapper{
 			}
 		}
 	}
-
 	
 	private void setUpCompanyAssociations() {
 		for(Company company:dataManager.getCompanyList()){
@@ -64,17 +49,15 @@ public class AssociationMapperImpl implements AssociationMapper{
 				return;
 			}
 		}
-		lineNumber=dataManager.getDataLoader().getIndex();
+		lineNumber=dataLoader.getIndex();
 		errorHandler.handleLinkedError(lineNumber,"Company in employee cannot be linked.", employee);
 		lineNumber++;
-		dataManager.getDataLoader().setIndex(lineNumber);
+		dataLoader.setIndex(lineNumber);
 	}
-	
 	
 	private void setUpEmployeeAssociations() {
 		for(Employee employee:dataManager.getEmployeeList()) {
-			addCompanyToEmployee(employee);
-			
+			addCompanyToEmployee(employee);			
 		}
 	}
 	
@@ -82,5 +65,4 @@ public class AssociationMapperImpl implements AssociationMapper{
 		setUpCompanyAssociations();
 		setUpEmployeeAssociations();
 	}
-
 }

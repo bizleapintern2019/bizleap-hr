@@ -1,25 +1,31 @@
 package com.bizleap.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.service.CompanyService;
-import com.bizleap.service.EmployeeService;
-import com.bizleap.service.Saver;
+import com.bizleap.service.CompanyServiceJDBC;
+import com.bizleap.service.EmployeeServiceJDBC;
+import com.bizleap.service.SaverJDBC;
 
-public class SaverImpl implements Saver{
-
-	CompanyService companyService = new CompanyServiceImpl();
-	EmployeeService employeeService = new EmployeeServiceImpl();
+@Service
+public class SaverJDBCImpl implements SaverJDBC{
 	
-	public SaverImpl() {
+	@Autowired
+	private CompanyServiceJDBC companyService;
+	
+	@Autowired
+	private EmployeeServiceJDBC employeeService;
+	
+	public SaverJDBCImpl() {
 	}
 
-	public void saveCompany(Company company){
-		companyService.saveCompany(company);
-	}
-	
-	public void saveEmployee(Employee employee) {
-		employeeService.saveEmployee(employee);
-	}
-	
+//	public void saveCompany(Company company){
+//		companyService.saveCompany(company);
+//	}
+//	
+//	public void saveEmployee(Employee employee) {
+//		employeeService.saveEmployee(employee);
+//	}	
 }

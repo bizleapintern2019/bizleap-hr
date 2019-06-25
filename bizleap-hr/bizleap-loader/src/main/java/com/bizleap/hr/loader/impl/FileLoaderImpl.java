@@ -5,6 +5,9 @@ import com.bizleap.hr.loader.FileLoader;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class FileLoaderImpl implements FileLoader {
 
 	private BufferedReader dataReader;
