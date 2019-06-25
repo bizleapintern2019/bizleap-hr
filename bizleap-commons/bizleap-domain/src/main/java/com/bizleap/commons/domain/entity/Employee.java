@@ -11,7 +11,7 @@ John Mark -- works for Adobe
   it's employee(s) for all companies.
 2) Find out what commonality do the two entity classes have and reimplement it
  by using the inheritance features of Java. 
-*/
+ */
 package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class Employee extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name="companyId")
 	private Company workFor;
-	
+
 	private String firstName;
 	private String lastName;
 	private int age;
@@ -121,17 +121,17 @@ public class Employee extends AbstractEntity {
 	public void setWorkFor(Company workFor) {
 		this.workFor = workFor;
 	}
-	
+
 	public static List<Integer> getLineNumberList(){
 		return lineNumbers;
 	}
-	
+
 	public static Employee parseEmployee(String line, int lineNumber) {
 		if(lineNumbers == null)
 			lineNumbers = new ArrayList<Integer>();
 		else
 			lineNumbers.add(lineNumber);
-		
+
 		String boid, firstName, lastName, title, email, phone, companyBoid;
 		int age, salary;
 
@@ -158,12 +158,8 @@ public class Employee extends AbstractEntity {
 				.phone(phone)
 				.buildEmployee();
 		employee.setWorkFor(new Company(companyBoid));
-		
+
 		return employee;
-	}
-	
-	public boolean checkEmployee(String boid) {
-		return getWorkFor().getBoId().equals(boid);
 	}
 
 	@Override

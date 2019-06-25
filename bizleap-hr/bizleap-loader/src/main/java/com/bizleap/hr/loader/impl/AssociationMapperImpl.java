@@ -37,7 +37,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 
 	private void addEmployeesToCompany(Company company) {
 		for (Employee employee : dataManager.getEmployeesList()) {
-			if (employee.checkEmployee(company.getBoId()))
+			if (company.sameBoId(employee.getWorkFor()))
 				company.addEmployee(employee);
 		}
 	}
@@ -51,7 +51,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 
 	private void addCompanyToEmployee(Employee employee) {
 		for (Company company : dataManager.getCompanyList()) {
-			if (company.checkCompany(employee.getWorkFor().getBoId())) {
+			if (company.boIdIsEqual(employee.getWorkFor().getBoId())) {
 				employee.setWorkFor(company);
 				i++;
 				return;

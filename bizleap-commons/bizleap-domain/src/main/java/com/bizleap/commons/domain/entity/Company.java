@@ -105,8 +105,8 @@ public class Company extends AbstractEntity {
 		employeeList.add(employee);
 	}
 	
-	public boolean checkCompany(String boid) {
-		return getBoId().equals(boid);
+	public boolean boIdIsEqual(String boid) {
+		return super.getBoId().equals(boid);
 	}
 
 	public static Company parseCompany(String line) {
