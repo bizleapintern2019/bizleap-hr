@@ -49,6 +49,11 @@ public abstract class AbstractEntity {
 		return false;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "AbstractEntity [boId=" + boId + "]";
+//	}
+
 	@Override
 	public String toString() {
 		return ""+new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)

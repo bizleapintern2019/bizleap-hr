@@ -1,10 +1,7 @@
 package com.bizleap.commons.domain.entity;
 
-import java.util.StringTokenizer;
-
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+ 
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -15,10 +12,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Employee extends AbstractEntity{
 	private String firstName,lastName,title,email,phone;
 	private int age,salary;
-	@ManyToOne
-	@JoinColumn(name="companyId")
-	private Company workFor= new Company();
 	
+	public Employee(){
+		super();
+	}
 	
 	public Employee(String boId) {
 		super(boId);
@@ -33,18 +30,6 @@ public class Employee extends AbstractEntity{
 		this.phone = phone;
 		this.age = age;
 		this.salary = salary;
-	}
-	
-	public Company getWorkFor() {
-		return workFor;
-	}
-
-	public void setWorkFor(Company workFor) {
-		this.workFor = workFor;
-	}
-	
-	public String getWorkForBoId() {
-		return this.workFor.getBoId();
 	}
 
 	public String getFirstName() {
@@ -102,87 +87,19 @@ public class Employee extends AbstractEntity{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	public boolean workForBoIdIsEqual(String companyBoId){
-		return getWorkForBoId().equals(companyBoId);
-	}
-
-	public static class Builder {
-		private String boId,firstName,lastName,title,phone,email;
-		private int age, salary;
-
-		public Builder(){}
-		
-		public Builder setBoId(String boId) {
-			this.boId = boId;
-			return this;
-		}
-		public Builder setFirstName(String firstName) {
-			this.firstName = firstName;
-			return this;
-		}
-		
-		public Builder setLastName(String lastName) {
-			this.lastName = lastName;
-			return this;
-		}
-	
-		public Builder setAge(int age) {
-			this.age = age;
-			return this;
-		}
-		
-		public Builder setTitle(String title) {
-			this.title = title;
-			return this;
-		}
-		
-		public Builder setPhone(String phone) {
-			this.phone = phone;
-			return this;
-		}
-	
-		public Builder setSalary(int salary) {
-			this.salary = salary;
-			return this;
-		}
-		
-		public Builder setEmail(String email) {
-			this.email = email;
-			return this;
-		}
-		
-		public Employee build() {
-			return new Employee(boId,firstName,lastName,title,email,phone,age,salary);
-		}
-	}
 
 	public static Employee parseEmployee(String dataLine) {
-		
-		String boId, firstName,lastName, title,email,phone,workForBoId;
-		int age, salary;
-		StringTokenizer tokenizer = new StringTokenizer(dataLine, ",");
-		boId = tokenizer.nextToken();
-		workForBoId = tokenizer.nextToken();
-		firstName = tokenizer.nextToken();
-		lastName = tokenizer.nextToken();
-		age = Integer.parseInt(tokenizer.nextToken());
-		title = tokenizer.nextToken();
-		salary = Integer.parseInt(tokenizer.nextToken());
-		email = tokenizer.nextToken();
-		phone = tokenizer.nextToken();
-		
-		Employee employee= new Employee.Builder().setAge(age)
-									 .setBoId(boId)
-									 .setEmail(email)
-									 .setFirstName(firstName)
-									 .setLastName(lastName)
-									 .setPhone(phone)
-									 .setSalary(salary)
-									 .setTitle(title)
-									 .build();
-		employee.setWorkFor(new Company(workForBoId));
-		return employee;
+		Employee employee = new Employee();
+        String[] tokens = dataLine.split(";");
+        employee.setBoId(tokens[0]);
+        employee.setFirstName(tokens[1]);
+        employee.setLastName(tokens[2]);
+        employee.setAge(Integer.parseInt(tokens[3]));
+        employee.setTitle(tokens[4]);
+        employee.setSalary(Integer.parseInt(tokens[5]));
+        employee.setEmail(tokens[6]);
+        employee.setPhone(tokens[7]);
+        return employee;
 	}
 	
 	@Override
@@ -190,7 +107,6 @@ public class Employee extends AbstractEntity{
 		return  "Employee :"+super.toString()+
 				new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("FirstName :"+ getFirstName())
-				.append("LastName :"+getLastName())
-				.append("Work for :"+getWorkFor().getBoId());
+				.append("LastName :"+getLastName());
 	}
 }
