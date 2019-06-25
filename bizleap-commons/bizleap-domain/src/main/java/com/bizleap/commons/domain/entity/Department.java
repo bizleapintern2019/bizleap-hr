@@ -48,7 +48,7 @@ public class Department extends AbstractEntity {
 		this.locationId = locationId;
 	}
 
-	public Department parseDepartment(String dataLine) {
+	public static Department parseDepartment(String dataLine) {
 		Department department = new Department();
 		String[] tokens = dataLine.split(";");
 		department.setBoId(tokens[0]);
@@ -65,4 +65,8 @@ public class Department extends AbstractEntity {
 						.append("DepartmentName :" + getDepartmentName())
 						.append("ParentDepartment :" + getParentDepartment()).append("Location ID :" + getLocationId());
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 328f33956f334350f66232f79c18cb1fa42c523c
