@@ -1,0 +1,17 @@
+package com.bizleap.hr.loader;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bizleap.hr.loader.impl.DataManagerImpl;
+import com.bizleap.hr.loader.impl.test.ServiceTest;
+
+
+public class DataManagerTest extends ServiceTest {
+	@Autowired
+	DataManager dataManager;
+	@Test
+	public void DataTest() throws Exception {
+		dataManager.load();
+	}
+}
