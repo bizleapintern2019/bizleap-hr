@@ -17,8 +17,7 @@ public class CompanyServiceImpl implements CompanyService{
 
 	@Override
 	public void saveCompany(Company company) throws IOException, ServiceUnavailableException {
-		// TODO Auto-generated method stub
-		
+		companyDao.save(company);
 	}
 
 }

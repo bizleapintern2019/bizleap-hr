@@ -108,7 +108,6 @@ public class DataManagerImpl implements DataManager {
 	public void load() {
 		loadData();
 		associateData();
-		//logger.info("Company List is"+companyList);
 		companySaver.setCompanyList(companyList);
 		logger.info("Company Saver is"+companySaver.toString());
 		try {
