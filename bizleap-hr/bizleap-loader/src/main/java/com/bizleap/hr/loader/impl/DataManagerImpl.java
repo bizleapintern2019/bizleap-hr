@@ -32,13 +32,12 @@ public class DataManagerImpl implements DataManager {
 	@Autowired
 	private AssociationMapper associationMapper;
 
-//	@Autowired
-//	private CompanySaver companySaver;
+	@Autowired
+	private CompanySaver companySaver;
 	
 //	@Autowired
 //	private SaverJDBC saver;
-
-	private Map<Integer,Error> errorMap = new HashMap<Integer,Error>();
+	
 	private List<Employee> employeeList;
 	private List<Company> companyList;
 
@@ -56,14 +55,6 @@ public class DataManagerImpl implements DataManager {
 
 	public void setCompanyList(List<Company> companyList) {
 		this.companyList=companyList;
-	}
-
-	public Map<Integer,Error> getErrorMap() {
-		return errorMap;
-	}
-
-	public void setErrorMap(Map<Integer,Error> errorMap) {
-		this.errorMap = errorMap;
 	}
 
 	public void loadData() {
@@ -103,14 +94,14 @@ public class DataManagerImpl implements DataManager {
 		
 		loadData();
 		associateData();
-//		companySaver.setCompanyList(companyList);
-//		try {
-//			companySaver.savePass1();
-//		} catch (ServiceUnavailableException e) {
-//			logger.error(e);
-//		} catch (IOException e) {
-//			logger.error(e);
-//		}
+		companySaver.setCompanyList(companyList);
+		try {
+			companySaver.savePass1();
+		} catch (ServiceUnavailableException e) {
+			logger.error(e);
+		} catch (IOException e) {
+			logger.error(e);
+		}
 //		saveData();
 		if(errorHandler.hasError())
 			logger.error("Errors: "+errorHandler.getErrorMap());

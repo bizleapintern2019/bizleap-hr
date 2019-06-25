@@ -61,7 +61,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			}
 		}
 		lineNumber=dataLoader.getIndex();
-		errorHandler.handleLinkedError(lineNumber,"Company in employee cannot be linked.", employee);
+		errorHandler.handleLinkageError(lineNumber,"Company in employee cannot be linked.", employee);
 		lineNumber++;
 		dataLoader.setIndex(lineNumber);
 	}

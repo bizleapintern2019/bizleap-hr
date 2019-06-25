@@ -9,7 +9,7 @@ import com.bizleap.hr.loader.ErrorHandler;
 
 @Service
 public class ErrorHandlerImpl implements ErrorHandler {
-	
+
 	public Map<Integer,Error> errorMap;
 
 	public Map<Integer, Error> getErrorMap() {
@@ -19,9 +19,9 @@ public class ErrorHandlerImpl implements ErrorHandler {
 	public void setErrorMap(Map<Integer, Error> errorMap) {
 		this.errorMap = errorMap;
 	}
-	
+
 	public void handleLoadingError(int indexNumber, int lineNumber, String message, Object source) {
-		
+
 		System.out.println("Loading Error when reading files at: "+indexNumber);
 		Error error= new Error(indexNumber,source,message);
 		if(errorMap == null){
@@ -30,8 +30,8 @@ public class ErrorHandlerImpl implements ErrorHandler {
 		errorMap.put(indexNumber,error);
 	}
 
-	public void handleLinkedError(int indexNumber, String message, Object source) {
-		
+	public void handleLinkageError(int indexNumber, String message, Object source) {
+
 		System.out.println("Error to Link between Company and Employee at: "+indexNumber);
 		Error error= new Error(source,message);
 		if(errorMap == null){

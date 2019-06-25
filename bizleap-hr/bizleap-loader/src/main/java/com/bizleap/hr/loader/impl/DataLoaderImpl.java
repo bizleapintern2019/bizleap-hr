@@ -25,8 +25,6 @@ public class DataLoaderImpl implements DataLoader {
 	private ErrorHandler errorHandler;
 
 	private Map<Integer,Error> errorMap = new HashMap<>();
-
-
 	int index =0;
 
 	public Map<Integer, Error> getErrorMap() {
@@ -36,7 +34,6 @@ public class DataLoaderImpl implements DataLoader {
 	public void setErrorMap(Map<Integer, Error> errorMap) {
 		this.errorMap = errorMap;
 	}
-
 
 	public int getIndex() {
 		return index;
@@ -74,7 +71,7 @@ public class DataLoaderImpl implements DataLoader {
 		fileLoader.finish();
 		return companyList;
 	}
-	
+
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("E:\\AAWE-1\\employee.txt");
 		String dataLine="";

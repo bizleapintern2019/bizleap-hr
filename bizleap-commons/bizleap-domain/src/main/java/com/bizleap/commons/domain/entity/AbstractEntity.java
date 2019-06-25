@@ -30,18 +30,23 @@ public abstract class AbstractEntity {
 	public AbstractEntity() {
 
 	}
+	
 	public AbstractEntity(String boId) {
 		this.boId = boId;
 	}
+	
 	public String getBoId() {
 		return boId;
 	}
+	
 	public void setBoId(String boId) {
 		this.boId = boId;
 	}
+	
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -60,5 +65,4 @@ public abstract class AbstractEntity {
 	public String toString() {
 		return "Entity [boId=" + getBoId() + "]";
 	}
-
 }

@@ -28,7 +28,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Table( name  = "employee")
 public class Employee extends AbstractEntity {
 	
-	private String id;
+//	private String id;
 	private String firstName;
 	private String lastName;
 	private int age;
@@ -41,6 +41,23 @@ public class Employee extends AbstractEntity {
 	@JoinColumn(name="companyId")
 	private Company workFor;
 	
+	public Employee() {}
+	
+	public Employee(String boId) {
+		super(boId);
+	}
+
+	public Employee(String boId,String firstName, String lastName, int age, String title, int salary, String email, String phone) {
+		super.setBoId(boId);
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.title = title;
+		this.salary = salary;
+		this.email = email;
+		this.phone = phone;
+	}
+	
 	public Company getWorkFor() {
 		return workFor;
 	}
@@ -49,13 +66,6 @@ public class Employee extends AbstractEntity {
 		this.workFor = workFor;
 	}
 
-	public String getBoId() {
-		return id;
-	}
-
-	public void setBoId(String id) {
-		this.id = id;
-	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -111,22 +121,6 @@ public class Employee extends AbstractEntity {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Employee(String boId) {
-		super(boId);
-	}
-
-	public Employee(String boId,String firstName, String lastName, int age, String title, int salary, String email, String phone) {
-		this.id = boId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.age = age;
-		this.title = title;
-		this.salary = salary;
-		this.email = email;
-		this.phone = phone;
-	}
-
-	public Employee() {}
 
 	public static class Builder {
 		private String boId;

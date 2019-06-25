@@ -14,30 +14,31 @@ import java.util.List;
 
 @Service
 public class CompanySaverImpl implements CompanySaver {
-    private static Logger logger = Logger.getLogger(CompanySaverImpl.class);
-    private static Printer printer = new Printer(logger);
 
-    @Autowired
-    private CompanyService companyService;
+	private static Logger logger = Logger.getLogger(CompanySaverImpl.class);
+	private static Printer printer = new Printer(logger);
 
-    List<Company> companyList;
+	@Autowired
+	private CompanyService companyService;
 
-    @Override
-    public void setCompanyList(List<Company> companyList) {
-        this.companyList=companyList;
-    }
+	private List<Company> companyList;
 
-    public List<Company> getCompanyList() {
-        return this.companyList;
-    }
-    
-    @Override
-    public void savePass1() throws ServiceUnavailableException, IOException {
-        printer.line("Saving Company: "+ getCompanyList().size());
-        for(Company company:getCompanyList()) {
-            companyService.saveCompany(company);
-        }
-        printer.line("Saving Completed");
-    }
+	@Override
+	public void setCompanyList(List<Company> companyList) {
+		this.companyList=companyList;
+	}
+
+	public List<Company> getCompanyList() {
+		return this.companyList;
+	}
+
+	@Override
+	public void savePass1() throws ServiceUnavailableException, IOException {
+		printer.line("Saving Company: "+ getCompanyList().size());
+		for(Company company:getCompanyList()) {
+			companyService.saveCompany(company);
+		}
+		printer.line("Saving Completed");
+	}
 
 }
