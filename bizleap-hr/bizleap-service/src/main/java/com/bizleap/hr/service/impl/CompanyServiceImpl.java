@@ -16,6 +16,7 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyDao companyDao;
     
 	private Logger logger = Logger.getLogger(CompanyServiceImpl.class);
+	
     @Override
     public void saveCompany(Company company) throws IOException, ServiceUnavailableException {
     	logger.info("Saving data: " + company);
