@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Company;
+import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.ErrorCollection;
+import com.bizleap.commons.domain.entity.Job;
+import com.bizleap.commons.domain.entity.Location;
+import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
@@ -35,6 +39,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpCompanyAssociations() {
 		for(Company company:dataManager.getCompanyList()){
 			addEmployeesToCompany(company);
+			addLocationToCompany(company);
 		}	
 	}
 	
@@ -55,17 +60,62 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpEmployeeAssociations() {
 		for(Employee employee:dataManager.getEmployeeList()) {
 			addCompanyToEmployee(employee);
-			
+			addAddressToEmployee(employee);
 		}
 	}
 	
+	private void addLocationToCompany(Company company) {
+		
+	}
+	
+	private void setUpLocationAssociations() {
+		for(Location location:dataManager.getLocationList()) {
+			addDepartmentToLocation(location);
+		}
+	}
+	
+	private void addDepartmentToLocation(Location location) {
+		
+	}
+	
+	private void setUpDepartmentAssociations() {
+		for(Department department:dataManager.getDepartmentList()) {
+			addJobToDepartment(department);
+		}
+	}
+	
+	private void addJobToDepartment(Department department) {
+		
+	}
+	
+	private void setUpJobAssociations() {
+		for(Job job:dataManager.getJobList()) {
+			addPositionToJob(job);
+		}
+	}
+	private void addPositionToJob(Job job) {
+		
+	}
+	
+	private void setUpPositionAssociation() {
+		for(Position position:dataManager.getPositionList()){
+			addEmployeeToPosition(position);
+		}
+	}
+	private void addEmployeeToPosition(Position position) {
+		
+	}
+	
+	private void addAddressToEmployee(Employee employee) {
+		
+	}
 	public void setUpAssociations() {
 		setUpCompanyAssociations();
 		setUpEmployeeAssociations();
 	}
 
-	public Map<Integer, ErrorCollection> getErrorHashMap() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public Map<Integer, ErrorCollection> getErrorHashMap() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }
