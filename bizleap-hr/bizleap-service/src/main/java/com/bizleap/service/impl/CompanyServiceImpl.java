@@ -19,5 +19,4 @@ public class CompanyServiceImpl implements CompanyService {
 	public void saveCompany(Company company) throws IOException, ServiceUnavailableException {
 		companyDao.save(company);
 	}
-	
 }

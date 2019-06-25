@@ -1,0 +1,25 @@
+#boid#permanent address#contact address#city#state#country
+ADR001;No.11,zinziyar Str;No.79,zinziyar Str;Yangon;Yangon;Myanmar
+ADR002;No.(58),Moe Ma Kha Street ;No.(58) ,Moe Ma Kha Street ;Mingaladone Township;Yangon;Myanmar
+ADR003;No.(59),Wizarya Street;No.(59),Wizarya Street;Yangon;Yangon;Myanmar
+ADR004;No.(80),Bosan Street;No.(80) ,Bosan Street;Yangon;Yangon;Myanmar
+ADR005;No.(76),Thanlan Street;No.(76),www.email.com;Bago;Bago;Myanmar
+ADR006;Building(11),Room(4),No.(1),industrial Road;Building(11),Room(4),No.(1),industrial Road;Bahan Township;Yangon;Myanmar
+ADR007;No.(56),Oak Lan Street;No.(56),Oak Lan Street;San Chaung Townshiop;Yangon;Myanmar
+ADR008;Aung Chan Than Street,North of Thandanpin;Aung Chan Than Street,North of Thandanpin;Hmawbi Township;Yangon;Myanmar
+ADR009;No.(54),Oo ohn Shwe Street,SatKaLay Yard;No.(54),Oo ohn Shwe Street,SatKaLay Yard;Insein Township;Yangon;Myanmar
+ADR010;No.(1182),Rose Street ,Kamakasit Yard;No.(1182),Rose Street ,Kamakasit Yard;Tharkayta Township;Yangon;Myanmar
+ADR011;41/354,Pone Myat Street;41/354,Pone Myat Street;North Dagon Township;Yangon;Myanmar
+ADR012;No.229,4th Street,1/Ka Ward;No.229,4th Street,1/Ka Ward;Mingaladon Township;Yangon;Myanmar
+ADR013;(A)224/4th floor,Anomar(18) Street;(A)224/4th floor,Anomar(18) Street;Tharkayta Township;Yangon;Myanmar
+ADR014;No.(61),BoBaHtoo(11) Street;No.(61),BoBaHtoo(11) Street;Hlaing Thar Yar Townshiop;Yangon;Myanmar
+ADR015;No.(120)/Room(19),Yangon-Insein Road ,9 Quarter;No.(120)/Room(19),Yangon-Insein Road ,9 Quarter;Hlaing Township;Yangon;Myanmar
+ADR016;No.(109),1st floor,D block ;No.(109),1st floor,D block ;North Okalapa Township;Yangon;Myanmar
+ADR017;No.(74),zinziyar Street;No.(74),zinziyar Street;Insein Township;Yangon;Myanmar
+ADR018;No.(1658)/1(Anawmar);No.(1658)/1(Anawmar);Tharkayta Township;Yangon;Myanmar
+ADR019;No.(106),101 Street;No.(106),101 Street;Mingalartownnyunt Township;Yangon;Myanmar
+ADR020;No.(390),sakawut(1) Street;No.(390),sakawut(1) Street;North Okalapa Township;Yangon;Myanmar
+ADR021;No.(333),Ingyin Myaing Street,105 Yard;No.(333),Ingyin Myaing Street,105 Yard;South Dagon Township;Yangon;Myanmar
+ADR022;No.39,1st floor,87 Street;No.39,1st floor,87 Street;Mingalartownnyunt Township;Yangon;Myanmar
+ADR023;No.103(C),Maharbawga Street;No.103(C),Maharbawga Street;Mayangone Township;Yangon;Myanmar
+ADR024;No.(34),A Ingyin Myaing ,5th Street;No.(34),A Ingyin Myaing ,5th Street;Thingangyun Township;Yangon;Myanmar
