@@ -74,7 +74,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addDepartmentToLocation(Location location) {
 		for(Department department : dataManager.getDepartmentList()) {
-			if(department.sameBoId(location.getBoId())) {
+			if(department.sameBoId(location)) {
 				location.addDepartment(department);
 			}
 		}
@@ -91,7 +91,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addJobToDepartment(Department department) {
 		for(Job job : dataManager.getJobList()) {
-			if(job.sameBoId(department.getBoId())) {
+			if(job.sameBoId(department)) {
 				department.addJob(job);
 			}
 		}
@@ -108,7 +108,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addPositionToJob(Job job) {
 		for(Position position : dataManager.getPositionList()) {
-			if(position.sameBoId(job.getBoId())) {
+			if(position.sameBoId(job)) {
 				job.addPosition(position);
 			}
 		}
@@ -125,7 +125,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addEmployeeToPosition(Position position) {
 		for(Employee employee : dataManager.getEmployeeList()) {
-			if(employee.sameBoId(position.getBoId())) {
+			if(employee.sameBoId(position)) {
 				position.addEmployee(employee);
 			}
 		}
@@ -142,7 +142,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addAddressToEmployee(Employee employee) {
 		for(Address address : dataManager.getAddressList()) {
-			if(address.sameBoId(employee.getBoId())) {
+			if(address.sameBoId(employee)) {
 				employee.addAddress(address);
 			}
 		}
