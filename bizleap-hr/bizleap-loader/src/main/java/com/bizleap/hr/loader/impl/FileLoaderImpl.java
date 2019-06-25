@@ -15,7 +15,7 @@ public class FileLoaderImpl implements FileLoader {
 	private int lineCount = 0;
 
 	public void start(String fileReader) throws Exception {
-		lineCount = 0;
+		lineCount = 1;
 		bufferedReader = new BufferedReader(new FileReader(fileReader));
 	}
 

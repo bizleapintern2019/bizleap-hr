@@ -21,8 +21,6 @@ import com.bizleap.hr.loader.DataManager;
 @Service
 public class DataManagerImpl implements DataManager {
 	
-	private Logger logger = Logger.getLogger(DataManagerImpl.class);
-	
 	@Autowired
 	private CompanySaver companySaver;
 	
@@ -35,15 +33,20 @@ public class DataManagerImpl implements DataManager {
 //	@Autowired
 //	private SaverJDBC saver;
 	
-	private List<Employee> employeesList = new ArrayList<Employee>();
-	private List<Company> companyList = new ArrayList<Company>();
-
+	private List<Employee> employeesList;
+	private List<Company> companiesList;
+	private Logger logger = Logger.getLogger(DataManagerImpl.class);
+	
 	public List<Employee> getEmployeesList() {
+		if(employeesList == null)
+			employeesList = new ArrayList<Employee>(); 
 		return employeesList;
 	}
 
 	public List<Company> getCompanyList() {
-		return companyList;
+		if(companiesList == null)
+			companiesList = new ArrayList<Company>();
+		return companiesList;
 	}
 
 	private void reportError(Map<Integer, Error> map) {
@@ -55,7 +58,7 @@ public class DataManagerImpl implements DataManager {
 
 	private void loadData() throws Exception {
 		employeesList = dataLoader.loadEmployee();
-		companyList = dataLoader.loadCompany();
+		companiesList = dataLoader.loadCompany();
 		reportError(dataLoader.getErrorMap());
 	}
 
@@ -70,8 +73,7 @@ public class DataManagerImpl implements DataManager {
 //	}
 	
 	private void saveData() {
-		logger.info("I'm here!!!!");
-		companySaver.setCompanyList(companyList);
+		companySaver.setCompanyList(companiesList);
 		try {
 			companySaver.savePass1();
 		} catch (ServiceUnavailableException e) {

@@ -32,7 +32,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Company extends AbstractEntity {
 
 	@OneToMany( mappedBy="workFor", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	private List<Employee> employeeList = new ArrayList<Employee>();;
+	private List<Employee> employeeList;
 	
 	private String name;
 	private String address;
@@ -94,11 +94,15 @@ public class Company extends AbstractEntity {
 	}
 	
 	public List<Employee> getEmployeeList() {
+		if(employeeList == null)
+			employeeList = new ArrayList<Employee>();
 		return employeeList;
 	}
-
-	public void setEmployeeList(Employee employee) {
-		this.employeeList.add(employee);
+	
+	public void addEmployee(Employee employee) {
+		if(employeeList == null)
+			employeeList = new ArrayList<Employee>();
+		employeeList.add(employee);
 	}
 	
 	public boolean checkCompany(String boid) {

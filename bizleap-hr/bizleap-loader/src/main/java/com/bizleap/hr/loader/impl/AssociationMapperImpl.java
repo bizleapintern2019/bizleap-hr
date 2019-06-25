@@ -38,7 +38,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void addEmployeesToCompany(Company company) {
 		for (Employee employee : dataManager.getEmployeesList()) {
 			if (employee.checkEmployee(company.getBoId()))
-				company.setEmployeeList(employee);
+				company.addEmployee(employee);
 		}
 	}
 
@@ -57,7 +57,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 				return;
 			}
 		}
-		handleLinkedError(lineNumbers.get(i), "Company in employee cannot be linked.", employee);
+		handleLinkageError(lineNumbers.get(i), "Company in employee cannot be linked.", employee);
 		i++;
 	}
 
@@ -74,7 +74,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		setUpEmployeeAssociation();
 	}
 
-	public void handleLinkedError(int lineNumber, String message, Object source) {
+	public void handleLinkageError(int lineNumber, String message, Object source) {
 		if (errorMap == null)
 			errorMap = new HashMap<Integer, Error>();
 
