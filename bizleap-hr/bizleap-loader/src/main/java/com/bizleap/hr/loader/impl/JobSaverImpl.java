@@ -19,13 +19,13 @@ public class JobSaverImpl implements JobSaver{
     private static Printer printer = new Printer(logger);
 
     @Autowired
-    JobService jobService;
+    private JobService jobService;
 
-    List<Job> jobList;
+    private List<Job> jobList;
 
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        printer.line("Saving Company: "+ getJobList().size());
+        printer.line("Saving Job: "+ getJobList().size());
         for(Job job:getJobList()) {
             jobService.saveJob(job);
         }

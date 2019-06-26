@@ -1,11 +1,8 @@
 package com.bizleap.commons.domain.entity;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
-=======
->>>>>>> 328f33956f334350f66232f79c18cb1fa42c523c
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -54,9 +51,9 @@ public class Position extends AbstractEntity {
 	public void setReportBy(String reportBy) {
 		this.reportBy = reportBy;
 	}
-	
+
 	public void addEmployee(Employee employee) {
-		if(employeeList == null) {
+		if (employeeList == null) {
 			employeeList = new ArrayList<Employee>();
 		}
 		employeeList.add(employee);
@@ -77,8 +74,4 @@ public class Position extends AbstractEntity {
 		return "Position " + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("JobId" + getJobId()).append("ReportTo" + getReportTo()).append("Report By" + getReportBy());
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 328f33956f334350f66232f79c18cb1fa42c523c

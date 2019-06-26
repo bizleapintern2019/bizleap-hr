@@ -12,7 +12,7 @@ import com.bizleap.service.DepartmentService;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-	
+
 	@Autowired
 	private DepartmentDao departmentDao;
 

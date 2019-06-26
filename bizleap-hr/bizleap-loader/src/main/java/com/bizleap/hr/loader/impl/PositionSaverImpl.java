@@ -1,15 +1,9 @@
 package com.bizleap.hr.loader.impl;
 
-import com.bizleap.commons.domain.entity.Company;
-import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.commons.domain.utils.Printer;
-import com.bizleap.hr.loader.CompanySaver;
-import com.bizleap.hr.loader.LocationSaver;
 import com.bizleap.hr.loader.PositionSaver;
-import com.bizleap.service.CompanyService;
-import com.bizleap.service.LocationService;
 import com.bizleap.service.PositionService;
 
 import org.apache.log4j.Logger;
@@ -25,9 +19,9 @@ public class PositionSaverImpl implements PositionSaver {
     private static Printer printer = new Printer(logger);
 
     @Autowired
-    PositionService positionService;
+    private PositionService positionService;
 
-    List<Position> positionList;
+    private List<Position> positionList;
 
     public void savePass1() throws ServiceUnavailableException, IOException {
         printer.line("Saving Position: "+ getPositionList().size());

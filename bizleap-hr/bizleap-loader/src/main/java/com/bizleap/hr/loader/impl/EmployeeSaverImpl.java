@@ -20,13 +20,13 @@ public class EmployeeSaverImpl implements EmployeeSaver {
     private static Printer printer = new Printer(logger);
 
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
-    List<Employee> employeeList;
+    private List<Employee> employeeList;
 
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        printer.line("Saving Company: "+ getEmployeeList().size());
+        printer.line("Saving Employee: "+ getEmployeeList().size());
         for(Employee employee:getEmployeeList()) {
         	employeeService.saveEmployee(employee);
         }

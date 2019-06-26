@@ -1,11 +1,8 @@
 package com.bizleap.commons.domain.entity;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
-=======
->>>>>>> 328f33956f334350f66232f79c18cb1fa42c523c
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -54,9 +51,9 @@ public class Job extends AbstractEntity {
 	public void setDepartmentId(String departmentId) {
 		this.departmentId = departmentId;
 	}
-	
+
 	public void addPosition(Position position) {
-		if(positionList == null) {
+		if (positionList == null) {
 			positionList = new ArrayList<Position>();
 		}
 		positionList.add(position);

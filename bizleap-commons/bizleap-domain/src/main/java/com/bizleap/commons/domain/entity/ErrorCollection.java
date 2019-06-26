@@ -5,17 +5,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class ErrorCollection {
 	private int lineNumber;
 	private Object source;
-	private String message="";
-	
-	public ErrorCollection() {}
-	
-	
+	private String message = "";
+
+	public ErrorCollection() {
+	}
+
 	public ErrorCollection(Object source, String message) {
-		this.lineNumber=0;
+		this.lineNumber = 0;
 		this.source = source;
 		this.message = message;
 	}
-
 
 	public ErrorCollection(int lineNumber, Object source, String message) {
 		this.lineNumber = lineNumber;
@@ -49,17 +48,16 @@ public class ErrorCollection {
 
 	@Override
 	public String toString() {
-		String lineString="";
-	/*	if(getLineNumber()!=0){
-			lineString="at line number "+ getLineNumber();
-		}*/
+		String lineString = "";
+		/*
+		 * if(getLineNumber()!=0){ lineString="at line number "+ getLineNumber(); }
+		 */
 		return new ToStringBuilder(source, null)
-				.append("---------------------------------------------------------------"+"\n")
+				.append("---------------------------------------------------------------" + "\n")
 				.append("\t\t\t\t\tERROR\n")
-				.append("---------------------------------------------------------------"+"\n")
-				.append(getMessage()+"\n")
-				.append("Source Object : "+getSource()+"At line Number "+getLineNumber()+"\n")
-				.append("---------------------------------------------------------------")
-				.build();
+				.append("---------------------------------------------------------------" + "\n")
+				.append(getMessage() + "\n")
+				.append("Source Object : " + getSource() + "At line Number " + getLineNumber() + "\n")
+				.append("---------------------------------------------------------------").build();
 	}
 }

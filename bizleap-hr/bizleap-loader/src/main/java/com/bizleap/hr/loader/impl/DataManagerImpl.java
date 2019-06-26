@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Address;
-import com.bizleap.commons.domain.entity.Company;
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.ErrorCollection;
@@ -19,10 +18,9 @@ import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.loader.AssociationMapper;
-import com.bizleap.hr.loader.CompanySaver;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorCollector;
-import com.bizleap.service.SaverJDBC;
+import com.bizleap.hr.loader.LocationSaver;
 
 @Service
 public class DataManagerImpl implements DataManager {
@@ -138,7 +136,7 @@ public class DataManagerImpl implements DataManager {
 	public void load() {
 		loadData();
 		associateData();
-		locationSaver.setCompanyList(locationList);
+		locationSaver.setLocationList(locationList);
 		try {
 			locationSaver.savePass1();
 		} catch (ServiceUnavailableException e) {
