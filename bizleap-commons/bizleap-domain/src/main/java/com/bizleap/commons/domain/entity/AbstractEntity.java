@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
+	
 	@Id
 	@GeneratedValue
 	private long id;

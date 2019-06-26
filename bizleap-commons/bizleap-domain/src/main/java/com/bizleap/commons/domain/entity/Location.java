@@ -59,6 +59,5 @@ public class Location extends AbstractEntity {
 	public String toString() {
 		return "Location: " + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Location Name: " + getLocationName());
-
 	}
 }

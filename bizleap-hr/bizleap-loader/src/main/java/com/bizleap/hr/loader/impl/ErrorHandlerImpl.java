@@ -11,6 +11,7 @@ import com.bizleap.hr.loader.ErrorHandler;
 
 @Service
 public class ErrorHandlerImpl implements ErrorHandler {
+	
 	public Map<Integer, Error> errorMap;
 	Logger logger = Logger.getLogger(ErrorHandlerImpl.class);
 

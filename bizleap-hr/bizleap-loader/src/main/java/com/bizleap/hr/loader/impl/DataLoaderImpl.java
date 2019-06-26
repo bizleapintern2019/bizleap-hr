@@ -17,6 +17,7 @@ import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.hr.loader.FileLoader;
 
+// @Author: Kaung Pyae Sone Htun
 @Service
 public class DataLoaderImpl implements DataLoader {
 	@Autowired
@@ -37,7 +38,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 
 	public List<Employee> loadEmployee() throws Exception {
-		fileLoader.start("C:\\Users\\Dell\\bizleap-hr-workspace\\bizleap-project\\data_file\\employee.txt");
+		fileLoader.start("E:\\BizleapProject\\employee.txt");
 		String dataLine = "";
 		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee = null;
@@ -63,7 +64,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 
 	public List<Location> loadLocation() throws Exception {
-		fileLoader.start("C:\\Users\\Dell\\bizleap-hr-workspace\\bizleap-project\\data_file\\location.txt");
+		fileLoader.start("E:\\BizleapProject\\location.txt");
 		String dataLine = "";
 		List<Location> locationList = new ArrayList<Location>();
 		Location location = null;
@@ -89,7 +90,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Department> loadDepartment() throws Exception {
-		fileLoader.start("C:\\Users\\Dell\\bizleap-hr-workspace\\bizleap-project\\data_file\\department.txt");
+		fileLoader.start("E:\\BizleapProject\\department.txt");
 		String dataLine = "";
 		List<Department> departmentList = new ArrayList<Department>();
 		Department department = null;
@@ -114,7 +115,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Job> loadJob() throws Exception {
-		fileLoader.start("C:\\Users\\Dell\\bizleap-hr-workspace\\bizleap-project\\data_file\\job.txt");
+		fileLoader.start("E:\\BizleapProject\\job.txt");
 		String dataLine = "";
 		List<Job> jobList = new ArrayList<Job>();
 		Job job = null;
@@ -139,7 +140,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Position> loadPosition() throws Exception {
-		fileLoader.start("C:\\Users\\Dell\\bizleap-hr-workspace\\bizleap-project\\data_file\\position.txt");
+		fileLoader.start("E:\\BizleapProject\\position.txt");
 		String dataLine = "";
 		List<Position> positionList = new ArrayList<Position>();
 		Position position = null;
@@ -164,7 +165,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Address> loadAddress() throws Exception {
-		fileLoader.start("C:\\Users\\Dell\\bizleap-hr-workspace\\bizleap-project\\data_file\\address.txt");
+		fileLoader.start("E:\\BizleapProject\\address.txt");
 		String dataLine = "";
 		List<Address> addressList = new ArrayList<Address>();
 		Address address = null;

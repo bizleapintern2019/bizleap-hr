@@ -12,8 +12,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name ="department")
 public class Department extends AbstractEntity {
+	
 	private String departmentName;
-	private String parentDepartment;
+	private Department parentDepartment;
 	private String locationId;
 	private List<Job> jobList;
 
@@ -21,7 +22,7 @@ public class Department extends AbstractEntity {
 		super();
 	}
 
-	public Department(String boId, String departmentName, String parentDepartment, String locationId) {
+	public Department(String boId, String departmentName, Department parentDepartment, String locationId) {
 		super.setBoId(boId);
 		this.departmentName = departmentName;
 		this.parentDepartment = parentDepartment;
@@ -36,11 +37,11 @@ public class Department extends AbstractEntity {
 		this.departmentName = departmentName;
 	}
 
-	public String getParentDepartment() {
+	public Department getParentDepartment() {
 		return parentDepartment;
 	}
 
-	public void setParentDepartment(String parentDepartment) {
+	public void setParentDepartment(Department parentDepartment) {
 		this.parentDepartment = parentDepartment;
 	}
 

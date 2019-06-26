@@ -10,6 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name = "position")
 public class Position extends AbstractEntity {
+	
 	private String jobId;
 	private String reportTo;
 	private String reportBy;

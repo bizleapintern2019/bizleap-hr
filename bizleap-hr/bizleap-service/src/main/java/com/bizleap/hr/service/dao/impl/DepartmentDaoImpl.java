@@ -6,6 +6,7 @@ import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.DepartmentDao;
 
+//@Author: Soe Min Thein
 @Repository
 public class DepartmentDaoImpl extends AbstractDaoImpl<Department,String> implements DepartmentDao{
 	protected DepartmentDaoImpl() {
