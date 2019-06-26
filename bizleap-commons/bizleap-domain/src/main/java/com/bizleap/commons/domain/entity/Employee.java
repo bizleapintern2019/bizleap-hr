@@ -3,8 +3,12 @@ package com.bizleap.commons.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -15,9 +19,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Employee extends AbstractEntity {
 
 	private String title,firstName, lastName, entranceDate,dateOfBirth,gender, email, phone;
+	
+	@OneToOne
+	@JoinColumn(name="positionId")
 	private Position position;
+	
+	@OneToOne
+	@JoinColumn(name="addressId")
 	private Address address;
-	private List<Address> addressList;
 
 	public Employee() {
 		super();
@@ -26,7 +35,6 @@ public class Employee extends AbstractEntity {
 	public Employee(String boId) {
 		super(boId);
 	}
-
 
 	public Employee(String boId,String title, String firstName, String lastName, String entranceDate, String dateOfBirth,
 			String gender, String email, String phone, Position position, Address address) {
@@ -83,14 +91,6 @@ public class Employee extends AbstractEntity {
 		this.address = address;
 	}
 
-	public List<Address> getAddressList() {
-		return addressList;
-	}
-
-	public void setAddressList(List<Address> addressList) {
-		this.addressList = addressList;
-	}
-	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -129,13 +129,6 @@ public class Employee extends AbstractEntity {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public void addAddress(Address address) {
-		if (addressList == null) {
-			addressList = new ArrayList<Address>();
-		}
-		addressList.add(address);
 	}
 
 	public static Employee parseEmployee(String dataLine) {

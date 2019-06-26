@@ -2,7 +2,13 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -12,7 +18,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Job extends AbstractEntity {
 	private String jobTitle;
 	private int salary;
+	
+	@ManyToOne
+	@JoinColumn(name="departmentId")
 	private Department department;
+	
+	@OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Position> positionList;
 
 	public Job() {

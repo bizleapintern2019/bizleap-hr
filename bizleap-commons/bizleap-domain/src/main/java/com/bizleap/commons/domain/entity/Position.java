@@ -2,7 +2,13 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,9 +17,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Table(name = "position")
 public class Position extends AbstractEntity {
 	
+	@ManyToOne
+	@JoinColumn(name="jobId")
 	private Job job;
 	private Position reportTo;
-	private List<Employee> employeeList;
+	
+	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Employee employee;
 
 	public Position() {
 		super();
@@ -45,19 +55,12 @@ public class Position extends AbstractEntity {
 		this.reportTo = reportTo;
 	}
 	
-	public List<Employee> getEmployeeList() {
-		return employeeList;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmployeeList(List<Employee> employeeList) {
-		this.employeeList = employeeList;
-	}
-
-	public void addEmployee(Employee employee) {
-		if (getEmployeeList() == null) {
-			employeeList = new ArrayList<Employee>();
-		}
-		employeeList.add(employee);
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public static Position parsePosition(String dataLine) {

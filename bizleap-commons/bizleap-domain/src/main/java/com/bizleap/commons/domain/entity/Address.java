@@ -3,7 +3,10 @@ package com.bizleap.commons.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,14 +21,24 @@ public class Address extends AbstractEntity{
 	private String city;
 	private String state;
 	private String country;
-	private List<Address> addressList;
-
+	
+	@OneToOne(mappedBy = "address", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Employee employee;
+	
 	public Address() {
 		super();
 	}
 
 	public Address(String boId) {
 		super(boId);
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public Address(String boId,String permanentAddress,String contactAddress,String city,String state,String country){
@@ -75,21 +88,6 @@ public class Address extends AbstractEntity{
 
 	public void setCountry(String country) {
 		this.country = country;
-	}
-	
-	public List<Address> getAddressList() {
-		return addressList;
-	}
-
-	public void setAddressList(List<Address> addressList) {
-		this.addressList = addressList;
-	}
-	
-	public void addAddress(Address address) {
-		if (getAddressList() == null) {
-			addressList = new ArrayList<Address>();
-		}
-		addressList.add(address);
 	}
 
 	public static Address parseAddress(String dataLine) {
