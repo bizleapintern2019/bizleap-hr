@@ -1,5 +1,8 @@
 package com.bizleap.commons.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -15,6 +18,7 @@ public class Address extends AbstractEntity{
 	private String city;
 	private String state;
 	private String country;
+	private List<Address> addressList;
 
 	public Address() {
 		super();
@@ -71,6 +75,21 @@ public class Address extends AbstractEntity{
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
+	}
+	
+	public void addAddress(Address address) {
+		if (getAddressList() == null) {
+			addressList = new ArrayList<Address>();
+		}
+		addressList.add(address);
 	}
 
 	public static Address parseAddress(String dataLine) {

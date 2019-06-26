@@ -14,8 +14,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Table(name = "employee")
 public class Employee extends AbstractEntity {
 
-	private String firstName, lastName, title, email, phone;
-	private int age, salary;
+	private String title,firstName, lastName, entranceDate,dateOfBirth,gender, email, phone;
+	private Position position;
+	private Address address;
 	private List<Address> addressList;
 
 	public Employee() {
@@ -26,18 +27,70 @@ public class Employee extends AbstractEntity {
 		super(boId);
 	}
 
-	public Employee(String boId, String firstName, String lastName, String title, String email, String phone, int age,
-			int salary) {
+
+	public Employee(String boId,String title, String firstName, String lastName, String entranceDate, String dateOfBirth,
+			String gender, String email, String phone, Position position, Address address) {
 		super.setBoId(boId);
+		this.title = title;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.title = title;
+		this.entranceDate = entranceDate;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
 		this.email = email;
 		this.phone = phone;
-		this.age = age;
-		this.salary = salary;
+		this.position = position;
+		this.address = address;
 	}
 
+	public String getEntranceDate() {
+		return entranceDate;
+	}
+
+	public void setEntranceDate(String entranceDate) {
+		this.entranceDate = entranceDate;
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -61,23 +114,7 @@ public class Employee extends AbstractEntity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public int getSalary() {
-		return salary;
-	}
-
-	public void setSalary(int salary) {
-		this.salary = salary;
-	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -105,13 +142,16 @@ public class Employee extends AbstractEntity {
 		Employee employee = new Employee();
 		String[] tokens = dataLine.split(";");
 		employee.setBoId(tokens[0]);
-		employee.setFirstName(tokens[1]);
-		employee.setLastName(tokens[2]);
-		employee.setAge(Integer.parseInt(tokens[3]));
-		employee.setTitle(tokens[4]);
-		employee.setSalary(Integer.parseInt(tokens[5]));
-		employee.setEmail(tokens[6]);
-		employee.setPhone(tokens[7]);
+		employee.setTitle(tokens[1]);
+		employee.setFirstName(tokens[2]);
+		employee.setLastName(tokens[3]);
+		employee.setPosition(new Position(tokens[4]));
+		employee.setEntranceDate(tokens[5]);
+		employee.setDateOfBirth(tokens[6]);
+		employee.setGender(tokens[7]);
+		employee.setEmail(tokens[8]);
+		employee.setPhone(tokens[9]);
+		employee.setAddress(new Address(tokens[10]));
 		return employee;
 	}
 

@@ -11,27 +11,30 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Table(name = "location")
 public class Location extends AbstractEntity {
 
-	private String locationName;
+	private String name;
 	private List<Department> departmentList;
 	
 	public Location() {
 		super();
 	}
+	
+	public Location(String boId) {
+		super(boId);
+	}
 
-	public Location(String boId, String locationName) {
+	public Location(String boId, String name) {
 		super.setBoId(boId);
-		this.locationName = locationName;
+		this.name = name;
 	}
 	
-	public String getLocationName() {
-		return locationName;
+	public String getName() {
+		return name;
 	}
 
-	public void setLocationName(String locationName) {
-		this.locationName = locationName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	
 	public List<Department> getDepartmentList() {
 		return departmentList;
 	}
@@ -41,7 +44,7 @@ public class Location extends AbstractEntity {
 	}
 
 	public void addDepartment(Department department) {
-		if(departmentList == null){
+		if(getDepartmentList() == null){
 			departmentList = new ArrayList<Department>();
 		}
 		departmentList.add(department);
@@ -51,13 +54,13 @@ public class Location extends AbstractEntity {
 		Location location = new Location();
 		String[] tokens = dataLine.split(";");
 		location.setBoId(tokens[0]);
-		location.setLocationName(tokens[1]);
+		location.setName(tokens[1]);
 		return location;
 	}
 
 	@Override
 	public String toString() {
 		return "Location: " + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("Location Name: " + getLocationName());
+				.append("Location Name: " + getName());
 	}
 }
