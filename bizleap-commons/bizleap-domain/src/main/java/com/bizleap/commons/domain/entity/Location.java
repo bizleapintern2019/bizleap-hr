@@ -1,5 +1,8 @@
 package com.bizleap.commons.domain.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,6 +14,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Location extends AbstractEntity {
 
 	private String locationName;
+	private List<Department> departmentList;
 	
 	public Location() {
 		super();
@@ -29,6 +33,22 @@ public class Location extends AbstractEntity {
 		this.locationName = locationName;
 	}
 
+	
+	public List<Department> getDepartmentList() {
+		return departmentList;
+	}
+
+	public void setDepartmentList(List<Department> departmentList) {
+		this.departmentList = departmentList;
+	}
+
+	public void addDepartment(Department department) {
+		if(departmentList == null){
+			departmentList = new ArrayList<Department>();
+		}
+		departmentList.add(department);
+	}
+	
 	public static Location parseLocation(String dataLine) {
 		Location location = new Location();
 		String[] tokens = dataLine.split(";");

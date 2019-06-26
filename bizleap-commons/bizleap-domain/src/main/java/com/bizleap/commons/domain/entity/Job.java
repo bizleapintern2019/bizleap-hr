@@ -2,7 +2,10 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 
+=======
+>>>>>>> e002ca1d7aca3d8b0c604b94b6ff0b3501bd1f39
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
