@@ -17,22 +17,12 @@ import com.bizleap.service.EmployeeService;
 public class EmployeeSaverImpl implements EmployeeSaver {
 
 	private static Logger logger = Logger.getLogger(CompanySaverImpl.class);
-    private static Printer printer = new Printer(logger);
 
     @Autowired
     private EmployeeService employeeService;
 
     private List<Employee> employeeList;
-
     
-    public void savePass1() throws ServiceUnavailableException, IOException {
-        printer.line("Saving Employee: "+ getEmployeeList().size());
-        for(Employee employee:getEmployeeList()) {
-        	employeeService.saveEmployee(employee);
-        }
-        printer.line("Saving Completed");
-    }
-
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList=employeeList;
     }
@@ -40,5 +30,12 @@ public class EmployeeSaverImpl implements EmployeeSaver {
     public List<Employee> getEmployeeList() {
         return this.employeeList;
     }
+    
+    public void savePass1() throws ServiceUnavailableException, IOException {
+        logger.info("Saving Employee: "+ getEmployeeList().size());
+        for(Employee employee:getEmployeeList()) {
+        	employeeService.saveEmployee(employee);
+        }
+        logger.info("Saving Completed");
+    }
 }
-

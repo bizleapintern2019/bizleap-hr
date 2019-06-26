@@ -17,26 +17,25 @@ import com.bizleap.service.DepartmentService;
 public class DepartmentSaverImpl implements DepartmentSaver{
 	
 	private static Logger logger = Logger.getLogger(DepartmentSaverImpl.class);
-    private static Printer printer = new Printer(logger);
 
     @Autowired
     private DepartmentService departmentService;
 
     private List<Department> departmentList;
-
-    public void savePass1() throws ServiceUnavailableException, IOException {
-        printer.line("Saving Department: "+ getDepartmentList().size());
-        for(Department department:getDepartmentList()) {
-        	departmentService.saveDepartment(department);
-        }
-        printer.line("Saving Completed");
-    }
-
+    
     public void setDepartmentList( List<Department> departmentList) {
         this.departmentList=departmentList;
     }
 
     public List<Department> getDepartmentList() {
         return this.departmentList;
+    }
+    
+    public void savePass1() throws ServiceUnavailableException, IOException {
+        logger.info("Saving Department: "+ getDepartmentList().size());
+        for(Department department:getDepartmentList()) {
+        	departmentService.saveDepartment(department);
+        }
+        logger.info("Saving Completed");
     }
 }

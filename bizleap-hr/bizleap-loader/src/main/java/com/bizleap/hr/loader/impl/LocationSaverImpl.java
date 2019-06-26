@@ -16,26 +16,25 @@ import java.util.List;
 @Service
 public class LocationSaverImpl implements LocationSaver {
     private static Logger logger = Logger.getLogger(LocationSaverImpl.class);
-    private static Printer printer = new Printer(logger);
 
     @Autowired
     private LocationService locationService;
 
     private List<Location> locationList;
-
-    public void savePass1() throws ServiceUnavailableException, IOException {
-        printer.line("Saving Location: "+ getLocationList().size());
-        for(Location location:getLocationList()) {
-            locationService.saveLocation(location);
-        }
-        printer.line("Saving Completed");
-    }
-
+    
     public void setLocationList(List<Location> locationList) {
         this.locationList=locationList;
     }
 
     public List<Location> getLocationList() {
         return this.locationList;
+    }
+    
+    public void savePass1() throws ServiceUnavailableException, IOException {
+        logger.info("Saving Location: "+ getLocationList().size());
+        for(Location location:getLocationList()) {
+            locationService.saveLocation(location);
+        }
+        logger.info("Saving Completed");
     }
 }

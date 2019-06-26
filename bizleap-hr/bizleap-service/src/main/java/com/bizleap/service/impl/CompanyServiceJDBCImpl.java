@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import com.bizleap.service.CompanyServiceJDBC;
 import com.bizleap.service.JDBCService;
 import java.sql.PreparedStatement;;
 
-@Service
+@Ignore
 public class CompanyServiceJDBCImpl implements CompanyServiceJDBC {
 	@Autowired
 	JDBCService jdbcService;

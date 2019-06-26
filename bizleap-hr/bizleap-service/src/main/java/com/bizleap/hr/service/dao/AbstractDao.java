@@ -7,13 +7,13 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
 public interface AbstractDao<E, I extends Serializable> {
 
-    public void saveOrUpdate(E e) throws ServiceUnavailableException;
-    public List<E> findByString(String queryString, String data);
-    public List<E> findByStringInteger(String queryString, String data, int data1);
-    public List<E> findByString(String queryString);
-    public List<E> findByString(String queryString, String data, String data1);
-    public List<E> findByIntegerString(String queryString, Integer data, String data1);
-    public long getCount(String queryString);
-    public List<E> getAll(String queryString);
-    public List<E> getAll(String queryString, int pageNumber);
+    void saveOrUpdate(E e) throws ServiceUnavailableException;
+    List<E> findByString(String queryString, String data);
+    List<E> findByStringInteger(String queryString, String data, int data1);
+    List<E> findByString(String queryString);
+    List<E> findByString(String queryString, String data, String data1);
+    List<E> findByIntegerString(String queryString, Integer data, String data1);
+    long getCount(String queryString);
+    List<E> getAll(String queryString);
+    List<E> getAll(String queryString, int pageNumber);
 }

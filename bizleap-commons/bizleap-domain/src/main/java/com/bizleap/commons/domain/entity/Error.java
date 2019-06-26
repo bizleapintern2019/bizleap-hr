@@ -2,21 +2,21 @@ package com.bizleap.commons.domain.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class ErrorCollection {
+public class Error {
 	private int lineNumber;
 	private Object source;
 	private String message = "";
 
-	public ErrorCollection() {
+	public Error() {
 	}
 
-	public ErrorCollection(Object source, String message) {
+	public Error(Object source, String message) {
 		this.lineNumber = 0;
 		this.source = source;
 		this.message = message;
 	}
 
-	public ErrorCollection(int lineNumber, Object source, String message) {
+	public Error(int lineNumber, Object source, String message) {
 		this.lineNumber = lineNumber;
 		this.source = source;
 		this.message = message;
@@ -48,7 +48,7 @@ public class ErrorCollection {
 
 	@Override
 	public String toString() {
-		String lineString = "";
+		//String lineString = "";
 		/*
 		 * if(getLineNumber()!=0){ lineString="at line number "+ getLineNumber(); }
 		 */

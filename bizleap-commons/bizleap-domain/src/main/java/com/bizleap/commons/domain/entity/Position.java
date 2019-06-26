@@ -2,13 +2,8 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-
-=======
->>>>>>> e002ca1d7aca3d8b0c604b94b6ff0b3501bd1f39
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -78,7 +73,3 @@ public class Position extends AbstractEntity {
 				.append("JobId" + getJobId()).append("ReportTo" + getReportTo()).append("Report By" + getReportBy());
 	}
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> e002ca1d7aca3d8b0c604b94b6ff0b3501bd1f39

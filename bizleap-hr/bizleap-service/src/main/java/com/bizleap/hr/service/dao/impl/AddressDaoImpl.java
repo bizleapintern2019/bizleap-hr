@@ -8,12 +8,12 @@ import com.bizleap.hr.service.dao.AddressDao;
 
 @Repository
 public class AddressDaoImpl extends AbstractDaoImpl<Address,String> implements AddressDao{
-	 protected AddressDaoImpl() {
-	        super(Address.class);
-	    }
-	
-	 	@Override
-	    public void save(Address address) throws ServiceUnavailableException {
-	        saveOrUpdate(address);
-	    }
+	protected AddressDaoImpl() {
+		super(Address.class);
+	}
+
+	@Override
+	public void save(Address address) throws ServiceUnavailableException {
+		saveOrUpdate(address);
+	}
 }
