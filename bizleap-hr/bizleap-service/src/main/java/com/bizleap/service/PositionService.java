@@ -7,5 +7,4 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
 public interface PositionService {
 	void savePosition(Position position) throws IOException, ServiceUnavailableException;
-
 }

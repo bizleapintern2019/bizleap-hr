@@ -1,5 +1,6 @@
 package com.bizleap.service.impl;
 
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import com.bizleap.service.CompanyServiceJDBC;
 import com.bizleap.service.EmployeeServiceJDBC;
 import com.bizleap.service.SaverJDBC;
 
-@Service
+@Ignore
 public class SaverJDBCImpl implements SaverJDBC {
 	@Autowired
 	private CompanyServiceJDBC companyservice;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -50,9 +49,9 @@ public class Position extends AbstractEntity {
 	public void setReportBy(String reportBy) {
 		this.reportBy = reportBy;
 	}
-	
+
 	public void addEmployee(Employee employee) {
-		if(employeeList == null) {
+		if (employeeList == null) {
 			employeeList = new ArrayList<Employee>();
 		}
 		employeeList.add(employee);
@@ -74,4 +73,3 @@ public class Position extends AbstractEntity {
 				.append("JobId" + getJobId()).append("ReportTo" + getReportTo()).append("Report By" + getReportBy());
 	}
 }
-

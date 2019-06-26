@@ -14,10 +14,9 @@ import com.bizleap.service.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeDao employeeDao;
-	
+
 	@Override
-	public void saveEmployee(Employee company) throws IOException, ServiceUnavailableException {
-		employeeDao.save(company);
+	public void saveEmployee(Employee employee) throws IOException, ServiceUnavailableException {
+		employeeDao.save(employee);
 	}
-	
 }

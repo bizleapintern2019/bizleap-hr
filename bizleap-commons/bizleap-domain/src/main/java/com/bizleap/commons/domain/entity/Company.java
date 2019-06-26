@@ -15,24 +15,25 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Entity
 @Table(name = "company")
-public class Company extends AbstractEntity{
+public class Company extends AbstractEntity {
 	private String companyName;
 	private String address;
 	private String phone;
 	private String email;
 	private String ceo;
-	@OneToMany(mappedBy="workFor", fetch= FetchType.EAGER, cascade= CascadeType.ALL)
+
+	@OneToMany(mappedBy = "workFor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Employee> employeeList;
 
 	public Company() {
 		super();
 	}
-	
+
 	public Company(String workForBoId) {
 		super(workForBoId);
 	}
-	
-	public Company(String boId,String companyName, String address, String phone, String email, String ceo) {
+
+	public Company(String boId, String companyName, String address, String phone, String email, String ceo) {
 		super.setBoId(boId);
 		this.companyName = companyName;
 		this.address = address;
@@ -50,12 +51,12 @@ public class Company extends AbstractEntity{
 	}
 
 	public void addEmployee(Employee employee) {
-		if(employeeList == null){
+		if (employeeList == null) {
 			employeeList = new ArrayList<Employee>();
 		}
 		employeeList.add(employee);
 	}
-	
+
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -95,26 +96,23 @@ public class Company extends AbstractEntity{
 	public void setCeo(String ceo) {
 		this.ceo = ceo;
 	}
-	
-	public boolean sameBoId(String boId){
+
+	public boolean sameBoId(String boId) {
 		return super.getBoId().equals(boId);
 	}
-	
 
 	public static Company parseCompany(String dataLine) {
-        Company company = new Company();
-        String[] tokens = dataLine.split(";");
-        company.setBoId(tokens[0]);
-        company.setCompanyName(tokens[1]);
-        company.setCeo(tokens[2]);
-        return company;							
+		Company company = new Company();
+		String[] tokens = dataLine.split(";");
+		company.setBoId(tokens[0]);
+		company.setCompanyName(tokens[1]);
+		company.setCeo(tokens[2]);
+		return company;
 	}
 
 	@Override
 	public String toString() {
-		return  "Company: "+super.toString()+
-				new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("Company Name: "+ getCompanyName())
-				.append("Employee List: "+ getEmployeeList());
-	}	
+		return "Company: " + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("Company Name: " + getCompanyName()).append("Employee List: " + getEmployeeList());
+	}
 }

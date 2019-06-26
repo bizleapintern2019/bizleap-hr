@@ -12,13 +12,13 @@ import com.bizleap.hr.service.dao.PositionDao;
 import com.bizleap.service.PositionService;
 
 @Service
-public class PositionServiceImpl implements PositionService{
-	
+public class PositionServiceImpl implements PositionService {
+
 	@Autowired
 	private PositionDao positionDao;
 
 	@Override
-	public void saveCompany(Position position) throws IOException, ServiceUnavailableException {
+	public void savePosition(Position position) throws IOException, ServiceUnavailableException {
 		positionDao.save(position);
 	}
 }

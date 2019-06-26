@@ -9,5 +9,4 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 public interface DepartmentSaver {
 	void savePass1() throws ServiceUnavailableException, IOException;
 	void setDepartmentList(List<Department> departmentList);
-
 }

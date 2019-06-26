@@ -8,16 +8,14 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.PositionDao;
 
 @Repository
-public class PositionDaoImpl extends AbstractDaoImpl<Position, String> implements PositionDao{
-	
+public class PositionDaoImpl extends AbstractDaoImpl<Position, String> implements PositionDao {
 
-    protected PositionDaoImpl() {
-        super(Position.class); 
-    }
+	protected PositionDaoImpl() {
+		super(Position.class);
+	}
 
-    @Override
-    public void save(Position position) throws ServiceUnavailableException {
-        saveOrUpdate(position);
-    }
-
+	@Override
+	public void save(Position position) throws ServiceUnavailableException {
+		saveOrUpdate(position);
+	}
 }

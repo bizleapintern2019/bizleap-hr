@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import com.bizleap.service.EmployeeServiceJDBC;
 import com.bizleap.service.JDBCService;
 import java.sql.PreparedStatement;
 
-@Service
+@Ignore
 public class EmployeeServiceJDBCImpl implements EmployeeServiceJDBC {
 	@Autowired
 	JDBCService jdbcService;
@@ -36,8 +37,8 @@ public class EmployeeServiceJDBCImpl implements EmployeeServiceJDBC {
 			ps.setString(6, employee.getEmail());
 			ps.setString(7,employee.getTitle());
 			ps.setString(8, employee.getPhone());
-			if(employee.getWorkFor() != null)
-				ps.setString(9, employee.getWorkFor().getBoId());
+//			if(employee.getWorkFor() != null)
+//				ps.setString(9, employee.getWorkFor().getBoId());
 			ps.executeUpdate();
 			ps.close();
 			connection.close();

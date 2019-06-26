@@ -84,8 +84,4 @@ public class Department extends AbstractEntity {
 						.append("DepartmentName :" + getDepartmentName())
 						.append("ParentDepartment :" + getParentDepartment()).append("Location ID :" + getLocationId());
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 328f33956f334350f66232f79c18cb1fa42c523c

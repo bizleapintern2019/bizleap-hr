@@ -13,11 +13,10 @@ import com.bizleap.service.JobService;
 @Service
 public class JobServiceImpl implements JobService {
 	@Autowired
-	private JobDao companyDao;
+	private JobDao jobDao;
 	
 	@Override
 	public void saveJob(Job job) throws IOException, ServiceUnavailableException {
-		companyDao.save(job);
+		jobDao.save(job);
 	}
-	
 }

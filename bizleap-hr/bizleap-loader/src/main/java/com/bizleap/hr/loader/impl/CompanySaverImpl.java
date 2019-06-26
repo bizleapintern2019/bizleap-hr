@@ -18,7 +18,7 @@ public class CompanySaverImpl implements CompanySaver {
     private static Printer printer = new Printer(logger);
 
     @Autowired
-    CompanyService companyService;
+    private CompanyService companyService;
 
     List<Company> companyList;
 
