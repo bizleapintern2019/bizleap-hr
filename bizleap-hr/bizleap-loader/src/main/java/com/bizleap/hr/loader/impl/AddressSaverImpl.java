@@ -16,7 +16,7 @@ import com.bizleap.service.AddressService;
 @Service
 public class AddressSaverImpl implements AddressSaver{
 	
-	private static Logger logger = Logger.getLogger(DepartmentSaverImpl.class);
+	private static Logger logger = Logger.getLogger(AddressSaverImpl.class);
 
     @Autowired
     private AddressService addressService;

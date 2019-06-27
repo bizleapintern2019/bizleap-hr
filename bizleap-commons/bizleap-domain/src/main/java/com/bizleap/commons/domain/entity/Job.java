@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+//@author: Saw Sandi Tin
 @Entity
 @Table(name = "job")
 public class Job extends AbstractEntity {

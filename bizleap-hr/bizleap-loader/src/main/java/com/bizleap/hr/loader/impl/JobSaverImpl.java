@@ -15,7 +15,7 @@ import com.bizleap.service.JobService;
 //@Author: Nyan Lin Htet
 @Service
 public class JobSaverImpl implements JobSaver{
-	private static Logger logger = Logger.getLogger(CompanySaverImpl.class);
+	private static Logger logger = Logger.getLogger(JobSaverImpl.class);
 
     @Autowired
     private JobService jobService;

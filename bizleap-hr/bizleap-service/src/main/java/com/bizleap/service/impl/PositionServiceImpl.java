@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
-import com.bizleap.hr.service.dao.CompanyDao;
 import com.bizleap.hr.service.dao.PositionDao;
 import com.bizleap.service.PositionService;
 

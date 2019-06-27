@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+//@author: Su Pyae Naing
 @Entity
 @Table(name = "location")
 public class Location extends AbstractEntity {

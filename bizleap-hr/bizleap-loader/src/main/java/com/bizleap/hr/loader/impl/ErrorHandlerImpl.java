@@ -13,7 +13,7 @@ import com.bizleap.hr.loader.ErrorHandler;
 public class ErrorHandlerImpl implements ErrorHandler {
 	
 	public Map<Integer, Error> errorMap;
-	Logger logger = Logger.getLogger(ErrorHandlerImpl.class);
+	private Logger logger = Logger.getLogger(ErrorHandlerImpl.class);
 
 	public ErrorHandlerImpl() {
 

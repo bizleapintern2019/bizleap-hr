@@ -16,7 +16,7 @@ import com.bizleap.service.EmployeeService;
 @Service
 public class EmployeeSaverImpl implements EmployeeSaver {
 
-	private static Logger logger = Logger.getLogger(CompanySaverImpl.class);
+	private static Logger logger = Logger.getLogger(EmployeeSaverImpl.class);
 
     @Autowired
     private EmployeeService employeeService;

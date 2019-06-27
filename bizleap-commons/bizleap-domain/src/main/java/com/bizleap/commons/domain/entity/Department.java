@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+//@author: Thuya Oo, Shine Wanna
 @Entity
 @Table(name ="department")
 public class Department extends AbstractEntity {

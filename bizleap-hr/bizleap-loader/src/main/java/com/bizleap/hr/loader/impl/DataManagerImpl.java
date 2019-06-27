@@ -151,22 +151,22 @@ public class DataManagerImpl implements DataManager {
 		try {
 			locationSaver.setLocationList(locationList);
 			locationSaver.savePass1();
-			
-			departmentSaver.setDepartmentList(departmentList);
-			departmentSaver.savePass1();
-			
-			jobSaver.setJobList(jobList);
-			jobSaver.savePass1();
-			
-			positionSaver.setPositionList(positionList);
-			positionSaver.savePass1();
-			
-			employeeSaver.setEmployeeList(employeeList);
-			employeeSaver.savePass1();
-			
-			addressSaver.setAddressList(addressList);
-			addressSaver.savePass1();
-			
+//			
+//			departmentSaver.setDepartmentList(departmentList);
+//			departmentSaver.savePass1();
+//			
+//			jobSaver.setJobList(jobList);
+//			jobSaver.savePass1();
+//			
+//			positionSaver.setPositionList(positionList);
+//			positionSaver.savePass1();
+//			
+//			employeeSaver.setEmployeeList(employeeList);
+//			employeeSaver.savePass1();
+//			
+//			addressSaver.setAddressList(addressList);
+//			addressSaver.savePass1();
+//			
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		} catch (IOException e) {
