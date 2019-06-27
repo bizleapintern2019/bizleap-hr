@@ -23,7 +23,7 @@ import com.bizleap.commons.domain.utils.Printer;
  * @since 1.0.0
  */
 @Transactional
-public abstract class AbstractDaoImpl<E, I extends Serializable> implements AbstractDao<E, I> {
+public abstract class AbstractDaoImpl<E, I extends Serializable> implements AbstractDao<E, I> { 
     private Class<E> entityClass;
     private int pageSize = 30;
 
