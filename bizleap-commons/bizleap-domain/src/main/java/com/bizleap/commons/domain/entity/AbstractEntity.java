@@ -14,22 +14,22 @@ public abstract class AbstractEntity {
 	@GeneratedValue
 	private long id;
 	
+	public AbstractEntity() {
+		
+	}
+
+	public AbstractEntity(String boId) {
+		this.boId = boId;
+	}
+	
+	private String boId;
+	
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	private String boId;
-	
-	public AbstractEntity() {
-	
-	}
-
-	public AbstractEntity(String boId) {
-		this.boId = boId;
 	}
 
 	public String getBoId() {

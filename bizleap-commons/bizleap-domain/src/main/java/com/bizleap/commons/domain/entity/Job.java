@@ -91,8 +91,6 @@ public class Job extends AbstractEntity {
 		return job;
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "Job :" + super.toString()

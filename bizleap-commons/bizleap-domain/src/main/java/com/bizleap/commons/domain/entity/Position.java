@@ -1,6 +1,5 @@
 package com.bizleap.commons.domain.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,10 +21,16 @@ public class Position extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name="jobId")
 	private Job job;
-	private Position reportTo;
 	
+	@OneToMany
+	private List<Position> reportToList;
+	
+	@ManyToOne
+	private List<Position> reportByList;
+
 	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Employee employee;
+	
 
 	public Position() {
 		super();
@@ -34,10 +40,10 @@ public class Position extends AbstractEntity {
 		super(boId);
 	}
 
-	public Position(String boId, Job job, Position reportTo) {
+	public Position(String boId, Job job, List<Position> reportTo) {
 		super.setBoId(boId);
 		this.job = job;
-		this.reportTo = reportTo;
+		this.reportToList = reportTo;
 	}
 
 	public Job getJob() {
@@ -48,12 +54,20 @@ public class Position extends AbstractEntity {
 		this.job = job;
 	}
 
-	public Position getReportTo() {
-		return reportTo;
+	public List<Position> getReportToList() {
+		return reportToList;
 	}
 
-	public void setReportTo(Position reportTo) {
-		this.reportTo = reportTo;
+	public void setReportToList(List<Position> reportTo) {
+		this.reportToList = reportTo;
+	}
+	
+	public List<Position> getReportByList() {
+		return reportByList;
+	}
+
+	public void setReportByList(List<Position> reportBy) {
+		this.reportByList = reportBy;
 	}
 	
 	public Employee getEmployee() {
@@ -69,13 +83,18 @@ public class Position extends AbstractEntity {
 		String[] tokens = dataLine.split(";");
 		position.setBoId(tokens[0]);
 		position.setJob(new Job(tokens[1]));
-		position.setReportTo(new Position(tokens[2]));
+		String[] reportToBoIds = tokens[2].split(",");
+		for(int i=0; i<reportToBoIds.length; i++)
+			position.getReportToList().add(new Position(reportToBoIds[i]));
+		position.setReportToList(position.getReportToList());
 		return position;
 	}
 
 	@Override
 	public String toString() {
 		return "Position " + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("JobId" + getJob().getBoId()).append("ReportTo" + getReportTo());
+				.append("JobId" + getJob().getBoId())
+				.append("ReportTo" + getReportToList())
+				.append("ReportBy" + getReportByList());
 	}
 }

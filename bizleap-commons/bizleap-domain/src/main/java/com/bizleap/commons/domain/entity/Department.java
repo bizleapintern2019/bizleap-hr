@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -20,6 +21,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Department extends AbstractEntity {
 	
 	private String name;
+	
+	@OneToOne
 	private Department parentDepartment;
 	
 	@ManyToOne
@@ -39,8 +42,8 @@ public class Department extends AbstractEntity {
 	public Department(String boId, String name, Location location, Department parentDepartment) {
 		super.setBoId(boId);
 		this.name = name;
-		this.parentDepartment = parentDepartment;
 		this.location = location;
+		this.parentDepartment = parentDepartment;
 	}
 
 	public String getName() {
