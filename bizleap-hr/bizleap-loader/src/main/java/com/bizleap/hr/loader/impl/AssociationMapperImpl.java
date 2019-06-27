@@ -75,7 +75,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			if(department.sameBoId(job.getDepartment())) 
 				job.setDepartment(department);	
 		}
-		errorHandler.handleLinkageError("Position in job cannot be linked.", job);
+		errorHandler.handleLinkageError("Department in job cannot be linked.", job);
 	}
 	
 	private void setUpJobAssociations() {
@@ -127,7 +127,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			if(position.sameBoId(employee.getPosition())) 
 				employee.setPosition(position);
 		}
-		errorHandler.handleLinkageError("Address in employee cannot be linked.", employee);
+		errorHandler.handleLinkageError("Position in employee cannot be linked.", employee);
 	}
 	
 	private void setUpEmployeeAssociations() {

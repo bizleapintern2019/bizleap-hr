@@ -12,8 +12,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //@author: Thuya Oo, Shine Wanna
 @Entity
 @Table(name = "address")
-public class Address extends AbstractEntity{
-
+public class Address extends AbstractEntity {
 	private String permanentAddress;
 	private String contactAddress;
 	private String city;
@@ -39,7 +38,7 @@ public class Address extends AbstractEntity{
 		this.employee = employee;
 	}
 
-	public Address(String boId,String permanentAddress,String contactAddress,String city,String state,String country){
+	public Address(String boId,String permanentAddress,String contactAddress,String city,String state,String country) {
 		super.setBoId(boId);
 		this.permanentAddress = permanentAddress;
 		this.contactAddress = contactAddress;
@@ -102,12 +101,12 @@ public class Address extends AbstractEntity{
 
 	@Override
 	public String toString() {
-		return  "Address :"+super.toString()+
+		return  "Address :"+super.toString() +
 				new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("Permanent Address :"+ getPermanentAddress())
-				.append("Contact Address :"+getContactAddress())
-				.append("City :"+getCity())
-				.append("State :"+getState())
-				.append("Country :"+getCountry());
+				.append("Permanent Address: " + getPermanentAddress())
+				.append("Contact Address: " + getContactAddress())
+				.append("City: " + getCity())
+				.append("State: " + getState())
+				.append("Country: " + getCountry());
 	}
 }

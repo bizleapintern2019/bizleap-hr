@@ -14,8 +14,7 @@ import com.bizleap.service.AddressService;
 
 // @Author: Kay Zin Han
 @Service
-public class AddressSaverImpl implements AddressSaver{
-	
+public class AddressSaverImpl implements AddressSaver {
 	private static Logger logger = Logger.getLogger(AddressSaverImpl.class);
 
     @Autowired
@@ -23,19 +22,19 @@ public class AddressSaverImpl implements AddressSaver{
 
     private List<Address> addressList;
 
-    public void savePass1() throws ServiceUnavailableException, IOException {
-    	logger.info("Saving Address: "+ getAddressList().size());
-        for(Address address:getAddressList()) {
-        	addressService.saveAddress(address);
-        }
-        logger.info("Saving Completed");
-    }
-
     public void setAddressList(List<Address> addressList) {
         this.addressList=addressList;
     }
 
     public List<Address> getAddressList() {
         return this.addressList;
+    }
+    
+    public void savePass1() throws ServiceUnavailableException, IOException {
+    	logger.info("Saving Address: " + getAddressList().size());
+        for(Address address : getAddressList()) {
+        	addressService.saveAddress(address);
+        }
+        logger.info("Saving Completed");
     }
 }

@@ -8,7 +8,7 @@ import com.bizleap.hr.service.dao.AddressDao;
 
 //@Author: Thihan Hein
 @Repository
-public class AddressDaoImpl extends AbstractDaoImpl<Address,String> implements AddressDao{
+public class AddressDaoImpl extends AbstractDaoImpl<Address,String> implements AddressDao {
 	protected AddressDaoImpl() {
 		super(Address.class);
 	}

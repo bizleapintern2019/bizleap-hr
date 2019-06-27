@@ -13,7 +13,6 @@ import java.util.List;
 // @Author: Soe Min Thein
 @Service
 public class PositionSaverImpl implements PositionSaver {
-	
     private static Logger logger = Logger.getLogger(PositionSaverImpl.class);
 
     @Autowired
@@ -22,7 +21,7 @@ public class PositionSaverImpl implements PositionSaver {
     private List<Position> positionList;
 
     public void setPositionList(List<Position> positionList) {
-        this.positionList=positionList;
+        this.positionList = positionList;
     }
 
     public List<Position> getPositionList() {
@@ -30,8 +29,8 @@ public class PositionSaverImpl implements PositionSaver {
     }
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        logger.info("Saving Position: "+ getPositionList().size());
-        for(Position position:getPositionList()) {
+        logger.info("Saving Position: " + getPositionList().size());
+        for(Position position : getPositionList()) {
             positionService.savePosition(position);
         }
         logger.info("Saving Completed");

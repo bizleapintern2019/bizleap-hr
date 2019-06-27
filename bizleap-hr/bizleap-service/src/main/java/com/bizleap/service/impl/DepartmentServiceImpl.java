@@ -13,7 +13,6 @@ import com.bizleap.service.DepartmentService;
 //@Author: Soe Min Thein
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-
 	@Autowired
 	private DepartmentDao departmentDao;
 

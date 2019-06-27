@@ -94,8 +94,9 @@ public class Job extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Job :" + super.toString()
-				+ new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).append("Job Title" + getJobTitle())
-						.append("Salary" + getSalary()).append("Department Id " + getDepartment().getBoId());
+		return "Job: " + super.toString() + 
+				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("Job Title: " + getJobTitle())
+				.append("Salary: " + getSalary()).append("Department Id: " + getDepartment().getBoId());
 	}
 }

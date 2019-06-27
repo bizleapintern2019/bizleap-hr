@@ -19,7 +19,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name ="department")
 public class Department extends AbstractEntity {
-	
 	private String name;
 	
 	@OneToOne
@@ -35,7 +34,8 @@ public class Department extends AbstractEntity {
 	public Department() {
 		super();
 	}
-	public Department(String boId){
+	
+	public Department(String boId) {
 		super(boId);	
 	}
 
@@ -101,9 +101,9 @@ public class Department extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Department :" + super.toString()
-				+ new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-						.append("DepartmentName :" + getName())
-						.append("ParentDepartment :" + getParentDepartment()).append("Location ID :" + getLocation().getBoId());
+		return "Department :" + super.toString() +
+				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("DepartmentName: " + getName())
+				.append("ParentDepartment: " + getParentDepartment()).append("Location ID: " + getLocation().getBoId());
 	}
 }

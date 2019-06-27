@@ -10,7 +10,6 @@ import com.bizleap.hr.service.dao.EmployeeDao;
 //@Author: Nyan Lin Htet
 @Repository
 public class EmployeeDaoImpl extends AbstractDaoImpl<Employee, String> implements EmployeeDao {
-
     protected EmployeeDaoImpl() {
         super(Employee.class);
     }

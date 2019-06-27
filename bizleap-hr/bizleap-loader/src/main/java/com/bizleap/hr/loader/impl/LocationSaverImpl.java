@@ -23,7 +23,7 @@ public class LocationSaverImpl implements LocationSaver {
     private List<Location> locationList;
     
     public void setLocationList(List<Location> locationList) {
-        this.locationList=locationList;
+        this.locationList = locationList;
     }
 
     public List<Location> getLocationList() {
@@ -31,8 +31,8 @@ public class LocationSaverImpl implements LocationSaver {
     }
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        logger.info("Saving Location: "+ getLocationList().size());
-        for(Location location:getLocationList()) {
+        logger.info("Saving Location: " + getLocationList().size());
+        for(Location location : getLocationList()) {
             locationService.saveLocation(location);
         }
         logger.info("Saving Completed");

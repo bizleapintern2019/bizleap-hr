@@ -13,7 +13,6 @@ import com.bizleap.service.PositionService;
 //@Author: Kay Zin Han
 @Service
 public class PositionServiceImpl implements PositionService {
-
 	@Autowired
 	private PositionDao positionDao;
 

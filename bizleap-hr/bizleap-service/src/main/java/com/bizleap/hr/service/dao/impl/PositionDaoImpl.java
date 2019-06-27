@@ -10,7 +10,6 @@ import com.bizleap.hr.service.dao.PositionDao;
 //@Author: Kay Zin Han
 @Repository
 public class PositionDaoImpl extends AbstractDaoImpl<Position, String> implements PositionDao {
-
 	protected PositionDaoImpl() {
 		super(Position.class);
 	}

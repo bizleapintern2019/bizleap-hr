@@ -44,7 +44,7 @@ public class DataManagerImpl implements DataManager {
 	@Autowired
 	private LocationSaver locationSaver;
 	
-	@Autowired 
+	/*@Autowired 
 	private DepartmentSaver departmentSaver;
 	
 	@Autowired
@@ -57,7 +57,7 @@ public class DataManagerImpl implements DataManager {
 	private EmployeeSaver employeeSaver;
 	
 	@Autowired
-	private AddressSaver addressSaver;
+	private AddressSaver addressSaver; */
 	
 	private Map<Integer,Error> errorMap = new HashMap<Integer,Error>();
 	private List<Employee> employeeList;
@@ -73,7 +73,7 @@ public class DataManagerImpl implements DataManager {
 	}
 	
 	public void setEmployeeList(List<Employee> employeeList) {
-		this.employeeList=employeeList;
+		this.employeeList = employeeList;
 	}
 
 	public List<Department> getDepartmentList() {
@@ -123,7 +123,7 @@ public class DataManagerImpl implements DataManager {
 	public void loadData() {
 		try {
 			employeeList = dataLoader.loadEmployee();
-			departmentList= dataLoader.loadDepartment();
+			departmentList = dataLoader.loadDepartment();
 			jobList = dataLoader.loadJob();
 			locationList = dataLoader.loadLocation();
 			positionList = dataLoader.loadPosition();

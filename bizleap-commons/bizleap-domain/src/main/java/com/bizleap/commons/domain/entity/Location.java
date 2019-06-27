@@ -51,7 +51,7 @@ public class Location extends AbstractEntity {
 	}
 
 	public void addDepartment(Department department) {
-		if(getDepartmentList() == null){
+		if(getDepartmentList() == null) {
 			departmentList = new ArrayList<Department>();
 		}
 		departmentList.add(department);
@@ -67,7 +67,8 @@ public class Location extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Location: " + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+		return "Location: " + super.toString() + 
+				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Location Name: " + getName());
 	}
 }

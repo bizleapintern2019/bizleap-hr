@@ -13,7 +13,6 @@ import com.bizleap.service.AddressService;
 //@Author: Thihan Hein
 @Service
 public class AddressServiceImpl implements AddressService {
-	
 	@Autowired
 	private AddressDao addressDao;
 

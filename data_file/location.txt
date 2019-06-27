@@ -1,4 +1,3 @@
 #BoId,#LocationName
 LOC001;Yangon
 LOC002;Mandalay
-

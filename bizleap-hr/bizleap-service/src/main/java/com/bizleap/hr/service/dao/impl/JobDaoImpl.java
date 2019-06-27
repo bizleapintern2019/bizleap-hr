@@ -9,7 +9,6 @@ import com.bizleap.hr.service.dao.JobDao;
 //@Author: Nyan Lin Htet
 @Repository
 public class JobDaoImpl extends AbstractDaoImpl<Job, String> implements JobDao {
-
     protected JobDaoImpl() {
         super(Job.class);
     }

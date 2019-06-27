@@ -14,8 +14,7 @@ import com.bizleap.service.DepartmentService;
 
 //@Author: Soe Min Thein
 @Service
-public class DepartmentSaverImpl implements DepartmentSaver{
-	
+public class DepartmentSaverImpl implements DepartmentSaver{	
 	private static Logger logger = Logger.getLogger(DepartmentSaverImpl.class);
 
     @Autowired
@@ -32,8 +31,8 @@ public class DepartmentSaverImpl implements DepartmentSaver{
     }
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        logger.info("Saving Department: "+ getDepartmentList().size());
-        for(Department department:getDepartmentList()) {
+        logger.info("Saving Department: " + getDepartmentList().size());
+        for(Department department : getDepartmentList()) {
         	departmentService.saveDepartment(department);
         }
         logger.info("Saving Completed");

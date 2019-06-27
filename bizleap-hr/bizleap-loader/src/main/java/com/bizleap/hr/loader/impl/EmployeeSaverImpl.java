@@ -15,7 +15,6 @@ import com.bizleap.service.EmployeeService;
 // @Author: Nyan Lin Htet
 @Service
 public class EmployeeSaverImpl implements EmployeeSaver {
-
 	private static Logger logger = Logger.getLogger(EmployeeSaverImpl.class);
 
     @Autowired
@@ -24,7 +23,7 @@ public class EmployeeSaverImpl implements EmployeeSaver {
     private List<Employee> employeeList;
     
     public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList=employeeList;
+        this.employeeList = employeeList;
     }
 
     public List<Employee> getEmployeeList() {
@@ -32,8 +31,8 @@ public class EmployeeSaverImpl implements EmployeeSaver {
     }
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        logger.info("Saving Employee: "+ getEmployeeList().size());
-        for(Employee employee:getEmployeeList()) {
+        logger.info("Saving Employee: " + getEmployeeList().size());
+        for(Employee employee : getEmployeeList()) {
         	employeeService.saveEmployee(employee);
         }
         logger.info("Saving Completed");

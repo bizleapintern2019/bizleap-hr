@@ -12,7 +12,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name = "employee")
 public class Employee extends AbstractEntity {
-
 	private String title,firstName, lastName, entranceDate, dateOfBirth, gender, email, phone;
 	
 	@OneToOne
@@ -32,7 +31,7 @@ public class Employee extends AbstractEntity {
 	}
 
 	public Employee(String boId,String title, String firstName, String lastName, String entranceDate, String dateOfBirth,
-			String gender, String email, String phone, Position position, Address address) {
+					String gender, String email, String phone, Position position, Address address) {
 		super.setBoId(boId);
 		this.title = title;
 		this.firstName = firstName;
@@ -145,7 +144,9 @@ public class Employee extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "Employee :" + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("FirstName :" + getFirstName()).append("LastName :" + getLastName());
+		return "Employee :" + super.toString() +
+				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("FirstName :" + getFirstName())
+				.append("LastName :" + getLastName());
 	}
 }
