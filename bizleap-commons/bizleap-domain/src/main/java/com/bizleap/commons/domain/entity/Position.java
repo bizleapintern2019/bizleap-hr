@@ -26,6 +26,7 @@ public class Position extends AbstractEntity {
 	private List<Position> reportToList;
 	
 	@ManyToOne
+	@JoinColumn(name="reportBy_id")
 	private List<Position> reportByList;
 
 	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -92,8 +93,7 @@ public class Position extends AbstractEntity {
 		String[] reportToBoIds = tokens[2].split(",");
 		for(int i=0; i<reportToBoIds.length; i++)
 			position.getReportToList().add(new Position(reportToBoIds[i]));
-		position.setReportToList(position.getReportToList());
-//		position.setReportTo(new Position(tokens[2]));
+//		position.setReportToList(position.getReportToList());
 		return position;
 	}
 

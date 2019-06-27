@@ -73,6 +73,7 @@ public class Job extends AbstractEntity {
 	public void setPositionList(List<Position> positionList) {
 		this.positionList = positionList;
 	}
+	
 
 	public void addPosition(Position position) {
 		if (getPositionList() == null) {
