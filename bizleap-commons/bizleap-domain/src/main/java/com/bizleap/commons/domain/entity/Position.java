@@ -21,7 +21,7 @@ public class Position extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name="jobId")
 	private Job job;
-	
+
 	@OneToMany
 	private List<Position> reportToList;
 	
@@ -40,10 +40,16 @@ public class Position extends AbstractEntity {
 		super(boId);
 	}
 
+
 	public Position(String boId, Job job, List<Position> reportTo) {
 		super.setBoId(boId);
 		this.job = job;
 		this.reportToList = reportTo;
+	}
+
+	public Position(String boId, Job job) {
+		super.setBoId(boId);
+		this.job = job;
 	}
 
 	public Job getJob() {
@@ -87,6 +93,7 @@ public class Position extends AbstractEntity {
 		for(int i=0; i<reportToBoIds.length; i++)
 			position.getReportToList().add(new Position(reportToBoIds[i]));
 		position.setReportToList(position.getReportToList());
+//		position.setReportTo(new Position(tokens[2]));
 		return position;
 	}
 
@@ -95,6 +102,7 @@ public class Position extends AbstractEntity {
 		return "Position " + super.toString() + new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("JobId" + getJob().getBoId())
 				.append("ReportTo" + getReportToList())
-				.append("ReportBy" + getReportByList());
+				.append("ReportBy" + getReportByList())
+				.append("JobId" + getJob().getBoId()).append("ReportTo");
 	}
 }

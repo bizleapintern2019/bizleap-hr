@@ -39,6 +39,8 @@ public class DataLoaderImpl implements DataLoader {
 
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace\\bizleap-project\\data_file\\employee.txt");
+		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace2\\Bizleap-Project\\employee.txt");
+
 		String dataLine = "";
 		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee = null;
@@ -54,9 +56,7 @@ public class DataLoaderImpl implements DataLoader {
 					employeeList.add(employee);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Employee file loading.",dataLine);
-				//System.out.println(index);
-				index++;
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Employee file loading.",dataLine);
 			}
 		}
 		fileLoader.finish();
@@ -65,7 +65,10 @@ public class DataLoaderImpl implements DataLoader {
 
 	
 	public List<Location> loadLocation() throws Exception {
+
 		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace\\bizleap-project\\data_file\\location.txt");
+
+		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace2\\Bizleap-Project\\location.txt");
 		String dataLine = "";
 		List<Location> locationList = new ArrayList<Location>();
 		Location location = null;
@@ -81,9 +84,7 @@ public class DataLoaderImpl implements DataLoader {
 					locationList.add(location);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Location file loading.",dataLine);
-				index++;
-				
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Location file loading.",dataLine);
 			}
 		}
 		fileLoader.finish();
@@ -92,6 +93,9 @@ public class DataLoaderImpl implements DataLoader {
 	
 	public List<Department> loadDepartment() throws Exception {
 		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace\\bizleap-project\\data_file\\department.txt");
+
+		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace2\\Bizleap-Project\\department.txt");
+
 		String dataLine = "";
 		List<Department> departmentList = new ArrayList<Department>();
 		Department department = null;
@@ -107,8 +111,7 @@ public class DataLoaderImpl implements DataLoader {
 					departmentList.add(department);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Department file loading.",dataLine);
-				index++;
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Department file loading.",dataLine);
 			}
 		}
 		fileLoader.finish();
@@ -116,7 +119,11 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Job> loadJob() throws Exception {
+
 		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace\\bizleap-project\\data_file\\job.txt");
+
+		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace2\\Bizleap-Project\\job.txt");
+
 		String dataLine = "";
 		List<Job> jobList = new ArrayList<Job>();
 		Job job = null;
@@ -132,8 +139,7 @@ public class DataLoaderImpl implements DataLoader {
 					jobList.add(job);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Job file loading.",dataLine);
-				index++;
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Job file loading.",dataLine);
 			}
 		}
 		fileLoader.finish();
@@ -141,7 +147,11 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Position> loadPosition() throws Exception {
+
 		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace\\bizleap-project\\data_file\\position.txt");
+
+		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace2\\Bizleap-Project\\position.txt");
+
 		String dataLine = "";
 		List<Position> positionList = new ArrayList<Position>();
 		Position position = null;
@@ -157,8 +167,7 @@ public class DataLoaderImpl implements DataLoader {
 					positionList.add(position);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Position file loading.",dataLine);
-				index++;
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Position file loading.",dataLine);
 			}
 		}
 		fileLoader.finish();
@@ -166,7 +175,11 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Address> loadAddress() throws Exception {
+
 		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace\\bizleap-project\\data_file\\address.txt");
+
+		fileLoader.start("C:\\Users\\DELL\\bizleap-hr-workspace2\\Bizleap-Project\\address.txt");
+
 		String dataLine = "";
 		List<Address> addressList = new ArrayList<Address>();
 		Address address = null;
@@ -182,8 +195,7 @@ public class DataLoaderImpl implements DataLoader {
 					addressList.add(address);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(index,fileLoader.getLineNumber(),"Address file loading.",dataLine);
-				index++;	
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Address file loading.",dataLine);	
 			}
 		}
 		fileLoader.finish();

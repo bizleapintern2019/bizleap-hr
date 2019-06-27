@@ -14,6 +14,7 @@ public class ErrorHandlerImpl implements ErrorHandler {
 	
 	public Map<Integer, Error> errorMap;
 	private Logger logger = Logger.getLogger(ErrorHandlerImpl.class);
+	private int index=0;
 
 	public ErrorHandlerImpl() {
 
@@ -27,22 +28,21 @@ public class ErrorHandlerImpl implements ErrorHandler {
 		this.errorMap = errorMap;
 	}
 
-	public void handleLoadingError(int indexNumber, int lineNumber, String message, Object source) {
-		logger.info("Index in Loading Error" + indexNumber);
-		Error error = new Error(indexNumber, source, message);
+	public void handleLoadingError(int lineNumber, String message, Object source) {
+
+		Error error = new Error(lineNumber, source, message);
 		if (errorMap == null) {
 			errorMap = new HashMap<Integer, Error>();
 		}
-		errorMap.put(indexNumber, error);
+		errorMap.put(++index, error);
 	}
 
-	public void handleLinkageError(int indexNumber, String message, Object source) {
-		logger.info("Index in Linked Error" + indexNumber);
+	public void handleLinkageError(String message, Object source) {
 		Error error = new Error(source, message);
 		if (errorMap == null) {
 			errorMap = new HashMap<Integer, Error>();
 		}
-		errorMap.put(indexNumber, error);
+		errorMap.put(++index, error);
 	}
 
 	public boolean hasError() {
