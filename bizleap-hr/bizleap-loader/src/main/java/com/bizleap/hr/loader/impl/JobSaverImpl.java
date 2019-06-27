@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
-import com.bizleap.commons.domain.utils.Printer;
 import com.bizleap.hr.loader.JobSaver;
 import com.bizleap.service.JobService;
 
+//@Author: Nyan Lin Htet
 @Service
 public class JobSaverImpl implements JobSaver{
 	private static Logger logger = Logger.getLogger(CompanySaverImpl.class);

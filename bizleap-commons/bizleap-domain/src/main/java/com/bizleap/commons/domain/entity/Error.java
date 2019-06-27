@@ -3,6 +3,7 @@ package com.bizleap.commons.domain.entity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class Error {
+	
 	private int lineNumber;
 	private Object source;
 	private String message = "";

@@ -13,6 +13,7 @@ import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.DataManager;
 import com.bizleap.hr.loader.ErrorHandler;
 
+// @Author: San Thinzar Linn, Yamone Zin
 @Service
 public class AssociationMapperImpl implements AssociationMapper {
 	@Autowired
@@ -34,7 +35,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addDepartmentToLocation(Location location) {
 		for(Department department : dataManager.getDepartmentList()) {
-			if(department.sameBoId(location)) {
+			if(department.getLocation().sameBoId(location)) {
 				location.addDepartment(department);
 			}
 		}
@@ -51,7 +52,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addJobToDepartment(Department department) {
 		for(Job job : dataManager.getJobList()) {
-			if(job.sameBoId(department)) {
+			if(job.getDepartment().sameBoId(department)) {
 				department.addJob(job);
 			}
 		}
@@ -68,7 +69,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addPositionToJob(Job job) {
 		for(Position position : dataManager.getPositionList()) {
-			if(position.sameBoId(job)) {
+			if(position.getJob().sameBoId(job)) {
 				job.addPosition(position);
 			}
 		}
@@ -85,8 +86,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addEmployeeToPosition(Position position) {
 		for(Employee employee : dataManager.getEmployeeList()) {
-			if(employee.sameBoId(position)) {
-				position.addEmployee(employee);
+			if(employee.getPosition().sameBoId(position)) {
+				position.setEmployee(employee);
 			}
 		}
 		lineNumber=dataLoader.getIndex();
@@ -102,8 +103,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addAddressToEmployee(Employee employee) {
 		for(Address address : dataManager.getAddressList()) {
-			if(address.sameBoId(employee)) {
-				employee.addAddress(address);
+			if(address.sameBoId(employee.getAddress())) {
+				employee.setAddress(address);
 			}
 		}
 		lineNumber=dataLoader.getIndex();

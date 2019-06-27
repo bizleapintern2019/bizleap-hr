@@ -7,6 +7,7 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
 import com.bizleap.hr.service.dao.PositionDao;
 
+//@Author: Kay Zin Han
 @Repository
 public class PositionDaoImpl extends AbstractDaoImpl<Position, String> implements PositionDao {
 

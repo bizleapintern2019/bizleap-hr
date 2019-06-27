@@ -2,7 +2,13 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -12,18 +18,27 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Job extends AbstractEntity {
 	private String jobTitle;
 	private int salary;
-	private String departmentId;
+	
+	@ManyToOne
+	@JoinColumn(name="departmentId")
+	private Department department;
+	
+	@OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Position> positionList;
 
 	public Job() {
 		super();
 	}
+	
+	public Job(String boId) {
+		super(boId);
+	}
 
-	public Job(String boId, String jobTitle, int salary, String departmentId) {
+	public Job(String boId, String jobTitle, int salary, Department department) {
 		super.setBoId(boId);
 		this.jobTitle = jobTitle;
 		this.salary = salary;
-		this.departmentId = departmentId;
+		this.department = department;
 	}
 
 	public String getJobTitle() {
@@ -42,16 +57,24 @@ public class Job extends AbstractEntity {
 		this.salary = salary;
 	}
 
-	public String getDepartmentId() {
-		return departmentId;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setDepartmentId(String departmentId) {
-		this.departmentId = departmentId;
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	
+	public List<Position> getPositionList() {
+		return positionList;
+	}
+
+	public void setPositionList(List<Position> positionList) {
+		this.positionList = positionList;
 	}
 
 	public void addPosition(Position position) {
-		if (positionList == null) {
+		if (getPositionList() == null) {
 			positionList = new ArrayList<Position>();
 		}
 		positionList.add(position);
@@ -63,14 +86,16 @@ public class Job extends AbstractEntity {
 		job.setBoId(tokens[0]);
 		job.setJobTitle(tokens[1]);
 		job.setSalary(Integer.parseInt(tokens[2]));
-		job.setDepartmentId(tokens[3]);
+		job.setDepartment(new Department(tokens[3]));
 		return job;
 	}
+
+	
 
 	@Override
 	public String toString() {
 		return "Job :" + super.toString()
 				+ new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE).append("Job Title" + getJobTitle())
-						.append("Salary" + getSalary()).append("Department Id " + getDepartmentId());
+						.append("Salary" + getSalary()).append("Department Id " + getDepartment().getBoId());
 	}
 }

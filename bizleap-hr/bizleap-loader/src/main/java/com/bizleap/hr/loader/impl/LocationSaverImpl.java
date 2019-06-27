@@ -2,7 +2,6 @@ package com.bizleap.hr.loader.impl;
 
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
-import com.bizleap.commons.domain.utils.Printer;
 import com.bizleap.hr.loader.LocationSaver;
 import com.bizleap.service.LocationService;
 
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
+//@Author: Soe Min Thein
 @Service
 public class LocationSaverImpl implements LocationSaver {
     private static Logger logger = Logger.getLogger(LocationSaverImpl.class);

@@ -10,6 +10,7 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.LocationDao;
 import com.bizleap.service.LocationService;
 
+//@Author: Soe Min Thein
 @Service
 public class LocationServiceImpl implements LocationService {
 	@Autowired

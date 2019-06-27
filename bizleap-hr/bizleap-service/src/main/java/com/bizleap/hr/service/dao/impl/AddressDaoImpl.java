@@ -6,6 +6,7 @@ import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.AddressDao;
 
+//@Author: Thihan Hein
 @Repository
 public class AddressDaoImpl extends AbstractDaoImpl<Address,String> implements AddressDao{
 	protected AddressDaoImpl() {

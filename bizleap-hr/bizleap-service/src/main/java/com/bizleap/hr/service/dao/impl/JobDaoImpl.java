@@ -6,6 +6,7 @@ import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.JobDao;
 
+//@Author: Nyan Lin Htet
 @Repository
 public class JobDaoImpl extends AbstractDaoImpl<Job, String> implements JobDao {
 

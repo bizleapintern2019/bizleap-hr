@@ -3,7 +3,12 @@ package com.bizleap.commons.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -12,44 +17,53 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name ="department")
 public class Department extends AbstractEntity {
-	private String departmentName;
-	private String parentDepartment;
-	private String locationId;
+	
+	private String name;
+	private Department parentDepartment;
+	
+	@ManyToOne
+	@JoinColumn(name="locationId")
+	private Location location;
+	
+	@OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Job> jobList;
 
 	public Department() {
 		super();
 	}
+	public Department(String boId){
+		super(boId);	
+	}
 
-	public Department(String boId, String departmentName, String parentDepartment, String locationId) {
+	public Department(String boId, String name, Location location, Department parentDepartment) {
 		super.setBoId(boId);
-		this.departmentName = departmentName;
+		this.name = name;
 		this.parentDepartment = parentDepartment;
-		this.locationId = locationId;
+		this.location = location;
 	}
 
-	public String getDepartmentName() {
-		return departmentName;
+	public String getName() {
+		return name;
 	}
 
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getParentDepartment() {
+	public Department getParentDepartment() {
 		return parentDepartment;
 	}
 
-	public void setParentDepartment(String parentDepartment) {
+	public void setParentDepartment(Department parentDepartment) {
 		this.parentDepartment = parentDepartment;
 	}
 
-	public String getLocationId() {
-		return locationId;
+	public Location getLocation() {
+		return location;
 	}
 
-	public void setLocationId(String locationId) {
-		this.locationId = locationId;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	public List<Job> getJobList() {
@@ -61,7 +75,7 @@ public class Department extends AbstractEntity {
 	}
 
 	public void addJob(Job job) {
-		if(jobList == null){
+		if(getJobList() == null){
 			jobList = new ArrayList<Job>();
 		}
 		jobList.add(job);
@@ -71,9 +85,9 @@ public class Department extends AbstractEntity {
 		Department department = new Department();
 		String[] tokens = dataLine.split(";");
 		department.setBoId(tokens[0]);
-		department.setDepartmentName(tokens[1]);
-		department.setParentDepartment(tokens[2]);
-		department.setLocationId(tokens[3]);
+		department.setName(tokens[1]);
+		department.setLocation(new Location(tokens[2]));
+		department.setParentDepartment(new Department(tokens[3]));
 		return department;
 	}
 
@@ -81,7 +95,7 @@ public class Department extends AbstractEntity {
 	public String toString() {
 		return "Department :" + super.toString()
 				+ new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-						.append("DepartmentName :" + getDepartmentName())
-						.append("ParentDepartment :" + getParentDepartment()).append("Location ID :" + getLocationId());
+						.append("DepartmentName :" + getName())
+						.append("ParentDepartment :" + getParentDepartment()).append("Location ID :" + getLocation().getBoId());
 	}
 }

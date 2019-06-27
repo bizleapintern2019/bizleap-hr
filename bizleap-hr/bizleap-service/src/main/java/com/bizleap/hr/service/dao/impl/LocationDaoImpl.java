@@ -6,6 +6,7 @@ import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.LocationDao;
 
+//@Author: Soe Min Thein
 @Repository
 public class LocationDaoImpl extends AbstractDaoImpl<Location, String> implements LocationDao {
 	protected LocationDaoImpl() {

@@ -9,15 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
-import com.bizleap.commons.domain.utils.Printer;
 import com.bizleap.hr.loader.AddressSaver;
 import com.bizleap.service.AddressService;
 
+// @Author: Kay Zin Han
 @Service
 public class AddressSaverImpl implements AddressSaver{
 	
 	private static Logger logger = Logger.getLogger(DepartmentSaverImpl.class);
-    private static Printer printer = new Printer(logger);
 
     @Autowired
     private AddressService addressService;
@@ -25,11 +24,11 @@ public class AddressSaverImpl implements AddressSaver{
     private List<Address> addressList;
 
     public void savePass1() throws ServiceUnavailableException, IOException {
-        printer.line("Saving Address: "+ getAddressList().size());
+    	logger.info("Saving Address: "+ getAddressList().size());
         for(Address address:getAddressList()) {
         	addressService.saveAddress(address);
         }
-        printer.line("Saving Completed");
+        logger.info("Saving Completed");
     }
 
     public void setAddressList(List<Address> addressList) {
