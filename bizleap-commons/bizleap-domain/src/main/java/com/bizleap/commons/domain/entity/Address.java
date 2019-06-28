@@ -103,8 +103,8 @@ public class Address extends AbstractEntity {
 	public String toString() {
 		return  "Address :"+super.toString() +
 				new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("Permanent Address: " + getPermanentAddress())
-				.append("Contact Address: " + getContactAddress())
+				.append("Permanent: " + getPermanentAddress())
+				.append("Contact: " + getContactAddress())
 				.append("City: " + getCity())
 				.append("State: " + getState())
 				.append("Country: " + getCountry());

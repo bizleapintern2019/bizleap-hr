@@ -179,10 +179,16 @@ public class DataManagerImpl implements DataManager {
 			associationMapper.setUpAssociations();
 	}
 	
+	public void printLocationList() {
+		logger.info(locationList);
+	}
+	
 	public void load() {
 		loadData();
-		associateData();
-		saveData();
+//		associateData();
+		printLocationList();
+//		saveData();
+		
 		if(errorHandler.hasError()) {
 			logger.error("Error Occur. Error map is "+ errorHandler.getErrorMap());
 		}

@@ -53,7 +53,7 @@ public class Error {
 		 * if(getLineNumber()!=0){ lineString="at line number "+ getLineNumber(); }
 		 */
 		return new ToStringBuilder(source, null)
-				.append("---------------------------------------------------------------" + "\n")
+				.append("\n--------------------------------------------------------------" + "\n")
 				.append("\t\t\t\t\tERROR\n")
 				.append("---------------------------------------------------------------" + "\n")
 				.append(getMessage() + "\n")

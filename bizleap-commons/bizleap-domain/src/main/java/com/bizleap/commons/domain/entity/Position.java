@@ -1,15 +1,18 @@
 package com.bizleap.commons.domain.entity;
 
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -22,12 +25,22 @@ public class Position extends AbstractEntity {
 	@JoinColumn(name="jobId")
 	private Job job;
 
-	@OneToMany
-	@JoinColumn(name="reportTo_id")
+	@ManyToMany
+    @JoinTable(
+            name = "position_reportToList",
+            joinColumns = @JoinColumn(name = "position_id"),
+            inverseJoinColumns = @JoinColumn(name = "reportToList_id")
+    )
+//	@Transient
 	private List<Position> reportToList;
 	
-	@ManyToOne
-	@JoinColumn(name="reportBy_id")
+	@ManyToMany
+    @JoinTable(
+            name = "position_reportByList",
+            joinColumns = @JoinColumn(name = "position_id"),
+            inverseJoinColumns = @JoinColumn(name = "reportByList_id")
+    )
+//	@Transient
 	private List<Position> reportByList;
 
 	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -100,14 +113,26 @@ public class Position extends AbstractEntity {
 //		position.setReportToList(position.getReportToList());
 		return position;
 	}
+	
+	private String toBoIdList(List<Position> positionList) {
 
+		if(positionList == null) {
+			return "";
+		}
+	
+		String boIds = " ";
+		for(Position position : positionList) {
+			boIds += position.getBoId();
+		}
+		return boIds;
+	}
+	
 	@Override
 	public String toString() {
 		return "Position " + super.toString() + 
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("JobId" + getJob().getBoId())
-				.append("ReportTo" + getReportToList())
-				.append("ReportBy" + getReportByList())
-				.append("JobId" + getJob().getBoId()).append("ReportTo");
+				.append("ReportTo" + toBoIdList(getReportToList()))
+				.append("ReportBy" + toBoIdList(getReportByList()));
 	}
 }
