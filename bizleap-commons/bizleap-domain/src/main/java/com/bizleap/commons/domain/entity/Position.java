@@ -23,6 +23,7 @@ public class Position extends AbstractEntity {
 	private Job job;
 
 	@OneToMany
+	@JoinColumn(name="reportTo_id")
 	private List<Position> reportToList;
 	
 	@ManyToOne
@@ -81,6 +82,10 @@ public class Position extends AbstractEntity {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+	
+	public void addReportBy(Position reportBy) {
+		getReportByList().add(reportBy);
 	}
 
 	public static Position parsePosition(String dataLine) {

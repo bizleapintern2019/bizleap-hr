@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.hr.loader.ErrorHandler;
 
+//@author: Khin Chanmyae Thu
 @Service
 public class ErrorHandlerImpl implements ErrorHandler {
 	public Map<Integer, Error> errorMap;

@@ -24,21 +24,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 	@Autowired
 	private ErrorHandler errorHandler;
 	
-	private void addLocationToDepartment(Department department) {
-		for(Location location : dataManager.getLocationList()) {
-			if(department.getLocation().sameBoId(location)) {
-				department.setLocation(location);
-			}
-		}
-		errorHandler.handleLinkageError("Location in department cannot be linked.", department);
-	}
-	
-	private void setUpLocationAssociations() {
-		for(Location location : dataManager.getLocationList()) {
-			addDepartmentToLocation(location);
-		}
-	}
-	
 	private void addDepartmentToLocation(Location location) {
 		for(Department department : dataManager.getDepartmentList()) {
 			if(location.sameBoId(department.getLocation())) 
@@ -47,19 +32,34 @@ public class AssociationMapperImpl implements AssociationMapper {
 		errorHandler.handleLinkageError("Department in location cannot be linked.", location);
 	}
 	
-	private void setUpDepartmentAssociations() {
-		for(Department department : dataManager.getDepartmentList()) {
-			addLocationToDepartment(department);
-			addJobToDepartment(department);
+	private void setUpLocationAssociations() {
+		for(Location location : dataManager.getLocationList()) {
+			addDepartmentToLocation(location);
 		}
 	}
 	
+	private void addLocationToDepartment(Department department) {
+		for(Location location : dataManager.getLocationList()) {
+			if(department.getLocation().sameBoId(location)) {
+				department.setLocation(location);
+			}
+		}
+		errorHandler.handleLinkageError("Location in department cannot be linked.", department);
+	}
+
 	private void addJobToDepartment(Department department) {
 		for(Job job : dataManager.getJobList()) {
 			if(job.getDepartment().sameBoId(department))
 				department.addJob(job);
 		}
 		errorHandler.handleLinkageError("Job in department cannot be linked.", department);
+	}
+	
+	private void setUpDepartmentAssociations() {
+		for(Department department : dataManager.getDepartmentList()) {
+			addLocationToDepartment(department);
+			addJobToDepartment(department);
+		}
 	}
 	
 	private void addPositionToJob(Job job) {
@@ -85,6 +85,13 @@ public class AssociationMapperImpl implements AssociationMapper {
 		}
 	}
 	
+	private void addJobToPosition(Position position) {
+		for(Job job : dataManager.getJobList()) {
+			if(job.sameBoId(position.getJob()))
+				position.setJob(job);
+		}
+	}
+	
 	private void addEmployeeToPosition(Position position) {
 		for(Employee employee : dataManager.getEmployeeList()) {
 			if(employee.getPosition().sameBoId(position)) 
@@ -98,9 +105,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Position reportTo : position.getReportToList()) {
 			for(Position reportBy : dataManager.getPositionList()) {
 				if(reportTo.sameBoId(reportBy)) {
-					position.getReportByList().add(reportBy);
-					reportTo = position;
-					reportToList.add(reportTo);
+					position.addReportBy(reportBy);
+					//reportToList.add(position);
 				}
 			}
 		}
@@ -109,6 +115,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void setUpPositionAssociations() {
 		for(Position position : dataManager.getPositionList()) {
+			addJobToPosition(position);
 			addEmployeeToPosition(position);
 			addReportToandReportBy(position);
 		}
