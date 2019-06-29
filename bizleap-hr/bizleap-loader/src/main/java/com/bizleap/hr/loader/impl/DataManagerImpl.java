@@ -151,7 +151,7 @@ public class DataManagerImpl implements DataManager {
 		try {
 			locationSaver.setLocationList(locationList);
 			locationSaver.savePass1();
-//			
+			
 //			departmentSaver.setDepartmentList(departmentList);
 //			departmentSaver.savePass1();
 //			
@@ -179,10 +179,21 @@ public class DataManagerImpl implements DataManager {
 			associationMapper.setUpAssociations();
 	}
 	
+	public void printAllList() {
+		logger.info(locationList);
+		logger.info(departmentList);
+		logger.info(jobList);
+		logger.info(positionList);
+		logger.info(employeeList);
+		logger.info(addressList);
+	}
+	
 	public void load() {
 		loadData();
-		associateData();
-		saveData();
+//		associateData();
+		printAllList();
+//		saveData();
+		
 		if(errorHandler.hasError()) {
 			logger.error("Error Occur. Error map is "+ errorHandler.getErrorMap());
 		}

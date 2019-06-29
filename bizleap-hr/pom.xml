@@ -47,8 +47,13 @@
   </build>
  <dependencies>
  	<dependency>
- 	  <groupId>com.bizleap.commons</groupId>
+ 	<groupId>com.bizleap.commons</groupId>
     <artifactId>bizleap-domain</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+ 	</dependency>
+ 	<dependency>
+ 	<groupId>com.bizleap.commons</groupId>
+    <artifactId>bizleap-utils</artifactId>
     <version>0.0.1-SNAPSHOT</version>
  	</dependency>
   </dependencies>

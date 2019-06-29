@@ -3,6 +3,7 @@ package com.bizleap.hr.loader.impl;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.bizleap.hr.loader.FileLoader;
@@ -13,6 +14,7 @@ public class FileLoaderImpl implements FileLoader {
 	private BufferedReader dataReader;
 	private String dataLine = "";
 	private int lineNumber;
+	private Logger logger = Logger.getLogger(FileLoaderImpl.class);
 	
 	public FileLoaderImpl() {	
 	}
@@ -28,11 +30,19 @@ public class FileLoaderImpl implements FileLoader {
 	}
 
 	public boolean hasMore() throws Exception {
-		lineNumber++;
-		return (dataLine=dataReader.readLine())!=null;
+		if((dataLine=dataReader.readLine())!=null){
+			if(dataLine.startsWith("#")) {
+				 dataLine=dataReader.readLine();
+				 return true;
+			}
+			lineNumber++;
+			return true;
+		}
+		return false;
 	}
 	
 	public String getLine() {
+		logger.info("Processing: "+dataLine);
 		return dataLine;
 	}
 

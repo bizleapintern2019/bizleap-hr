@@ -100,24 +100,30 @@ public class AssociationMapperImpl implements AssociationMapper {
 		errorHandler.handleLinkageError("Employee in position cannot be linked.", position);
 	}
 	
-	private void addReportToandReportBy(Position position) {
-		List<Position> reportToList = new ArrayList<Position>();
-		for(Position reportTo : position.getReportToList()) {
-			for(Position reportBy : dataManager.getPositionList()) {
-				if(reportTo.sameBoId(reportBy)) {
-					position.addReportBy(reportBy);
-					//reportToList.add(position);
-				}
+	private Position findPositionInList(Position target) {
+		for(Position position : dataManager.getPositionList()) {
+			if(target.sameBoId(position)) {
+				return position;
 			}
 		}
-		position.setReportToList(reportToList);
+		return null;
+	}
+	
+	private void addReportToAndReportByPositions(Position target) {
+		List<Position> reportToList = new ArrayList<Position>();
+		for(Position reportTo : target.getReportToList()) {
+			Position realPosition = findPositionInList(reportTo);
+			reportToList.add(realPosition);
+			realPosition.getReportByList().add(target);
+		}
+		target.setReportToList(reportToList);
 	}
 	
 	private void setUpPositionAssociations() {
 		for(Position position : dataManager.getPositionList()) {
 			addJobToPosition(position);
 			addEmployeeToPosition(position);
-			addReportToandReportBy(position);
+			addReportToAndReportByPositions(position);
 		}
 	}
 	
