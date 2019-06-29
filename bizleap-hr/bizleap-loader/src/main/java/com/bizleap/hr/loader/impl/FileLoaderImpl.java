@@ -30,8 +30,15 @@ public class FileLoaderImpl implements FileLoader {
 	}
 
 	public boolean hasMore() throws Exception {
-		lineNumber++;
-		return (dataLine=dataReader.readLine())!=null;
+		if((dataLine=dataReader.readLine())!=null){
+			if(dataLine.startsWith("#")) {
+				 dataLine=dataReader.readLine();
+				 return true;
+			}
+			lineNumber++;
+			return true;
+		}
+		return false;
 	}
 	
 	public String getLine() {
