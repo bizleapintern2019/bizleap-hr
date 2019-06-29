@@ -151,7 +151,7 @@ public class DataManagerImpl implements DataManager {
 		try {
 			locationSaver.setLocationList(locationList);
 			locationSaver.savePass1();
-//			
+			
 //			departmentSaver.setDepartmentList(departmentList);
 //			departmentSaver.savePass1();
 //			
@@ -179,7 +179,7 @@ public class DataManagerImpl implements DataManager {
 			associationMapper.setUpAssociations();
 	}
 	
-	public void printLocationList() {
+	public void printAllList() {
 		logger.info(locationList);
 		logger.info(departmentList);
 		logger.info(jobList);
@@ -191,7 +191,7 @@ public class DataManagerImpl implements DataManager {
 	public void load() {
 		loadData();
 //		associateData();
-		printLocationList();
+		printAllList();
 //		saveData();
 		
 		if(errorHandler.hasError()) {

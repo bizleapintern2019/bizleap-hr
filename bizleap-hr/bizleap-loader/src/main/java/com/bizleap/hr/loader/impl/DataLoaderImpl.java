@@ -31,8 +31,7 @@ public class DataLoaderImpl implements DataLoader {
 	
 	@Autowired
 	private ErrorHandler errorHandler;
-	
-	private static BizLeapUtils bizLeapUtils;
+
 	
 	@Value("${application.path}")
 	String path;
@@ -49,7 +48,8 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public String getFullPath(String fileName) {
-		return bizLeapUtils.makePath(path, fileName);
+		logger.info(path);
+		return BizLeapUtils.makePath(path, fileName);
 	}
 
 	public List<Employee> loadEmployee() throws Exception {
@@ -60,10 +60,6 @@ public class DataLoaderImpl implements DataLoader {
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				if(dataLine.startsWith("#")) {
-					if(fileLoader.hasMore())
-						dataLine = fileLoader.getLine();
-				}
 				employee = Employee.parseEmployee(dataLine);
 				if(employee != null) {
 					employeeList.add(employee);
@@ -77,7 +73,6 @@ public class DataLoaderImpl implements DataLoader {
 		fileLoader.finish();
 		return employeeList;
 	}
-
 	
 	public List<Location> loadLocation() throws Exception {
 		fileLoader.start(getFullPath("location.txt"));
@@ -88,10 +83,6 @@ public class DataLoaderImpl implements DataLoader {
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				if(dataLine.startsWith("#")) {
-					if(fileLoader.hasMore())
-						dataLine = fileLoader.getLine();
-				}
 				location = Location.parseLocation(dataLine);
 				if(location != null) {
 					locationList.add(location);
@@ -112,10 +103,6 @@ public class DataLoaderImpl implements DataLoader {
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				if(dataLine.startsWith("#")) {
-					if(fileLoader.hasMore())
-						dataLine = fileLoader.getLine();
-				}
 				department = Department.parseDepartment(dataLine);
 				if(department != null) {
 					departmentList.add(department);
@@ -136,10 +123,6 @@ public class DataLoaderImpl implements DataLoader {
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				if(dataLine.startsWith("#")) {
-					if(fileLoader.hasMore())
-						dataLine = fileLoader.getLine();
-				}
 				job = Job.parseJob(dataLine);
 				if(job != null) {
 					jobList.add(job);
@@ -160,10 +143,6 @@ public class DataLoaderImpl implements DataLoader {
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				if(dataLine.startsWith("#")) {
-					if(fileLoader.hasMore())
-						dataLine = fileLoader.getLine();
-				}
 				position = Position.parsePosition(dataLine);
 				if(position != null) {
 					positionList.add(position);
@@ -184,10 +163,6 @@ public class DataLoaderImpl implements DataLoader {
 		while(fileLoader.hasMore()) {
 			try {
 				dataLine = fileLoader.getLine();
-				if(dataLine.startsWith("#")) {
-					if(fileLoader.hasMore())
-						dataLine = fileLoader.getLine();
-				}
 				address = Address.parseAddress(dataLine);
 				if(address != null) {
 					addressList.add(address);

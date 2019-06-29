@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class BizLeapUtils {
 	
-	private Logger logger = Logger.getLogger(BizLeapUtils.class);
-	public String makePath(String path,String fileName) {
+	private static Logger logger = Logger.getLogger(BizLeapUtils.class);
+	public static String makePath(String path,String fileName) {
 		if(StringUtils.isEmpty(fileName)) {
 			logger.info("path found : "+path);
 			return path;
@@ -16,10 +16,10 @@ public class BizLeapUtils {
 			logger.info("file found : "+fileName);
 			return fileName;
 		}
-		if(path.endsWith("\\")) {
+		if(path.endsWith("/")) {
 			logger.info("pathFile found : "+path + fileName);
 			return path + fileName;
 		}
-		return path + "\\" +fileName;
+		return path + "/" +fileName;
 	}
 }
