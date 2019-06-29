@@ -3,7 +3,10 @@ package com.bizleap.hr.loader.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.entity.Department;
@@ -12,6 +15,7 @@ import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
+import com.bizleap.commons.utils.BizLeapUtils;
 import com.bizleap.hr.loader.DataLoader;
 import com.bizleap.hr.loader.ErrorHandler;
 import com.bizleap.hr.loader.FileLoader;
@@ -19,11 +23,19 @@ import com.bizleap.hr.loader.FileLoader;
 // @Author: Kaung Pyae Sone Htun
 @Service
 public class DataLoaderImpl implements DataLoader {
+	
+	private Logger logger = Logger.getLogger(DataLoaderImpl.class);
+	
 	@Autowired
 	private FileLoader fileLoader;
 	
 	@Autowired
 	private ErrorHandler errorHandler;
+	
+	private static BizLeapUtils bizLeapUtils;
+	
+	@Value("${application.path}")
+	String path;
 	
 	public Map<Integer,Error> errorMap;
 	public int index = 1;
@@ -35,9 +47,13 @@ public class DataLoaderImpl implements DataLoader {
 	public void setIndex(int index) {
 		this.index = index;
 	}
+	
+	public String getFullPath(String fileName) {
+		return bizLeapUtils.makePath(path, fileName);
+	}
 
 	public List<Employee> loadEmployee() throws Exception {
-		fileLoader.start("D://BizLeap/bizleap-workspace/employee.txt");
+		fileLoader.start(getFullPath("employee.txt"));
 		String dataLine = "";
 		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee = null;
@@ -64,7 +80,8 @@ public class DataLoaderImpl implements DataLoader {
 
 	
 	public List<Location> loadLocation() throws Exception {
-		fileLoader.start("D://BizLeap/bizleap-workspace/location.txt");
+		fileLoader.start(getFullPath("location.txt"));
+		logger.info("Path found: "+ getFullPath("location.txt"));
 		String dataLine = "";
 		List<Location> locationList = new ArrayList<Location>();
 		Location location = null;
@@ -88,7 +105,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Department> loadDepartment() throws Exception {
-		fileLoader.start("D://BizLeap/bizleap-workspace/department.txt");
+		fileLoader.start(getFullPath("department.txt"));
 		String dataLine = "";
 		List<Department> departmentList = new ArrayList<Department>();
 		Department department = null;
@@ -112,7 +129,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Job> loadJob() throws Exception {
-		fileLoader.start("D://BizLeap/bizleap-workspace/job.txt");
+		fileLoader.start(getFullPath("job.txt"));
 		String dataLine = "";
 		List<Job> jobList = new ArrayList<Job>();
 		Job job = null;
@@ -136,7 +153,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Position> loadPosition() throws Exception {
-		fileLoader.start("D://BizLeap/bizleap-workspace/position.txt");
+		fileLoader.start(getFullPath("position.txt"));
 		String dataLine = "";
 		List<Position> positionList = new ArrayList<Position>();
 		Position position = null;
@@ -160,7 +177,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Address> loadAddress() throws Exception {
-		fileLoader.start("D://BizLeap/bizleap-workspace/address.txt");
+		fileLoader.start(getFullPath("address.txt"));
 		String dataLine = "";
 		List<Address> addressList = new ArrayList<Address>();
 		Address address = null;

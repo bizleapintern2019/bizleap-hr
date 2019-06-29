@@ -181,6 +181,11 @@ public class DataManagerImpl implements DataManager {
 	
 	public void printLocationList() {
 		logger.info(locationList);
+		logger.info(departmentList);
+		logger.info(jobList);
+		logger.info(positionList);
+		logger.info(employeeList);
+		logger.info(addressList);
 	}
 	
 	public void load() {

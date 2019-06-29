@@ -9,14 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.beans.factory.annotation.Autowired;
 
 //@author: Su Pyae Naing
 @Entity
@@ -33,7 +29,6 @@ public class Position extends AbstractEntity {
             joinColumns = @JoinColumn(name = "position_id"),
             inverseJoinColumns = @JoinColumn(name = "reportToList_id")
     )
-//	@Transient
 	private List<Position> reportToList;
 	
 	@ManyToMany
@@ -42,7 +37,6 @@ public class Position extends AbstractEntity {
             joinColumns = @JoinColumn(name = "position_id"),
             inverseJoinColumns = @JoinColumn(name = "reportByList_id")
     )
-//	@Transient
 	private List<Position> reportByList;
 
 	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
