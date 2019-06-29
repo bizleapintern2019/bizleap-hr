@@ -1,8 +1,7 @@
 package com.bizleap.commons.domain.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,7 +18,8 @@ public class Address extends AbstractEntity {
 	private String state;
 	private String country;
 	
-	@OneToOne(mappedBy = "address", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne
+	@JoinColumn(name="addressId")
 	private Employee employee;
 	
 	public Address() {

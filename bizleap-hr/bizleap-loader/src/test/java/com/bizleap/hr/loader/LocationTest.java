@@ -7,6 +7,6 @@ import com.bizleap.commons.domain.entity.Location;
 public class LocationTest {
 	@Test
 	public void parseLocationTest() {
-		Location.parseLocation("LOC001;Yangon");
+		Location.parseLocation("LOC001;Yangon;DEPT001,DEPT002,DEPT003");
 	}
 }
