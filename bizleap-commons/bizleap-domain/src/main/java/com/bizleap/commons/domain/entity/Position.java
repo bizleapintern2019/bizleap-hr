@@ -1,5 +1,6 @@
 package com.bizleap.commons.domain.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 
 //@author: Su Pyae Naing
 @Entity
@@ -53,7 +55,7 @@ public class Position extends AbstractEntity {
 	public Position(String boId) {
 		super(boId);
 	}
-
+	
 	public Position(String boId, Job job, List<Position> reportTo) {
 		super.setBoId(boId);
 		this.job = job;
@@ -107,15 +109,17 @@ public class Position extends AbstractEntity {
 		position.setBoId(tokens[0]);
 		position.setJob(new Job(tokens[1]));
 		String[] reportToBoIds = tokens[2].split(",");
-		
+		if(position.getReportToList()==null){
+			position.reportToList=new ArrayList<Position>();
+		}
 		for(int i=0; i<reportToBoIds.length; i++)
 			position.getReportToList().add(new Position(reportToBoIds[i]));
-//		position.setReportToList(position.getReportToList());
+		position.setReportToList(position.getReportToList());
 		return position;
 	}
 	
 	private String toBoIdList(List<Position> positionList) {
-
+		
 		if(positionList == null) {
 			return "";
 		}

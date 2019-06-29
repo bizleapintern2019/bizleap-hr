@@ -37,7 +37,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 
 	public List<Employee> loadEmployee() throws Exception {
-		fileLoader.start("E:\\Bizleap-Project\\employee.txt");
+		fileLoader.start("D://BizLeap/bizleap-workspace/employee.txt");
 		String dataLine = "";
 		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee = null;
@@ -64,7 +64,7 @@ public class DataLoaderImpl implements DataLoader {
 
 	
 	public List<Location> loadLocation() throws Exception {
-		fileLoader.start("E:\\Bizleap-Project\\location.txt");
+		fileLoader.start("D://BizLeap/bizleap-workspace/location.txt");
 		String dataLine = "";
 		List<Location> locationList = new ArrayList<Location>();
 		Location location = null;
@@ -88,7 +88,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Department> loadDepartment() throws Exception {
-		fileLoader.start("E:\\Bizleap-Project\\department.txt");
+		fileLoader.start("D://BizLeap/bizleap-workspace/department.txt");
 		String dataLine = "";
 		List<Department> departmentList = new ArrayList<Department>();
 		Department department = null;
@@ -112,7 +112,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Job> loadJob() throws Exception {
-		fileLoader.start("E:\\Bizleap-Project\\job.txt");
+		fileLoader.start("D://BizLeap/bizleap-workspace/job.txt");
 		String dataLine = "";
 		List<Job> jobList = new ArrayList<Job>();
 		Job job = null;
@@ -136,7 +136,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Position> loadPosition() throws Exception {
-		fileLoader.start("E:\\Bizleap-Project\\position.txt");
+		fileLoader.start("D://BizLeap/bizleap-workspace/position.txt");
 		String dataLine = "";
 		List<Position> positionList = new ArrayList<Position>();
 		Position position = null;
@@ -160,7 +160,7 @@ public class DataLoaderImpl implements DataLoader {
 	}
 	
 	public List<Address> loadAddress() throws Exception {
-		fileLoader.start("E:\\Bizleap-Project\\address.txt");
+		fileLoader.start("D://BizLeap/bizleap-workspace/address.txt");
 		String dataLine = "";
 		List<Address> addressList = new ArrayList<Address>();
 		Address address = null;
