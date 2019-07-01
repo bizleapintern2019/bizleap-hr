@@ -42,7 +42,7 @@ public class FileLoaderImpl implements FileLoader {
 	}
 	
 	public String getLine() {
-		logger.info("Processing: "+dataLine);
+		//logger.info("Processing: "+dataLine);
 		return dataLine;
 	}
 

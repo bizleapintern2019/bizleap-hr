@@ -13,6 +13,8 @@ public abstract class AbstractEntity {
 	@Id	//Generate Primary Key
 	@GeneratedValue //auto increment
 	private long id;
+
+	private String boId;
 	
 //	@Column(
 //	        name = "status",
@@ -37,8 +39,6 @@ public abstract class AbstractEntity {
 	public AbstractEntity(String boId) {
 		this.boId = boId;
 	}
-	
-	private String boId;
 	
 	public long getId() {
 		return id;

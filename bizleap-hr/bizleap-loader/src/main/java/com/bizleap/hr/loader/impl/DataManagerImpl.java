@@ -44,22 +44,6 @@ public class DataManagerImpl implements DataManager {
 	@Autowired
 	private LocationSaver locationSaver;
 	
-	/*@Autowired 
-	private DepartmentSaver departmentSaver;
-	
-	@Autowired
-	private JobSaver jobSaver;
-	
-	@Autowired
-	private PositionSaver positionSaver;
-	
-	@Autowired
-	private EmployeeSaver employeeSaver;
-	
-	@Autowired
-	private AddressSaver addressSaver; */
-	
-	private Map<Integer,Error> errorMap = new HashMap<Integer,Error>();
 	private List<Employee> employeeList;
 	private List<Department> departmentList;
 	private List<Job> jobList;
@@ -115,10 +99,6 @@ public class DataManagerImpl implements DataManager {
 	public void setAddressList(List<Address> addressList) {
 		this.addressList = addressList;
 	}
-
-	public Map<Integer, Error> getErrorMap() {
-		return errorMap;
-	}
 	
 	public void loadData() {
 		try {
@@ -127,46 +107,16 @@ public class DataManagerImpl implements DataManager {
 			jobList = dataLoader.loadJob();
 			locationList = dataLoader.loadLocation();
 			positionList = dataLoader.loadPosition();
+			addressList= dataLoader.loadAddress();
 			} catch (Exception e) {
 				logger.error(e);
 			}
 	}
 	
-//	public void saveData() {
-//		if(errorCollector.hasError())
-//			return;
-//		for(Company company: getCompanyList()) {
-//			if(company!=null) {
-//				saver.saveCompany(company);
-//			}
-//		}
-//		for(Employee employee: getEmployeeList()) {
-//			if(employee!=null) {
-//				saver.saveEmployee(employee);
-//			}
-//		}
-//	}
-	
 	public void saveData() {
 		try {
 			locationSaver.setLocationList(locationList);
 			locationSaver.savePass1();
-			
-//			departmentSaver.setDepartmentList(departmentList);
-//			departmentSaver.savePass1();
-//			
-//			jobSaver.setJobList(jobList);
-//			jobSaver.savePass1();
-//			
-//			positionSaver.setPositionList(positionList);
-//			positionSaver.savePass1();
-//			
-//			employeeSaver.setEmployeeList(employeeList);
-//			employeeSaver.savePass1();
-//			
-//			addressSaver.setAddressList(addressList);
-//			addressSaver.savePass1();
-//			
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		} catch (IOException e) {
@@ -175,18 +125,23 @@ public class DataManagerImpl implements DataManager {
 	}
 	
 	public void associateData() {
-		if(!errorHandler.hasError()) 
+		if(!errorHandler.hasError()) {
 			associationMapper.setUpAssociations();
-		logger.info("*****associated!!******");
+			logger.info("*****associated!!******");
+			return;
+		}
+		else if(errorHandler.hasError()) {
+			logger.error("Error Occur. Error map is "+ errorHandler.getErrorMap());
+		}
 	}
 	
 	public void printAllList() {
-		logger.info(locationList);
-		logger.info(departmentList);
-		logger.info(jobList);
-		logger.info(positionList);
-		logger.info(employeeList);
-		logger.info(addressList);
+		logger.info(locationList + "\n");
+		logger.info(departmentList + "\n");
+		logger.info(jobList + "\n");
+		logger.info(positionList + "\n");
+		logger.info(employeeList + "\n");
+		logger.info(addressList + "\n");
 	}
 	
 	public void load() {
@@ -194,9 +149,5 @@ public class DataManagerImpl implements DataManager {
 		associateData();
 		printAllList();
 //		saveData();
-		
-		if(errorHandler.hasError()) {
-			logger.error("Error Occur. Error map is "+ errorHandler.getErrorMap());
-		}
 	}
 }

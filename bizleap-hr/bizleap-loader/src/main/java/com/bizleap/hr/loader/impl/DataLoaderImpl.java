@@ -54,6 +54,7 @@ public class DataLoaderImpl implements DataLoader {
 
 	public List<Employee> loadEmployee() throws Exception {
 		fileLoader.start(getFullPath("employee.txt"));
+		logger.info("Path found: "+ getFullPath("employee.txt"));
 		String dataLine = "";
 		List<Employee> employeeList = new ArrayList<Employee>();
 		Employee employee = null;
@@ -66,7 +67,7 @@ public class DataLoaderImpl implements DataLoader {
 				}
 			}catch (Exception e) {
 				e.printStackTrace();
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Employee file loading: "+e.getMessage(),dataLine);
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Employee file loading: "+e.getMessage(),fileLoader.getLine());
 				System.exit(0);
 			}
 		}
@@ -88,7 +89,7 @@ public class DataLoaderImpl implements DataLoader {
 					locationList.add(location);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Location file loading: "+e.getMessage(),dataLine);
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Location file loading: "+e.getMessage(),fileLoader.getLine());
 			}
 		}
 		fileLoader.finish();
@@ -97,6 +98,7 @@ public class DataLoaderImpl implements DataLoader {
 	
 	public List<Department> loadDepartment() throws Exception {
 		fileLoader.start(getFullPath("department.txt"));
+		logger.info("Path found: "+ getFullPath("department.txt"));
 		String dataLine = "";
 		List<Department> departmentList = new ArrayList<Department>();
 		Department department = null;
@@ -108,7 +110,7 @@ public class DataLoaderImpl implements DataLoader {
 					departmentList.add(department);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Department file loading: "+e.getMessage(),dataLine);
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Department file loading: "+e.getMessage(),fileLoader.getLine());
 			}
 		}
 		fileLoader.finish();
@@ -117,6 +119,7 @@ public class DataLoaderImpl implements DataLoader {
 	
 	public List<Job> loadJob() throws Exception {
 		fileLoader.start(getFullPath("job.txt"));
+		logger.info("Path found: "+ getFullPath("job.txt"));
 		String dataLine = "";
 		List<Job> jobList = new ArrayList<Job>();
 		Job job = null;
@@ -128,7 +131,7 @@ public class DataLoaderImpl implements DataLoader {
 					jobList.add(job);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Job file loading: "+e.getMessage(),dataLine);
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Job file loading: "+e.getMessage(),fileLoader.getLine());
 			}
 		}
 		fileLoader.finish();
@@ -137,6 +140,7 @@ public class DataLoaderImpl implements DataLoader {
 	
 	public List<Position> loadPosition() throws Exception {
 		fileLoader.start(getFullPath("position.txt"));
+		logger.info("Path found: "+ getFullPath("position.txt"));
 		String dataLine = "";
 		List<Position> positionList = new ArrayList<Position>();
 		Position position = null;
@@ -148,7 +152,7 @@ public class DataLoaderImpl implements DataLoader {
 					positionList.add(position);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Position file loading: "+e.getMessage(),dataLine);
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Position file loading: "+e.getMessage(),fileLoader.getLine());
 			}
 		}
 		fileLoader.finish();
@@ -157,6 +161,7 @@ public class DataLoaderImpl implements DataLoader {
 	
 	public List<Address> loadAddress() throws Exception {
 		fileLoader.start(getFullPath("address.txt"));
+		logger.info("Path found: "+ getFullPath("address.txt"));
 		String dataLine = "";
 		List<Address> addressList = new ArrayList<Address>();
 		Address address = null;
@@ -168,7 +173,7 @@ public class DataLoaderImpl implements DataLoader {
 					addressList.add(address);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Address file loading: "+e.getMessage(),dataLine);	
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Address file loading: "+e.getMessage(),fileLoader.getLine());	
 			}
 		}
 		fileLoader.finish();
