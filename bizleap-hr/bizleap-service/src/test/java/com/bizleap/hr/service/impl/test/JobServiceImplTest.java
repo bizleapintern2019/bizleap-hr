@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
+import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.JobService;
 
-public class JobServiceImplTest {
+public class JobServiceImplTest extends ServiceTest {
 	
 	private Logger logger = Logger.getLogger(JobServiceImplTest.class);
 
@@ -19,7 +20,10 @@ public class JobServiceImplTest {
 	JobService jobService;
 	
 	@Test
-	public void jobServiceTest() {
+	public void testSaveJob() {
+		
+		
+		
 		Job job = new Job();
 		job.setBoId("JOB001");
 		job.setJobTitle("CEO");

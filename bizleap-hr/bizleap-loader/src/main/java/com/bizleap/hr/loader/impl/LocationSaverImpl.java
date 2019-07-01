@@ -37,4 +37,4 @@ public class LocationSaverImpl implements LocationSaver {
         }
         logger.info("Saving Completed");
     }
-}
+} 

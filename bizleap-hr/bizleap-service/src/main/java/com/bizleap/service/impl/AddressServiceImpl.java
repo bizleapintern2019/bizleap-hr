@@ -14,7 +14,7 @@ import com.bizleap.service.AddressService;
 
 //@Author: Thihan Hein
 @Service
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 public class AddressServiceImpl implements AddressService {
 	
 	@Autowired

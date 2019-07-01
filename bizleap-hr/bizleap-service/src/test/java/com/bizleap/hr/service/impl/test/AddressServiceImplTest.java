@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
+import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.AddressService;
 
-public class AddressServiceImplTest {
+public class AddressServiceImplTest extends ServiceTest {
 
 	private Logger logger = Logger.getLogger(AddressServiceImplTest.class);
 
@@ -18,8 +19,7 @@ public class AddressServiceImplTest {
 	AddressService addressService;
 
 	@Test
-	public void addressServiceTest() {
-		logger.info("****************address");
+	public void testSaveAddress() {
 		
 		Address address = new Address();
 		address.setBoId("ADR001");
@@ -28,9 +28,8 @@ public class AddressServiceImplTest {
 		address.setCity("Yangon");
 		address.setState("Yangon");
 		address.setCountry("Myanmar");
-		logger.info("****************address");
+
 		try {
-			logger.info("****************address");
 			addressService.saveAddress(address);
 		} 
 		catch (IOException e) {

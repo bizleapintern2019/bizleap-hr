@@ -1,6 +1,7 @@
 package com.bizleap.hr.service.impl.test;
 
 import com.bizleap.commons.domain.entity.Address;
+
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Job;
@@ -24,30 +25,29 @@ public class EmployeeServiceImplTest extends ServiceTest {
 	EmployeeService employeeService;
 
 	@Test
-	public void employeeServiceTest() {
+	public void testSaveEmployee() {
 		Location location = new Location();
 		location.setBoId("LOC001");
 		location.setName("Yangon");
-		
 
 		Department department = new Department();
 		department.setBoId("DEPT001");
 		department.setName("BOD");
 		department.setLocation(location);
 		department.setParentDepartment(new Department("null"));
-		
+
 		Job job = new Job();
 		job.setBoId("JOB001");
 		job.setJobTitle("CEO");
 		job.setSalary(800000);
 		job.setDepartment(department);
-		
-		
+
 		Position position = new Position();
 		position.setBoId("JOB001-1");
 		position.setJob(job);
 		position.setReportToList(null);
-		
+		position.setReportByList(null);
+
 		Address address = new Address();
 		address.setBoId("ADR001");
 		address.setPermanentAddress("No.11,zinziyar Str");
@@ -55,12 +55,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		address.setCity("Yangon");
 		address.setState("Yangon");
 		address.setCountry("Myanmar");
-	
-		
-		
-		
-		
-		logger.info("****************employee");
+
 		Employee employee = new Employee();
 		employee.setBoId("EMP001");
 		employee.setTitle("Mg");
@@ -73,9 +68,8 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		employee.setEmail("aung@gmail.com");
 		employee.setPhone("0925645652");
 		employee.setAddress(address);
-		
+
 		try {
-			logger.info("****************employee");
 			logger.info("employeeData" + employee.toString());
 			employeeService.saveEmployee(employee);
 		} 
@@ -85,8 +79,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		catch (ServiceUnavailableException e) {
 			e.printStackTrace();
 		}
-		
+
 		logger.info(employee);
 	}
-
 }

@@ -1,11 +1,14 @@
 package com.bizleap.hr.service.impl.test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
@@ -19,22 +22,26 @@ public class LocationServiceImplTest extends ServiceTest {
 	LocationService locationService;
 
 	@Test
-	public void locationServiceTest() {
-		logger.info("****************location");
+	public void testSaveLocation() {
+		
+		List<Department> departmentList = new ArrayList<Department>();
+		departmentList.add(new Department("JOB001-2"));
+		
+
 		Location location = new Location();
 		location.setBoId("LOC001");
 		location.setName("Yangon");
-		logger.info("****************location");
+		location.setDepartmentList(departmentList);
+		
 		try {
 			logger.info("Location info: " + location.toString());
 			locationService.saveLocation(location);
-			logger.info("****************location");
 		} 
 		catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		} 
 		catch (ServiceUnavailableException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 
 		logger.info(location);

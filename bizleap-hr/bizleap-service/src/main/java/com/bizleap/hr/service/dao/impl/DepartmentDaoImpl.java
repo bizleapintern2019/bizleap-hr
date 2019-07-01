@@ -14,7 +14,6 @@ public class DepartmentDaoImpl extends AbstractDaoImpl<Department, String> imple
 		super(Department.class);
 	}
 
-	@Override
 	public void save(Department department) throws ServiceUnavailableException {
 		saveOrUpdate(department);
 	}
