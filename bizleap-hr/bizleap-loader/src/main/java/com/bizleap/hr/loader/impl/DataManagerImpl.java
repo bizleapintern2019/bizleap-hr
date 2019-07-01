@@ -177,6 +177,7 @@ public class DataManagerImpl implements DataManager {
 	public void associateData() {
 		if(!errorHandler.hasError()) 
 			associationMapper.setUpAssociations();
+		logger.info("*****associated!!******");
 	}
 	
 	public void printAllList() {
