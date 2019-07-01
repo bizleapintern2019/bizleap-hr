@@ -8,12 +8,12 @@ import com.bizleap.hr.service.dao.DepartmentDao;
 
 //@Author: Soe Min Thein
 @Repository
-public class DepartmentDaoImpl extends AbstractDaoImpl<Department,String> implements DepartmentDao {
+public class DepartmentDaoImpl extends AbstractDaoImpl<Department, String> implements DepartmentDao {
+
 	protected DepartmentDaoImpl() {
 		super(Department.class);
 	}
 
-	@Override
 	public void save(Department department) throws ServiceUnavailableException {
 		saveOrUpdate(department);
 	}

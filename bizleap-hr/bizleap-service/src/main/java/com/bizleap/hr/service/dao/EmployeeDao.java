@@ -4,5 +4,6 @@ import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
 public interface EmployeeDao extends AbstractDao<Employee, String> {
+	
     void save(Employee employee) throws ServiceUnavailableException;
 }

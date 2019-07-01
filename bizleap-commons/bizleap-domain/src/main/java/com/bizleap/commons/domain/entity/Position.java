@@ -73,16 +73,16 @@ public class Position extends AbstractEntity {
 		return reportToList;
 	}
 
-	public void setReportToList(List<Position> reportTo) {
-		this.reportToList = reportTo;
+	public void setReportToList(List<Position> reportToList) {
+		this.reportToList = reportToList;
 	}
 	
 	public List<Position> getReportByList() {
 		return reportByList;
 	}
 
-	public void setReportByList(List<Position> reportBy) {
-		this.reportByList = reportBy;
+	public void setReportByList(List<Position> reportByList) {
+		this.reportByList = reportByList;
 	}
 	
 	public Employee getEmployee() {
@@ -94,9 +94,12 @@ public class Position extends AbstractEntity {
 	}
 	
 	public void addReportBy(Position reportBy) {
+		if(getReportByList() == null){
+			setReportByList(new ArrayList<Position>());
+		}
 		getReportByList().add(reportBy);
 	}
-
+	
 	public static Position parsePosition(String dataLine) {
 		Position position = new Position();
 		String[] tokens = dataLine.split(";");
@@ -104,23 +107,21 @@ public class Position extends AbstractEntity {
 		position.setJob(new Job(tokens[1]));
 		String[] reportToBoIds = tokens[2].split(",");
 		if(position.getReportToList()==null){
-			position.reportToList=new ArrayList<Position>();
+			position.setReportToList(new ArrayList<Position>());
 		}
 		for(int i=0; i<reportToBoIds.length; i++)
 			position.getReportToList().add(new Position(reportToBoIds[i]));
-		position.setReportToList(position.getReportToList());
 		return position;
 	}
 	
 	private String toBoIdList(List<Position> positionList) {
-		
 		if(positionList == null) {
 			return "";
 		}
 	
-		String boIds = " ";
+		String boIds = "";
 		for(Position position : positionList) {
-			boIds += position.getBoId();
+			boIds += position.getBoId() + ",";
 		}
 		return boIds;
 	}
@@ -130,7 +131,7 @@ public class Position extends AbstractEntity {
 		return "Position " + super.toString() + 
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("JobId" + getJob().getBoId())
-				.append("ReportTo" + toBoIdList(getReportToList()))
-				.append("ReportBy" + toBoIdList(getReportByList()));
+				.append("ReportTo: " + toBoIdList(getReportToList()))
+				.append("ReportBy: "+toBoIdList(getReportByList()));
 	}
 }

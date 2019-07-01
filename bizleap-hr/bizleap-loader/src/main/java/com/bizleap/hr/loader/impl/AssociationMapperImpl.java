@@ -3,6 +3,7 @@ package com.bizleap.hr.loader.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Address;
@@ -18,6 +19,8 @@ import com.bizleap.hr.loader.ErrorHandler;
 // @Author: San Thinzar Linn, Yamone Zin
 @Service
 public class AssociationMapperImpl implements AssociationMapper {
+	
+	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
 	@Autowired
 	private DataManager dataManager;
 	
@@ -26,8 +29,13 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addDepartmentToLocation(Location location) {
 		for(Department department : dataManager.getDepartmentList()) {
-			if(location.sameBoId(department.getLocation())) 
-				location.addDepartment(department);
+			List<Department> departmentList = new ArrayList<Department>();
+			for(Department locationDepartment : location.getDepartmentList()) {
+				if(department.sameBoId(locationDepartment)) {
+					departmentList.add(department);
+				}
+			}
+			location.setDepartmentList(departmentList);
 		}
 		errorHandler.handleLinkageError("Department in location cannot be linked.", location);
 	}
@@ -35,16 +43,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpLocationAssociations() {
 		for(Location location : dataManager.getLocationList()) {
 			addDepartmentToLocation(location);
+			logger.info("Location Association: "+ location);
 		}
-	}
-	
-	private void addLocationToDepartment(Department department) {
-		for(Location location : dataManager.getLocationList()) {
-			if(department.getLocation().sameBoId(location)) {
-				department.setLocation(location);
-			}
-		}
-		errorHandler.handleLinkageError("Location in department cannot be linked.", department);
 	}
 
 	private void addJobToDepartment(Department department) {
@@ -55,10 +55,19 @@ public class AssociationMapperImpl implements AssociationMapper {
 		errorHandler.handleLinkageError("Job in department cannot be linked.", department);
 	}
 	
+	private void addParentDepartment(Department department) {
+		for(Department parentDepartment : dataManager.getDepartmentList()) {
+			if(department.getParentDepartment().sameBoId(parentDepartment)) {
+				department.setParentDepartment(parentDepartment);
+			}
+		}
+		errorHandler.handleLinkageError("ParentDepartment in department cannot be linked.", department);
+	}
 	private void setUpDepartmentAssociations() {
 		for(Department department : dataManager.getDepartmentList()) {
-			addLocationToDepartment(department);
 			addJobToDepartment(department);
+			addParentDepartment(department);
+			logger.info("Department Association: "+ department);
 		}
 	}
 	
@@ -82,6 +91,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Job job : dataManager.getJobList()) {
 			addDepartmentToJob(job);
 			addPositionToJob(job);
+			logger.info("Job Association: "+ job);
 		}
 	}
 	
@@ -111,10 +121,17 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addReportToAndReportByPositions(Position target) {
 		List<Position> reportToList = new ArrayList<Position>();
+		
 		for(Position reportTo : target.getReportToList()) {
 			Position realPosition = findPositionInList(reportTo);
-			reportToList.add(realPosition);
-			realPosition.getReportByList().add(target);
+			if(realPosition != null) {
+				reportToList.add(realPosition);
+				realPosition.addReportBy(target);
+			}
+			else errorHandler.handleLinkageError("Report Error: ", target);
+			//logger.info("Adding ReportBy: "+realPosition);
+			//if(realPosition.getReportByList()!= null)
+				//logger.info("Realposition ReportToList size: "+realPosition.getReportToList().size());
 		}
 		target.setReportToList(reportToList);
 	}
@@ -124,12 +141,13 @@ public class AssociationMapperImpl implements AssociationMapper {
 			addJobToPosition(position);
 			addEmployeeToPosition(position);
 			addReportToAndReportByPositions(position);
+			logger.info("Position Association: "+ position);
 		}
 	}
 	
 	private void addAddressToEmployee(Employee employee) {
 		for(Address address : dataManager.getAddressList()) {
-			if(address.sameBoId(employee.getAddress())) 
+			if(employee.getAddress().sameBoId(address)) 
 				employee.setAddress(address);
 		}
 		errorHandler.handleLinkageError("Address in employee cannot be linked.", employee);
@@ -147,6 +165,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Employee employee : dataManager.getEmployeeList()) {
 			addPositionToEmployee(employee);
 			addAddressToEmployee(employee);
+			logger.info("Employee Association: "+ employee);
 		}
 	}
 	

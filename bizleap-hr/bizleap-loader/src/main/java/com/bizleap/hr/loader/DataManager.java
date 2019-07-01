@@ -18,6 +18,5 @@ public interface DataManager {
 	List<Location> getLocationList();
 	List<Position> getPositionList();
 	List<Address> getAddressList();
-	Map<Integer,Error> getErrorMap();
 	void load();
 }

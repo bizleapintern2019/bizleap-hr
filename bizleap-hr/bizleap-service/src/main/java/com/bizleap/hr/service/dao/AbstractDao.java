@@ -6,6 +6,7 @@ import java.util.List;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
 public interface AbstractDao<E, I extends Serializable> {
+	
     void saveOrUpdate(E e) throws ServiceUnavailableException;
     List<E> findByString(String queryString, String data);
     List<E> findByStringInteger(String queryString, String data, int data1);

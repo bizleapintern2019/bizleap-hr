@@ -24,9 +24,9 @@ public class Department extends AbstractEntity {
 	@OneToOne
 	private Department parentDepartment;
 	
-	@ManyToOne
-	@JoinColumn(name="locationId")
-	private Location location;
+//	@ManyToOne
+//	@JoinColumn(name="locationId")
+//	private Location location;
 	
 	@OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Job> jobList;
@@ -39,10 +39,9 @@ public class Department extends AbstractEntity {
 		super(boId);	
 	}
 
-	public Department(String boId, String name, Location location, Department parentDepartment) {
+	public Department(String boId, String name, Department parentDepartment) {
 		super.setBoId(boId);
 		this.name = name;
-		this.location = location;
 		this.parentDepartment = parentDepartment;
 	}
 
@@ -62,13 +61,13 @@ public class Department extends AbstractEntity {
 		this.parentDepartment = parentDepartment;
 	}
 
-	public Location getLocation() {
-		return location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+//	public Location getLocation() {
+//		return location;
+//	}
+//
+//	public void setLocation(Location location) {
+//		this.location = location;
+//	}
 
 	public List<Job> getJobList() {
 		return jobList;
@@ -90,9 +89,8 @@ public class Department extends AbstractEntity {
 		String[] tokens = dataLine.split(";");
 		department.setBoId(tokens[0]);
 		department.setName(tokens[1]);
-		department.setLocation(new Location(tokens[2]));
-		String parentDepartment = tokens[3];
-		if(parentDepartment != "null")
+		String parentDepartment = tokens[2];
+		if(parentDepartment != "")
 			department.setParentDepartment(new Department(parentDepartment));
 		else 
 			department.setParentDepartment(null);
@@ -104,6 +102,6 @@ public class Department extends AbstractEntity {
 		return "Department :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
-				.append("Parent: " + getParentDepartment()).append("Location: " + getLocation().getBoId());
+				.append("Parent: " + getParentDepartment().getBoId() + "ParentDepartment Name: " + getParentDepartment().getName());
 	}
 }
