@@ -1,6 +1,8 @@
 package com.bizleap.commons.domain.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,14 +14,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name = "employee")
 public class Employee extends AbstractEntity {
+	
 	private String title,firstName, lastName, entranceDate, dateOfBirth, gender, email, phone;
 	
 	@OneToOne
 	@JoinColumn(name="positionId")
 	private Position position;
 	
-	@OneToOne
-	@JoinColumn(name="addressId")
+	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Address address;
 
 	public Employee() {

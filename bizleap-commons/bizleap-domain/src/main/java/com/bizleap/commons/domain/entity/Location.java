@@ -62,6 +62,13 @@ public class Location extends AbstractEntity {
 		String[] tokens = dataLine.split(";");
 		location.setBoId(tokens[0]);
 		location.setName(tokens[1]);
+		String[] departmentArray = tokens[2].split(",");
+		if(location.getDepartmentList()==null){
+			location.departmentList=new ArrayList<Department>();
+		}
+		for(int i=0; i<departmentArray.length; i++)
+			location.getDepartmentList().add(new Department(departmentArray[i]));
+		location.setDepartmentList(location.getDepartmentList());
 		return location;
 	}
 
