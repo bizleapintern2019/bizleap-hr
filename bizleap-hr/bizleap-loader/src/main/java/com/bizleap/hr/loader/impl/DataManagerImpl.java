@@ -190,7 +190,7 @@ public class DataManagerImpl implements DataManager {
 	
 	public void load() {
 		loadData();
-//		associateData();
+		associateData();
 		printAllList();
 //		saveData();
 		

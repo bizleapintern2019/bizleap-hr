@@ -3,6 +3,7 @@ package com.bizleap.hr.loader.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.bizleap.commons.domain.entity.Address;
@@ -18,6 +19,8 @@ import com.bizleap.hr.loader.ErrorHandler;
 // @Author: San Thinzar Linn, Yamone Zin
 @Service
 public class AssociationMapperImpl implements AssociationMapper {
+	
+	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
 	@Autowired
 	private DataManager dataManager;
 	
@@ -35,6 +38,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpLocationAssociations() {
 		for(Location location : dataManager.getLocationList()) {
 			addDepartmentToLocation(location);
+			logger.info("Location Association: "+ location);
 		}
 	}
 	
@@ -59,6 +63,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Department department : dataManager.getDepartmentList()) {
 			addLocationToDepartment(department);
 			addJobToDepartment(department);
+			logger.info("Department Association: "+ department);
 		}
 	}
 	
@@ -82,6 +87,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Job job : dataManager.getJobList()) {
 			addDepartmentToJob(job);
 			addPositionToJob(job);
+			logger.info("Job Association: "+ job);
 		}
 	}
 	
@@ -124,6 +130,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			addJobToPosition(position);
 			addEmployeeToPosition(position);
 			addReportToAndReportByPositions(position);
+			logger.info("Position Association: "+ position);
 		}
 	}
 	
@@ -147,6 +154,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Employee employee : dataManager.getEmployeeList()) {
 			addPositionToEmployee(employee);
 			addAddressToEmployee(employee);
+			logger.info("Employee Association: "+ employee);
 		}
 	}
 	

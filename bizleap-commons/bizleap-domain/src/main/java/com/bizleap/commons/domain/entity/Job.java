@@ -97,6 +97,7 @@ public class Job extends AbstractEntity {
 		return "Job: " + super.toString() + 
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Title: " + getJobTitle())
-				.append("Salary: " + getSalary()).append("Department: " + getDepartment().getBoId());
+				.append("Salary: " + getSalary())
+				.append("Department: " + getDepartment().getName());
 	}
 }
