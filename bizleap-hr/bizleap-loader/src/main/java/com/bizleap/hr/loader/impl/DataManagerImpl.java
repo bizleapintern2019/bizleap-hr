@@ -177,6 +177,7 @@ public class DataManagerImpl implements DataManager {
 	public void associateData() {
 		if(!errorHandler.hasError()) 
 			associationMapper.setUpAssociations();
+		logger.info("*****associated!!******");
 	}
 	
 	public void printAllList() {
@@ -190,7 +191,7 @@ public class DataManagerImpl implements DataManager {
 	
 	public void load() {
 		loadData();
-//		associateData();
+		associateData();
 		printAllList();
 //		saveData();
 		

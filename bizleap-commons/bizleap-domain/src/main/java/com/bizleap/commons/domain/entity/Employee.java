@@ -149,6 +149,7 @@ public class Employee extends AbstractEntity {
 		return "Employee :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("FirstName :" + getFirstName())
-				.append("LastName :" + getLastName());
+				.append("LastName :" + getLastName())
+				.append("Address: "+getAddress().getPermanentAddress());
 	}
 }

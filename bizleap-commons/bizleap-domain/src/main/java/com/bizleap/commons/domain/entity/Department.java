@@ -92,7 +92,7 @@ public class Department extends AbstractEntity {
 		department.setName(tokens[1]);
 		department.setLocation(new Location(tokens[2]));
 		String parentDepartment = tokens[3];
-		if(parentDepartment != "null")
+		if(parentDepartment != "")
 			department.setParentDepartment(new Department(parentDepartment));
 		else 
 			department.setParentDepartment(null);
@@ -104,6 +104,7 @@ public class Department extends AbstractEntity {
 		return "Department :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
-				.append("Parent: " + getParentDepartment()).append("Location: " + getLocation().getBoId());
+				.append("Parent: " + getParentDepartment())
+				.append("Location: " + getLocation().getName());
 	}
 }

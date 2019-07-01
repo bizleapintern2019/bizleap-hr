@@ -1,6 +1,7 @@
 package com.bizleap.service.impl;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,24 @@ import com.bizleap.service.LocationService;
 //@Author: Soe Min Thein
 @Service
 public class LocationServiceImpl implements LocationService {
+	
 	@Autowired
 	private LocationDao locationDao;
 
-	@Override
 	public void saveLocation(Location location) throws IOException, ServiceUnavailableException {
 		locationDao.save(location);
+	}
+
+	public List<Location> getAll() throws ServiceUnavailableException {
+		
+		List<Location> locationList = locationDao.getAll("From Location location");
+		return locationList;
+	}
+
+	public List<Location> findByBoId(String boId) throws ServiceUnavailableException {
+		
+		String query = "select location from Location location where location.boId=:dataInput";
+		List<Location> locationList = locationDao.findByString(query, boId);
+		return locationList;
 	}
 }
