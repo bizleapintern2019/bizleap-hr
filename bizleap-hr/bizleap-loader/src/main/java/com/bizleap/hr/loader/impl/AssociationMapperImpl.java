@@ -29,8 +29,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addDepartmentToLocation(Location location) {
 		for(Department department : dataManager.getDepartmentList()) {
-			if(location.sameBoId(department.getLocation())) 
-				location.addDepartment(department);
+//			if(location.sameBoId(department.getLocation())) 
+//				location.addDepartment(department);
 		}
 		errorHandler.handleLinkageError("Department in location cannot be linked.", location);
 	}
@@ -44,9 +44,9 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addLocationToDepartment(Department department) {
 		for(Location location : dataManager.getLocationList()) {
-			if(department.getLocation().sameBoId(location)) {
-				department.setLocation(location);
-			}
+//			if(department.getLocation().sameBoId(location)) {
+//				department.setLocation(location);
+//			}
 		}
 		errorHandler.handleLinkageError("Location in department cannot be linked.", department);
 	}
