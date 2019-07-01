@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
@@ -13,6 +14,7 @@ import com.bizleap.service.PositionService;
 
 //@Author: Kay Zin Han
 @Service
+@Transactional(readOnly = true)
 public class PositionServiceImpl implements PositionService {
 	@Autowired
 	private PositionDao positionDao;

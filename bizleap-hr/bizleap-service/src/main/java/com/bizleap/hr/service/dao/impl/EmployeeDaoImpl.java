@@ -17,7 +17,6 @@ public class EmployeeDaoImpl extends AbstractDaoImpl<Employee, String> implement
 		super(Employee.class);
 	}
 
-
 	public void save(Employee employee) throws ServiceUnavailableException {
 		saveOrUpdate(employee);
 	}

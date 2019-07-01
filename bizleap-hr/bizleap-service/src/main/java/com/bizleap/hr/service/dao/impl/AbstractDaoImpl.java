@@ -40,7 +40,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         return sessionFactory.getCurrentSession();
     }
 
-    @Override
     public void saveOrUpdate(E e) throws ServiceUnavailableException {
         try {
             Session session = getCurrentSession();
@@ -56,7 +55,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         }
     }
 
-    @Override
     public List<E> findByString(String queryString, String data) {
         List<E> entityList;
         Query query = getCurrentSession().createQuery(queryString).setResultTransformer(RootEntityResultTransformer.INSTANCE).setParameter("dataInput", data);
@@ -66,7 +64,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         return entityList;
     }
 
-    @Override
     public List<E> findByString(String queryString, String data, String data1) {
         List<E> entityList;
         Query query = getCurrentSession().createQuery(queryString).setParameter("dataInput", data).setParameter("dataInput1", data1);
@@ -76,7 +73,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         return entityList;
     }
 
-    @Override
     public List<E> findByIntegerString(String queryString, Integer data, String data1) {
         List<E> entityList;
         Query query = getCurrentSession().createQuery(queryString).setParameter("dataInput", data).setParameter("dataInput1", data1);
@@ -86,7 +82,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         return entityList;
     }
 
-    @Override
     public List<E> findByString(String queryString) {
         List<E> entityList;
         Query query = getCurrentSession().createQuery(queryString);
@@ -96,7 +91,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         return entityList;
     }
 
-    @Override
     public List<E> findByStringInteger(String queryString, String data, int data1) {
         List<E> entityList;
         Query query = getCurrentSession().createQuery(queryString).setParameter("dataInput", data).setParameter("dataInput1", data1);
@@ -106,7 +100,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         return entityList;
     }
 
-    @Override
     public List<E> getAll(String queryString) {
 
         List<E> entityList;
@@ -120,7 +113,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         return entityList;
     }
 
-    @Override
     public List<E> getAll(String queryString, int pageNumber) {
         List<E> entityList;
         Query query = getCurrentSession().createQuery(queryString);
@@ -133,7 +125,6 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
         return entityList;
     }
 
-    @Override
     public long getCount(String queryString) {
         long count;
         Query query = getCurrentSession().createQuery(queryString);

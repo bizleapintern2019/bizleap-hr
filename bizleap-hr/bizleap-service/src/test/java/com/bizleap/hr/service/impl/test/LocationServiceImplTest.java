@@ -8,9 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
+import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.LocationService;
 
-public class LocationServiceImplTest {
+public class LocationServiceImplTest extends ServiceTest {
 
 	private Logger logger = Logger.getLogger(LocationServiceImplTest.class);
 
@@ -25,7 +26,7 @@ public class LocationServiceImplTest {
 		location.setName("Yangon");
 		logger.info("****************location");
 		try {
-			logger.info("****************location");
+			logger.info("Location info: " + location.toString());
 			locationService.saveLocation(location);
 			logger.info("****************location");
 		} 

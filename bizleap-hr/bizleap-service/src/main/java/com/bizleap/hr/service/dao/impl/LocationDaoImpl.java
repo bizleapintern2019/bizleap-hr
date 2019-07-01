@@ -16,7 +16,6 @@ public class LocationDaoImpl extends AbstractDaoImpl<Location, String> implement
 		super(Location.class);
 	}
 
-	@Override
 	public void save(Location location) throws ServiceUnavailableException {
 		saveOrUpdate(location);
 	}

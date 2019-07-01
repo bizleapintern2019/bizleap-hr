@@ -1,5 +1,6 @@
 package com.bizleap.service.impl;
 
+import com.bizleap.commons.domain.enums.EntityType;
 import com.bizleap.service.AbstractService;
 
 public abstract class AbstractServiceImpl implements AbstractService{
@@ -20,12 +21,12 @@ public abstract class AbstractServiceImpl implements AbstractService{
 		return prefix + "0" + currentObjCount;
 	}
 	
-	/*public String makeBoId(EntityType entityType, int currentObjectCount) {
+	public String makeBoId(EntityType entityType, int currentObjectCount) {
 		return makeBoId(entityType.getBoIdPrefix(), currentObjectCount);
 	}
 	
 	public String getNextBoId(EntityType entityType) {
 		return makeBoId(entityType, (int)getCount() + 1);
-	}*/
+	}
 
 }

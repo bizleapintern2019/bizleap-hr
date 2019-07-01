@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
+import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.DepartmentService;
 
-public class DepartmentServiceTest {
+public class DepartmentServiceImplTest extends ServiceTest{
 	
-	private Logger logger = Logger.getLogger(DepartmentServiceTest.class);
+	private Logger logger = Logger.getLogger(DepartmentServiceImplTest.class);
 
 	@Autowired
 	DepartmentService departmentService;
@@ -21,11 +22,22 @@ public class DepartmentServiceTest {
 	@Test
 	public void departmentServiceTest() {
 		
+		Location location = new Location();
+		location.setBoId("LOC001");
+		location.setName("Yangon");
+		
+		Department parentDepartment = new Department();
+		parentDepartment.setBoId("DEPT002");
+		parentDepartment.setName("BOD");
+		parentDepartment.setLocation(location);
+		parentDepartment.setParentDepartment(new Department(""));
+		
+		
 		Department department = new Department();
 		department.setBoId("DEPT001");
 		department.setName("BOD");
-		department.setLocation(new Location("LOC001"));
-		department.setParentDepartment(new Department("null"));
+		department.setLocation(location);
+		department.setParentDepartment(parentDepartment);
 		
 		try {
 			departmentService.saveDepartment(department);

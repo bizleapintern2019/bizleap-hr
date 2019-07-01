@@ -148,8 +148,15 @@ public class Employee extends AbstractEntity {
 	public String toString() {
 		return "Employee :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
+				.append("Title: " + getTitle())
 				.append("FirstName :" + getFirstName())
 				.append("LastName :" + getLastName())
-				.append("Address: "+getAddress().getPermanentAddress());
+				.append("Posiion: " + getPosition())
+				.append("EntranceDate" + getEntranceDate())
+				.append("Date OF Birth: " + getDateOfBirth())
+				.append("Gender: " + getGender())
+				.append("Email: " + getEmail())
+				.append("Phone: " + getPhone())
+				.append("Address: "+getAddress());
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
@@ -13,6 +14,7 @@ import com.bizleap.service.DepartmentService;
 
 //@Author: Soe Min Thein
 @Service
+//@Transactional(readOnly = true)
 public class DepartmentServiceImpl implements DepartmentService {
 	
 	@Autowired
