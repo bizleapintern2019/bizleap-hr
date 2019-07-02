@@ -15,13 +15,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Table(name = "employee")
 public class Employee extends AbstractEntity {
 	
-	private String title,firstName, lastName, entranceDate, dateOfBirth, gender, email, phone;
+	private String title, firstName, lastName, entranceDate, dateOfBirth, gender, email, phone;
 	
 	@OneToOne
 	@JoinColumn(name="positionId")
 	private Position position;
 	
 	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "addressId")
 	private Address address;
 
 	public Employee() {

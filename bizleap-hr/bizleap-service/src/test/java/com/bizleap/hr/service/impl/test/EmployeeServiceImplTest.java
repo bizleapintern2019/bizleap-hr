@@ -12,6 +12,8 @@ import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.EmployeeService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -25,16 +27,23 @@ public class EmployeeServiceImplTest extends ServiceTest {
 	EmployeeService employeeService;
 
 	@Test
-	public void testSaveEmployee() {
+	public void testSaveEmployee() {	
+
 		Location location = new Location();
 		location.setBoId("LOC001");
 		location.setName("Yangon");
+		//location.setDepartmentList(departmentList);
 
 		Department department = new Department();
 		department.setBoId("DEPT001");
 		department.setName("BOD");
 		department.setLocation(location);
-		department.setParentDepartment(new Department("null"));
+		department.setParentDepartment(null);
+		
+		List<Department> departmentList = new ArrayList<Department>();
+		departmentList.add(department);
+		
+		location.setDepartmentList(departmentList);
 
 		Job job = new Job();
 		job.setBoId("JOB001");

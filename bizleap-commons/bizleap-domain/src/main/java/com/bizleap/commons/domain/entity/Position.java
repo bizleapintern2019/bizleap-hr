@@ -94,6 +94,7 @@ public class Position extends AbstractEntity {
 	}
 	
 	public void addReportBy(Position reportBy) {
+		
 		if(getReportByList() == null){
 			setReportByList(new ArrayList<Position>());
 		}
@@ -101,14 +102,16 @@ public class Position extends AbstractEntity {
 	}
 	
 	public static Position parsePosition(String dataLine) {
+		
 		Position position = new Position();
 		String[] tokens = dataLine.split(";");
 		position.setBoId(tokens[0]);
 		position.setJob(new Job(tokens[1]));
 		String[] reportToBoIds = tokens[2].split(",");
-		if(position.getReportToList()==null){
+		
+		if(position.getReportToList()==null)
 			position.setReportToList(new ArrayList<Position>());
-		}
+	
 		for(int i=0; i<reportToBoIds.length; i++)
 			position.getReportToList().add(new Position(reportToBoIds[i]));
 		return position;
@@ -130,7 +133,7 @@ public class Position extends AbstractEntity {
 	public String toString() {
 		return "Position " + super.toString() + 
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-			//	.append("JobId: " + getJob().getBoId())
+				//.append("JobId: " + getJob().getJobTitle())
 				.append("ReportTo: " + toBoIdList(getReportToList()))
 				.append("ReportBy: "+toBoIdList(getReportByList()));
 	}

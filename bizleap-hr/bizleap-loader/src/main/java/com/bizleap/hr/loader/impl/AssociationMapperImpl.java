@@ -15,6 +15,7 @@ import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
+import com.bizleap.hr.loader.DepartmentSaver;
 import com.bizleap.hr.loader.ErrorHandler;
 
 // @Author: San Thinzar Linn, Yamone Zin
@@ -22,6 +23,7 @@ import com.bizleap.hr.loader.ErrorHandler;
 public class AssociationMapperImpl implements AssociationMapper {
 	
 	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
+	
 	@Autowired
 	private DataManager dataManager;
 	
@@ -52,8 +54,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 		}
 		location.setDepartmentList(departmentList);
 		
-		logger.info("Department List: " + dataManager.getDepartmentList());
-		logger.info("Source department size: " + sourceDepartmentList);
+//		logger.info("Department List: " + dataManager.getDepartmentList());
+//		logger.info("Source department size: " + sourceDepartmentList);
 		if(sourceDepartmentList.size() != location.getDepartmentList().size()) 
 			errorHandler.handleLinkageError("Departments in location cannot be linked. \n Department BoIds:"+toBoIDList(sourceDepartmentList), location);
 	}
@@ -80,7 +82,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			return;
 		
 		for(Department parentDepartment : dataManager.getDepartmentList()) {
-			if(department.getParentDepartment().sameBoId(parentDepartment)) {
+			if(parentDept.sameBoId(parentDepartment)) {
 				department.setParentDepartment(parentDepartment);
 				return;
 			}
@@ -88,10 +90,24 @@ public class AssociationMapperImpl implements AssociationMapper {
 		errorHandler.handleLinkageError("ParentDepartment in department cannot be linked.", department);
 	}
 	
+	private void addLocationToDepartment(Department department) {
+		
+		for(Location location: dataManager.getLocationList()) {
+			for(Department dept : location.getDepartmentList()) {
+				if(department.sameBoId(dept)) {
+					department.setLocation(location);
+					return;
+				}
+			}
+		}
+		errorHandler.handleLinkageError("Location in department cannot be linked.", department);
+	}
+	
 	private void setUpDepartmentAssociations() {
 		for(Department department : dataManager.getDepartmentList()) {
 			addJobToDepartment(department);
 			addParentDepartment(department);
+			addLocationToDepartment(department);
 			logger.info("Department Association: "+ department);
 		}
 	}

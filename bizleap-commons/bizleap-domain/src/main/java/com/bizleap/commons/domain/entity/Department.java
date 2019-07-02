@@ -19,14 +19,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name ="department")
 public class Department extends AbstractEntity {
+	
 	private String name;
 	
 	@OneToOne
 	private Department parentDepartment;
 	
-//	@ManyToOne
-//	@JoinColumn(name="locationId")
-//	private Location location;
+	@ManyToOne
+	private Location location;
 	
 	@OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Job> jobList;
@@ -61,13 +61,13 @@ public class Department extends AbstractEntity {
 		this.parentDepartment = parentDepartment;
 	}
 
-//	public Location getLocation() {
-//		return location;
-//	}
-//
-//	public void setLocation(Location location) {
-//		this.location = location;
-//	}
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 
 	public List<Job> getJobList() {
 		return jobList;
@@ -90,11 +90,23 @@ public class Department extends AbstractEntity {
 		department.setBoId(tokens[0]);
 		department.setName(tokens[1]);
 		String parentDepartment = tokens[2];
-		if(parentDepartment != "")
+		if(parentDepartment != " ")
 			department.setParentDepartment(new Department(parentDepartment));
 		else 
 			department.setParentDepartment(null);
 		return department;
+	}
+	
+	private String toBoIdList(List<Job> jobList) {
+		if(jobList == null) {
+			return "";
+		}
+	
+		String boIds = " ";
+		for(Job job : jobList) {
+			boIds += job.getBoId() + " ";
+		}
+		return boIds;
 	}
 
 	@Override
@@ -102,8 +114,10 @@ public class Department extends AbstractEntity {
 		return "Department :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
+				.append("At Location: "+ getLocation())
 				.append("Parent: " +
 				(getParentDepartment()!= null ? getParentDepartment().getBoId() : "")+
-				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""));
-	}
+				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""))
+				.append("Job List: " + toBoIdList(getJobList()));
+	} 
 }

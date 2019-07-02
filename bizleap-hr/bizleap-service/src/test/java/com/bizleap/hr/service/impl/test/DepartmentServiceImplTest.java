@@ -1,6 +1,8 @@
 package com.bizleap.hr.service.impl.test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -24,18 +26,17 @@ public class DepartmentServiceImplTest extends ServiceTest{
 	LocationService locationService;
 
 	@Test
-	public void testSaveDepartment() {
+	public void testSaveDepartment() {	
 		
 		Location location = new Location();
-		location.setBoId("LOC003");
+		location.setBoId("LOC001");
 		location.setName("Yangon");
-		
 		
 		Department parentDepartment = new Department();
 		parentDepartment.setBoId("DEPT001");
 		parentDepartment.setName("BOD");
 		parentDepartment.setLocation(location);
-		parentDepartment.setParentDepartment(new Department(""));		
+		parentDepartment.setParentDepartment(null);		
 		
 		Department department = new Department();
 		department.setBoId("DEPT002");
@@ -43,8 +44,12 @@ public class DepartmentServiceImplTest extends ServiceTest{
 		department.setLocation(location);
 		department.setParentDepartment(parentDepartment);
 		
+		List<Department> departmentList = new ArrayList<Department>();
+		departmentList.add(department);
+		
+		location.setDepartmentList(departmentList);
+		
 		try {
-			//departmentService.saveDepartment(parentDepartment);
 			departmentService.saveDepartment(department);
 		} 
 		catch (IOException e) {
@@ -53,7 +58,6 @@ public class DepartmentServiceImplTest extends ServiceTest{
 		catch (ServiceUnavailableException e) {
 			e.printStackTrace();
 		}
-	//	logger.info(parentDepartment);
 		logger.info(department);
 	}
 		
