@@ -102,6 +102,8 @@ public class Department extends AbstractEntity {
 		return "Department :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
-				.append("Parent: " + getParentDepartment().getBoId() + "ParentDepartment Name: " + getParentDepartment().getName());
+				.append("Parent: " +
+				(getParentDepartment()!= null ? getParentDepartment().getBoId() : "")+
+				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""));
 	}
 }

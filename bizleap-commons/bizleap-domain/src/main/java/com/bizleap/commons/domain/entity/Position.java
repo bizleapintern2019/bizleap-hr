@@ -121,7 +121,7 @@ public class Position extends AbstractEntity {
 	
 		String boIds = "";
 		for(Position position : positionList) {
-			boIds += position.getBoId() + ",";
+			boIds += position.getBoId() + " ";
 		}
 		return boIds;
 	}
@@ -130,7 +130,7 @@ public class Position extends AbstractEntity {
 	public String toString() {
 		return "Position " + super.toString() + 
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("JobId" + getJob().getBoId())
+			//	.append("JobId: " + getJob().getBoId())
 				.append("ReportTo: " + toBoIdList(getReportToList()))
 				.append("ReportBy: "+toBoIdList(getReportByList()));
 	}

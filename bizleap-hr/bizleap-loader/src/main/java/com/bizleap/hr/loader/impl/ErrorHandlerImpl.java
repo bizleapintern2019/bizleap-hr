@@ -3,6 +3,7 @@ package com.bizleap.hr.loader.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.bizleap.commons.domain.entity.Error;
@@ -11,6 +12,7 @@ import com.bizleap.hr.loader.ErrorHandler;
 //@author: Khin Chanmyae Thu
 @Service
 public class ErrorHandlerImpl implements ErrorHandler {
+	private Logger logger = Logger.getLogger(ErrorHandlerImpl.class);
 	public Map<Integer, Error> errorMap;
 	private int index = 0;
 
@@ -40,6 +42,8 @@ public class ErrorHandlerImpl implements ErrorHandler {
 			errorMap = new HashMap<Integer, Error>();
 		}
 		errorMap.put(++index, error);
+		logger.error("Linkage Error: "+errorMap);
+		System.exit(0);
 	}
 
 	public boolean hasError() {
