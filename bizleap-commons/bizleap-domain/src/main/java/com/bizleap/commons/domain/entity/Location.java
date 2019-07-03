@@ -3,8 +3,11 @@ package com.bizleap.commons.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,9 +21,10 @@ public class Location extends AbstractEntity {
 
 	private String name;
 	
-	@OneToMany
-	@JoinColumn(name="departmentId")
+//	@OneToMany(mappedBy="location", cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Department> departmentList;
+	
 	
 	public Location() {
 		super();
@@ -93,6 +97,6 @@ public class Location extends AbstractEntity {
 		return "Location: " + super.toString() + 
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
-				.append("DepartmentList" + toBoIdList(getDepartmentList()));
+				.append("DepartmentList" + getDepartmentList());
 	}
 }

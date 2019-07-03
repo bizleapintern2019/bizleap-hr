@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -17,12 +18,13 @@ public class Employee extends AbstractEntity {
 	
 	private String title, firstName, lastName, entranceDate, dateOfBirth, gender, email, phone;
 	
-	@OneToOne
-	@JoinColumn(name="positionId")
+/*	@OneToOne
+	@JoinColumn(name="positionId")*/
+	@Transient
 	private Position position;
 	
-	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "addressId")
+//	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Address address;
 
 	public Employee() {
