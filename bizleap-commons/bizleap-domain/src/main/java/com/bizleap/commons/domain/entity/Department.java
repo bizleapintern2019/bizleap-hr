@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -19,16 +20,19 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Entity
 @Table(name ="department")
 public class Department extends AbstractEntity {
+	
 	private String name;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Department parentDepartment;
 	
-//	@ManyToOne
-//	@JoinColumn(name="locationId")
-//	private Location location;
+/*	@ManyToOne
+	@JoinColumn(name="locationId")*/
+	@Transient
+	private Location location;
 	
-	@OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//@OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Job> jobList;
 
 	public Department() {
@@ -61,13 +65,13 @@ public class Department extends AbstractEntity {
 		this.parentDepartment = parentDepartment;
 	}
 
-//	public Location getLocation() {
-//		return location;
-//	}
-//
-//	public void setLocation(Location location) {
-//		this.location = location;
-//	}
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 
 	public List<Job> getJobList() {
 		return jobList;
@@ -90,11 +94,23 @@ public class Department extends AbstractEntity {
 		department.setBoId(tokens[0]);
 		department.setName(tokens[1]);
 		String parentDepartment = tokens[2];
-		if(parentDepartment != "")
+		if(parentDepartment != " ")
 			department.setParentDepartment(new Department(parentDepartment));
 		else 
 			department.setParentDepartment(null);
 		return department;
+	}
+	
+	private String toBoIdList(List<Job> jobList) {
+		if(jobList == null) {
+			return "";
+		}
+	
+		String boIds = " ";
+		for(Job job : jobList) {
+			boIds += job.getBoId() + " ";
+		}
+		return boIds;
 	}
 
 	@Override
@@ -102,6 +118,10 @@ public class Department extends AbstractEntity {
 		return "Department :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
-				.append("Parent: " + getParentDepartment().getBoId() + "ParentDepartment Name: " + getParentDepartment().getName());
-	}
+				//.append("At Location: "+ getLocation())
+				/*.append("Parent: " +
+				(getParentDepartment()!= null ? getParentDepartment().getBoId() : "")+
+				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""))*/
+				.append("Job List: " + getJobList());
+	} 
 }

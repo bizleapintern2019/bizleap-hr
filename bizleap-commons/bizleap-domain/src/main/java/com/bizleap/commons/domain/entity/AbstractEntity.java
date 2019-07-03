@@ -53,7 +53,8 @@ public abstract class AbstractEntity {
 	}
 
 	public void setBoId(String boId) {
-		this.boId = boId;
+		if(boId != null)
+			this.boId = boId;
 	}
 	
 	public boolean isBoIdRequired() {

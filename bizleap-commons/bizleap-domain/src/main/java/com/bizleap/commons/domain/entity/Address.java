@@ -19,7 +19,6 @@ public class Address extends AbstractEntity {
 	private String country;
 	
 	@OneToOne
-	@JoinColumn(name="addressId")
 	private Employee employee;
 	
 	public Address() {

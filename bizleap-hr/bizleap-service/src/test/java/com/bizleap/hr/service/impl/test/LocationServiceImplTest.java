@@ -24,14 +24,33 @@ public class LocationServiceImplTest extends ServiceTest {
 	@Test
 	public void testSaveLocation() {
 		
-		List<Department> departmentList = new ArrayList<Department>();
-		departmentList.add(new Department("JOB001-2"));
-		
-
 		Location location = new Location();
 		location.setBoId("LOC001");
 		location.setName("Yangon");
+		
+		Department parentDepartment = new Department();
+		parentDepartment.setBoId("DEPT001");
+		parentDepartment.setName("BOD");
+		parentDepartment.setLocation(location);
+		parentDepartment.setParentDepartment(null);			
+		
+		Department department = new Department();
+		department.setBoId("DEPT002");
+		department.setName("BOD");
+		department.setLocation(location);
+		department.setParentDepartment(parentDepartment);
+		
+		Department department1 = new Department();
+		department1.setBoId("DEPT003");
+		department1.setName("BOD");
+		department1.setLocation(location);
+		department1.setParentDepartment(department);
+		
+		List<Department> departmentList = new ArrayList<Department>();
+		departmentList.add(department1);
+		
 		location.setDepartmentList(departmentList);
+		
 		
 		try {
 			logger.info("Location info: " + location.toString());

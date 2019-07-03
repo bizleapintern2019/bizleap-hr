@@ -1,5 +1,5 @@
-#boid, #name, #location-id, #parentDepartment
-DEPT001; BOD; LOC001; 
-DEPT002; Engineering; LOC001; DEPT001
-DEPT003; Internship; LOC001; DEPT002
-DEPT004; Customer Support; LOC002; DEPT002
+#boid, #name, #parentDepartment
+DEPT001;BOD; 
+DEPT002;Engineering;DEPT001
+DEPT003;Internship;DEPT002
+DEPT004;Customer Support;DEPT002

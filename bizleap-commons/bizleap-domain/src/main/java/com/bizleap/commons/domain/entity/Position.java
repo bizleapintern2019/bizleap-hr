@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -19,11 +21,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Table(name = "position")
 public class Position extends AbstractEntity {
 	
-	@ManyToOne
-	@JoinColumn(name="jobId")
+	/*@ManyToOne
+	@JoinColumn(name="jobId")*/
+	@Transient
 	private Job job;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "position_reportToList",
             joinColumns = @JoinColumn(name = "position_id"),
@@ -31,7 +34,7 @@ public class Position extends AbstractEntity {
     )
 	private List<Position> reportToList;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "position_reportByList",
             joinColumns = @JoinColumn(name = "position_id"),
@@ -39,7 +42,8 @@ public class Position extends AbstractEntity {
     )
 	private List<Position> reportByList;
 
-	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Employee employee;
 	
 	public Position() {
@@ -94,6 +98,7 @@ public class Position extends AbstractEntity {
 	}
 	
 	public void addReportBy(Position reportBy) {
+		
 		if(getReportByList() == null){
 			setReportByList(new ArrayList<Position>());
 		}
@@ -101,14 +106,16 @@ public class Position extends AbstractEntity {
 	}
 	
 	public static Position parsePosition(String dataLine) {
+		
 		Position position = new Position();
 		String[] tokens = dataLine.split(";");
 		position.setBoId(tokens[0]);
 		position.setJob(new Job(tokens[1]));
 		String[] reportToBoIds = tokens[2].split(",");
-		if(position.getReportToList()==null){
+		
+		if(position.getReportToList()==null)
 			position.setReportToList(new ArrayList<Position>());
-		}
+	
 		for(int i=0; i<reportToBoIds.length; i++)
 			position.getReportToList().add(new Position(reportToBoIds[i]));
 		return position;
@@ -121,7 +128,7 @@ public class Position extends AbstractEntity {
 	
 		String boIds = "";
 		for(Position position : positionList) {
-			boIds += position.getBoId() + ",";
+			boIds += position.getBoId() + " ";
 		}
 		return boIds;
 	}
@@ -130,7 +137,7 @@ public class Position extends AbstractEntity {
 	public String toString() {
 		return "Position " + super.toString() + 
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("JobId" + getJob().getBoId())
+				//.append("JobId: " + getJob().getJobTitle())
 				.append("ReportTo: " + toBoIdList(getReportToList()))
 				.append("ReportBy: "+toBoIdList(getReportByList()));
 	}

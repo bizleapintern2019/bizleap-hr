@@ -67,7 +67,7 @@ public class DataLoaderImpl implements DataLoader {
 				}
 			}catch (Exception e) {
 				e.printStackTrace();
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Employee file loading: "+e.getMessage(),fileLoader.getLine());
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Employee file loading: "+e.toString(),fileLoader.getLine());
 				System.exit(0);
 			}
 		}
@@ -89,7 +89,7 @@ public class DataLoaderImpl implements DataLoader {
 					locationList.add(location);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Location file loading: "+e.getMessage(),fileLoader.getLine());
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Location file loading: "+e.toString(),fileLoader.getLine());
 			}
 		}
 		fileLoader.finish();
@@ -110,7 +110,7 @@ public class DataLoaderImpl implements DataLoader {
 					departmentList.add(department);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Department file loading: "+e.getMessage(),fileLoader.getLine());
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Department file loading: "+e.toString(),fileLoader.getLine());
 			}
 		}
 		fileLoader.finish();
@@ -131,7 +131,7 @@ public class DataLoaderImpl implements DataLoader {
 					jobList.add(job);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Job file loading: "+e.getMessage(),fileLoader.getLine());
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Job file loading: "+e.toString(),fileLoader.getLine());
 			}
 		}
 		fileLoader.finish();
@@ -152,7 +152,7 @@ public class DataLoaderImpl implements DataLoader {
 					positionList.add(position);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Position file loading: "+e.getMessage(),fileLoader.getLine());
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Position file loading: "+e.toString(),fileLoader.getLine());
 			}
 		}
 		fileLoader.finish();
@@ -173,7 +173,7 @@ public class DataLoaderImpl implements DataLoader {
 					addressList.add(address);
 				}
 			}catch (Exception e) {
-				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Address file loading: "+e.getMessage(),fileLoader.getLine());	
+				errorHandler.handleLoadingError(fileLoader.getLineNumber(),"Address file loading: "+e.toString(),fileLoader.getLine());	
 			}
 		}
 		fileLoader.finish();
