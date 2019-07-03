@@ -53,9 +53,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			}
 		}
 		location.setDepartmentList(departmentList);
-		
-//		logger.info("Department List: " + dataManager.getDepartmentList());
-//		logger.info("Source department size: " + sourceDepartmentList);
+
 		if(sourceDepartmentList.size() != location.getDepartmentList().size()) 
 			errorHandler.handleLinkageError("Departments in location cannot be linked. \n Department BoIds:"+toBoIDList(sourceDepartmentList), location);
 	}
@@ -78,7 +76,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addParentDepartment(Department department) {
 		Department parentDept = department.getParentDepartment();
-		if(parentDept == null) 
+		logger.info("Parent Department: "+parentDept);
+		if(parentDept.getName() == null) 
 			return;
 		
 		for(Department parentDepartment : dataManager.getDepartmentList()) {
@@ -177,8 +176,12 @@ public class AssociationMapperImpl implements AssociationMapper {
 	
 	private void addReportToAndReportByPositions(Position target) {
 		List<Position> reportToList = new ArrayList<Position>();
+		List<Position> targetReportToList = target.getReportToList();
+		if(targetReportToList.size()<=1) {
+			return;
+		}
 		
-		for(Position reportTo : target.getReportToList()) {
+		for(Position reportTo : targetReportToList) {
 			Position realPosition = findPositionInList(reportTo);
 			if(realPosition != null) {
 				reportToList.add(realPosition);

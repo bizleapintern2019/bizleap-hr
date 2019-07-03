@@ -146,9 +146,8 @@ public class DataManagerImpl implements DataManager {
 	
 	public void load() {
 		loadData();
-		printAllList();
 		associateData();
-
+		printAllList();
 //		saveData();
 	}
 }
