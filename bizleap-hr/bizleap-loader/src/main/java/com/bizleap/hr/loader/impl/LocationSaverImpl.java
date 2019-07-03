@@ -33,6 +33,7 @@ public class LocationSaverImpl implements LocationSaver {
     public void savePass1() throws ServiceUnavailableException, IOException {
         logger.info("Saving Location: " + getLocationList().size());
         for(Location location : getLocationList()) {
+        	logger.info("About to save");
             locationService.saveLocation(location);
         }
         logger.info("Saving Completed");

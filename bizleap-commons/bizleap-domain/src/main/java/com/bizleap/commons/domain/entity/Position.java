@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -19,11 +21,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Table(name = "position")
 public class Position extends AbstractEntity {
 	
-	@ManyToOne
-	@JoinColumn(name="jobId")
+	/*@ManyToOne
+	@JoinColumn(name="jobId")*/
+	@Transient
 	private Job job;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "position_reportToList",
             joinColumns = @JoinColumn(name = "position_id"),
@@ -31,7 +34,7 @@ public class Position extends AbstractEntity {
     )
 	private List<Position> reportToList;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "position_reportByList",
             joinColumns = @JoinColumn(name = "position_id"),
@@ -39,7 +42,8 @@ public class Position extends AbstractEntity {
     )
 	private List<Position> reportByList;
 
-	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@OneToOne(mappedBy = "position", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Employee employee;
 	
 	public Position() {

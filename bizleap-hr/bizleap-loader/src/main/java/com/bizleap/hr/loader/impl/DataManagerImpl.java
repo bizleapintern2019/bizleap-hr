@@ -44,6 +44,8 @@ public class DataManagerImpl implements DataManager {
 	@Autowired
 	private LocationSaver locationSaver;
 	
+	
+	
 	private List<Employee> employeeList;
 	private List<Department> departmentList;
 	private List<Job> jobList;
@@ -115,6 +117,10 @@ public class DataManagerImpl implements DataManager {
 	
 	public void saveData() {
 		try {
+			for(Department department : getDepartmentList()) {
+				department.setParentDepartment(null);
+			}
+			
 			locationSaver.setLocationList(locationList);
 			locationSaver.savePass1();
 		} catch (ServiceUnavailableException e) {
@@ -148,6 +154,6 @@ public class DataManagerImpl implements DataManager {
 		loadData();
 		associateData();
 		printAllList();
-//		saveData();
+		saveData();
 	}
 }

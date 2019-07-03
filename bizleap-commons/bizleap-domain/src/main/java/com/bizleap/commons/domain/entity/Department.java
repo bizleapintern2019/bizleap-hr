@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -22,13 +23,16 @@ public class Department extends AbstractEntity {
 	
 	private String name;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Department parentDepartment;
 	
-	@ManyToOne
+/*	@ManyToOne
+	@JoinColumn(name="locationId")*/
+	@Transient
 	private Location location;
 	
-	@OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	//@OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Job> jobList;
 
 	public Department() {
@@ -114,10 +118,10 @@ public class Department extends AbstractEntity {
 		return "Department :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
-				.append("At Location: "+ getLocation())
-				.append("Parent: " +
+				//.append("At Location: "+ getLocation())
+				/*.append("Parent: " +
 				(getParentDepartment()!= null ? getParentDepartment().getBoId() : "")+
-				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""))
-				.append("Job List: " + toBoIdList(getJobList()));
+				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""))*/
+				.append("Job List: " + getJobList());
 	} 
 }

@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -21,11 +23,13 @@ public class Job extends AbstractEntity {
 	private String jobTitle;
 	private int salary;
 	
-	@ManyToOne
-	@JoinColumn(name="departmentId")
+/*	@ManyToOne
+	@JoinColumn(name="departmentId")*/
+	@Transient
 	private Department department;
 	
-	@OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//	@OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Position> positionList;
 
 	public Job() {
@@ -100,6 +104,7 @@ public class Job extends AbstractEntity {
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Title: " + getJobTitle())
 				.append("Salary: " + getSalary())
-				.append("Department: " + getDepartment().getName());
+			//	.append("Department: " + getDepartment().getName())
+				.append("Position List: " + getPositionList());
 	}
 }
