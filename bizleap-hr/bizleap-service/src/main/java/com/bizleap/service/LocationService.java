@@ -11,4 +11,5 @@ public interface LocationService {
 	void saveLocation(Location location) throws IOException, ServiceUnavailableException;
 	List<Location> getAll() throws ServiceUnavailableException;
 	List<Location> findByBoId(String boId) throws ServiceUnavailableException;
+	public List<Location> findByName(String name) throws ServiceUnavailableException;
 }
