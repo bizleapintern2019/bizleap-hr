@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.util.StringUtils;
 
 //@author: Thuya Oo, Shine Wanna
 @Entity
@@ -94,10 +95,9 @@ public class Department extends AbstractEntity {
 		department.setBoId(tokens[0]);
 		department.setName(tokens[1]);
 		String parentDepartment = tokens[2];
-		if(parentDepartment != " ")
+		if(!StringUtils.isEmpty(parentDepartment))
 			department.setParentDepartment(new Department(parentDepartment));
-		else 
-			department.setParentDepartment(null);
+		//else department.setParentDepartment(null);
 		return department;
 	}
 	
@@ -119,9 +119,9 @@ public class Department extends AbstractEntity {
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
 				//.append("At Location: "+ getLocation())
-				/*.append("Parent: " +
+				.append("Parent: " +
 				(getParentDepartment()!= null ? getParentDepartment().getBoId() : "")+
-				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""))*/
+				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""))
 				.append("Job List: " + getJobList());
 	} 
 }

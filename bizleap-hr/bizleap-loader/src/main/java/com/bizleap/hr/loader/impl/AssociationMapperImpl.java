@@ -66,27 +66,26 @@ public class AssociationMapperImpl implements AssociationMapper {
 	}
 
 	private void addJobToDepartment(Department department) {
-
 		for(Job job : dataManager.getJobList()) {
 			if(job.getDepartment().sameBoId(department))
 				department.addJob(job);
 		}
-		//errorHandler.handleLinkageError("Job in department cannot be linked.", department);
 	}
 	
 	private void addParentDepartment(Department department) {
 		Department parentDept = department.getParentDepartment();
-		logger.info("Parent Department: "+parentDept);
-		if(parentDept.getName() == null) 
-			return;
 		
+		if(parentDept.getBoId().startsWith(" ")) {
+			return;
+		}
 		for(Department parentDepartment : dataManager.getDepartmentList()) {
 			if(parentDept.sameBoId(parentDepartment)) {
+				logger.info("Real Parent Dept: "+parentDepartment);
 				department.setParentDepartment(parentDepartment);
 				return;
 			}
 		}
-		errorHandler.handleLinkageError("ParentDepartment in department cannot be linked.", department);
+		errorHandler.handleLinkageError("Parent Department in department cannot be linked.", department);
 	}
 	
 	private void addLocationToDepartment(Department department) {
