@@ -6,10 +6,8 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ AppConfig.class })
-@ComponentScan(basePackages = { "com.bizleap.clb.messaging.service",
-		"com.bizleap.clb.team.domain",
-		"com.bizleap.security.domain",
-		"com.bizleap.commons"})
+@ComponentScan(basePackages = { "com.bizleap.commons",
+		"com.bizleap.service"})
 public class CoreConfig {
 
 }

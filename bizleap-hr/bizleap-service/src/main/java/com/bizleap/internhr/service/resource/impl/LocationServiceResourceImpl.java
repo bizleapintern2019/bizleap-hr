@@ -27,4 +27,12 @@ public class LocationServiceResourceImpl {
 		return locationService.getAll();
 	}
 
+	@RequestMapping(method=RequestMethod.GET,value="/1")
+	public @ResponseBody Location getLocations(HttpServletRequest request) throws ServiceUnavailableException {
+		Location location = new Location();
+		location.setName("Location 1");
+		location.setBoId("LOC0001");
+		return location;
+	}
+
 }

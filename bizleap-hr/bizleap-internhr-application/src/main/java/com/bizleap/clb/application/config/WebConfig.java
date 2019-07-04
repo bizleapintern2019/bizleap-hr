@@ -36,7 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @Import({ CoreConfig.class })
-@ComponentScan(basePackages = { "com.bizleap.clb"})
+@ComponentScan(basePackages = { "com.bizleap"})
 public class WebConfig extends WebMvcConfigurationSupport {
 	private ThymeleafViewResolver viewResolver;
 
@@ -152,7 +152,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	  ObjectMapper objectMapper = new ObjectMapper();
 	  objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	  //objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);	  
-	  objectMapper.configure(MapperFeature.AUTO_DETECT_GETTERS, false);
+	  objectMapper.configure(MapperFeature.AUTO_DETECT_GETTERS, true);
 	  objectMapper.configure(MapperFeature.AUTO_DETECT_FIELDS, true);
 	  jsonConverter.setObjectMapper(objectMapper);
 	  return jsonConverter;
