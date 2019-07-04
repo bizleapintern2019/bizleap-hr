@@ -1,4 +1,4 @@
-package com.bizleap.clb.application.config;
+package com.bizleap.internhr.application.config;
 
 import java.util.ArrayList;
 import java.util.HashSet;

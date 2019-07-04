@@ -1,4 +1,4 @@
-package com.bizleap.clb.application.config;
+package com.bizleap.internhr.application.config;
 
 import javax.servlet.Filter;
 

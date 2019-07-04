@@ -22,8 +22,6 @@ public class JobServiceImplTest extends ServiceTest {
 	@Test
 	public void testSaveJob() {
 		
-		
-		
 		Job job = new Job();
 		job.setBoId("JOB001");
 		job.setJobTitle("CEO");
