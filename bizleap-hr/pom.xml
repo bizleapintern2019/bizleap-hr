@@ -15,6 +15,7 @@
   <modules>
      <module>bizleap-loader</module>
      <module>bizleap-service</module>
+     <module>bizleap-internhr-application</module>
   </modules>
 
   <build>
