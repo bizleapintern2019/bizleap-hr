@@ -35,4 +35,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<Employee> employeeList = employeeDao.findByString(query, boId);
 		return employeeList;
 	}
+	
+	public List<Employee> findByFirstName(String firstName) throws ServiceUnavailableException {
+
+		String query = "select employee from Employee employee where employee.firstName=:dataInput";
+		List<Employee> employeeList = employeeDao.findByString(query, firstName);
+		return employeeList;
+	}
+	
+	public List<Employee> findByLastName(String lastName) throws ServiceUnavailableException {
+
+		String query = "select employee from Employee employee where employee.lastName=:dataInput";
+		List<Employee> employeeList = employeeDao.findByString(query, lastName);
+		return employeeList;
+	}
+
+	public List<Employee> findByGender(String gender) throws ServiceUnavailableException {
+
+		String query = "select employee from Employee employee where employee.gender=:dataInput";
+		List<Employee> employeeList = employeeDao.findByString(query, gender);
+		return employeeList;
+	}
 }
