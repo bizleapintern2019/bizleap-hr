@@ -69,8 +69,7 @@ public class RepositoryConfig {
 		LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
 		localSessionFactoryBean.setDataSource(getDataSource());
 		localSessionFactoryBean.setHibernateProperties(getHibernateProperties());
-		localSessionFactoryBean.setPackagesToScan(new String[] { "com.bizleap.commons.domain",
-				"com.bizleap.clb.team.domain.entity", "com.bizleap.clb.team.domain.project" });
+		localSessionFactoryBean.setPackagesToScan(new String[] { "com.bizleap.commons.domain" });
 		return localSessionFactoryBean;
 	}
 
