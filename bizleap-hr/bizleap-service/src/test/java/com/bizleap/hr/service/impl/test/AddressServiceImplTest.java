@@ -49,6 +49,7 @@ public class AddressServiceImplTest extends ServiceTest {
 		try {
 			List<Address> addressList = addressService.getAll();
 			if(!CollectionUtils.isEmpty(addressList)){
+				addressService.hibernateInitializedList(addressList);
 				logger.info("All address list in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -61,6 +62,7 @@ public class AddressServiceImplTest extends ServiceTest {
 		try {
 			List<Address> addressList = addressService.findByBoId("ADR006");
 			if(!CollectionUtils.isEmpty(addressList)){
+				addressService.hibernateInitializedList(addressList);
 				logger.info("Address of boId "+"ADR006 is: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -73,6 +75,7 @@ public class AddressServiceImplTest extends ServiceTest {
 		try {
 			List<Address> addressList = addressService.findByCity("Bago");
 			if(!CollectionUtils.isEmpty(addressList)){
+				addressService.hibernateInitializedList(addressList);
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -85,6 +88,7 @@ public class AddressServiceImplTest extends ServiceTest {
 		try {
 			List<Address> addressList = addressService.findByContactAddress("No.(58) ,Moe Ma Kha Street");
 			if(!CollectionUtils.isEmpty(addressList)){
+				addressService.hibernateInitializedList(addressList);
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -97,6 +101,7 @@ public class AddressServiceImplTest extends ServiceTest {
 		try {
 			List<Address> addressList = addressService.findByPermanentAddress("No.229,4th Street,1/Ka Ward");
 			if(!CollectionUtils.isEmpty(addressList)){
+				addressService.hibernateInitializedList(addressList);
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -109,6 +114,7 @@ public class AddressServiceImplTest extends ServiceTest {
 		try {
 			List<Address> addressList = addressService.findByState("Yangon");
 			if(!CollectionUtils.isEmpty(addressList)){
+				addressService.hibernateInitializedList(addressList);
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {

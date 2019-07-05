@@ -98,6 +98,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		try {
 			List<Employee> employeeList = employeeService.getAll();
 			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
 				logger.info("All employee list in Service Test: "+employeeList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -110,6 +111,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		try {
 			List<Employee> employeeList = employeeService.findByBoId("EMP001");
 			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
 				logger.info("Employee of boId "+"EMP001 is: "+employeeList.get(0).getBoId());
 			}
 		} catch (ServiceUnavailableException e) {
@@ -122,6 +124,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		try {
 			List<Employee> employeeList = employeeService.findByFirstName("Kaung");
 			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
 				logger.info("First Name Kaung Employee are "+employeeList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -134,6 +137,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		try {
 			List<Employee> employeeList = employeeService.findByLastName("Tun");
 			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
 				logger.info("Last Name Tun Employee are "+employeeList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -146,6 +150,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		try {
 			List<Employee> employeeList = employeeService.findByGender("Male");
 			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
 				logger.info("Male employee are "+employeeList);
 			}
 		} catch (ServiceUnavailableException e) {

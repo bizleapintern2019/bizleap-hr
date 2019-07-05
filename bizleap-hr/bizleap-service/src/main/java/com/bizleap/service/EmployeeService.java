@@ -14,4 +14,7 @@ public interface EmployeeService {
 	List<Employee> findByFirstName(String firstName) throws ServiceUnavailableException;
 	List<Employee> findByLastName(String lastName) throws ServiceUnavailableException;
 	List<Employee> findByGender(String gender) throws ServiceUnavailableException;
+	void hibernateInitializedList(List<Employee> employeeList);
+	void hibernateInitializedEmployee(Employee employee);
+	
 }

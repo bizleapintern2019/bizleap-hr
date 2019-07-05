@@ -16,5 +16,6 @@ public interface AddressService {
 	List<Address> findByCountry(String country) throws ServiceUnavailableException;
 	List<Address> findByPermanentAddress(String permanentAddress) throws ServiceUnavailableException;
 	List<Address> findByState(String state) throws ServiceUnavailableException;
-	
+	void hibernateInitializedAddress(Address address);
+	void hibernateInitializedList(List<Address> addressList);
 }
