@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,13 +43,17 @@ public class LocationServiceResourceImpl {
 			return true;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Location> findByLocationBoId(HttpServletRequest request,@RequestParam(value = "boId") String boId) throws ServiceUnavailableException {
+	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
+	public @ResponseBody List<Location> findByLocationBoId(
+			HttpServletRequest request,
+			@PathVariable(value = "boId") String boId) throws ServiceUnavailableException {
 		return locationService.findByBoId(boId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Location> findByLocationName(HttpServletRequest request,@RequestParam(value = "name") String name) throws ServiceUnavailableException {
+	public @ResponseBody List<Location> findByLocationName(
+			HttpServletRequest request,
+			@RequestParam(value = "name") String name) throws ServiceUnavailableException {
 		return locationService.findByName(name);
 	}
 }
