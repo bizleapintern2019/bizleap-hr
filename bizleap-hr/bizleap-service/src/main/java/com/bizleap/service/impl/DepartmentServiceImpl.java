@@ -27,7 +27,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		departmentDao.save(department);
 	}
 
-	public List<Department> getAll() throws ServiceUnavailableException {
+	public List<Department> getAllDepartment() throws ServiceUnavailableException {
 		
 		List<Department> departmentList = departmentDao.getAll("From Department department");
 		return departmentList;
@@ -36,23 +36,58 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Transactional(readOnly = true)
 	public List<Department> findByBoId(String boId) throws ServiceUnavailableException {
 		
-		
 		String query = "select department from Department department where department.boId=:dataInput";
 		List<Department> departmentList = departmentDao.findByString(query, boId);
 		hibernateInitializedList(departmentList);
 		return departmentList;
 	}
 	
+	@Transactional(readOnly = true)
+	public List<Department> findByName(String name) throws ServiceUnavailableException {
+		
+		String query = "select department from Department department where department.name=:dataInput";
+		List<Department> departmentList = departmentDao.findByString(query, name);
+		hibernateInitializedList(departmentList);
+		return departmentList;
+	}
+	
+	public void hibernateInitializedPosition(Position position) {
+		Hibernate.initialize(position);
+		
+		
+	}
+	
+	public void hibernateInitializedPositionList(List<Position> positionList) {
+		
+	}
+	
+	public void hibernateInitializedJob(Job job) {
+		Hibernate.initialize(job);
+		
+		
+	}
+	
+	public void hibernateInitializedJobList(List<Job> jobList) {
+		for(Job job : jobList) {
+			hibernateInitializedJob(job);
+		}
+	}
+	
+	public void hibernateInitializedDepartment(Department department) {
+		Hibernate.initialize(department);
+		Hibernate.initialize(department.getJobList());
+		for(Job job : department.getJobList()) {
+			Hibernate.initialize(job.getPositionList());
+			for(Position position : job.getPositionList()) {
+				Hibernate.initialize(position.getReportToList());
+				Hibernate.initialize(position.getReportByList());
+			}
+		}
+	}
+	
 	public void hibernateInitializedList(List<Department> departmentList) {
 		for(Department department : departmentList) {
-			Hibernate.initialize(department.getJobList());
-			for(Job job : department.getJobList()) {
-				Hibernate.initialize(job.getPositionList());
-				for(Position position : job.getPositionList()) {
-					Hibernate.initialize(position.getReportToList());
-					Hibernate.initialize(position.getReportByList());
-				}
-			}
+			hibernateInitializedDepartment(department);	
 		}
 	}
 }

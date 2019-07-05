@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bizleap.commons.domain.entity.Address;
+import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.AddressDao;
 import com.bizleap.service.AddressService;
@@ -34,6 +35,41 @@ public class AddressServiceImpl implements AddressService {
 
 		String query = "select address from Address address where address.boId=:dataInput";
 		List<Address> addressList = addressDao.findByString(query, boId);
+		return addressList;
+	}
+	
+	public List<Address> findByCity(String city) throws ServiceUnavailableException {
+
+		String query = "select address from Address address where address.city=:dataInput";
+		List<Address> addressList = addressDao.findByString(query, city);
+		return addressList;
+	}
+	
+	public List<Address> findByContactAddress(String contactAddress) throws ServiceUnavailableException {
+
+		String query = "select address from Address address where address.contactAddress=:dataInput";
+		List<Address> addressList = addressDao.findByString(query, contactAddress);
+		return addressList;
+	}
+	
+	public List<Address> findByCountry(String country) throws ServiceUnavailableException {
+
+		String query = "select address from Address address where address.country=:dataInput";
+		List<Address> addressList = addressDao.findByString(query, country);
+		return addressList;
+	}
+	
+	public List<Address> findByPermanentAddress(String permanentAddress) throws ServiceUnavailableException {
+
+		String query = "select address from Address address where address.permanentAddress=:dataInput";
+		List<Address> addressList = addressDao.findByString(query, permanentAddress);
+		return addressList;
+	}
+	
+	public List<Address> findByState(String state) throws ServiceUnavailableException {
+
+		String query = "select address from Address address where address.state=:dataInput";
+		List<Address> addressList = addressDao.findByString(query, state);
 		return addressList;
 	}
 }
