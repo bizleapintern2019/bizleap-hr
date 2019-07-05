@@ -11,4 +11,10 @@ public interface EmployeeService {
 	void saveEmployee(Employee employee) throws IOException, ServiceUnavailableException;
 	List<Employee> getAll() throws ServiceUnavailableException;
 	List<Employee> findByBoId(String boId) throws ServiceUnavailableException;
+	List<Employee> findByFirstName(String firstName) throws ServiceUnavailableException;
+	List<Employee> findByLastName(String lastName) throws ServiceUnavailableException;
+	List<Employee> findByGender(String gender) throws ServiceUnavailableException;
+	void hibernateInitializedList(List<Employee> employeeList);
+	void hibernateInitializedEmployee(Employee employee);
+	
 }

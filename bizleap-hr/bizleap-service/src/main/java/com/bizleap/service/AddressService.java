@@ -11,4 +11,11 @@ public interface AddressService {
 	void saveAddress(Address address) throws IOException, ServiceUnavailableException;
 	List<Address> getAll() throws ServiceUnavailableException;
 	List<Address> findByBoId(String boId) throws ServiceUnavailableException;
+	List<Address> findByCity(String city) throws ServiceUnavailableException;
+	List<Address> findByContactAddress(String contactAddress) throws ServiceUnavailableException;
+	List<Address> findByCountry(String country) throws ServiceUnavailableException;
+	List<Address> findByPermanentAddress(String permanentAddress) throws ServiceUnavailableException;
+	List<Address> findByState(String state) throws ServiceUnavailableException;
+	void hibernateInitializedAddress(Address address);
+	void hibernateInitializedList(List<Address> addressList);
 }

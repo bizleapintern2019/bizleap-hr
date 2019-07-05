@@ -18,9 +18,9 @@ import com.bizleap.hr.service.dao.AddressDao;
 import com.bizleap.service.AddressService;
 
 //@Author: Thihan Hein
-@Service("addressService1")
+@Service("addressService2")
 //@Transactional(readOnly = true)
-public class AddressServiceImpl implements AddressService {
+public class AddressServiceImpl2 implements AddressService {
 	
 	@Autowired
 	private AddressDao addressDao;
@@ -31,7 +31,7 @@ public class AddressServiceImpl implements AddressService {
 
 	public List<Address> getAll() throws ServiceUnavailableException {
 		
-		List<Address> addressList = addressDao.getAll("from Address address");
+		List<Address> addressList = addressDao.getAll("From Address address");
 		return addressList;
 	}
 	

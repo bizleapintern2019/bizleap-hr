@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,12 +84,77 @@ public class EmployeeServiceImplTest extends ServiceTest {
 			employeeService.saveEmployee(employee);
 		} 
 		catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		} 
 		catch (ServiceUnavailableException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 
 		logger.info(employee);
+	}
+	
+	@Test
+	public void testGetAll() {
+		try {
+			List<Employee> employeeList = employeeService.getAll();
+			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
+				logger.info("All employee list in Service Test: "+employeeList);
+			}
+		} catch (ServiceUnavailableException e) {
+			logger.error("In Service Test: "+e);
+		}
+	}
+	
+	@Test
+	public void testFindByBoId() {
+		try {
+			List<Employee> employeeList = employeeService.findByBoId("EMP001");
+			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
+				logger.info("Employee of boId "+"EMP001 is: "+employeeList.get(0).getBoId());
+			}
+		} catch (ServiceUnavailableException e) {
+			logger.error("In Service Test: "+e);
+		}
+	}
+	
+	@Test
+	public void testFindByFirstName() {
+		try {
+			List<Employee> employeeList = employeeService.findByFirstName("Kaung");
+			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
+				logger.info("First Name Kaung Employee are "+employeeList);
+			}
+		} catch (ServiceUnavailableException e) {
+			logger.error("In Service Test: "+e);
+		}
+	}
+	
+	@Test
+	public void testFindByLastName() {
+		try {
+			List<Employee> employeeList = employeeService.findByLastName("Tun");
+			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
+				logger.info("Last Name Tun Employee are "+employeeList);
+			}
+		} catch (ServiceUnavailableException e) {
+			logger.error("In Service Test: "+e);
+		}
+	}
+	
+	@Test
+	public void testFindByGender() {
+		try {
+			List<Employee> employeeList = employeeService.findByGender("Male");
+			if(!CollectionUtils.isEmpty(employeeList)){
+				employeeService.hibernateInitializedList(employeeList);
+				logger.info("Male employee are "+employeeList);
+			}
+		} catch (ServiceUnavailableException e) {
+			logger.error("In Service Test: "+e);
+		}
 	}
 }
