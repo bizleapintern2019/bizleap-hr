@@ -3,12 +3,16 @@ package com.bizleap.service.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bizleap.commons.domain.entity.Address;
+import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
+import com.bizleap.commons.domain.entity.Job;
+import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.AddressDao;
 import com.bizleap.service.AddressService;
@@ -71,5 +75,15 @@ public class AddressServiceImpl implements AddressService {
 		String query = "select address from Address address where address.state=:dataInput";
 		List<Address> addressList = addressDao.findByString(query, state);
 		return addressList;
+	}
+	
+	public void hibernateInitializedAddress(Address address) {
+		Hibernate.initialize(address);
+	}
+	
+	public void hibernateInitializedList(List<Address> addressList) {
+		for(Address address : addressList) {
+			hibernateInitializedAddress(address);	
+		}
 	}
 }

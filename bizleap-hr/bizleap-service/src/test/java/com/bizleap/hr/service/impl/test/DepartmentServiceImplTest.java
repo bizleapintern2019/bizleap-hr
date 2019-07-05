@@ -69,7 +69,6 @@ public class DepartmentServiceImplTest extends ServiceTest{
 
 	@Test
 	public void testFindByBoId() {
-
 		try {
 
 			List<Department> departmentList = departmentService.findByBoId("DEPT001");
