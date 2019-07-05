@@ -35,10 +35,10 @@ public class AddressServiceImplTest extends ServiceTest {
 			addressService.saveAddress(address);
 		} 
 		catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		} 
 		catch (ServiceUnavailableException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 		
 		logger.info(address);
@@ -52,7 +52,7 @@ public class AddressServiceImplTest extends ServiceTest {
 				logger.info("All address list in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
-			logger.info("In Service Test: "+e);
+			logger.error("In Service Test: "+e);
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class AddressServiceImplTest extends ServiceTest {
 				logger.info("Address of boId "+"ADR006 is: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
-			logger.info("In Service Test: "+e);
+			logger.error("In Service Test: "+e);
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class AddressServiceImplTest extends ServiceTest {
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
-			logger.info("In Service Test: "+e);
+			logger.error("In Service Test: "+e);
 		}
 	}
 	
@@ -88,7 +88,7 @@ public class AddressServiceImplTest extends ServiceTest {
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
-			logger.info("In Service Test: "+e);
+			logger.error("In Service Test: "+e);
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class AddressServiceImplTest extends ServiceTest {
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
-			logger.info("In Service Test: "+e);
+			logger.error("In Service Test: "+e);
 		}
 	}
 	
@@ -112,7 +112,7 @@ public class AddressServiceImplTest extends ServiceTest {
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
-			logger.info("In Service Test: "+e);
+			logger.error("In Service Test: "+e);
 		}
 	}
 }
