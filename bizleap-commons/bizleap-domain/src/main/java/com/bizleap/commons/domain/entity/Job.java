@@ -15,6 +15,8 @@ import javax.persistence.Transient;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //@author: Saw Sandi Tin
 @Entity
 @Table(name = "job")
@@ -26,6 +28,7 @@ public class Job extends AbstractEntity {
 /*	@ManyToOne
 	@JoinColumn(name="departmentId")*/
 	@Transient
+	@JsonIgnore
 	private Department department;
 	
 //	@OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

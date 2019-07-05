@@ -3,6 +3,7 @@ package com.bizleap.service.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import com.bizleap.service.LocationService;
 
 //@Author: Soe Min Thein
 @Service
-//@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 public class LocationServiceImpl implements LocationService {
 
 	@Autowired
@@ -30,21 +31,29 @@ public class LocationServiceImpl implements LocationService {
 
 	public List<Location> getAll() throws ServiceUnavailableException {
 
-		List<Location> locationList = locationDao.getAll("From Location location");
-		return locationList;
+		List<Location> locationList = locationDao.getAll("from Location ");
+		if(CollectionUtils.isNotEmpty(locationList)) {
+			hibernateInitializedList(locationList);
+			return locationList;
+		}
+		return null;
 	}
 
 	public List<Location> findByBoId(String boId) throws ServiceUnavailableException {
 
-		String query = "select location from Location location where location.boId=:dataInput";
+		String query = "from Location location where location.boId=:dataInput";
 		List<Location> locationList = locationDao.findByString(query, boId);
-		return locationList;
+		if(CollectionUtils.isNotEmpty(locationList)) {
+			hibernateInitializedList(locationList);
+			return locationList;
+		}
+		return null;
 	}
 
 	@Transactional(readOnly = true)
 	public List<Location> findByName(String name) throws ServiceUnavailableException {
 
-		String query = "select location from Location location where location.name=:dataInput";
+		String query = "from Location where Location.name=:dataInput";
 		List<Location> locationList = locationDao.findByString(query, name);
 		hibernateInitializedList(locationList);
 		return locationList;
@@ -54,6 +63,7 @@ public class LocationServiceImpl implements LocationService {
 		for(Location location : locationList) {
 			Hibernate.initialize(location.getDepartmentList());
 			for(Department department : location.getDepartmentList()) {
+				Hibernate.initialize(department);
 				Hibernate.initialize(department.getJobList());
 				for(Job job : department.getJobList()) {
 					Hibernate.initialize(job.getPositionList());

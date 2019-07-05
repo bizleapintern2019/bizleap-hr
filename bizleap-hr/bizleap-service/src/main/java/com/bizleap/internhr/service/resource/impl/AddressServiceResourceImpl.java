@@ -78,4 +78,17 @@ public class AddressServiceResourceImpl implements AddressServiceResource {
 		   @RequestParam(value = "country") String country) throws ServiceUnavailableException {
 		return addressService.findByCountry(country);
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/find")
+	public @ResponseBody List<Address> findByLocationBoId(HttpServletRequest request,
+			@RequestParam(value = "boId") String boId) throws ServiceUnavailableException {
+		return addressService.findByBoId(boId);
+	}
+
+	@RequestMapping(method=RequestMethod.GET,value="/1")
+	public @ResponseBody Address getAddress(HttpServletRequest request) throws ServiceUnavailableException {
+		Address address = new Address();
+		address.setBoId("ADR0030");
+		return address;
+	}
 }

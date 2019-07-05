@@ -18,7 +18,7 @@ public class AddressServiceImplTest extends ServiceTest {
 	private Logger logger = Logger.getLogger(AddressServiceImplTest.class);
 
 	@Autowired
-	AddressService addressService;
+	AddressService addressService1;
 
 	@Test
 	public void testSaveAddress() {
@@ -32,7 +32,7 @@ public class AddressServiceImplTest extends ServiceTest {
 		address.setCountry("Myanmar");
 
 		try {
-			addressService.saveAddress(address);
+			addressService1.saveAddress(address);
 		} 
 		catch (IOException e) {
 			logger.error(e);
@@ -47,9 +47,9 @@ public class AddressServiceImplTest extends ServiceTest {
 	@Test
 	public void testGetAll() {
 		try {
-			List<Address> addressList = addressService.getAll();
+			List<Address> addressList = addressService1.getAll();
 			if(!CollectionUtils.isEmpty(addressList)){
-				addressService.hibernateInitializedList(addressList);
+				addressService1.hibernateInitializedList(addressList);
 				logger.info("All address list in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -60,9 +60,9 @@ public class AddressServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindByBoId() {
 		try {
-			List<Address> addressList = addressService.findByBoId("ADR006");
+			List<Address> addressList = addressService1.findByBoId("ADR006");
 			if(!CollectionUtils.isEmpty(addressList)){
-				addressService.hibernateInitializedList(addressList);
+				addressService1.hibernateInitializedList(addressList);
 				logger.info("Address of boId "+"ADR006 is: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -73,9 +73,9 @@ public class AddressServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindByCity() {
 		try {
-			List<Address> addressList = addressService.findByCity("Bago");
+			List<Address> addressList = addressService1.findByCity("Bago");
 			if(!CollectionUtils.isEmpty(addressList)){
-				addressService.hibernateInitializedList(addressList);
+				addressService1.hibernateInitializedList(addressList);
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -86,9 +86,9 @@ public class AddressServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindByContactAddress() {
 		try {
-			List<Address> addressList = addressService.findByContactAddress("No.(58) ,Moe Ma Kha Street");
+			List<Address> addressList = addressService1.findByContactAddress("No.(58) ,Moe Ma Kha Street");
 			if(!CollectionUtils.isEmpty(addressList)){
-				addressService.hibernateInitializedList(addressList);
+				addressService1.hibernateInitializedList(addressList);
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -99,9 +99,9 @@ public class AddressServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindByPermanentAddress() {
 		try {
-			List<Address> addressList = addressService.findByPermanentAddress("No.229,4th Street,1/Ka Ward");
+			List<Address> addressList = addressService1.findByPermanentAddress("No.229,4th Street,1/Ka Ward");
 			if(!CollectionUtils.isEmpty(addressList)){
-				addressService.hibernateInitializedList(addressList);
+				addressService1.hibernateInitializedList(addressList);
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
@@ -112,9 +112,9 @@ public class AddressServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindByState() {
 		try {
-			List<Address> addressList = addressService.findByState("Yangon");
+			List<Address> addressList = addressService1.findByState("Yangon");
 			if(!CollectionUtils.isEmpty(addressList)){
-				addressService.hibernateInitializedList(addressList);
+				addressService1.hibernateInitializedList(addressList);
 				logger.info("Address List in Service Test: "+addressList);
 			}
 		} catch (ServiceUnavailableException e) {
