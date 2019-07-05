@@ -17,6 +17,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //@author: Thuya Oo, Shine Wanna
 @Entity
 @Table(name ="department")
@@ -25,10 +28,12 @@ public class Department extends AbstractEntity {
 	private String name;
 	
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Department parentDepartment;
 	
 /*	@ManyToOne
 	@JoinColumn(name="locationId")*/
+	@JsonBackReference
 	@Transient
 	private Location location;
 	

@@ -48,12 +48,11 @@ public class LocationServiceRestClient {
 
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			headers.set("boId", boId);
-
+			
 			HttpEntity<String> entity = new HttpEntity<String>(headers);
 
 			logger.info("Request is: " + entity);
-			String url = SERVICEURL + "/locations/find";
+			String url = SERVICEURL + "/locations/find/"+boId;
 			logger.info("service url is: " + url);
 
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -63,7 +62,7 @@ public class LocationServiceRestClient {
 			HttpEntity<List> response = null;
 
 			try {
-				response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, entity, List.class);
+				response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
 				logger.info("Find Location: " + response.getBody());
 			} catch (Exception e) {
 				logger.error("ERRROR - " + e.getMessage() + ", " + response);
@@ -94,7 +93,7 @@ public class LocationServiceRestClient {
 			try {
 				response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, entityHeader,
 						String.class);
-				logger.info("after service" + response.getBody().toString());
+				logger.info("after service");
 
 			} catch (Exception e) {
 				logger.error("ERRROR is - " + e.getMessage() + ", " + response);

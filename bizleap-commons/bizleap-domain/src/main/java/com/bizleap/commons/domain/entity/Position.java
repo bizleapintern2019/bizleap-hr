@@ -2,19 +2,21 @@ package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //@author: Su Pyae Naing
 @Entity
@@ -23,9 +25,11 @@ public class Position extends AbstractEntity {
 	
 	/*@ManyToOne
 	@JoinColumn(name="jobId")*/
+	@JsonIgnore
 	@Transient
 	private Job job;
 
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "position_reportToList",
@@ -34,6 +38,7 @@ public class Position extends AbstractEntity {
     )
 	private List<Position> reportToList;
 	
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "position_reportByList",
