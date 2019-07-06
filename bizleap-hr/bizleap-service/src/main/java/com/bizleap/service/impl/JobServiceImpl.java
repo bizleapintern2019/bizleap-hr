@@ -26,7 +26,8 @@ public class JobServiceImpl implements JobService {
 	public void saveJob(Job job) throws IOException, ServiceUnavailableException {
 		jobDao.save(job);
 	}
-
+	
+	@Transactional(readOnly = true)
 	public List<Job> getAll() throws ServiceUnavailableException {
 		List<Job> jobList = jobDao.getAll("from Job job");
 		if(!CollectionUtils.isEmpty(jobList)) {
@@ -36,7 +37,7 @@ public class JobServiceImpl implements JobService {
 		return null;
 	}
 
-
+	@Transactional(readOnly = true)
 	public List<Job> findByBoId(String boId) throws ServiceUnavailableException {
 		String query = "from Job job where job.boId=:dataInput";
 		List<Job> jobList = jobDao.findByString(query, boId);
@@ -44,6 +45,7 @@ public class JobServiceImpl implements JobService {
 		return jobList;
 	}
 
+	@Transactional(readOnly = true)
 	public List<Job> findByTitle(String title) throws ServiceUnavailableException {
 		String query = "from Job job where job.jobTitle=:dataInput";
 		List<Job> jobList = jobDao.findByString(query, title);
@@ -51,9 +53,10 @@ public class JobServiceImpl implements JobService {
 		return jobList;
 	}
 
+	@Transactional(readOnly = true)
 	public List<Job> findBySalary(int salary) throws ServiceUnavailableException {
 		String query = "from Job job where job.salary=:dataInput";
-		List<Job> jobList = jobDao.findByInt(query, salary);
+		List<Job> jobList = jobDao.findByInteger(query, salary);
 		hibernateInitializedList(jobList);
 		return jobList;
 	}
