@@ -68,7 +68,7 @@ public class PositionServiceRestClient {
 
 		try {
 			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
-			logger.info("Job List: " + response.getBody());
+			logger.info("Position List: " + response.getBody());
 
 		} catch (Exception e) {
 			logger.error("ERRROR - " + e.getMessage() + ", " + response);
@@ -84,7 +84,7 @@ public class PositionServiceRestClient {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 
 		logger.info("Request is: " + entity);
-		String url = SERVICEURL + "/jobs/find";
+		String url = SERVICEURL + "/positions/find";
 		logger.info("service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -95,7 +95,7 @@ public class PositionServiceRestClient {
 
 		try {
 			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, entity, List.class);
-			logger.info("Find Jobs: " + response.getBody());
+			logger.info("Find Positions: " + response.getBody());
 		} catch (Exception e) {
 			logger.error("ERRROR - " + e.getMessage() + ", " + response);
 		}
