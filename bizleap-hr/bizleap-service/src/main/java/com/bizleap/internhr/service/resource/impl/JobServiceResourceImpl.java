@@ -16,28 +16,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
+import com.bizleap.internhr.service.resource.JobServiceResource;
+import com.bizleap.service.JobService;
 import com.bizleap.service.LocationService;
 
 @RestController
 @RequestMapping(value= {"/locations"})
-public class LocationServiceResourceImpl {
+public class JobServiceResourceImpl implements JobServiceResource{
 	
-	private Logger logger = Logger.getLogger(LocationServiceResourceImpl.class);
+	private Logger logger = Logger.getLogger(JobServiceResourceImpl.class);
 	@Autowired
-	LocationService locationService;
+	JobService jobService;
 	
 	@RequestMapping(method=RequestMethod.GET,value="/list")
-	public @ResponseBody List<Location> getAllLocations(HttpServletRequest request) throws ServiceUnavailableException {
-		logger.info("Size "+locationService.getAll().size());
-		return locationService.getAll();
+	public @ResponseBody List<Job> getAllJob(HttpServletRequest request) throws ServiceUnavailableException {
+		logger.info("Size "+jobService.getAll().size());
+		return jobService.getAll();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/new")
-	public @ResponseBody boolean createParticipant(HttpServletRequest request,@RequestBody Location location) {
+	public @ResponseBody boolean createJob(HttpServletRequest request,@RequestBody Job job) {
 			try {
-				locationService.saveLocation(location);
+				jobService.saveJob(job);
 			} catch (IOException e) {
 				return false;
 			} catch (ServiceUnavailableException e) {
@@ -47,17 +50,17 @@ public class LocationServiceResourceImpl {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
-	public @ResponseBody List<Location> findByLocationBoId(
+	public @ResponseBody List<Job> findByJobBoId(
 			HttpServletRequest request,
 			@PathVariable("boId") String boId) throws ServiceUnavailableException {
-		return locationService.findByBoId(boId);
+		return jobService.findByBoId(boId);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Location> findByLocationName(
+	public @ResponseBody List<Job> findByJobName(
 			HttpServletRequest request,
 			@RequestParam(value = "name") String name) throws ServiceUnavailableException {
-		return locationService.findByName(name);
+		return jobService.findByName(name);
 	}
 	
 }

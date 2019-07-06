@@ -10,16 +10,17 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.bizleap.commons.domain.entity.Address;
+import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Location;
 
-public class AddressServiceRestClient {
-	
-	private static final Logger logger = Logger.getLogger(AddressServiceRestClient.class);
-	//private final static String SERVICEURL = "http://167.99.57.200:8081/bizleap-clb-application";
+public class EmployeeServiceRestClient {
+
+	private static final Logger logger = Logger.getLogger(EmployeeServiceRestClient.class);
+	// private final static String SERVICEURL =
+	// "http://167.99.57.200:8081/bizleap-clb-application";
 	private final static String SERVICEURL = "http://localhost:8080/bizleap-internhr-application";
 
-	public void getAllAddress() {
+	public void getAllEmployee() {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -27,7 +28,7 @@ public class AddressServiceRestClient {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		logger.info("Request is: " + entity);
 
-		String url = SERVICEURL + "/addresses/list";
+		String url = SERVICEURL + "/employees/list";
 		logger.info("Service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -38,22 +39,22 @@ public class AddressServiceRestClient {
 
 		try {
 			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
-			logger.info("Address List: " + response.getBody());
+			logger.info("Employee List: " + response.getBody());
 
 		} catch (Exception e) {
 			logger.error("ERRROR - " + e.getMessage() + ", " + response);
 		}
 	}
-	
-	public void findByLocationBoId(String boId) {
+
+	public void findByEmployeeBoId(String boId) {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		
+
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 
 		logger.info("Request is: " + entity);
-		String url = SERVICEURL + "/addresses/find/"+boId;
+		String url = SERVICEURL + "/Employee/find/" + boId;
 		logger.info("service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -64,23 +65,23 @@ public class AddressServiceRestClient {
 
 		try {
 			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
-			logger.info("Find Address: " + response.getBody());
+			logger.info("Find Employee: " + response.getBody());
 		} catch (Exception e) {
 			logger.error("ERRROR - " + e.getMessage() + ", " + response);
 		}
 	}
-	
-	public void saveAddress(Address address) {
+
+	public void saveEmployee(Employee employee) {
 
 		// Prepare the header
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
-		HttpEntity<Address> entityHeader = new HttpEntity<Address>(address, headers);
+		HttpEntity<Employee> entityHeader = new HttpEntity<Employee>(employee, headers);
 		logger.info("Request is: " + entityHeader);
 
 		// Prepare the URL
-		String url = SERVICEURL + "/locations/new";
+		String url = SERVICEURL + "/employees/new";
 		logger.info("service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -99,7 +100,5 @@ public class AddressServiceRestClient {
 		} catch (Exception e) {
 			logger.error("ERRROR is - " + e.getMessage() + ", " + response);
 		}
-
 	}
-
 }

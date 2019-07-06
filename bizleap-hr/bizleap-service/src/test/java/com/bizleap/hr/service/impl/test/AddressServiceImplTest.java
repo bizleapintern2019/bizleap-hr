@@ -48,7 +48,7 @@ public class AddressServiceImplTest extends ServiceTest {
 	public void testGetAll() {
 		try {
 			List<Address> addressList = addressService1.getAll();
-			if(!CollectionUtils.isEmpty(addressList)){
+			if(!CollectionUtils.isEmpty(addressList)) {
 				addressService1.hibernateInitializedList(addressList);
 				logger.info("All address list in Service Test: "+addressList);
 			}

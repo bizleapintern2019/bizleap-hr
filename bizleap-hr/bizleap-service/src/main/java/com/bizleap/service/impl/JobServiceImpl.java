@@ -25,13 +25,11 @@ public class JobServiceImpl implements JobService {
 	}
 
 	public List<Job> getAll() throws ServiceUnavailableException {
-		
 		List<Job> jobList = jobDao.getAll("From Job job");
 		return jobList;
 	}
 
 	public List<Job> findByBoId(String boId) throws ServiceUnavailableException {
-		
 		String query = "select job from Job job where job.boId=:dataInput";
 		List<Job> jobList = jobDao.findByString(query, boId);
 		return jobList;
