@@ -1,18 +1,16 @@
 package com.bizleap.hr.service.impl.test;
 
-import com.bizleap.commons.domain.entity.Address;
 
-import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.Job;
-import com.bizleap.commons.domain.entity.Location;
-import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
+import com.bizleap.service.AddressService;
 import com.bizleap.service.EmployeeService;
+import com.bizleap.service.PositionService;
+
+import junit.framework.Assert;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -26,58 +24,28 @@ public class EmployeeServiceImplTest extends ServiceTest {
 
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	PositionService positionService;
+	
+	@Autowired
+	AddressService addressService;
 
 	@Test
-	public void testSaveEmployee() {	
-
-		Location location = new Location();
-		location.setBoId("LOC001");
-		location.setName("Yangon");
-		//location.setDepartmentList(departmentList);
-
-		Department department = new Department();
-		department.setBoId("DEPT001");
-		department.setName("BOD");
-		department.setLocation(location);
-		department.setParentDepartment(null);
+	public void testSaveEmployee() throws ServiceUnavailableException {	
 		
-		List<Department> departmentList = new ArrayList<Department>();
-		departmentList.add(department);
-		
-		location.setDepartmentList(departmentList);
-
-		Job job = new Job();
-		job.setBoId("JOB001");
-		job.setJobTitle("CEO");
-		job.setSalary(800000);
-		job.setDepartment(department);
-
-		Position position = new Position();
-		position.setBoId("JOB001-1");
-		position.setJob(job);
-		position.setReportToList(null);
-		position.setReportByList(null);
-
-		Address address = new Address();
-		address.setBoId("ADR001");
-		address.setPermanentAddress("No.11,zinziyar Str");
-		address.setContactAddress("No.11,zinziyar Str");
-		address.setCity("Yangon");
-		address.setState("Yangon");
-		address.setCountry("Myanmar");
-
 		Employee employee = new Employee();
-		employee.setBoId("EMP001");
+		employee.setBoId("EMP0027");
 		employee.setTitle("Mg");
-		employee.setFirstName("Aung");
-		employee.setLastName("Aung");
-		employee.setPosition(position);
+		employee.setFirstName("Kyaw");
+		employee.setLastName("Kyaw");
+		employee.setPosition(positionService.findByBoId("JOB002-1").get(0));
 		employee.setEntranceDate("30-06-2019");
 		employee.setDateOfBirth("06-09-1995");
 		employee.setGender("Male");
 		employee.setEmail("aung@gmail.com");
 		employee.setPhone("0925645652");
-		employee.setAddress(address);
+		employee.setAddress(addressService.findByBoId("ADR010").get(0));
 
 		try {
 			logger.info("employeeData" + employee.toString());
@@ -99,7 +67,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 			List<Employee> employeeList = employeeService.getAll();
 			if(!CollectionUtils.isEmpty(employeeList)){
 				employeeService.hibernateInitializedList(employeeList);
-				logger.info("All employee list in Service Test: "+employeeList);
+				Assert.assertTrue(employeeList.size()==25);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -112,7 +80,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 			List<Employee> employeeList = employeeService.findByBoId("EMP001");
 			if(!CollectionUtils.isEmpty(employeeList)){
 				employeeService.hibernateInitializedList(employeeList);
-				logger.info("Employee of boId "+"EMP001 is: "+employeeList.get(0).getBoId());
+				Assert.assertTrue(employeeList.size()==2);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -125,7 +93,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 			List<Employee> employeeList = employeeService.findByFirstName("Kaung");
 			if(!CollectionUtils.isEmpty(employeeList)){
 				employeeService.hibernateInitializedList(employeeList);
-				logger.info("First Name Kaung Employee are "+employeeList);
+				Assert.assertTrue(employeeList.size()==2);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -135,10 +103,10 @@ public class EmployeeServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindByLastName() {
 		try {
-			List<Employee> employeeList = employeeService.findByLastName("Tun");
+			List<Employee> employeeList = employeeService.findByLastName("Shein");
 			if(!CollectionUtils.isEmpty(employeeList)){
 				employeeService.hibernateInitializedList(employeeList);
-				logger.info("Last Name Tun Employee are "+employeeList);
+				Assert.assertTrue(employeeList.size()==25);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -151,7 +119,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 			List<Employee> employeeList = employeeService.findByGender("Male");
 			if(!CollectionUtils.isEmpty(employeeList)){
 				employeeService.hibernateInitializedList(employeeList);
-				logger.info("Male employee are "+employeeList);
+				Assert.assertTrue(employeeList.size()==14);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);

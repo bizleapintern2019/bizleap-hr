@@ -28,7 +28,7 @@ public class EmployeeServiceRestClient {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		logger.info("Request is: " + entity);
 
-		String url = SERVICEURL + "/employees/list";
+		String url = SERVICEURL + "/employee/list";
 		logger.info("Service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -54,7 +54,82 @@ public class EmployeeServiceRestClient {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 
 		logger.info("Request is: " + entity);
-		String url = SERVICEURL + "/Employee/find/" + boId;
+		String url = SERVICEURL + "/employee/find/" + boId;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Employee: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByEmployeeFirstName(String firstName) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/employee/find/" + firstName;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Employee: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByEmployeeLastName(String lastName) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/employee/find/" + lastName;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Employee: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByEmployeeGender(String gender) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/employee/find/" + gender;
 		logger.info("service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);

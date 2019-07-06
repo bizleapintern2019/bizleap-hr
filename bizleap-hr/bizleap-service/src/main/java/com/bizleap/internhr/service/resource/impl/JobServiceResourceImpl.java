@@ -56,11 +56,18 @@ public class JobServiceResourceImpl implements JobServiceResource{
 		return jobService.findByBoId(boId);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Job> findByJobName(
+	@RequestMapping(method = RequestMethod.GET, value = "/find/{salary}")
+	public @ResponseBody List<Job> findByJobSalary(
 			HttpServletRequest request,
-			@RequestParam(value = "name") String name) throws ServiceUnavailableException {
-		return jobService.findByName(name);
+			@PathVariable("salary") int salary) throws ServiceUnavailableException {
+		return jobService.findBySalary(salary);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/find/{title}")
+	public @ResponseBody List<Job> findByJobTitle(
+			HttpServletRequest request,
+			@PathVariable("title") String title) throws ServiceUnavailableException {
+		return jobService.findByBoId(title);
 	}
 	
 }

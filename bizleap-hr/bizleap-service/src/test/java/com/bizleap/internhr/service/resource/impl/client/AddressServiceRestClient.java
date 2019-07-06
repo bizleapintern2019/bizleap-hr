@@ -27,7 +27,7 @@ public class AddressServiceRestClient {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		logger.info("Request is: " + entity);
 
-		String url = SERVICEURL + "/addresses/list";
+		String url = SERVICEURL + "/address/list";
 		logger.info("Service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -45,7 +45,7 @@ public class AddressServiceRestClient {
 		}
 	}
 	
-	public void findByLocationBoId(String boId) {
+	public void findByAddressBoId(String boId) {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -53,7 +53,157 @@ public class AddressServiceRestClient {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 
 		logger.info("Request is: " + entity);
-		String url = SERVICEURL + "/addresses/find/"+boId;
+		String url = SERVICEURL + "/address/find/"+boId;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Address: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByAddressCity(String city) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/address/find/"+city;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Address: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByAddressContactAddress(String contactAddress) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/address/find/"+contactAddress;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Address: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByAddressPermanentAddress(String permanentAddress) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/address/find/"+permanentAddress;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Address: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByAddressState(String state) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/address/find/"+state;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Address: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByAddressCountry(String country) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/address/find/"+country;
+		logger.info("service url is: " + url);
+
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+		RestTemplate restTemplate = new RestTemplate();
+		logger.info("calling webservice..." + builder);
+
+		HttpEntity<List> response = null;
+
+		try {
+			response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+			logger.info("Find Address: " + response.getBody());
+		} catch (Exception e) {
+			logger.error("ERRROR - " + e.getMessage() + ", " + response);
+		}
+	}
+	
+	public void findByAddressLocationBoId(String locationBoId) {
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+		logger.info("Request is: " + entity);
+		String url = SERVICEURL + "/address/find/"+locationBoId;
 		logger.info("service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
@@ -80,7 +230,7 @@ public class AddressServiceRestClient {
 		logger.info("Request is: " + entityHeader);
 
 		// Prepare the URL
-		String url = SERVICEURL + "/locations/new";
+		String url = SERVICEURL + "/address/new";
 		logger.info("service url is: " + url);
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);

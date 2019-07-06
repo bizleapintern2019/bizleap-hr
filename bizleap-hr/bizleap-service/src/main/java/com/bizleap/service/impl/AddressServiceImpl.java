@@ -18,7 +18,8 @@ import com.bizleap.hr.service.dao.AddressDao;
 import com.bizleap.service.AddressService;
 
 //@Author: Thihan Hein
-@Service("addressService1")
+//@Service("addressService1")
+@Service
 //@Transactional(readOnly = true)
 public class AddressServiceImpl implements AddressService {
 	
@@ -49,24 +50,10 @@ public class AddressServiceImpl implements AddressService {
 		return addressList;
 	}
 	
-	public List<Address> findByContactAddress(String contactAddress) throws ServiceUnavailableException {
-
-		String query = "select address from Address address where address.contactAddress=:dataInput";
-		List<Address> addressList = addressDao.findByString(query, contactAddress);
-		return addressList;
-	}
-	
 	public List<Address> findByCountry(String country) throws ServiceUnavailableException {
 
 		String query = "select address from Address address where address.country=:dataInput";
 		List<Address> addressList = addressDao.findByString(query, country);
-		return addressList;
-	}
-	
-	public List<Address> findByPermanentAddress(String permanentAddress) throws ServiceUnavailableException {
-
-		String query = "select address from Address address where address.permanentAddress=:dataInput";
-		List<Address> addressList = addressDao.findByString(query, permanentAddress);
 		return addressList;
 	}
 	

@@ -21,43 +21,42 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.service.LocationService;
 
 @RestController
-@RequestMapping(value= {"/locations"})
+@RequestMapping(value = { "/locations" })
 public class LocationServiceResourceImpl {
-	
+
 	private Logger logger = Logger.getLogger(LocationServiceResourceImpl.class);
 	@Autowired
 	LocationService locationService;
-	
-	@RequestMapping(method=RequestMethod.GET,value="/list")
+
+	@RequestMapping(method = RequestMethod.GET, value = "/list")
 	public @ResponseBody List<Location> getAllLocations(HttpServletRequest request) throws ServiceUnavailableException {
-		logger.info("Size "+locationService.getAll().size());
+		logger.info("Size " + locationService.getAll().size());
 		return locationService.getAll();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/new")
-	public @ResponseBody boolean createParticipant(HttpServletRequest request,@RequestBody Location location) {
-			try {
-				locationService.saveLocation(location);
-			} catch (IOException e) {
-				return false;
-			} catch (ServiceUnavailableException e) {
-				return false;
-			}
-			return true;
+	public @ResponseBody boolean createLocation(HttpServletRequest request, @RequestBody Location location) {
+		try {
+			locationService.saveLocation(location);
+		} catch (IOException e) {
+			return false;
+		} catch (ServiceUnavailableException e) {
+			return false;
+		}
+		return true;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
-	public @ResponseBody List<Location> findByLocationBoId(
-			HttpServletRequest request,
+	public @ResponseBody List<Location> findByLocationBoId(HttpServletRequest request,
 			@PathVariable("boId") String boId) throws ServiceUnavailableException {
+
 		return locationService.findByBoId(boId);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Location> findByLocationName(
-			HttpServletRequest request,
+	public @ResponseBody List<Location> findByLocationName(HttpServletRequest request,
 			@RequestParam(value = "name") String name) throws ServiceUnavailableException {
 		return locationService.findByName(name);
 	}
-	
+
 }

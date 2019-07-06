@@ -24,7 +24,7 @@ import com.bizleap.service.LocationService;
 import com.bizleap.service.PositionService;
 
 @RestController
-@RequestMapping(value= {"/locations"})
+@RequestMapping(value= {"/positions"})
 public class PositionServiceResourceImpl implements PositionServiceResource {
 	
 	private Logger logger = Logger.getLogger(LocationServiceResourceImpl.class);
@@ -54,12 +54,5 @@ public class PositionServiceResourceImpl implements PositionServiceResource {
 			HttpServletRequest request,
 			@PathVariable("boId") String boId) throws ServiceUnavailableException {
 		return positionService.findByBoId(boId);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Position> findByPositionName(
-			HttpServletRequest request,
-			@RequestParam(value = "name") String name) throws ServiceUnavailableException {
-		return positionService.findByName(name);
 	}
 }
