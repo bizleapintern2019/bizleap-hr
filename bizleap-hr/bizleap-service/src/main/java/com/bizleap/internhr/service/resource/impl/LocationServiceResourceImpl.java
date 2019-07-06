@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +24,13 @@ import com.bizleap.service.LocationService;
 @RequestMapping(value= {"/locations"})
 public class LocationServiceResourceImpl {
 	
+	private Logger logger = Logger.getLogger(LocationServiceResourceImpl.class);
 	@Autowired
 	LocationService locationService;
 	
 	@RequestMapping(method=RequestMethod.GET,value="/list")
 	public @ResponseBody List<Location> getAllLocations(HttpServletRequest request) throws ServiceUnavailableException {
+		logger.info("Size "+locationService.getAll().size());
 		return locationService.getAll();
 	}
 	
@@ -56,4 +59,5 @@ public class LocationServiceResourceImpl {
 			@RequestParam(value = "name") String name) throws ServiceUnavailableException {
 		return locationService.findByName(name);
 	}
+	
 }

@@ -43,6 +43,42 @@ public class AddressServiceResourceImpl implements AddressServiceResource {
 		return addressService.getAll();
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
+	public @ResponseBody List<Address> findByAddressBoId(HttpServletRequest request,
+		   @RequestParam(value = "boId") String boId) throws ServiceUnavailableException {
+		return addressService.findByBoId(boId);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/find/city")
+	public @ResponseBody List<Address> findByCity(HttpServletRequest request,
+		   @RequestParam(value = "city") String city) throws ServiceUnavailableException {
+		return addressService.findByCity(city);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/find/contactAddress")
+	public @ResponseBody List<Address> findByContactAddress(HttpServletRequest request,
+		   @RequestParam(value = "contactAddress") String contactAddress) throws ServiceUnavailableException {
+		return addressService.findByContactAddress(contactAddress);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/find/permanentAddress")
+	public @ResponseBody List<Address> findByPermanentAddress(HttpServletRequest request,
+		   @RequestParam(value = "permanentAddress") String permanentAddress) throws ServiceUnavailableException {
+		return addressService.findByPermanentAddress(permanentAddress);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/find/state")
+	public @ResponseBody List<Address> findByState(HttpServletRequest request,
+		   @RequestParam(value = "state") String state) throws ServiceUnavailableException {
+		return addressService.findByState(state);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/find/country")
+	public @ResponseBody List<Address> findByCountry(HttpServletRequest request,
+		   @RequestParam(value = "country") String country) throws ServiceUnavailableException {
+		return addressService.findByCountry(country);
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/find")
 	public @ResponseBody List<Address> findByLocationBoId(HttpServletRequest request,
 			@RequestParam(value = "boId") String boId) throws ServiceUnavailableException {
