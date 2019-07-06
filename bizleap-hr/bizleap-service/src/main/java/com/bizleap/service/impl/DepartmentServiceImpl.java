@@ -52,9 +52,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 	
 	public void hibernateInitializedPosition(Position position) {
-		Hibernate.initialize(position);
-		
-		
+		Hibernate.initialize(position);	
 	}
 	
 	public void hibernateInitializedPositionList(List<Position> positionList) {

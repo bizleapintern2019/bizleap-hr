@@ -35,7 +35,7 @@ public class LocationServiceResourceImpl {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/new")
-	public @ResponseBody boolean createParticipant(HttpServletRequest request,@RequestBody Location location) {
+	public @ResponseBody boolean createLocation(HttpServletRequest request,@RequestBody Location location) {
 			try {
 				locationService.saveLocation(location);
 			} catch (IOException e) {
@@ -49,7 +49,7 @@ public class LocationServiceResourceImpl {
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
 	public @ResponseBody List<Location> findByLocationBoId(
 			HttpServletRequest request,
-			@PathVariable(value = "boId") String boId) throws ServiceUnavailableException {
+			@PathVariable String boId) throws ServiceUnavailableException {
 		return locationService.findByBoId(boId);
 	}
 	
