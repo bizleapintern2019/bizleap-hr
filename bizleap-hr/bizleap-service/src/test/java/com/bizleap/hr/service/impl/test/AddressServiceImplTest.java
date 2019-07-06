@@ -13,6 +13,8 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.AddressService;
 
+import junit.framework.Assert;
+
 public class AddressServiceImplTest extends ServiceTest {
 
 	private Logger logger = Logger.getLogger(AddressServiceImplTest.class);
@@ -50,7 +52,8 @@ public class AddressServiceImplTest extends ServiceTest {
 			List<Address> addressList = addressService1.getAll();
 			if(!CollectionUtils.isEmpty(addressList)){
 				addressService1.hibernateInitializedList(addressList);
-				logger.info("All address list in Service Test: "+addressList);
+				Assert.assertTrue(addressList.size()==26);
+				Assert.assertEquals("ADR001", addressList.get(1).getBoId());
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -63,7 +66,7 @@ public class AddressServiceImplTest extends ServiceTest {
 			List<Address> addressList = addressService1.findByBoId("ADR006");
 			if(!CollectionUtils.isEmpty(addressList)){
 				addressService1.hibernateInitializedList(addressList);
-				logger.info("Address of boId "+"ADR006 is: "+addressList);
+				Assert.assertTrue(addressList.size()==1);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -76,7 +79,7 @@ public class AddressServiceImplTest extends ServiceTest {
 			List<Address> addressList = addressService1.findByCity("Bago");
 			if(!CollectionUtils.isEmpty(addressList)){
 				addressService1.hibernateInitializedList(addressList);
-				logger.info("Address List in Service Test: "+addressList);
+				Assert.assertTrue(addressList.size()==1);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -89,7 +92,7 @@ public class AddressServiceImplTest extends ServiceTest {
 			List<Address> addressList = addressService1.findByContactAddress("No.(58) ,Moe Ma Kha Street");
 			if(!CollectionUtils.isEmpty(addressList)){
 				addressService1.hibernateInitializedList(addressList);
-				logger.info("Address List in Service Test: "+addressList);
+				Assert.assertTrue(addressList.size()==1);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -102,7 +105,7 @@ public class AddressServiceImplTest extends ServiceTest {
 			List<Address> addressList = addressService1.findByPermanentAddress("No.229,4th Street,1/Ka Ward");
 			if(!CollectionUtils.isEmpty(addressList)){
 				addressService1.hibernateInitializedList(addressList);
-				logger.info("Address List in Service Test: "+addressList);
+				Assert.assertTrue(addressList.size()==1);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);
@@ -115,7 +118,7 @@ public class AddressServiceImplTest extends ServiceTest {
 			List<Address> addressList = addressService1.findByState("Yangon");
 			if(!CollectionUtils.isEmpty(addressList)){
 				addressService1.hibernateInitializedList(addressList);
-				logger.info("Address List in Service Test: "+addressList);
+				Assert.assertTrue(addressList.size()==1);
 			}
 		} catch (ServiceUnavailableException e) {
 			logger.error("In Service Test: "+e);

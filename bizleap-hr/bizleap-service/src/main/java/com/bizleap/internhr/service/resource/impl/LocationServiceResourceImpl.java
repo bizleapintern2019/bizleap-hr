@@ -32,7 +32,7 @@ public class LocationServiceResourceImpl {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/new")
-	public @ResponseBody boolean createParticipant(HttpServletRequest request,@RequestBody Location location) {
+	public @ResponseBody boolean createLocation(HttpServletRequest request,@RequestBody Location location) {
 			try {
 				locationService.saveLocation(location);
 			} catch (IOException e) {
