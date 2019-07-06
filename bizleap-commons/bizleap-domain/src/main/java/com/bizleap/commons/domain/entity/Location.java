@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 //@author: Su Pyae Naing
 
 @Entity
@@ -21,6 +23,7 @@ public class Location extends AbstractEntity {
 	private String name;
 	
 //	@OneToMany(mappedBy="location", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Department> departmentList;
 	
