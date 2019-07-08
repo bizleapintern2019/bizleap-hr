@@ -8,18 +8,21 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Ignore;
-
-import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Job;
-import com.bizleap.hr.loader.impl.DataManagerImpl;
 import com.bizleap.hr.loader.impl.test.ServiceTest;
+
 
 public class JobTest extends ServiceTest {
 	@Autowired
 	private DataLoader dataLoader;
 
-	private List<Job> jobList;
+	//private List<Job> jobList;
 
+	@Test
+	public void testParseJob() throws Exception{
+		testJobList(dataLoader.loadJob());
+	}
+	
 	public int assertJob(Job job,String boId,String title,int salary,String deptBoId){
 		if(job.getBoId().equals(boId)) {
 			Assert.assertEquals(job.getJobTitle(),title);
@@ -30,9 +33,8 @@ public class JobTest extends ServiceTest {
 		return 0;
 	}
 	
-	@Test
-	public void newParseJobTest() throws Exception {
-		jobList = dataLoader.loadJob();
+	public void testJobList(List<Job> jobList) throws Exception {
+		
 		Assert.assertTrue(jobList != null && jobList.size() == 6);
 		int successCount = 0;
 		for (Job job : jobList) {
@@ -48,49 +50,49 @@ public class JobTest extends ServiceTest {
 		Assert.assertTrue(successCount==6);
 	}
 	
-	@Ignore
-	@Test
-	public void parseJobTest() throws Exception {
-		jobList = dataLoader.loadJob();
-		Assert.assertTrue(jobList != null && jobList.size() == 6);
-
-		for (Job job : jobList) {
-			switch (job.getBoId()) {
-			case "JOB001":
-				Assert.assertEquals(job.getJobTitle(), "CEO");
-				Assert.assertEquals(job.getSalary(), 800000);
-				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT001");
-				break;
-			case "JOB002":
-				Assert.assertEquals(job.getJobTitle(), "Senior Software Engineer");
-				Assert.assertEquals(job.getSalary(), 400000);
-				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT002");
-				break;
-			case "JOB003":
-				Assert.assertEquals(job.getJobTitle(), "Software Engineer");
-				Assert.assertEquals(job.getSalary(), 300000);
-				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT002");
-				break;
-			case "JOB004":
-				Assert.assertEquals(job.getJobTitle(), "General Manager");
-				Assert.assertEquals(job.getSalary(), 400000);
-				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT002");
-				break;
-			case "JOB005":
-				Assert.assertEquals(job.getJobTitle(), "Technical lead");
-				Assert.assertEquals(job.getSalary(), 300000);
-				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT002");
-				break;
-			case "JOB006":
-				Assert.assertEquals(job.getJobTitle(), "InternShip");
-				Assert.assertEquals(job.getSalary(), 40000);
-				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT003");
-				break;
-
-			default:
-				Assert.assertTrue(false);
-			}
-		}
-
-	}
+//	@Ignore
+//	@Test
+//	public void parseJobTest() throws Exception {
+//		jobList = dataLoader.loadJob();
+//		Assert.assertTrue(jobList != null && jobList.size() == 6);
+//
+//		for (Job job : jobList) {
+//			switch (job.getBoId()) {
+//			case "JOB001":
+//				Assert.assertEquals(job.getJobTitle(), "CEO");
+//				Assert.assertEquals(job.getSalary(), 800000);
+//				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT001");
+//				break;
+//			case "JOB002":
+//				Assert.assertEquals(job.getJobTitle(), "Senior Software Engineer");
+//				Assert.assertEquals(job.getSalary(), 400000);
+//				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT002");
+//				break;
+//			case "JOB003":
+//				Assert.assertEquals(job.getJobTitle(), "Software Engineer");
+//				Assert.assertEquals(job.getSalary(), 300000);
+//				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT002");
+//				break;
+//			case "JOB004":
+//				Assert.assertEquals(job.getJobTitle(), "General Manager");
+//				Assert.assertEquals(job.getSalary(), 400000);
+//				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT002");
+//				break;
+//			case "JOB005":
+//				Assert.assertEquals(job.getJobTitle(), "Technical lead");
+//				Assert.assertEquals(job.getSalary(), 300000);
+//				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT002");
+//				break;
+//			case "JOB006":
+//				Assert.assertEquals(job.getJobTitle(), "InternShip");
+//				Assert.assertEquals(job.getSalary(), 40000);
+//				Assert.assertEquals(job.getDepartment().getBoId(), "DEPT003");
+//				break;
+//
+//			default:
+//				Assert.assertTrue(false);
+//			}
+//		}
+//
+//	}
 }

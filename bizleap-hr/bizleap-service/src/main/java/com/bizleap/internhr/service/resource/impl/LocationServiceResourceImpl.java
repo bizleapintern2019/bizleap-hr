@@ -49,7 +49,7 @@ public class LocationServiceResourceImpl {
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
 	public @ResponseBody List<Location> findByLocationBoId(
 			HttpServletRequest request,
-			@PathVariable(value = "boId") String boId) throws ServiceUnavailableException {
+			@PathVariable("boId") String boId) throws ServiceUnavailableException {
 		return locationService.findByBoId(boId);
 	}
 	
