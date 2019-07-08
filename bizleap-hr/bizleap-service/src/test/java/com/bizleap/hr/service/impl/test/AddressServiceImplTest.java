@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +19,6 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.AddressService;
 
-import junit.framework.Assert;
 
 public class AddressServiceImplTest extends ServiceTest {
 

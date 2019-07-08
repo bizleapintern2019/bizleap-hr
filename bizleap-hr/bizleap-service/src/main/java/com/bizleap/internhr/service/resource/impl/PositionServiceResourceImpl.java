@@ -17,46 +17,42 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bizleap.commons.domain.entity.Location;
+import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
+import com.bizleap.internhr.service.resource.PositionServiceResource;
 import com.bizleap.service.LocationService;
+import com.bizleap.service.PositionService;
 
 @RestController
-@RequestMapping(value = { "/locations" })
-public class LocationServiceResourceImpl {
-
+@RequestMapping(value= {"/positions"})
+public class PositionServiceResourceImpl implements PositionServiceResource {
+	
 	private Logger logger = Logger.getLogger(LocationServiceResourceImpl.class);
 	@Autowired
-	LocationService locationService;
-
-	@RequestMapping(method = RequestMethod.GET, value = "/list")
-	public @ResponseBody List<Location> getAllLocations(HttpServletRequest request) throws ServiceUnavailableException {
-		logger.info("Size " + locationService.getAll().size());
-		return locationService.getAll();
+	PositionService positionService;
+	
+	@RequestMapping(method=RequestMethod.GET,value="/list")
+	public @ResponseBody List<Position> getAllPosition(HttpServletRequest request) throws ServiceUnavailableException {
+		logger.info("Size "+positionService.getAll().size());
+		return positionService.getAll();
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/new")
-	public @ResponseBody boolean createLocation(HttpServletRequest request, @RequestBody Location location) {
-		try {
-			locationService.saveLocation(location);
-		} catch (IOException e) {
-			return false;
-		} catch (ServiceUnavailableException e) {
-			return false;
-		}
-		return true;
+	public @ResponseBody boolean createPosition(HttpServletRequest request,@RequestBody Position position) {
+			try {
+				positionService.savePosition(position);
+			} catch (IOException e) {
+				return false;
+			} catch (ServiceUnavailableException e) {
+				return false;
+			}
+			return true;
 	}
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
-	public @ResponseBody List<Location> findByLocationBoId(HttpServletRequest request,
+	public @ResponseBody List<Position> findByPositionBoId(
+			HttpServletRequest request,
 			@PathVariable("boId") String boId) throws ServiceUnavailableException {
-
-		return locationService.findByBoId(boId);
+		return positionService.findByBoId(boId);
 	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Location> findByLocationName(HttpServletRequest request,
-			@RequestParam(value = "name") String name) throws ServiceUnavailableException {
-		return locationService.findByName(name);
-	}
-
 }

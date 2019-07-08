@@ -31,10 +31,10 @@ public class LocationServiceImplTest extends ServiceTest {
 
 	@Autowired
 	LocationService locationService;
-	
+
 	@Test
 	public void testSaveLocation() {
-		
+
 		Location location = new Location();
 		location.setBoId("LOC003");
 		location.setName("Hlaing");
@@ -62,21 +62,20 @@ public class LocationServiceImplTest extends ServiceTest {
 
 		location.setDepartmentList(departmentList);
 
-		 try {
-			 logger.info("Location info: " + location.getBoId());
-			 locationService.saveLocation(location);
-		} 
-		 catch 
-		 	(IOException e) { logger.error(e); } 
-		 catch
-		  	(ServiceUnavailableException e) { logger.error(e); }
-		 
+		try {
+			logger.info("Location info: " + location.getBoId());
+			locationService.saveLocation(location);
+		} catch (IOException e) {
+			logger.error(e);
+		} catch (ServiceUnavailableException e) {
+			logger.error(e);
+		}
+
 		logger.info(location);
 	}
 
-	
 	@Test
-	public void getAllLocations() throws ServiceUnavailableException {
+	public void testGetAllLocations() throws ServiceUnavailableException {
 		try {
 			for (Location location : locationService.getAll()) {
 				logger.info(location.getBoId());
@@ -85,9 +84,9 @@ public class LocationServiceImplTest extends ServiceTest {
 			logger.error(e);
 		}
 		assertEquals(2, locationService.getAll().size());
+		
 	}
 
-	
 	@Test
 	public void testFindByBoId() {
 
@@ -100,7 +99,7 @@ public class LocationServiceImplTest extends ServiceTest {
 		} catch (ServiceUnavailableException e) {
 			logger.info(e);
 		}
-		
+
 	}
 
 	@Ignore
@@ -108,7 +107,6 @@ public class LocationServiceImplTest extends ServiceTest {
 	public void testFindByName() {
 		try {
 			List<Location> locationList = locationService.findByName("Yangon");
-
 			if (!CollectionUtils.isEmpty(locationList))
 				logger.info("Location BoId: " + locationList.get(0).getBoId() + "\nDepartment Name: "
 						+ locationList.get(0).getDepartmentList().get(0).getName());

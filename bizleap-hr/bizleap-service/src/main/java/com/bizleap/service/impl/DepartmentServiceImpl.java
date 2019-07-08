@@ -3,6 +3,7 @@ package com.bizleap.service.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,9 @@ import com.bizleap.service.DepartmentService;
 
 //@Author: Soe Min Thein
 @Service
-//@Transactional(readOnly = true)
+// @Transactional(readOnly = true)
 public class DepartmentServiceImpl implements DepartmentService {
-	
+
 	@Autowired
 	private DepartmentDao departmentDao;
 
@@ -28,64 +29,67 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	public List<Department> getAllDepartment() throws ServiceUnavailableException {
-		
+
 		List<Department> departmentList = departmentDao.getAll("From Department department");
-		return departmentList;
+		if (CollectionUtils.isNotEmpty(departmentList)) {
+			hibernateInitializedList(departmentList);
+			return departmentList;
+		}
+		return null;
 	}
 
 	@Transactional(readOnly = true)
 	public List<Department> findByBoId(String boId) throws ServiceUnavailableException {
-		
+
 		String query = "select department from Department department where department.boId=:dataInput";
 		List<Department> departmentList = departmentDao.findByString(query, boId);
 		hibernateInitializedList(departmentList);
 		return departmentList;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<Department> findByName(String name) throws ServiceUnavailableException {
-		
+
 		String query = "select department from Department department where department.name=:dataInput";
 		List<Department> departmentList = departmentDao.findByString(query, name);
 		hibernateInitializedList(departmentList);
 		return departmentList;
 	}
-	
+
 	public void hibernateInitializedPosition(Position position) {
+<<<<<<< HEAD
+		Hibernate.initialize(position);
+=======
 		Hibernate.initialize(position);	
+>>>>>>> 30ff5b53fb131930fde6da21433ab6fb8fa6f94d
 	}
-	
+
 	public void hibernateInitializedPositionList(List<Position> positionList) {
-		
-	}
-	
-	public void hibernateInitializedJob(Job job) {
-		Hibernate.initialize(job);
-		
-		
-	}
-	
-	public void hibernateInitializedJobList(List<Job> jobList) {
-		for(Job job : jobList) {
-			hibernateInitializedJob(job);
+		for (Position position : positionList) {
+			Hibernate.initialize(position.getReportToList());
+			Hibernate.initialize(position.getReportByList());
 		}
 	}
-	
+
+	public void hibernateInitializedJob(Job job) {
+		Hibernate.initialize(job);
+	}
+
+	public void hibernateInitializedJobList(List<Job> jobList) {
+		for (Job job : jobList) {
+			Hibernate.initialize(job.getPositionList());
+		}
+	}
+
 	public void hibernateInitializedDepartment(Department department) {
 		Hibernate.initialize(department);
 		Hibernate.initialize(department.getJobList());
-		for(Job job : department.getJobList()) {
-			Hibernate.initialize(job.getPositionList());
-			for(Position position : job.getPositionList()) {
-				Hibernate.initialize(position.getReportToList());
-				Hibernate.initialize(position.getReportByList());
-			}
-		}
+
 	}
-	
+
 	public void hibernateInitializedList(List<Department> departmentList) {
-		for(Department department : departmentList) {
-			hibernateInitializedDepartment(department);	
+		for (Department department : departmentList) {
+			hibernateInitializedDepartment(department);
 		}
 	}
 }
