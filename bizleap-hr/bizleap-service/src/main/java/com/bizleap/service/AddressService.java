@@ -10,7 +10,7 @@ public interface AddressService {
 	
 	void saveAddress(Address address) throws IOException, ServiceUnavailableException;
 	List<Address> getAll() throws ServiceUnavailableException;
-	List<Address> findByBoId(String boId) throws ServiceUnavailableException;
+	Address findByBoId(String boId) throws ServiceUnavailableException;
 	List<Address> findByCity(String city) throws ServiceUnavailableException;
 	List<Address> findByCountry(String country) throws ServiceUnavailableException;
 	List<Address> findByState(String state) throws ServiceUnavailableException;

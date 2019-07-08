@@ -236,11 +236,28 @@ public class AssociationMapperImpl implements AssociationMapper {
 		}
 	}
 	
+	private void addEmployeeToAddress(Address address) {
+		if(address == null) {
+			return;
+		}
+		for(Employee employee:dataManager.getEmployeeList()) {
+			if(employee.getAddress().sameBoId(address)) {
+				address.setEmployee(employee);
+			}
+		}
+	}
+	private void setUpAddressAssociations() {
+		for (Address address : dataManager.getAddressList()) {
+			addEmployeeToAddress(address);
+		}
+	}
+	
 	public void setUpAssociations() {
 		setUpLocationAssociations();
 		setUpDepartmentAssociations();
 		setUpJobAssociations();
 		setUpPositionAssociations();
-		setUpEmployeeAssociations();	
+		setUpEmployeeAssociations();
+		setUpAddressAssociations();
 	}
 }
