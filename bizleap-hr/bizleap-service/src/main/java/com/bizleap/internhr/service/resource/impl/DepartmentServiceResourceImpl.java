@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,8 +42,10 @@ public class DepartmentServiceResourceImpl implements DepartmentServiceResource 
 			return true;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Department> findByDepartmentBoId(HttpServletRequest request,@RequestParam(value = "boId") String boId) throws ServiceUnavailableException {
+	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
+	public @ResponseBody List<Department> findByDepartmentBoId(
+			HttpServletRequest request,
+			@PathVariable String boId) throws ServiceUnavailableException {
 		return departmentService.findByBoId(boId);
 	}
 	
