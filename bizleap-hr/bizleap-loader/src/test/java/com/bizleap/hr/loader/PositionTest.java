@@ -13,7 +13,7 @@ public class PositionTest extends ServiceTest {
 	private DataLoader dataLoader;
 	
 	@Test
-	public void parsePositionTest() throws Exception {
+	public void testParsePosition() throws Exception {
 		testPositionList(dataLoader.loadPosition());
 	}
 	

@@ -24,7 +24,7 @@ import com.bizleap.service.JobService;
 import com.bizleap.service.LocationService;
 
 @RestController
-@RequestMapping(value= {"/locations"})
+@RequestMapping(value= {"/jobs"})
 public class JobServiceResourceImpl implements JobServiceResource{
 	
 	private Logger logger = Logger.getLogger(JobServiceResourceImpl.class);

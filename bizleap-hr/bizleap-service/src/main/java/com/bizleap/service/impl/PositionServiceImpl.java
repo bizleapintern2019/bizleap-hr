@@ -46,8 +46,11 @@ public class PositionServiceImpl implements PositionService {
 
 		String query = "from Position position where position.boId=:dataInput";
 		List<Position> positionList = positionDao.findByString(query, boId);
+		if(!CollectionUtils.isEmpty(positionList)){
 			hibernateInitializedList(positionList);
 			return positionList;
+		}
+		return null;
 	}
 
 	public void hibernateInitializedList(List<Position> positionList) {

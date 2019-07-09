@@ -44,7 +44,7 @@ public class JobServiceImplTest extends ServiceTest {
 	}
 
 	@Test
-	public void getAllJobs() throws Exception {
+	public void testGetAllJobs() throws Exception {
 		try {
 			testJobList(jobService.getAll());
 		} catch (ServiceUnavailableException e) {

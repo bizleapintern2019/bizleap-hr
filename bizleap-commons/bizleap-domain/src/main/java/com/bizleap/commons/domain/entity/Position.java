@@ -153,14 +153,19 @@ public class Position extends AbstractEntity {
 		}
 //		logger.info("Position3333: "+position);
 //		System.exit(0);
+		if(position.getReportToList()==null)
+			position.setReportToList(new ArrayList<Position>());
+		
+		for(int i=0; i<reportToBoIds.length; i++)
+			position.getReportToList().add(new Position(reportToBoIds[i]));
 		return position;
 	}
 	
 	private String toBoIdList(List<Position> positionList) {
+		
 		if(positionList == null) {
 			return "";
 		}
-	
 		String boIds = "";
 		for(Position position : positionList) {
 			boIds += position.getBoId() + " ";
@@ -172,7 +177,7 @@ public class Position extends AbstractEntity {
 	public String toString() {
 		return "Position " + super.toString() + 
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
-				//.append("JobId: " + getJob().getJobTitle())
+				//.append("JobId: " + getJob().getBoId())
 				.append("ReportTo: " + toBoIdList(getReportToList()))
 				.append("ReportBy: "+toBoIdList(getReportByList()));
 	}
