@@ -16,35 +16,32 @@ public class DepartmentTest extends ServiceTest {
 	@Autowired
 	private DataLoader dataLoader;
 
-	private List<Department> departmentList;
-
 	@Test
-	public void parseDepartmentTest() throws Exception {
-		departmentList = dataLoader.loadDepartment();
-		Assert.assertTrue(departmentList != null && departmentList.size() == 4);
-
-		for (Department department : departmentList) {
-			switch (department.getBoId()) {
-			case "DEPT001":
-				Assert.assertEquals(department.getName(), "BOD");
-				Assert.assertEquals(department.getParentDepartment().getBoId(), " ");
-				break;
-			case "DEPT002":
-				Assert.assertEquals(department.getName(), "Engineering");
-				Assert.assertEquals(department.getParentDepartment().getBoId(), "DEPT001");
-				break;
-			case "DEPT003":
-				Assert.assertEquals(department.getName(), "Internship");
-				Assert.assertEquals(department.getParentDepartment().getBoId(), "DEPT002");
-				break;
-			case "DEPT004":
-				Assert.assertEquals(department.getName(), "Customer Support");
-				Assert.assertEquals(department.getParentDepartment().getBoId(), "DEPT002");
-				break;
-				
-			default:
-				Assert.assertTrue(false);
-			}
+	public void testParseDepartment() throws Exception{
+		testDepartmentList(dataLoader.loadDepartment());
+	}
+	
+	public int assertDepartment(Department department,String boId,String name,String parentDepartment) {
+		
+		if(department.getBoId().equals(boId)) {
+			Assert.assertEquals(department.getName(), name);
+			Assert.assertEquals(department.getParentDepartment().getBoId(), parentDepartment);
+			return 1;
 		}
+		return 0;
+	}
+	
+	public void testDepartmentList(List<Department> departmentList) throws Exception {
+		
+		Assert.assertTrue(departmentList != null && departmentList.size() == 4);
+        int successCount = 0;
+        for(Department department : departmentList) {
+        	successCount+= assertDepartment(department,"DEPT001","BOD"," ");
+        	successCount+= assertDepartment(department,"DEPT002","Engineering","DEPT001");
+        	successCount+= assertDepartment(department,"DEPT003","Internship","DEPT002");
+        	successCount+= assertDepartment(department,"DEPT004","Customer Support","DEPT002");
+        	Assert.assertTrue(successCount==1);
+        	successCount=0;
+        }
 	}
 }

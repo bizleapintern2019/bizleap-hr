@@ -17,5 +17,4 @@ public interface AddressServiceResource {
 	List<Address> findByCity(HttpServletRequest request, String city) throws ServiceUnavailableException;
 	List<Address> findByState(HttpServletRequest request, String state) throws ServiceUnavailableException;
 	List<Address> findByCountry(HttpServletRequest request, String country) throws ServiceUnavailableException;
-	Address getAddress(HttpServletRequest request) throws ServiceUnavailableException;
 }

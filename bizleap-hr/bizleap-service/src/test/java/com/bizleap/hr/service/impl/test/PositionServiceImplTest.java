@@ -64,7 +64,6 @@ public class PositionServiceImplTest extends ServiceTest {
 			String[] reportToItems = reportTo.split(",");
 			for(int i=0;i<reportToItems.length;i++){
 				Assert.assertEquals(position.getReportToList().get(i).getBoId(), reportToItems[i]);
-				//logger.info(position.getReportToList().get(i).getBoId()+" "+reportToItems);
 			}
 			return 1;
 		}
@@ -74,34 +73,32 @@ public class PositionServiceImplTest extends ServiceTest {
 	public void testPositionList(List<Position> positionList) throws Exception {
 		Assert.assertTrue(positionList != null && positionList.size() == 26);
 		int successCount=0;
-		for(Position position :positionList) {
-			successCount += assertPosition(position,"JOB001-1"," ");
-			successCount += assertPosition(position,"JOB002-1","JOB001-1,JOB004-1");
-			successCount += assertPosition(position,"JOB003-4","JOB001-1,JOB004-1,JOB002-1");
-			successCount += assertPosition(position,"JOB006-9","JOB002-3,JOB002-4,JOB003-1,JOB003-4");
-			successCount += assertPosition(position,"JOB002-3","JOB001-1,JOB004-1,JOB005-1");
-			successCount += assertPosition(position,"JOB003-1","JOB001-1,JOB004-1,JOB005-1,JOB002-2,JOB002-3");
-			successCount += assertPosition(position,"JOB004-1","JOB001-1");
-			successCount += assertPosition(position,"JOB002-2","JOB001-1,JOB004-1,JOB005-1");
-			successCount += assertPosition(position,"JOB003-2","JOB001-1,JOB004-1,JOB005-1,JOB002-2,JOB002-3,JOB002-4");
-			successCount += assertPosition(position,"JOB006-6","JOB002-3,JOB002-4,JOB002-2,JOB003-2");
-			successCount += assertPosition(position,"JOB002-4","JOB001-1,JOB004-1");
-			successCount += assertPosition(position,"JOB006-1","JOB002-3,JOB002-4");
-			successCount += assertPosition(position,"JOB006-2","JOB002-3,JOB002-4,JOB003-3,JOB003-5");
-			successCount += assertPosition(position,"JOB003-3","JOB001-1,JOB004-1,JOB005-1,JOB002-2,JOB002-3");
-			successCount += assertPosition(position,"JOB006-3","JOB002-3,JOB002-4,JOB003-3");
-			successCount += assertPosition(position,"JOB006-11","JOB002-3,JOB002-4,JOB003-3,JOB003-5");
-			successCount += assertPosition(position,"JOB003-5","JOB001-1,JOB004-1,JOB002-1");
-			successCount += assertPosition(position,"JOB005-1","JOB001-1,JOB004-1");
-			successCount += assertPosition(position,"JOB006-4","JOB002-3,JOB002-4");
-			successCount += assertPosition(position,"JOB006-5","JOB002-3,JOB002-4");
-			successCount += assertPosition(position,"JOB006-7","JOB002-3,JOB002-4");
-			successCount += assertPosition(position,"JOB006-8","JOB002-3,JOB002-4");
-			successCount += assertPosition(position,"JOB006-10","JOB002-3,JOB002-4,JOB003-2,JOB003-4");
-			successCount += assertPosition(position,"JOB006-12","JOB002-3,JOB002-4");
-			
-			logger.info("Count is :" +successCount+position);
-			//Assert.assertTrue(successCount==1);
+		for(int i=0;i<positionList.size()-2;i++) {
+			successCount += assertPosition(positionList.get(i),"JOB001-1"," ");
+			successCount += assertPosition(positionList.get(i),"JOB002-1","JOB001-1,JOB004-1");
+			successCount += assertPosition(positionList.get(i),"JOB003-4","JOB001-1,JOB004-1,JOB002-1");
+			successCount += assertPosition(positionList.get(i),"JOB006-9","JOB002-3,JOB002-4,JOB003-1,JOB003-4");
+			successCount += assertPosition(positionList.get(i),"JOB002-3","JOB001-1,JOB004-1,JOB005-1");
+			successCount += assertPosition(positionList.get(i),"JOB003-1","JOB001-1,JOB004-1,JOB005-1,JOB002-2,JOB002-3");
+			successCount += assertPosition(positionList.get(i),"JOB004-1","JOB001-1");
+			successCount += assertPosition(positionList.get(i),"JOB002-2","JOB001-1,JOB004-1,JOB005-1");
+			successCount += assertPosition(positionList.get(i),"JOB003-2","JOB001-1,JOB004-1,JOB005-1,JOB002-2,JOB002-3,JOB002-4");
+			successCount += assertPosition(positionList.get(i),"JOB006-6","JOB002-3,JOB002-4,JOB002-2,JOB003-2");
+			successCount += assertPosition(positionList.get(i),"JOB002-4","JOB001-1,JOB004-1");
+			successCount += assertPosition(positionList.get(i),"JOB006-1","JOB002-3,JOB002-4");
+			successCount += assertPosition(positionList.get(i),"JOB006-2","JOB002-3,JOB002-4,JOB003-3,JOB003-5");
+			successCount += assertPosition(positionList.get(i),"JOB003-3","JOB001-1,JOB004-1,JOB005-1,JOB002-2,JOB002-3");
+			successCount += assertPosition(positionList.get(i),"JOB006-3","JOB002-3,JOB002-4,JOB003-3");
+			successCount += assertPosition(positionList.get(i),"JOB006-11","JOB002-3,JOB002-4,JOB003-3,JOB003-5");
+			successCount += assertPosition(positionList.get(i),"JOB003-5","JOB001-1,JOB004-1,JOB002-1");
+			successCount += assertPosition(positionList.get(i),"JOB005-1","JOB001-1,JOB004-1");
+			successCount += assertPosition(positionList.get(i),"JOB006-4","JOB002-3,JOB002-4");
+			successCount += assertPosition(positionList.get(i),"JOB006-5","JOB002-3,JOB002-4");
+			successCount += assertPosition(positionList.get(i),"JOB006-7","JOB002-3,JOB002-4");
+			successCount += assertPosition(positionList.get(i),"JOB006-8","JOB002-3,JOB002-4");
+			successCount += assertPosition(positionList.get(i),"JOB006-10","JOB002-3,JOB002-4,JOB003-2,JOB003-4");
+			successCount += assertPosition(positionList.get(i),"JOB006-12","JOB002-3,JOB002-4");
+			Assert.assertTrue(successCount==1);
 			successCount=0;
 		}
 	}
@@ -116,160 +113,4 @@ public class PositionServiceImplTest extends ServiceTest {
 			e.printStackTrace();
 		}
 	}
-	
-//	@Ignore
-//	@Test
-//	public void testPositionsList(List<Position> positionList) throws Exception {
-//		Assert.assertTrue(positionList != null && positionList.size() == 24);
-//
-//		for (Position position : positionList) {
-//			switch (position.getBoId()) {
-//			case "JOB001-1":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB001");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), " ");
-//				break;
-//			case "JOB002-1":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB002");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				break;
-//			case "JOB002-2":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB002");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB005-1");
-//				break;
-//			case "JOB002-3":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB002");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB005-1");
-//				break;
-//			case "JOB002-4":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB002");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				break;
-//			case "JOB003-1":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB003");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB005-1");
-//				Assert.assertEquals(position.getReportToList().get(3).getBoId(), "JOB002-2");
-//				Assert.assertEquals(position.getReportToList().get(4).getBoId(), "JOB002-3");
-//				break;
-//			case "JOB003-2":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB003");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB005-1");
-//				Assert.assertEquals(position.getReportToList().get(3).getBoId(), "JOB002-2");
-//				Assert.assertEquals(position.getReportToList().get(4).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(5).getBoId(), "JOB002-4");
-//				break;
-//			case "JOB003-3":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB003");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB005-1");
-//				Assert.assertEquals(position.getReportToList().get(3).getBoId(), "JOB002-2");
-//				Assert.assertEquals(position.getReportToList().get(4).getBoId(), "JOB002-3");
-//				break;
-//			case "JOB003-4":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB003");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB002-1");
-//				break;
-//			case "JOB003-5":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB003");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB002-1");
-//				break;
-//			case "JOB004-1":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB004");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				break;
-//			case "JOB005-1":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB005");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB001-1");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB004-1");
-//				break;
-//			case "JOB006-1":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				break;
-//			case "JOB006-2":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB003-3");
-//				Assert.assertEquals(position.getReportToList().get(3).getBoId(), "JOB003-5");
-//				break;
-//			case "JOB006-3":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB003-3");
-//				break;
-//			case "JOB006-4":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				break;
-//			case "JOB006-5":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				break;
-//			case "JOB006-6":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB002-2");
-//				Assert.assertEquals(position.getReportToList().get(3).getBoId(), "JOB003-2");
-//				break;
-//			case "JOB006-7":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				break;
-//			case "JOB006-8":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				break;
-//			case "JOB006-9":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB003-1");
-//				Assert.assertEquals(position.getReportToList().get(3).getBoId(), "JOB003-4");
-//				break;
-//			case "JOB006-10":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB003-2");
-//				Assert.assertEquals(position.getReportToList().get(3).getBoId(), "JOB003-4");
-//				break;
-//			case "JOB006-11":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				Assert.assertEquals(position.getReportToList().get(2).getBoId(), "JOB003-3");
-//				Assert.assertEquals(position.getReportToList().get(3).getBoId(), "JOB003-5");
-//				break;
-//			case "JOB006-12":
-//				Assert.assertEquals(position.getJob().getBoId(), "JOB006");
-//				Assert.assertEquals(position.getReportToList().get(0).getBoId(), "JOB002-3");
-//				Assert.assertEquals(position.getReportToList().get(1).getBoId(), "JOB002-4");
-//				break;
-//			default:
-//				Assert.assertTrue(false);
-//			}
-//		}
-//	}
 }

@@ -45,7 +45,7 @@ public class AddressServiceResourceImpl implements AddressServiceResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
-	public @ResponseBody List<Address> findByAddressBoId(HttpServletRequest request,
+	public @ResponseBody Address findByAddressBoId(HttpServletRequest request,
 		   @PathVariable String boId) throws ServiceUnavailableException {
 		return addressService.findByBoId(boId);
 	}
@@ -54,18 +54,6 @@ public class AddressServiceResourceImpl implements AddressServiceResource {
 	public @ResponseBody List<Address> findByCity(HttpServletRequest request,
 		   @RequestParam(value = "city") String city) throws ServiceUnavailableException {
 		return addressService.findByCity(city);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/find/contactAddress")
-	public @ResponseBody List<Address> findByContactAddress(HttpServletRequest request,
-		   @RequestParam(value = "contactAddress") String contactAddress) throws ServiceUnavailableException {
-		return addressService.findByContactAddress(contactAddress);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/find/permanentAddress")
-	public @ResponseBody List<Address> findByPermanentAddress(HttpServletRequest request,
-		   @RequestParam(value = "permanentAddress") String permanentAddress) throws ServiceUnavailableException {
-		return addressService.findByPermanentAddress(permanentAddress);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find/state")
@@ -81,7 +69,7 @@ public class AddressServiceResourceImpl implements AddressServiceResource {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Address> findByLocationBoId(HttpServletRequest request,
+	public @ResponseBody Address findByLocationBoId(HttpServletRequest request,
 			@RequestParam(value = "boId") String boId) throws ServiceUnavailableException {
 		return addressService.findByBoId(boId);
 	}

@@ -85,7 +85,7 @@ public abstract class AbstractEntity {
 	@Override
 	public String toString() {
 		return ""+new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
-				.append("boId :", getBoId());
+				.append("boId:'", getBoId()+"'");
 				//.append("Status :",getStatus());
 				
 	}

@@ -13,28 +13,31 @@ public class LocationTest extends ServiceTest {
 	@Autowired
 	private DataLoader dataLoader;
 
-	private List<Location> locationList;
-
 	@Test
-	public void parseLocationTest() throws Exception {
-		locationList = dataLoader.loadLocation();
-		Assert.assertTrue(locationList != null && locationList.size() == 2);
-
-		for (Location location : locationList) {
-			switch (location.getBoId()) {
-			case "LOC001":
-				Assert.assertEquals(location.getName(), "Yangon");
-				Assert.assertEquals(location.getDepartmentList().get(0).getBoId(), "DEPT001");
-				Assert.assertEquals(location.getDepartmentList().get(1).getBoId(), "DEPT002");
-				break;
-			case "LOC002":
-				Assert.assertEquals(location.getName(), "Mandalay");
-				Assert.assertEquals(location.getDepartmentList().get(0).getBoId(), "DEPT003");
-				Assert.assertEquals(location.getDepartmentList().get(1).getBoId(), "");
-				break;
-			default:
-				Assert.assertTrue(false);
+	public void testParseLocation() throws Exception{
+		testLocationList(dataLoader.loadLocation());
+	}
+	
+	public int assertLocation(Location location,String boId,String name,String departmentList) {
+		if(location.getBoId().equals(boId)) {
+			Assert.assertEquals(location.getName(), name);
+			String[] departmentItems = departmentList.split(",");
+			for(int i=0;i<departmentItems.length;i++) {
+				Assert.assertEquals(location.getDepartmentList().get(i).getBoId(), departmentItems[i]);
 			}
+			return 1;
+		}
+		return 0;
+	}
+	
+	public void testLocationList(List<Location> locationList) throws Exception {
+		Assert.assertTrue(locationList != null && locationList.size() == 2);
+		int successCount=0;
+		for(Location location : locationList) {
+			successCount+=assertLocation(location,"LOC001","Yangon","DEPT001,DEPT002");
+			successCount+=assertLocation(location,"LOC002","Mandalay","DEPT003,DEPT004");
+			Assert.assertTrue(successCount==1);
+			successCount=0;
 		}
 	}
 }

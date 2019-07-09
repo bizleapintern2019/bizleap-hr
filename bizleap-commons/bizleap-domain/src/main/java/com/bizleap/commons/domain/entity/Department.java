@@ -100,9 +100,11 @@ public class Department extends AbstractEntity {
 		department.setBoId(tokens[0]);
 		department.setName(tokens[1]);
 		String parentDepartment = tokens[2];
-		if(!StringUtils.isEmpty(parentDepartment))
+		if(tokens[2] == null || tokens[2].trim().length() <= 0) {
+			department.setParentDepartment(null);
+			return department;
+		}else 
 			department.setParentDepartment(new Department(parentDepartment));
-		//else department.setParentDepartment(null);
 		return department;
 	}
 	

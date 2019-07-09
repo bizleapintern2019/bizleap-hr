@@ -61,7 +61,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpLocationAssociations() {
 		for(Location location : dataManager.getLocationList()) {
 			addDepartmentToLocation(location);
-			logger.info("Location Association: "+ location);
+			//logger.info("Location Association: "+ location);
 		}
 	}
 
@@ -75,12 +75,12 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void addParentDepartment(Department department) {
 		Department parentDept = department.getParentDepartment();
 		
-		if(parentDept.getBoId().startsWith(" ")) {
+		if(parentDept == null) {
 			return;
 		}
 		for(Department parentDepartment : dataManager.getDepartmentList()) {
 			if(parentDept.sameBoId(parentDepartment)) {
-				logger.info("Real Parent Dept: "+parentDepartment);
+				//logger.info("Real Parent Dept: "+parentDepartment);
 				department.setParentDepartment(parentDepartment);
 				return;
 			}
@@ -106,7 +106,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			addJobToDepartment(department);
 			addParentDepartment(department);
 			addLocationToDepartment(department);
-			logger.info("Department Association: "+ department);
+			//logger.info("Department Association: "+ department);
 		}
 	}
 	
@@ -136,7 +136,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Job job : dataManager.getJobList()) {
 			addDepartmentToJob(job);
 			addPositionToJob(job);
-			logger.info("Job Association: "+ job);
+			//logger.info("Job Association: "+ job);
 		}
 	}
 	
@@ -176,7 +176,8 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void addReportToAndReportByPositions(Position target) {
 		List<Position> reportToList = new ArrayList<Position>();
 		List<Position> targetReportToList = target.getReportToList();
-		if(targetReportToList.size()<=1) {
+		
+		if(CollectionUtils.isEmpty(targetReportToList)) {
 			return;
 		}
 		
@@ -196,7 +197,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 			addJobToPosition(position);
 			addEmployeeToPosition(position);
 			addReportToAndReportByPositions(position);
-			logger.info("Position Association: "+ position);
+			//logger.info("Position Association: "+ position);
 		}
 	}
 	
@@ -232,7 +233,7 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Employee employee : dataManager.getEmployeeList()) {
 			addPositionToEmployee(employee);
 			addAddressToEmployee(employee);
-			logger.info("Employee Association: "+ employee);
+			//logger.info("Employee Association: "+ employee);
 		}
 	}
 	

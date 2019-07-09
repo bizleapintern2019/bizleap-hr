@@ -16,6 +16,7 @@ import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.DepartmentDao;
 import com.bizleap.service.DepartmentService;
 
+
 //@Author: Soe Min Thein
 @Service
 // @Transactional(readOnly = true)
@@ -57,11 +58,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	public void hibernateInitializedPosition(Position position) {
-<<<<<<< HEAD
 		Hibernate.initialize(position);
-=======
-		Hibernate.initialize(position);	
->>>>>>> 30ff5b53fb131930fde6da21433ab6fb8fa6f94d
+		Hibernate.initialize(position);
 	}
 
 	public void hibernateInitializedPositionList(List<Position> positionList) {

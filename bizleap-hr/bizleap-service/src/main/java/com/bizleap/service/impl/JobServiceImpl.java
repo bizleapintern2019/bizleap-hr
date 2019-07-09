@@ -42,24 +42,33 @@ public class JobServiceImpl implements JobService {
 	public List<Job> findByBoId(String boId) throws ServiceUnavailableException {
 		String query = "from Job job where job.boId=:dataInput";
 		List<Job> jobList = jobDao.findByString(query, boId);
-		hibernateInitializedList(jobList);
-		return jobList;
+		if(!CollectionUtils.isEmpty(jobList)) {
+			hibernateInitializedList(jobList);
+			return jobList;
+		}
+		return null;
 	}
 
 	@Transactional(readOnly = true)
 	public List<Job> findByTitle(String title) throws ServiceUnavailableException {
 		String query = "from Job job where job.jobTitle=:dataInput";
 		List<Job> jobList = jobDao.findByString(query, title);
-		hibernateInitializedList(jobList);
-		return jobList;
+		if(!CollectionUtils.isEmpty(jobList)) {
+			hibernateInitializedList(jobList);
+			return jobList;
+		}
+		return null;
 	}
 
 	@Transactional(readOnly = true)
 	public List<Job> findBySalary(int salary) throws ServiceUnavailableException {
 		String query = "from Job job where job.salary=:dataInput";
 		List<Job> jobList = jobDao.findByInteger(query, salary);
-		hibernateInitializedList(jobList);
-		return jobList;
+		if(!CollectionUtils.isEmpty(jobList)) {
+			hibernateInitializedList(jobList);
+			return jobList;
+		}
+		return null;
 	}
 
 	public void hibernateInitializedList(List<Job> jobList) {
