@@ -3,6 +3,7 @@ package com.bizleap.service.impl;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,32 +37,49 @@ public class AddressServiceImpl implements AddressService {
 		return addressList;
 	}
 	
-	public List<Address> findByBoId(String boId) throws ServiceUnavailableException {
+	public Address findByBoId(String boId) throws ServiceUnavailableException {
 
-		String query = "select address from Address address where address.boId=:dataInput";
+		String query = "from Address address where address.boId=:dataInput";
+		
 		List<Address> addressList = addressDao.findByString(query, boId);
-		return addressList;
+		if(CollectionUtils.isNotEmpty(addressList)) {
+			hibernateInitializedAddress(addressList.get(0));
+			return addressList.get(0);
+		}
+		return null;
 	}
 	
 	public List<Address> findByCity(String city) throws ServiceUnavailableException {
 
-		String query = "select address from Address address where address.city=:dataInput";
+		String query = "from Address address where address.city=:dataInput";
 		List<Address> addressList = addressDao.findByString(query, city);
-		return addressList;
+		if(CollectionUtils.isNotEmpty(addressList)) {
+			hibernateInitializedList(addressList);
+			return addressList;
+		}
+		return null;
 	}
 	
 	public List<Address> findByCountry(String country) throws ServiceUnavailableException {
 
-		String query = "select address from Address address where address.country=:dataInput";
+		String query = "from Address address where address.country=:dataInput";
 		List<Address> addressList = addressDao.findByString(query, country);
-		return addressList;
+		if(CollectionUtils.isNotEmpty(addressList)) {
+			hibernateInitializedList(addressList);
+			return addressList;
+		}
+		return null;
 	}
 	
 	public List<Address> findByState(String state) throws ServiceUnavailableException {
 
-		String query = "select address from Address address where address.state=:dataInput";
+		String query = "from Address address where address.state=:dataInput";
 		List<Address> addressList = addressDao.findByString(query, state);
-		return addressList;
+		if(CollectionUtils.isNotEmpty(addressList)) {
+			hibernateInitializedList(addressList);
+			return addressList;
+		}
+		return null;
 	}
 	
 	public void hibernateInitializedAddress(Address address) {

@@ -17,7 +17,7 @@ import com.bizleap.service.JobService;
 
 //@Author: Nyan Lin Htet
 @Service
-//@Transactional(readOnly = true)
+// @Transactional(readOnly = true)
 public class JobServiceImpl implements JobService {
 
 	@Autowired
@@ -26,10 +26,11 @@ public class JobServiceImpl implements JobService {
 	public void saveJob(Job job) throws IOException, ServiceUnavailableException {
 		jobDao.save(job);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<Job> getAll() throws ServiceUnavailableException {
 		List<Job> jobList = jobDao.getAll("from Job job");
+		
 		if(!CollectionUtils.isEmpty(jobList)) {
 			hibernateInitializedList(jobList);
 			return jobList;

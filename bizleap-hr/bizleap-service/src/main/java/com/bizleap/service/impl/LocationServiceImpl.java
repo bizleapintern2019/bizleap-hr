@@ -53,7 +53,7 @@ public class LocationServiceImpl implements LocationService {
 	@Transactional(readOnly = true)
 	public List<Location> findByName(String name) throws ServiceUnavailableException {
 
-		String query = "from Location where Location.name=:dataInput";
+		String query = "from Location location where location.name=:dataInput";
 		List<Location> locationList = locationDao.findByString(query, name);
 		hibernateInitializedList(locationList);
 		return locationList;
