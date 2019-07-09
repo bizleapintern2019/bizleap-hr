@@ -50,6 +50,7 @@ public class LocationServiceResourceImpl {
 	public @ResponseBody List<Location> findByLocationBoId(HttpServletRequest request,
 			@PathVariable("boId") String boId) throws ServiceUnavailableException {
 
+
 		return locationService.findByBoId(boId);
 	}
 
