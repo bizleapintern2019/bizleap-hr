@@ -236,16 +236,16 @@ public class AddressServiceImplTest extends ServiceTest {
 			testLocationInDept(address.getEmployee().getPosition().getJob().getDepartment().getLocation());
 		}
 	}
-	@Test
-	public void testGetAll() {
-		try {
-			List<Address> addressList = addressService.getAll();
-			Assert.assertTrue(CollectionUtils.isNotEmpty(addressList));
-			Assert.assertTrue(addressList.size()==24);
-		} catch (ServiceUnavailableException e) {
-			logger.error("In Service Test: "+e);
-		}
-	}
+//	@Test
+//	public void testGetAll() {
+//		try {
+//			List<Address> addressList = addressService.getAll();
+//			Assert.assertTrue(CollectionUtils.isNotEmpty(addressList));
+//			Assert.assertTrue(addressList.size()==24);
+//		} catch (ServiceUnavailableException e) {
+//			logger.error("In Service Test: "+e);
+//		}
+//	}
 	
 //	@Test
 //	public void testFindByBoId() {

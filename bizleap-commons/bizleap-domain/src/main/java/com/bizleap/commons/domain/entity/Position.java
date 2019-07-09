@@ -1,6 +1,7 @@
 package com.bizleap.commons.domain.entity;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,8 +14,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "position")
 public class Position extends AbstractEntity {
 	
+	private static Logger logger = Logger.getLogger(Position.class);
 	/*@ManyToOne
 	@JoinColumn(name="jobId")*/
 	@JsonIgnore
@@ -102,6 +107,14 @@ public class Position extends AbstractEntity {
 		this.employee = employee;
 	}
 	
+	public void addReportTo(Position reportTo) {
+		
+		if(getReportToList() == null){
+			setReportToList(new ArrayList<Position>());
+		}
+		getReportToList().add(reportTo);
+	}
+	
 	public void addReportBy(Position reportBy) {
 		
 		if(getReportByList() == null){
@@ -117,12 +130,29 @@ public class Position extends AbstractEntity {
 		position.setBoId(tokens[0]);
 		position.setJob(new Job(tokens[1]));
 		String[] reportToBoIds = tokens[2].split(",");
+		logger.info("Token0: "+tokens[0]);
+		logger.info("Token1: "+tokens[1]);
+		logger.info("Token2: "+tokens[2]);
 		
-		if(position.getReportToList()==null)
-			position.setReportToList(new ArrayList<Position>());
+		if(tokens[2] == null || tokens[2].trim().length() <= 0) {
+			position.setReportToList(null);
+			logger.info("Position1111: "+position);
+			return position;
+		}
 	
-		for(int i=0; i<reportToBoIds.length; i++)
-			position.getReportToList().add(new Position(reportToBoIds[i]));
+		for(int i=0; i<reportToBoIds.length; i++) {
+			if(StringUtils.isNotEmpty(reportToBoIds[i])) {
+				position.addReportTo(new Position(reportToBoIds[i]));
+			}	
+		}
+		for(Position position1: position.getReportToList()) {
+			if(StringUtils.isEmpty(position1.getBoId())) {
+				logger.info("Position2222: "+position1);
+				System.exit(0);
+			}
+		}
+//		logger.info("Position3333: "+position);
+//		System.exit(0);
 		return position;
 	}
 	

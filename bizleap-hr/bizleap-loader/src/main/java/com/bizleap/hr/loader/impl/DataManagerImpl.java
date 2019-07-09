@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,7 +133,7 @@ public class DataManagerImpl implements DataManager {
 	public void associateData() {
 		if(!errorHandler.hasError()) {
 			associationMapper.setUpAssociations();
-			logger.info("*****associated!!******");
+			//logger.info("*****associated!!******");
 			return;
 		}
 		else if(errorHandler.hasError()) {
@@ -148,10 +150,36 @@ public class DataManagerImpl implements DataManager {
 		logger.info(addressList + "\n");
 	}
 	
+	public void testPositionList(String message) {
+		logger.info(message);
+		for(Position position: getPositionList()) {
+			logger.info("Position Boid:"+position.getBoId());
+			if(CollectionUtils.isEmpty(position.getReportToList())) 
+				continue;
+			for(Position position1: position.getReportToList()) {
+				if(position1.getEmployee() == null) {
+					logger.info("Position1111: "+position1);
+					//System.exit(0);
+				}
+			}
+			if(CollectionUtils.isEmpty(position.getReportByList())) 
+				continue;
+			for(Position position1: position.getReportByList()) {
+				if(position1.getEmployee() == null) {
+					logger.info("Position2222: "+position1);
+					//System.exit(0);
+				}
+			}
+		}
+		
+	}
+	
 	public void load() {
 		loadData();
+	//	testPositionList("after load data: ");
 		associateData();
-		printAllList();
+	//	testPositionList("after associate data: ");
+	//	printAllList();
 		saveData();
 	}
 }
