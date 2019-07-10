@@ -31,9 +31,9 @@
     
     <!-- aop:aspectj-autoproxy proxy-target-class="true"/ -->
 
-    <mvc:view-controller path="/login" view-name="login"/>
+<!--    <mvc:view-controller path="/login" view-name="login"/>-->
 
-    <mvc:view-controller path="/protected" view-name="protected" />
+<!--    <mvc:view-controller path="/protected" view-name="protected" />-->
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/" />

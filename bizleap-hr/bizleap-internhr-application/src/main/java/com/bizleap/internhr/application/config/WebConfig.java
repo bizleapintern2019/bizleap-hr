@@ -103,24 +103,24 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	 * public ViewResolver getView() { return view; }
 	 */
 
-//	@Bean
-//	public MultipartResolver multipartResolver() {
-//		return new CommonsMultipartResolver();
-//	}
+	@Bean
+	public MultipartResolver multipartResolver() {
+		return new CommonsMultipartResolver();
+	}
 
-//	@Bean
-//	public ViewResolver viewResolver() {
-//		if (viewResolver == null) {
-//			viewResolver = new ThymeleafViewResolver();
-//			viewResolver.setTemplateEngine(templateEngine());
-//			viewResolver.setOrder(1);
-//			viewResolver.setViewNames(new String[] { "*" });
-//			viewResolver.setCache(false);
-//			viewResolver.setCharacterEncoding("UTF-8");
-//			viewResolver.setContentType("text/html;charset=utf-8");
-//		}
-//		return viewResolver;
-//	}
+	@Bean
+	public ViewResolver viewResolver() {
+		if (viewResolver == null) {
+			viewResolver = new ThymeleafViewResolver();
+			viewResolver.setTemplateEngine(templateEngine());
+			viewResolver.setOrder(1);
+			viewResolver.setViewNames(new String[] { "*" });
+			viewResolver.setCache(false);
+			viewResolver.setCharacterEncoding("UTF-8");
+			viewResolver.setContentType("text/html;charset=utf-8");
+		}
+		return viewResolver;
+	}
 
 	@Bean
 	public MessageSource messageSource() {

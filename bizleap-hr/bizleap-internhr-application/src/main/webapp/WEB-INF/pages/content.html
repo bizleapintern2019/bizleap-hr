@@ -1,0 +1,62 @@
+<div id="employee-content" class="hide">
+<table class="content-table" id="content-table">
+	<tr th:each="employee : ${employeeList}" onclick="employeeDetail(this);" th:attr="id=${employee.boId}" >
+		<td><img th:src="@{/resources/img/profile.png}" width="50" ></img></td>
+		<td>
+			<span th:text="${employee.title}">Dr.</span>
+			<span th:text="${employee.firstName}">Kyar</span>
+			<span th:text="${employee.middleName}">Nyo</span>
+			<span th:text="${employee.lastName}">Aye</span><br /> 
+			<span th:text="${employee.boId}" style="font-family:sarif;"></span>
+		</td>
+	</tr>
+</table>
+<div class="pagination" id="employeePagination">
+	<input type="button" value="&lt;&lt;" onclick="employeeSearchFirst();" th:if="${employeeList!=null}" />
+	<input type="button" value="&lt;" onclick="employeeSearchPrevious();" th:if="${employeeList!=null}" />
+	<span id="employee-pagination-descriptor" />
+	<input type="button" value="&gt;" onclick="employeeSearchNext();" th:if="${employeeList!=null}" />
+	<input type="button" value="&gt;&gt;" onclick="employeeSearchEnd();" th:if="${employeeList!=null}" />	
+</div>
+</div>
+<div th:text="${employeeSize}" id="total-employee-size" class="hide"></div>
+<div id="customer-content" class="hide">
+<table class="content-table" id="content-table">
+	<tr th:each="customer : ${customerList}" onclick="customerDetail(this);" th:attr="id=${customer.boId}" >
+		<td><img th:src="@{/resources/img/profile.png}" width="50" ></img></td>
+		<td>
+			<span th:text="${customer.title}">Dr.</span>
+			<span th:text="${customer.firstName}">Kyar</span>
+			<span th:text="${customer.middleName}">Nyo</span>
+			<span th:text="${customer.lastName}">Aye</span><br /> 
+			<span th:text="${customer.boId}" style="font-family:sarif;"></span>
+		</td>
+	</tr>
+</table>
+<div class="pagination" id="customerPagination">
+	<input type="button" value="&lt;&lt;" onclick="customerSearchFirst();" th:if="${customerList!=null}" />
+	<input type="button" value="&lt;" onclick="customerSearchPrevious();" th:if="${customerList!=null}" />
+	<span id="customer-pagination-descriptor" />
+	<input type="button" value="&gt;" onclick="customerSearchNext();" th:if="${customerList!=null}" />
+	<input type="button" value="&gt;&gt;" onclick="customerSearchEnd();" th:if="${customerList!=null}" />	
+</div>
+</div>
+<div th:text="${customerSize}" id="total-customer-size" class="hide"></div>
+<div id="location-content" class="hide">
+<table class="content-table" id="content-table">
+	<tr th:each="location : ${locationList}" onclick="locationDetail(this);" th:attr="id=${location.boId}" >
+		<td>
+			<span th:text="${location.name}">Mingalardon</span><br /> 
+			<span th:text="${location.boId}" style="font-family:sarif;">LOC00001</span>
+		</td>
+	</tr>
+</table>
+<div class="pagination" id="locationPagination">
+	<input type="button" value="&lt;&lt;" onclick="locationSearchFirst();" th:if="${locationList!=null}" />
+	<input type="button" value="&lt;" onclick="locationSearchPrevious();" th:if="${locationList!=null}" />
+	<span id="location-pagination-descriptor" />
+	<input type="button" value="&gt;" onclick="locationSearchNext();" th:if="${locationList!=null}" />
+	<input type="button" value="&gt;&gt;" onclick="locationSearchEnd();" th:if="${locationList!=null}" />	
+</div>
+</div>
+<div th:text="${locationSize}" id="total-location-size" class="hide"></div>
