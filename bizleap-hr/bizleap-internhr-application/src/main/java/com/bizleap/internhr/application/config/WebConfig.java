@@ -88,11 +88,11 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		engine.setTemplateResolver(templateResolver());
 		//engine.addDialect(new MyDialet());
 		//engine.addDialect(new EmployeePermission());
-		PropertiesLoader loader = new PropertiesLoader("attribute.properties");
-		loader.merge(new PropertiesLoader("default.properties"));
-		loader.merge(new PropertiesLoader(prefix + "/" + prefix + ".properties"));
+//		PropertiesLoader loader = new PropertiesLoader("attribute.properties");
+//		loader.merge(new PropertiesLoader("default.properties"));
+//		loader.merge(new PropertiesLoader(prefix + "/" + prefix + ".properties"));
 		StandardMessageResolver messageResolver = new StandardMessageResolver();
-		messageResolver.setDefaultMessages(loader.getPerperties());
+//		messageResolver.setDefaultMessages(loader.getPerperties());
 		engine.addMessageResolver(messageResolver);
 		return engine;
 	}
