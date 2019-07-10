@@ -12,4 +12,5 @@ public interface DepartmentService {
 	List<Department> getAllDepartment() throws ServiceUnavailableException;
 	List<Department> findByBoId(String boId) throws ServiceUnavailableException;
 	List<Department> findByName(String name) throws ServiceUnavailableException;
+	void hibernateInitializedDepartmentList(List<Department> departmentList);
 }
