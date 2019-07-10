@@ -33,14 +33,13 @@ public class AddressServiceImpl implements AddressService {
 
 	public List<Address> getAll() throws ServiceUnavailableException {
 		
-		List<Address> addressList = addressDao.getAll("from Address address");
+		List<Address> addressList = addressDao.getAll("from Address");
 		return addressList;
 	}
 	
 	public Address findByBoId(String boId) throws ServiceUnavailableException {
 
 		String query = "from Address address where address.boId=:dataInput";
-		
 		List<Address> addressList = addressDao.findByString(query, boId);
 		if(CollectionUtils.isNotEmpty(addressList)) {
 			hibernateInitializedAddress(addressList.get(0));

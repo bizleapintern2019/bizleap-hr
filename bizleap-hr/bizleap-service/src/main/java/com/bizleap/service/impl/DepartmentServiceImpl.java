@@ -29,11 +29,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 		departmentDao.save(department);
 	}
 
+	@Transactional(readOnly = true)
 	public List<Department> getAllDepartment() throws ServiceUnavailableException {
 
-		List<Department> departmentList = departmentDao.getAll("From Department department");
+		List<Department> departmentList = departmentDao.getAll("from Department ");
 		if (CollectionUtils.isNotEmpty(departmentList)) {
-			hibernateInitializedList(departmentList);
+			hibernateInitializedDepartmentList(departmentList);
 			return departmentList;
 		}
 		return null;
@@ -42,28 +43,34 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Transactional(readOnly = true)
 	public List<Department> findByBoId(String boId) throws ServiceUnavailableException {
 
-		String query = "select department from Department department where department.boId=:dataInput";
+		String query = "from Department department where department.boId=:dataInput";
 		List<Department> departmentList = departmentDao.findByString(query, boId);
-		hibernateInitializedList(departmentList);
-		return departmentList;
+		if (CollectionUtils.isNotEmpty(departmentList)) {
+			hibernateInitializedDepartmentList(departmentList);
+			return departmentList;
+		}
+		return null;
 	}
 
 	@Transactional(readOnly = true)
 	public List<Department> findByName(String name) throws ServiceUnavailableException {
 
-		String query = "select department from Department department where department.name=:dataInput";
+		String query = "from Department department where department.name=:dataInput";
 		List<Department> departmentList = departmentDao.findByString(query, name);
-		hibernateInitializedList(departmentList);
-		return departmentList;
+		if (CollectionUtils.isNotEmpty(departmentList)) {
+			hibernateInitializedDepartmentList(departmentList);
+			return departmentList;
+		}
+		return null;
 	}
 
 	public void hibernateInitializedPosition(Position position) {
-		Hibernate.initialize(position);
 		Hibernate.initialize(position);
 	}
 
 	public void hibernateInitializedPositionList(List<Position> positionList) {
 		for (Position position : positionList) {
+			hibernateInitializedPosition(position);
 			Hibernate.initialize(position.getReportToList());
 			Hibernate.initialize(position.getReportByList());
 		}
@@ -71,23 +78,37 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	public void hibernateInitializedJob(Job job) {
 		Hibernate.initialize(job);
+		hibernateInitializedPositionList(job.getPositionList());
 	}
 
 	public void hibernateInitializedJobList(List<Job> jobList) {
 		for (Job job : jobList) {
-			Hibernate.initialize(job.getPositionList());
+			hibernateInitializedJob(job);
 		}
 	}
 
 	public void hibernateInitializedDepartment(Department department) {
 		Hibernate.initialize(department);
-		Hibernate.initialize(department.getJobList());
-
+		hibernateInitializedJobList(department.getJobList());
 	}
 
-	public void hibernateInitializedList(List<Department> departmentList) {
+	public void hibernateInitializedDepartmentList(List<Department> departmentList) {
 		for (Department department : departmentList) {
 			hibernateInitializedDepartment(department);
 		}
 	}
+	
+	/*public void hibernateInitializedDepartmentList(List<Department> departmentList) {
+		for(Department department : departmentList) {
+			Hibernate.initialize(department);
+			Hibernate.initialize(department.getJobList());
+			for(Job job : department.getJobList()) {
+				Hibernate.initialize(job.getPositionList());
+				for(Position position : job.getPositionList()) {
+					Hibernate.initialize(position.getReportToList());
+					Hibernate.initialize(position.getReportByList());
+				}
+			}
+		}
+	}*/
 }

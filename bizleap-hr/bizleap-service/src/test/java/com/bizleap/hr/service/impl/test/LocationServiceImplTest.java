@@ -1,7 +1,5 @@
 package com.bizleap.hr.service.impl.test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,20 +9,15 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
-import com.bizleap.internhr.service.resource.impl.client.LocationServiceRestClient;
 import com.bizleap.service.LocationService;
+
 
 public class LocationServiceImplTest extends ServiceTest {
 
@@ -33,6 +26,7 @@ public class LocationServiceImplTest extends ServiceTest {
 	@Autowired
 	LocationService locationService;
 
+	@Ignore
 	@Test
 	public void testSaveLocation() {
 
@@ -74,6 +68,25 @@ public class LocationServiceImplTest extends ServiceTest {
 
 		logger.info(location);
 	}
+	
+	private int assertLocation(Location location, String boId, String name) {
+		if(location.getBoId().equals(boId)) {
+			Assert.assertEquals(name, location.getName());
+			return 1;
+		}
+		return 0;
+	}
+	
+	private void testLocationList(List<Location> locationList) throws ServiceUnavailableException {
+		Assert.assertTrue(locationList != null && locationList.size() == 2);
+		int successCount = 0;
+		for(Location location : locationList) {
+			successCount += assertLocation(location, "LOC001", "Yangon");
+			successCount += assertLocation(location, "LOC002", "Mandalay");
+		}
+		Assert.assertTrue(successCount == 2);
+	}
+
 
 	@Test
 	public void testGetAllLocations() throws Exception {
@@ -83,8 +96,7 @@ public class LocationServiceImplTest extends ServiceTest {
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		}
-		assertEquals(2, locationService.getAll().size());
-		
+		Assert.assertEquals(2, locationService.getAll().size());
 	}
 
 	public int assertLocation(Location location,String boId,String name,String departmentList) {
@@ -98,40 +110,28 @@ public class LocationServiceImplTest extends ServiceTest {
 	}
 	
 	@Test
-	public void testLocationList(List<Location> locationList) throws Exception {
-		Assert.assertTrue(locationList != null && locationList.size() == 2);
-		int successCount=0;
-		for(Location location : locationList) {
-			successCount+=assertLocation(location,"LOC001","Yangon","DEPT001,DEPT002");
-			successCount+=assertLocation(location,"LOC002","Mandalay","DEPT003,DEPT004");
-			Assert.assertTrue(successCount==1);
-			successCount=0;
-		}
-	}
-	
-	@Test
 	public void testFindByBoId() {
-
 		try {
-
 			List<Location> locationList = locationService.findByBoId("LOC001");
 
-			if (!CollectionUtils.isEmpty(locationList))
-				logger.info("Location Name: " + locationList.get(0).getName());
+			if (!CollectionUtils.isEmpty(locationList)) {
+				Assert.assertEquals("Yangon", locationList.get(0).getName());
+			}
 		} catch (ServiceUnavailableException e) {
-			logger.info(e);
+			logger.error(e);
 		}
 
 	}
 
-	@Ignore
 	@Test
 	public void testFindByName() {
 		try {
 			List<Location> locationList = locationService.findByName("Yangon");
-			if (!CollectionUtils.isEmpty(locationList))
-				logger.info("Location BoId: " + locationList.get(0).getBoId() + "\nDepartment Name: "
-						+ locationList.get(0).getDepartmentList().get(0).getName());
+			if (!CollectionUtils.isEmpty(locationList)) {
+				Assert.assertEquals("LOC001", locationList.get(0).getBoId());
+				Assert.assertEquals(2, locationList.get(0).getDepartmentList().size());
+			}
+			
 		} catch (ServiceUnavailableException e) {
 			e.printStackTrace();
 		}
