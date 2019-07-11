@@ -10,10 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bizleap.commons.domain.entity.Address;
-import com.bizleap.commons.domain.entity.Department;
-import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.Job;
-import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.AddressDao;
 import com.bizleap.service.AddressService;
@@ -21,7 +17,7 @@ import com.bizleap.service.AddressService;
 //@Author: Thihan Hein
 //@Service("addressService1")
 @Service
-//@Transactional(readOnly = true)
+@Transactional(readOnly = true)
 public class AddressServiceImpl implements AddressService {
 	
 	@Autowired
@@ -31,14 +27,18 @@ public class AddressServiceImpl implements AddressService {
 		addressDao.save(address);
 	}
 
+	@Transactional(readOnly = true)
 	public List<Address> getAll() throws ServiceUnavailableException {
-		
-		List<Address> addressList = addressDao.getAll("from Address");
-		return addressList;
+		List<Address> addressList = addressDao.getAll("from Address address");
+		if(CollectionUtils.isNotEmpty(addressList)) {
+			hibernateInitializedList(addressList);
+			return addressList;
+		}
+		return null;
 	}
 	
+	@Transactional(readOnly = true)
 	public Address findByBoId(String boId) throws ServiceUnavailableException {
-
 		String query = "from Address address where address.boId=:dataInput";
 		List<Address> addressList = addressDao.findByString(query, boId);
 		if(CollectionUtils.isNotEmpty(addressList)) {
@@ -48,6 +48,7 @@ public class AddressServiceImpl implements AddressService {
 		return null;
 	}
 	
+	@Transactional(readOnly = true)
 	public List<Address> findByCity(String city) throws ServiceUnavailableException {
 
 		String query = "from Address address where address.city=:dataInput";
@@ -59,6 +60,7 @@ public class AddressServiceImpl implements AddressService {
 		return null;
 	}
 	
+	@Transactional(readOnly = true)
 	public List<Address> findByCountry(String country) throws ServiceUnavailableException {
 
 		String query = "from Address address where address.country=:dataInput";
@@ -70,6 +72,7 @@ public class AddressServiceImpl implements AddressService {
 		return null;
 	}
 	
+	@Transactional(readOnly = true)
 	public List<Address> findByState(String state) throws ServiceUnavailableException {
 
 		String query = "from Address address where address.state=:dataInput";

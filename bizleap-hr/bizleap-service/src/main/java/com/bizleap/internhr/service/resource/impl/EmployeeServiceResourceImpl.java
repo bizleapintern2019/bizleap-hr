@@ -44,7 +44,7 @@ public class EmployeeServiceResourceImpl implements EmployeeServiceResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
-	public @ResponseBody List<Employee> findByBoId(HttpServletRequest request,
+	public @ResponseBody Employee findByBoId(HttpServletRequest request,
 		   @PathVariable String boId) throws ServiceUnavailableException {
 		return employeeService.findByBoId(boId);
 	}

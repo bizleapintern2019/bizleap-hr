@@ -5,7 +5,7 @@ ADR003;No.(59),Wizarya Street;No.(59),Wizarya Street;Yangon;Yangon;Myanmar
 ADR004;No.(80),Bosan Street;No.(80),Bosan Street;Yangon;Yangon;Myanmar
 ADR005;No.(76),Thanlan Street;No.(76),www.email.com;Bago;Bago;Myanmar
 ADR006;Building(11),Room(4),No.(1),industrial Road;Building(11),Room(4),No.(1),industrial Road;Bahan Township;Yangon;Myanmar
-ADR007;No.(56),Oak Lan Street;No.(56),Oak Lan Street;San Chaung Townshiop;Yangon;Myanmar
+ADR007;No.(56),Oak Lan Street;No.(56),Oak Lan Street;San Chaung Township;Yangon;Myanmar
 ADR008;Aung Chan Than Street,North of Thandanpin;Aung Chan Than Street,North of Thandanpin;Hmawbi Township;Yangon;Myanmar
 ADR009;No.(54),Oo ohn Shwe Street,SatKaLay Yard;No.(54),Oo ohn Shwe Street,SatKaLay Yard;Insein Township;Yangon;Myanmar
 ADR010;No.(1182),Rose Street ,Kamakasit Yard;No.(1182),Rose Street ,Kamakasit Yard;Tharkayta Township;Yangon;Myanmar
