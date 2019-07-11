@@ -26,6 +26,7 @@ public class Employee extends AbstractEntity {
 	private Position position;
 	
 //	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Address address;

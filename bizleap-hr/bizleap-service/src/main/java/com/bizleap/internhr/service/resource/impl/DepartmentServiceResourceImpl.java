@@ -27,7 +27,7 @@ public class DepartmentServiceResourceImpl implements DepartmentServiceResource 
 	
 	@RequestMapping(method=RequestMethod.GET,value="/list")
 	public @ResponseBody List<Department> getAllDepartments(HttpServletRequest request) throws ServiceUnavailableException {
-		return departmentService.getAllDepartment();
+		return departmentService.getAll();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/new")

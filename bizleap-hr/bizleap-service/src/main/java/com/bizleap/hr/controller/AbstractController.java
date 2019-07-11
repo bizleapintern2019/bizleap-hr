@@ -1,12 +1,9 @@
-package com.bizleap.hr.controller;
-
-import java.util.List;
+/*package com.bizleap.hr.controller;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Service
 public class AbstractController {
@@ -18,7 +15,7 @@ public class AbstractController {
 		httpSession.invalidate();
 	}
 
-	/*@ModelAttribute("user")
+	@ModelAttribute("user")
 	public User initUser() {
 		UserProfile profile = (UserProfile) httpSession.getAttribute("profile");
 		if (profile == null)
@@ -40,5 +37,6 @@ public class AbstractController {
 				return true;
 		}
 		return false;
-	}*/
+	}
 }
+*/

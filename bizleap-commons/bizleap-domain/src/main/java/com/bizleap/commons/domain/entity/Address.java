@@ -20,6 +20,7 @@ public class Address extends AbstractEntity {
 	private String state;
 	private String country;
 	
+	@JsonIgnore
 	@OneToOne
 	private Employee employee;
 	

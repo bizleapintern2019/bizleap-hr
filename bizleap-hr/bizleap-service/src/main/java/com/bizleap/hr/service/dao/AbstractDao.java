@@ -17,4 +17,5 @@ public interface AbstractDao<E, I extends Serializable> {
     long getCount(String queryString);
     List<E> getAll(String queryString);
     List<E> getAll(String queryString, int pageNumber);
+    List<E> findByLong(String queryString, long data);
 }

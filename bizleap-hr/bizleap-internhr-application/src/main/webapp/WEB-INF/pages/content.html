@@ -43,13 +43,70 @@
 </div>
 <div th:text="${customerSize}" id="total-customer-size" class="hide"></div> -->
 
+
 <div id="location-content" class="hide">
 <table class="content-table" id="content-table">
-	<tr th:each="location : ${locationList}" onclick="locationDetail(this);" th:attr="id=${location.boId}" >
+	<tr th:each="location : ${locationList}" onclick="getDetail(this,'LOCATION');" th:attr="id=${location.boId}" >
 		<td>
-			<span th:text="${location.name}">Mingalardon</span><br /> 
-			<span th:text="${location.boId}" style="font-family:sarif;">LOC00001</span>
+			<span th:text="${location.name}"></span><br /> 
 		</td>
 	</tr>
 </table>
 </div>
+
+<div id="department-content" class="hide">
+<table class="content-table" id="content-table">
+	<tr th:each="department : ${departmentList}" onclick="getDetail(this,'DEPARTMENT')" th:attr="id=${department.boId}" >
+		<td>
+			<span th:text="${department.name}"></span><br /> 
+		</td>
+	</tr>
+</table>
+</div>
+
+<div id="job-content" class="hide">
+<table class="content-table" id="content-table">
+	<tr th:each="job : ${jobList}" onclick="getDetail(this,'JOB')" th:attr="id=${job.boId}" >
+		<td>
+			<span th:text="${job.jobTitle}"></span><br /> 
+		</td>
+	</tr>
+</table>
+</div>
+
+<!-- <div id="position-content" class="hide">
+<table class="content-table" id="content-table">
+	<tr th:each="position : ${positionList}" onclick="getDetail(this,'POSITION')" th:attr="id=${position.boId}" >
+		<td>
+			<span th:text="${position.boId}" style="font-family:sarif;"></span>
+		</td>
+	</tr>
+</table>
+</div> -->
+
+<div id="employee-content" class="hide">
+<table class="content-table" id="content-table">
+	<tr th:each="employee : ${employeeList}" onclick="getDetail(this,'EMPLOYEE')" th:attr="id=${employee.boId}" >
+		<td>
+			<span th:text="${employee.title}"></span>&nbsp;
+			<span th:text="${employee.firstName}"></span>&nbsp;
+			<span th:text="${employee.lastName}"></span><br /> 
+		</td>
+	</tr>
+</table>
+</div>
+
+<!-- <div id="address-content" class="hide">
+<table class="content-table" id="content-table">
+	<tr th:each="address : ${addressList}" onclick="getDetail(this,'ADDRESS')" th:attr="id=${address.boId}" >
+		<td>
+			<span th:text="${address.permanentAddress}"></span><br /> 
+			<span th:text="${address.contactAddress}"></span><br /> 
+			<span th:text="${address.city}"></span><br /> 
+			<span th:text="${address.state}"></span><br /> 
+			<span th:text="${address.country}"></span><br /> 
+			<span th:text="${address.boId}" style="font-family:sarif;"></span>
+		</td>
+	</tr>
+</table>
+</div> -->

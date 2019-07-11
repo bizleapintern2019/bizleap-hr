@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,8 +23,13 @@ public class JobServiceImplTest extends ServiceTest {
 	@Autowired
 	JobService jobService;
 
+
 	//	@Autowired
 	//	JobTest jobTest;
+
+
+	@Ignore
+
 	@Test
 	public void testSaveJob() {
 		Job job = new Job();
@@ -112,6 +118,16 @@ public class JobServiceImplTest extends ServiceTest {
 
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
+		}
+	}
+	
+	@Test
+	public void testFindJobByPositionBoId() {
+		try {
+			Job job = jobService.findJobByPositionBoId("JOB001-1");
+			logger.info(job);
+		} catch (ServiceUnavailableException e) {
+			e.printStackTrace();
 		}
 	}
 

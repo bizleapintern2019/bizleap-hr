@@ -1,11 +1,8 @@
 package com.bizleap.hr.service.impl.test;
 
 
-import com.bizleap.commons.domain.entity.Department;
+
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.Job;
-import com.bizleap.commons.domain.entity.Location;
-import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.AddressService;
@@ -17,7 +14,6 @@ import org.junit.Assert;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +111,82 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		}
 	}
 	
+
+	@Test
+	public void testGetAll() {
+		try {
+			List<Employee> employeeList = employeeService.getAll();
+				logger.info(employeeList);
+		} catch (ServiceUnavailableException e) {
+			logger.error("In Service Test: "+e);
+		}
+	}
 }
+	
+//	@Test
+//	public void testGetAll() {
+//		try {
+//			List<Employee> employeeList = employeeService.getAll();
+//			if(!CollectionUtils.isEmpty(employeeList)){
+//				employeeService.hibernateInitializedList(employeeList);
+//				Assert.assertTrue(employeeList.size()==25);
+//			}
+//		} catch (ServiceUnavailableException e) {
+//			logger.error("In Service Test: "+e);
+//		}
+//	}
+//	
+//	@Test
+//	public void testFindByBoId() {
+//		try {
+//			List<Employee> employeeList = employeeService.findByBoId("EMP001");
+//			if(!CollectionUtils.isEmpty(employeeList)){
+//				employeeService.hibernateInitializedList(employeeList);
+//				Assert.assertTrue(employeeList.size()==2);
+//			}
+//		} catch (ServiceUnavailableException e) {
+//			logger.error("In Service Test: "+e);
+//		}
+//	}
+//	
+//	@Test
+//	public void testFindByFirstName() {
+//		try {
+//			List<Employee> employeeList = employeeService.findByFirstName("Kaung");
+//			if(!CollectionUtils.isEmpty(employeeList)){
+//				employeeService.hibernateInitializedList(employeeList);
+//				Assert.assertTrue(employeeList.size()==2);
+//			}
+//		} catch (ServiceUnavailableException e) {
+//			logger.error("In Service Test: "+e);
+//		}
+//	}
+//	
+//	@Test
+//	public void testFindByLastName() {
+//		try {
+//			List<Employee> employeeList = employeeService.findByLastName("Shein");
+//			if(!CollectionUtils.isEmpty(employeeList)){
+//				employeeService.hibernateInitializedList(employeeList);
+//				Assert.assertTrue(employeeList.size()==25);
+//			}
+//		} catch (ServiceUnavailableException e) {
+//			logger.error("In Service Test: "+e);
+//		}
+//	}
+//	
+//	@Test
+//	public void testFindByGender() {
+//		try {
+//			List<Employee> employeeList = employeeService.findByGender("Male");
+//			if(!CollectionUtils.isEmpty(employeeList)){
+//				employeeService.hibernateInitializedList(employeeList);
+//				Assert.assertTrue(employeeList.size()==14);
+//			}
+//		} catch (ServiceUnavailableException e) {
+//			logger.error("In Service Test: "+e);
+//		}
+//	}
 //public static int testAssertLocation(Location location,String boId, String name) {
 //if(location.getBoId().equals(boId)) {
 //	Assert.assertEquals(name, location.getName());

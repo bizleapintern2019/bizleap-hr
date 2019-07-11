@@ -34,7 +34,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		departmentDao.save(department);
 	}
 	
-	public List<Department> getAllDepartment() throws ServiceUnavailableException {
+	public List<Department> getAll() throws ServiceUnavailableException {
 
 		List<Department> departmentList = departmentDao.getAll("from Department ");
 		if (CollectionUtils.isNotEmpty(departmentList)) {

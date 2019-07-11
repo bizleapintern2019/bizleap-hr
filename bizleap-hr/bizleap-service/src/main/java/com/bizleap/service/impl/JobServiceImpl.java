@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
@@ -73,6 +74,23 @@ public class JobServiceImpl implements JobService {
 		}
 		return null;
 	}
+	
+	@Transactional(readOnly = true)
+	public Job findJobByPositionBoId(String positionBoId) throws ServiceUnavailableException {
+		Position position = positionService.findByBoId(positionBoId);
+		String query = "select job from Job job inner join job.positionList position where position.id=:dataInput";
+		List<Job> jobList = jobDao.findByLong(query, position.getId());
+		if(!CollectionUtils.isEmpty(jobList)){
+			hibernateInitializedList(jobList);
+			return jobList.get(0);
+		}
+		return null;
+	}
+	
+	public void hibernateInitializedJob(Job job) {
+		Hibernate.initialize(job);
+		positionService.hibernateInitializedList(job.getPositionList());
+	}
 
 	
 	public void hibernateInitializeJob(Job job){
@@ -87,7 +105,7 @@ public class JobServiceImpl implements JobService {
 	
 	public void hibernateInitializedList(List<Job> jobList) {
 		for(Job job : jobList) {
-			hibernateInitializeJob(job);
+			hibernateInitializedJob(job);
 		}
 	}
 }

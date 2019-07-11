@@ -111,4 +111,15 @@ public class PositionServiceImplTest extends ServiceTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testFindPostionByEmployeeBoId() {
+		try {
+			Position position = positionService.findPositionByEmployeeBoId("EMP001");
+			logger.info(position);
+		} catch (ServiceUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

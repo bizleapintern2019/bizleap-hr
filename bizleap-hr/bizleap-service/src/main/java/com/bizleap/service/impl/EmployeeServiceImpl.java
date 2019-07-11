@@ -3,32 +3,33 @@ package com.bizleap.service.impl;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.bizleap.commons.domain.entity.Department;
+
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.Job;
-import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.EmployeeDao;
+import com.bizleap.service.AddressService;
 import com.bizleap.service.EmployeeService;
 
 //@Author: Nyan Lin Htet
 @Service
-//@Transactional(readOnly = true)
+@Transactional(readOnly = true)
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeDao employeeDao;
 
+	@Autowired
+	private AddressService addressService;
+
+	@Transactional(readOnly = false)
 	public void saveEmployee(Employee employee) throws IOException, ServiceUnavailableException {
 		employeeDao.save(employee);
 	}
 
-	@Transactional(readOnly = true)
 	public List<Employee> getAll() throws ServiceUnavailableException {
 		List<Employee> employeeList = employeeDao.getAll("from Employee employee");
 		if(employeeList.size() != 0 || employeeList != null) {
@@ -38,7 +39,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 
-	@Transactional(readOnly = true)
 	public Employee findByBoId(String boId) throws ServiceUnavailableException {
 
 		String query = "from Employee employee where employee.boId=:dataInput";
@@ -50,7 +50,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 	
-	@Transactional(readOnly = true)
 	public List<Employee> findByFirstName(String firstName) throws ServiceUnavailableException {
 
 		String query = "from Employee employee where employee.firstName=:dataInput";
@@ -67,6 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		String query = "from Employee employee where employee.lastName=:dataInput";
 		List<Employee> employeeList = employeeDao.findByString(query, lastName);
+
 		if(employeeList.size() != 0 || employeeList != null) {
 			hibernateInitializedList(employeeList);
 			return employeeList;
@@ -74,24 +74,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 
-	@Transactional(readOnly = true)
+	
 	public List<Employee> findByGender(String gender) throws ServiceUnavailableException {
 
 		String query = "from Employee employee where employee.gender=:dataInput";
 		List<Employee> employeeList = employeeDao.findByString(query, gender);
+
 		if(employeeList.size() != 0 || employeeList != null) {
+
 			hibernateInitializedList(employeeList);
 			return employeeList;
 		}
 		return null;
 	}
-	
+
 	public void hibernateInitializedEmployee(Employee employee) {
 		Hibernate.initialize(employee);
-		Hibernate.initialize(employee.getAddress());
-		Hibernate.initialize(employee.getPosition());
 	}
-	
+
 	public void hibernateInitializedList(List<Employee> employeeList) {
 		for(Employee employee : employeeList) {
 			hibernateInitializedEmployee(employee);	

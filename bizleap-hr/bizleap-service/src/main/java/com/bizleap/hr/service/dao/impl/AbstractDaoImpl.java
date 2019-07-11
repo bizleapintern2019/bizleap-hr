@@ -72,6 +72,15 @@ public abstract class AbstractDaoImpl<E, I extends Serializable> implements Abst
             Hibernate.initialize(entity);
         return entityList;
     }
+    
+    public List<E> findByLong(String queryString, long data) {
+        List<E> entityList;
+        Query query = getCurrentSession().createQuery(queryString).setResultTransformer(RootEntityResultTransformer.INSTANCE).setParameter("dataInput", data);
+        entityList = query.list();
+        for (E entity : entityList)
+            Hibernate.initialize(entity);
+        return entityList;
+    }
 
     public List<E> findByString(String queryString, String data, String data1) {
         List<E> entityList;

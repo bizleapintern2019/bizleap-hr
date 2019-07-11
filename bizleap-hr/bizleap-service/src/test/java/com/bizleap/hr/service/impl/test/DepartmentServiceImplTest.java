@@ -1,17 +1,16 @@
 package com.bizleap.hr.service.impl.test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.junit.Assert;
 
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Location;
@@ -87,7 +86,7 @@ public class DepartmentServiceImplTest extends ServiceTest {
 	@Test
 	public void testGetAllDepartment() throws ServiceUnavailableException {
 		try {
-			testDepartment(departmentService.getAllDepartment());
+			testDepartment(departmentService.getAll());
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		}

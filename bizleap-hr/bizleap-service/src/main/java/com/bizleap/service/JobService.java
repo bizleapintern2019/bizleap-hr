@@ -14,4 +14,5 @@ public interface JobService {
 	List<Job> findByTitle(String title) throws ServiceUnavailableException;
 	List<Job> findBySalary(int salary) throws ServiceUnavailableException;
 	void hibernateInitializedList(List<Job> jobList);
+	Job findJobByPositionBoId(String positionBoId) throws ServiceUnavailableException;
 }

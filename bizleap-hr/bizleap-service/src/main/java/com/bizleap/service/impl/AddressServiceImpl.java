@@ -15,7 +15,6 @@ import com.bizleap.hr.service.dao.AddressDao;
 import com.bizleap.service.AddressService;
 
 //@Author: Thihan Hein
-//@Service("addressService1")
 @Service
 @Transactional(readOnly = true)
 public class AddressServiceImpl implements AddressService {
@@ -23,6 +22,7 @@ public class AddressServiceImpl implements AddressService {
 	@Autowired
 	private AddressDao addressDao;
 
+	@Transactional(readOnly = false)
 	public void saveAddress(Address address) throws IOException, ServiceUnavailableException {
 		addressDao.save(address);
 	}

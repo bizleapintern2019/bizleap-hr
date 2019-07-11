@@ -11,12 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.bizleap.commons.domain.entity.Department;
+import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.PositionDao;
-
+import com.bizleap.service.EmployeeService;
 import com.bizleap.service.PositionService;
 
 //@Author: Kay Zin Han
@@ -25,6 +26,9 @@ import com.bizleap.service.PositionService;
 public class PositionServiceImpl implements PositionService {
 	@Autowired
 	private PositionDao positionDao;
+	
+	@Autowired
+	private EmployeeService employeeService;
 	
 	public void savePosition(Position position) throws IOException, ServiceUnavailableException {
 		positionDao.save(position);
@@ -46,6 +50,18 @@ public class PositionServiceImpl implements PositionService {
 
 		String query = "from Position position where position.boId=:dataInput";
 		List<Position> positionList = positionDao.findByString(query, boId);
+		if(!CollectionUtils.isEmpty(positionList)){
+			hibernateInitializedList(positionList);
+			return positionList.get(0);
+		}
+		return null;
+	}
+	
+	@Transactional(readOnly = true)
+	public Position findPositionByEmployeeBoId(String employeeBoId) throws ServiceUnavailableException {
+		Employee employee = employeeService.findByBoId(employeeBoId);
+		String query = "from Position position where position.employee.id=:dataInput";
+		List<Position> positionList = positionDao.findByLong(query, employee.getId());
 		if(!CollectionUtils.isEmpty(positionList)){
 			hibernateInitializedList(positionList);
 			return positionList.get(0);

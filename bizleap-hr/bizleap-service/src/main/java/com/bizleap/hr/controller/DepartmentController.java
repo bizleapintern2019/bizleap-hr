@@ -12,32 +12,32 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bizleap.commons.domain.entity.Location;
+import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
-import com.bizleap.service.LocationService;
+import com.bizleap.service.DepartmentService;
 
 @Controller
-@RequestMapping(value = "/location")
-public class LocationController {
+@RequestMapping(value = "/department")
+public class DepartmentController {
 
-	private static Logger logger = Logger.getLogger(LocationController.class);
+	private static Logger logger = Logger.getLogger(DepartmentController.class);
 
 	@Autowired
-	private LocationService locationService;
+	private DepartmentService departmentService;
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public String getAllLocations(HttpServletRequest request, Model model) {
+	public String getAllDepartments(HttpServletRequest request, Model model) {
 
-		List<Location> locationList = new ArrayList<Location>();
+		List<Department> departmentList = new ArrayList<Department>();
 
 		try {
-			locationList = locationService.getAll();
+			departmentList = departmentService.getAll();
 		} 
 		catch (ServiceUnavailableException e) {
 			logger.error(e);
 		}
 
-		model.addAttribute("locationList", locationList);
+		model.addAttribute("departmentList", departmentList);
 		return "content";
 	}
 }
