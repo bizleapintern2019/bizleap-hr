@@ -1,6 +1,7 @@
 package com.bizleap.hr.service.impl.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.Assert;
-import org.junit.Ignore;
 
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Location;
@@ -63,28 +63,46 @@ public class DepartmentServiceImplTest extends ServiceTest {
 		}
 		logger.info(department);
 	}
+	
+	public static int testAssertDepartment(Department department,String boId,String name) {
+		if(department.getBoId().equals(boId)) {
+			Assert.assertEquals(name, department.getName());
+			return 1;
+		}
+		return 0;
+	}
+
+	public static void testDepartment(List<Department> departmentList) {
+		assertTrue(departmentList!=null);
+		int successsCount=0;
+		for(Department department:departmentList) {
+			successsCount+=testAssertDepartment(department, "DEPT001", "BOD");
+			successsCount+=testAssertDepartment(department, "DEPT002", "Engineering");
+			successsCount+=testAssertDepartment(department, "DEPT003", "Internship");
+			successsCount+=testAssertDepartment(department, "DEPT004", "Customer Support");
+		}
+		assertTrue(successsCount==4);
+	}
 
 	@Test
-	public void getAllLocations() throws ServiceUnavailableException {
+	public void testGetAllDepartment() throws ServiceUnavailableException {
 		try {
-			for (Department department : departmentService.getAllDepartment()) {
-				logger.info(department.getBoId());
-			}
+			testDepartment(departmentService.getAllDepartment());
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		}
-//		assertEquals(2, locationService.getAll().size());
 	}
 
 	@Test
 	public void testFindByBoId() {
 		try {
-			List<Department> departmentList = departmentService.findByBoId("DEPT001");
-			if (!CollectionUtils.isEmpty(departmentList))
-				logger.info("Department Name: " + departmentList.get(0).getName()
-						+ departmentList.get(0).getJobList().size());
+			List<Department> departmentList = departmentService.findByBoId("DEPT003");
+			if (!CollectionUtils.isEmpty(departmentList)) {
+				Assert.assertEquals(6, departmentList.get(0).getJobList().size());
+				Assert.assertEquals("InternShip", departmentList.get(0).getName());
+			}
 		} catch (ServiceUnavailableException e) {
-			logger.info(e);
+			logger.error(e);
 		}
 	}
 
@@ -92,10 +110,10 @@ public class DepartmentServiceImplTest extends ServiceTest {
 	public void testFindByName() {
 		try {
 			List<Department> departmentList = departmentService.findByName("Engineering");
-			if (!CollectionUtils.isEmpty(departmentList))
-				logger.info("Department BoId: " + departmentList.get(0).getBoId());
+			if (!CollectionUtils.isEmpty(departmentList)) 
+				Assert.assertEquals("DEPT002", departmentList.get(0).getBoId());
 		} catch (ServiceUnavailableException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 }

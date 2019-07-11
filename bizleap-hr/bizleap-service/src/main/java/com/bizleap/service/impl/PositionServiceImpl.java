@@ -33,7 +33,7 @@ public class PositionServiceImpl implements PositionService {
 	@Transactional(readOnly = true)
 	public List<Position> getAll() throws ServiceUnavailableException {
 		
-		List<Position> positionList = positionDao.getAll("From Position position");
+		List<Position> positionList = positionDao.getAll("From Position");
 		if(!CollectionUtils.isEmpty(positionList)){
 			hibernateInitializedList(positionList);
 			return positionList;

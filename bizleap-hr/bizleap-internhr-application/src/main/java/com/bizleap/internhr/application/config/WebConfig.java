@@ -88,11 +88,11 @@ public class WebConfig extends WebMvcConfigurationSupport {
 		engine.setTemplateResolver(templateResolver());
 		//engine.addDialect(new MyDialet());
 		//engine.addDialect(new EmployeePermission());
-		PropertiesLoader loader = new PropertiesLoader("attribute.properties");
-		loader.merge(new PropertiesLoader("default.properties"));
-		loader.merge(new PropertiesLoader(prefix + "/" + prefix + ".properties"));
+//		PropertiesLoader loader = new PropertiesLoader("attribute.properties");
+//		loader.merge(new PropertiesLoader("default.properties"));
+//		loader.merge(new PropertiesLoader(prefix + "/" + prefix + ".properties"));
 		StandardMessageResolver messageResolver = new StandardMessageResolver();
-		messageResolver.setDefaultMessages(loader.getPerperties());
+//		messageResolver.setDefaultMessages(loader.getPerperties());
 		engine.addMessageResolver(messageResolver);
 		return engine;
 	}
@@ -103,24 +103,24 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	 * public ViewResolver getView() { return view; }
 	 */
 
-//	@Bean
-//	public MultipartResolver multipartResolver() {
-//		return new CommonsMultipartResolver();
-//	}
+	@Bean
+	public MultipartResolver multipartResolver() {
+		return new CommonsMultipartResolver();
+	}
 
-//	@Bean
-//	public ViewResolver viewResolver() {
-//		if (viewResolver == null) {
-//			viewResolver = new ThymeleafViewResolver();
-//			viewResolver.setTemplateEngine(templateEngine());
-//			viewResolver.setOrder(1);
-//			viewResolver.setViewNames(new String[] { "*" });
-//			viewResolver.setCache(false);
-//			viewResolver.setCharacterEncoding("UTF-8");
-//			viewResolver.setContentType("text/html;charset=utf-8");
-//		}
-//		return viewResolver;
-//	}
+	@Bean
+	public ViewResolver viewResolver() {
+		if (viewResolver == null) {
+			viewResolver = new ThymeleafViewResolver();
+			viewResolver.setTemplateEngine(templateEngine());
+			viewResolver.setOrder(1);
+			viewResolver.setViewNames(new String[] { "*" });
+			viewResolver.setCache(false);
+			viewResolver.setCharacterEncoding("UTF-8");
+			viewResolver.setContentType("text/html;charset=utf-8");
+		}
+		return viewResolver;
+	}
 
 	@Bean
 	public MessageSource messageSource() {

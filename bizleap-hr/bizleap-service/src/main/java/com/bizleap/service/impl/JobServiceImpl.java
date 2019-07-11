@@ -33,8 +33,7 @@ public class JobServiceImpl implements JobService {
 
 	@Transactional(readOnly = true)
 	public List<Job> getAll() throws ServiceUnavailableException {
-		List<Job> jobList = jobDao.getAll("from Job job");
-		
+		List<Job> jobList = jobDao.getAll("from Job");
 		if(!CollectionUtils.isEmpty(jobList)) {
 			hibernateInitializedList(jobList);
 			return jobList;

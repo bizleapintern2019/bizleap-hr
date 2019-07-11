@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title th:text="#{title.name}">Shwe Pa Zon</title>
+	<link rel="shoutcut icon" th:href="${titleLogo}" />
+
+	<link rel="stylesheet" th:href="@{/resources/css/shwepazon.css}"
+		  type="text/css" />
+	<link rel="stylesheet" th:href="@{/resources/js/ui/jquery-ui.theme.css}"
+		  type="text/css" />
+	<link rel="stylesheet" th:href="@{/resources/js/ui/jquery-ui.css}"
+		  type="text/css" />
+	<script th:src="@{/resources/js/shwepazon.js}" type="text/javascript"></script>
+	<script th:src="@{/resources/js/newprocess.js}" type="text/javascript"></script>
+	<script th:src="@{/resources/js/jQuery.js}" type="text/javascript"></script>
+	<script th:src="@{/resources/js/ui/jquery-ui.js}" type="text/javascript"></script>
+	<script th:src="@{/resources/js/ui/jquery-ui.min.js}"
+			type="text/javascript"></script>
+	<script th:src="@{/resources/js/jquery.tablesorter.js}"
+			type="text/javascript"></script>
+	<script th:src="@{/resources/js/jquery.tablesorter.pager.js}"
+			type="text/javascript"></script>
+	<script th:src="@{/resources/js/spin.js}" type="text/javascript" />
+	<script th:src="@{/resources/js/spin.min.js}" type="text/javascript" />
+	<script th:src="@{/resources/js/sales.js}" type="text/javascript"></script>
+	<script th:src="@{/resources/js/salary.js}" type="text/javascript"></script>
+	<script th:src="@{/resources/js/return.js}" type="text/javascript"></script>
+	<script th:src="@{/resources/js/purchase_order.js}"
+			type="text/javascript"></script>
+	<script th:src="@{/resources/js/salaryreport.js}" type="text/javascript"></script>
+	<script th:src="@{/resources/js/monthlyBonus.js}" type="text/javascript"></script>
+</head>
+<body>
+<div class="hide" id="dialog-temp" />
+<header>
+	<img th:src="@{${loginLogo}}" class="header_logo" />
+	<div class="search">
+			<span id="normal">
+				<form class="hide" id="search-Text">
+					<input type="text" placeholder="Search Text" id="search-text"
+						   style="font-family: myanmar3;" /> <span id="search-result"
+																   class="search-result"></span>
+				</form>
+			</span> <span id="advance" class="hide">
+				<form>
+					<table id="advance_table">
+						<tr id="myadvance_text">
+							<td>Location Name:</td>
+							<td><select name="locationname" id="porderlocationname">
+							</select></td>
+							<td align="right" >Start Date:</td>
+							<td><span class="ui input" ><input type="text" id="porderStartDate"
+															   placeholder="dd/mm/yyyy"
+															   pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d"
+															   size="25" /></span></td>
+							<td>End Date:</td>
+							<td><span class="ui input" ><input type="text" id="porderEndDate"
+															   placeholder="dd/mm/yyyy"
+															   pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\d\d"
+															   size="25"/></span></td>
+						</tr>
+						<tr id="myadvance_text">
+							<td>Select Data Type:</td>
+							<td><select id="searchReport"
+										onchange="checkInvoiceForReport(value);">
+									<option value="PURCHASE_ORDER">Sales</option>
+									<option value="INVOICE">Invoice</option>
+									<option value="profitandloss">Profit/Loss</option>
+									<option value="ADJUSTMENT_DATE">Adjustment</option>
+								<!-- <option value="stock_average">Stock Amount</option> -->
+									<option bizleap:selectAllPrice="" value="TRANSFER_TO_DATE">Transfer
+										To</option>
+									<option bizleap:selectAllPrice="" value="TRANSFER_FROM_DATE">Transfer
+										From</option>
+									<option value="reportCustomer">Customer Ledger</option>
+									<option value="customerclosing">Customer Closing</option>
+									<option value="stockbalanceproduct">Stock Balance
+										Product</option>
+							</select>
+							<input type="button" id="searchadvance" value="Search"
+								   onclick="reportSearch(this);" class="ui button green small" />
+
+							</td>
+							<td><input type="text" placeholder="Search Text" id="search-textForInvoice"
+									   style="font-family: myanmar3; width: 100; width: 140px; height: 15px; margin-bottom: 4px;" class="hide" /></td>
+							<td>
+							<select id="selectForInvoice" class="hide">
+							<option value="PURCHASE_ORDER">SaleInvoice</option>
+							<option value="PAYMENT">PaymentInvoice</option>
+							<option value="CUSTOMER_RETURN">ReturnInvoice</option>
+							<option value="CUSTOMER_REJECT">RejectInvoice</option>
+							<option value="TRANSFER">TransferInvoice</option>
+							</select><input type="button" id="searchadvanceForInvoice" value="Search"
+											onclick="reportSearch(this);" class="hide ui button green small" /></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</form>
+			</span> <span id="advance2" class="hide">
+				<form>
+					<table id="advance_table">
+						<tr id="myadvance_text">
+							<td>Location Name:</td>
+							<td><select name="salarylocation" id="salarylocation">
+									<option value="ALL">ALL</option>
+									<option th:each="location : ${locationList}"
+											th:value="${location.boId}" th:text="${location.name}">165</option>
+							</select></td>
+							<td>Payment Month(MM/YYYY):</td>
+							<td><input type="text" id="salary-date" size="20"
+									   placeholder="mm/yyyy" pattern="(0[1-9]|1[012])/(19|20)\d\d" /></td>
+							<td><input type="button" id="searchReportsalary"
+									   value="Report" onclick="reportSalary(this,'salaryreport');"
+									   class="show" /></td>
+						</tr>
+					</table>
+				</form>
+			</span> <span id="advance3" class="hide">
+				<form>
+					<table id="advance_table">
+						<tr id="myadvance_text">
+							<td>Location Name:</td>
+							<td><select name="locationname" id="speciallocationname">
+									<option value="ALL">ALL</option>
+									<option th:each="location : ${locationlist}"
+											th:value="${location.boId}" th:text="${location.name}">165</option>
+							</select></td>
+							<td>View Month:</td>
+							<td><input type="text" id="specialDate" required="required"
+									   size="20" placeholder="mm/yyyy"
+									   pattern="(0[1-9]|1[012])/(19|20)\d\d" /></td>
+						</tr>
+					</table>
+				</form>
+				<div class="search-button" id="sales_buttons">
+					<!-- <input type="button" value="Stock(FIFO)" onclick="stockReport('FIFO');" id="stock_fifo"  /> -->
+					<input type="button" value="Profit/Loss"
+						   onclick="profitAndLossByLocation('special');" id="profitandloss"
+						   class="show" /> <input type="button" value="Stock Amount"
+												  onclick="stockReport();" class="show" id="stock_average" />
+					<!-- input type="button" value="Sales Ledger"
+						onclick="salesLedgerReport('SalesLedger');" id="salesLedger" class="show"/-->
+
+				</div>
+			</span>
+		<div id="search-location" class="hide">
+			<input type="button" value="All"
+				   onclick="search(this,'ALL','LOCATION');" id="search-all-location" />
+			<input type="button" value="Name"
+				   onclick="search(this,'NAME','LOCATION');" /> <input type="button"
+																	   value="Type" onclick="search(this,'TYPE','LOCATION');" />
+		</div>
+		<div class="hide" id="search-employee">
+			<input type="button" value="All"
+				   onclick="search(this,'ALL','EMPLOYEE');" id="search-all-employee" />
+			<input type="button" value="Name"
+				   onclick="search(this,'NAME','EMPLOYEE');" /> <input type="button"
+																	   value="Location-Name"
+																	   onclick="search(this,'LOCATION_NAME','EMPLOYEE');" /> <input
+				type="button" value="Position"
+				onclick="search(this,'RANK','EMPLOYEE');" /> <span class="hide"
+																   id="show-more-employee" style="position: relative;"> <input
+				type="button" value="NRC" onclick="search(this,'NRC','EMPLOYEE');" />
+					<input type="button" value="ATM"
+						   onclick="search(this,'ATM','EMPLOYEE');" /> <input type="button"
+																			  value="Department" onclick="search(this,'Department','EMPLOYEE');"
+																			  class="hide" /> <input type="button" value="Education"
+																									 onclick="search(this,'Education','EMPLOYEE');" class="hide" /> <input
+					type="button" value="Employment -Date"
+					onclick="search(this,'Joining_Date','EMPLOYEE');" /> <input
+					type="button" value="Email"
+					onclick="search(this,'EMAIL','EMPLOYEE');" /> <input type="button"
+																		 value="Phone" onclick="search(this,'PHONE','EMPLOYEE');" /> <input
+					type="button" value="Address"
+					onclick="search(this,'ADDRESS','EMPLOYEE');" /> <input
+					type="button" value="City"
+					onclick="search(this,'CITY','EMPLOYEE');" /> <input type="button"
+																		value="State" onclick="search(this,'STATE','EMPLOYEE');" />
+				</span> <input type="button" onclick="showMoreEmployee(this);"
+							   value="&gt;&gt;" />
+		</div>
+		<div class="hide" id="search-customer">
+			<input type="button" value="All"
+				   onclick="search(this,'ALL','CUSTOMER');" id="search-all-customer" />
+			<!--class="search-active" -->
+			<input type="button" value="Name"
+				   onclick="search(this,'NAME','CUSTOMER');" /> <input type="button"
+																	   value="Location-Name"
+																	   onclick="search(this,'LOCATION_NAME','CUSTOMER');" /> <input
+				type="button" value="NRC" onclick="search(this,'NRC','CUSTOMER');" />
+			<span class="hide" id="show-more-customer"
+				  style="position: relative;"> <input type="button"
+													  value="Phone" onclick="search(this,'PHONE','CUSTOMER');" /> <input
+					type="button" value="Address"
+					onclick="search(this,'ADDRESS','CUSTOMER');" /> <input
+					type="button" value="City"
+					onclick="search(this,'CITY','CUSTOMER');" /> <input type="button"
+																		value="Email" onclick="search(this,'EMAIL','CUSTOMER');" /> <input
+					type="button" value="State"
+					onclick="search(this,'STATE','CUSTOMER');" />
+				</span> <input type="button" onclick="showMoreCustomer(this);"
+							   value="&gt;&gt;" />
+		</div>
+		<div class="hide" id="search-product">
+			<input type="button" value="All"
+				   onclick="search(this,'ALL','PRODUCT');" id="search-all-product" />
+			<input type="button" value="Code"
+				   onclick="search(this,'ID','PRODUCT');" /> <input type="button"
+																	value="Name" onclick="search(this,'NAME','PRODUCT');" />
+			<!-- input
+                type="button" value="Price"
+                onclick="search(this,'PRICE','PRODUCT');" /-->
+		</div>
+		<div class="hide" id="search-risk">
+			<input type="button" value="ALL"
+				   onclick="search(this,'ALL','BORROWERRISK');" id="search-all-risk" />
+			<input type="button" value="Risk-Level"
+				   onclick="search(this,'RISK_LEVEL','BORROWERRISK');" />
+		</div>
+	</div>
+	<div class="company-title">
+		<!-- <span th:text="#{title.name}">Shwe Pa Zun</span><br />(Sales and
+        Distribution System) -->
+		<span th:text="${session.profile.loginEmployee.getFullName()}"></span><br />
+		<button type="button" value="Log Out" onclick="logout();" class="ui red mini button" style="margin-top: 5px;">
+			<span class="ti-power-off"></span>
+			Logout
+		</button>
+	</div>
+</header>
+<div id="workspace">
+	<div>
+		<div class="menu" id="menu">
+			<nav>
+				<span class="nav-header"></span>
+				<ul id="action-menu" class="menu1">
+					<li onclick="loadAction(this,'location');"
+						onkeypress="loadAction(this,'location');" id="locationmenu"
+						tabindex="1">
+						<span class="ti-map-alt"></span>
+						<span>Location</span></li>
+					<li onclick="loadAction(this,'employee');"
+						onkeypress="loadAction(this,'employee');" id="employeemenu"
+						tabindex="2">
+						<span class="ti-user"></span>
+						<span>Employee</span></li>
+					<li onclick="loadAction(this,'customer');"
+						onkeypress="loadAction(this,'customer');" id="customermenu"
+						tabindex="3">
+						<span class="ti-comments-smiley"></span>
+						<span>Customer</span></li>
+					<li onclick="loadAction(this,'product');"
+						onkeypress="loadAction(this,'product');" id="productmenu"
+						tabindex="4">
+						<span class="ti-package"></span>
+						<span>Product</span></li>
+					<li onclick="loadAction(this,'borrowerrisk')" id="riskmenu"
+						tabindex="5">
+						<span class="ti-alert"></span>
+						<span>Risk</span></li>
+					<li onclick="loadAction(this,'purchase_order');"
+						onkeypress="loadAction(this,'purchase_order');" tabindex="6"
+						id="purchase_ordermenu">
+						<span class="ti-agenda"></span>
+						<span>Report</span></li>
+					<li onclick="loadAction(this,'salary');"
+						onkeypress="loadAction(this,'salary');" id="salarymenu"
+						bizleap:salarymenu="">
+						<span class="ti-money"></span>
+						<span>Salary</span></li>
+
+				</ul>
+			</nav>
+		</div>
+		<div id="container">
+			<div class="action" id="action-location">
+				<div class="hide" id="action-Location">
+					<input type="button" value="Delete"
+						   onclick="deleteForm('LOCATION');" id="deleteLocation"
+						   class="hide" /> <input type="button" value="ConvertPackageType"
+												  onclick="convertPackageTypeForm('convertPackageType');"
+												  id="convertPackageType" style="width: 150px;" class="hide" /> <input
+						type="button" value="15 Bonus" onclick="openMonthlyBonus();"
+						id="location-monthlyBonus" class="hide" bizleap:salary="" /> <input
+						type="button" value="Salary" onclick="OpenSalaryByLocation();"
+						id="location-salary" class="hide" bizleap:salary="" /> <input
+						type="button" value="Retail Daily"
+						onclick="dailySalesForm('daily','retailDaily');"
+						id="dailySaleRetail" class="hide" /> <input type="button"
+																	value="Daily" onclick="dailySalesForm('daily');" id="dailySale"
+																	class="hide" />
+					<!--input type="button" value="Market" onclick="dailySalesForm('market');" id="dailySaleMarket" class="hide" /-->
+					<input type="button" value="Transfer" bizleap:selectAllPrice=""
+						   onclick="loadTransferForm();" id="transfer" class="hide" />
+					<!--input type="button" value="Create Route" onclick="loadRoutForm();" id="createRoute" class="hide" /-->
+					<input type="button" value="Adjustment"
+						   onclick="adjustmentStockForm()" id="adjustmentstock" class="hide" />
+					<input type="button" value="Edit" onclick="editForm('LOCATION');"
+						   id="editLocation" class="hide" /> <input type="button"
+																	value="Add" onclick="getNewForm('LOCATION');" id="addLocation"
+																	class="show" />
+				</div>
+				<div class="hide" id="action-employee">
+					<input type="button" value="Compensation"
+						   onclick="compensationForm();" id="compensationEmployee"
+						   class="hide" bizleap:compensation="" /> <input type="button"
+																		  value="Delete" onclick="deleteForm('EMPLOYEE');"
+																		  id="deleteEmployee" class="hide" />
+					<!--input type="button" value="View Salary" onclick="viewSalary();" id="viewSalary" class="hide" /-->
+					<input type="button" value="Edit" onclick="editForm('EMPLOYEE');"
+						   id="editEmployee" class="hide" /> <input type="button"
+																	value="Add" onclick="getNewForm('EMPLOYEE');" id="addEmployee"
+																	class="show" />
+				</div>
+				<div class="hide" id="action-customer">
+					<!-- input type="button" value="Payment" onclick="payment();" id="payment" class="hide" />-->
+					<input type="button" value="Delete"
+						   onclick="deleteForm('CUSTOMER');" id="deleteCustomer"
+						   class="hide" /> <input type="button" value="Edit"
+												  onclick="editForm('CUSTOMER');" id="editCustomer" class="hide" />
+					<input type="button" value="Add" onclick="getNewForm('CUSTOMER');"
+						   id="addCustomer" class="show" />
+				</div>
+				<div class="hide" id="action-product">
+						<span id="product" bizleap:product=""> <!-- input type="button" value="Delete" onclick="deleteForm('PRODUCT');" id="deleteProduct" class="hide" / -->
+							<input type="button" value="Edit"
+								   onclick="editForm('PRODUCT','EDITPRODUCT');" id="editProduct"
+								   class="hide" /> <input type="button" value="Add"
+														  onclick="getNewForm('PRODUCT');" id="addProduct" class="show" />
+						</span> <span id="volumeproduct" bizleap:volumeproduct=""> <input
+						type="button" value="Delete" onclick="deleteForm('PRODUCT');"
+						id="deleteVolumeProduct" class="hide" /> <input type="button"
+																		value="Edit" onclick="editForm('VOLUMEPRODUCT');"
+																		id="editVolumeProduct" class="hide" /> <input type="button"
+																													  value="Add" onclick="getNewForm('VOLUMEPRODUCT');"
+																													  id="addVolumeProduct" class="show" />
+						</span>
+				</div>
+				<div class="hide" id="action-borrowerRisk">
+					<input type="button" value="Edit" id="editBorrowerRisk"
+						   onclick="editForm('BORROWERRISK');" class="hide" /> <input
+						type="button" value="Add" id="addNewBorrowerRisk"
+						onclick="getNewForm('BORROWERRISK');" class="hide" />
+				</div>
+				<div class="hide" id="action-purchase_order">
+					<input type="button" value="Report"
+						   onclick="reportPurchaseOrder(this,'reportPurcahseOrder');"
+						   onkeypress="reportPurchaseOrder(this,'reportPurcahseOrder');"
+						   id="reportPurcahseOrder" class="hide" /> <input type="button"
+																		   value="Report"
+																		   onclick="reportPurchaseOrder(this,'reportSalesItems');"
+																		   onkeypress="reportPurchaseOrder(this,'reportSalesItems');"
+																		   id="reportSalesItems" class="hide" /> <input type="button"
+																														value="Report"
+																														onclick="reportPurchaseOrder(this,'reportLeftSalesItems');"
+																														onkeypress="reportPurchaseOrder(this,'reportLeftSalesItems');"
+																														id="reportLeftSalesItems" class="hide" />
+				</div>
+				<div class="hide" id="action-transfer_from-to"
+					 value="selectAllPrice" bizleap:selectAllPrice="">
+					<input type="button" value="Report"
+						   onclick="reportTransferFromStockList()" id="reportTransferFrom"
+						   class="hide" /> <input type="button" value="Report"
+												  onclick="reportTransferFromStockList()" id="reportTransferTo"
+												  class="hide" /> <input type="button" value="Delete"
+																		 id="delete-transfer" onclick="openDeleteTransferForm(this);"
+																		 class="hide" /> <input type="button" value="Edit"
+																								id="edit-transfer" onclick="editTransferForm(this);" class="hide" />
+				</div>
+				<div class="hide" id="action-adjustment">
+					<input type="button" value="Report"
+						   onclick="reportAdjustmentStockList()" id="reportAdjustment"
+						   class="show" />
+				</div>
+			</div>
+			<div class="inner-workspace">
+				<div class="content" id="content"></div>
+				<div class="detail" id="detail"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="confirm" class="hide">
+	<div class="confirm">
+
+		<div style="padding: 20px;">
+			<div id="confirm-text" style="height: 50px;"></div>
+			<div>
+				<input type="button" value="Yes" onclick="deleteConfirm();" class="ui red button"
+					   id="confirm-delete" />
+				<input type="button" value="No"	onclick="document.getElementById('confirm').attributes['class'].value='hide';" class="ui basic button " />
+			</div>
+		</div>
+	</div>
+</div>
+<footer>
+	<div id="completedProcesses" style="float: left;padding: 2px 5px;color: rgb(0, 128, 0);background: #fff;border-radius: 15px;margin-top: 3px;">Completed: 0/0</div>
+	<div id="totalTimeLeftInMin" style="float: left; padding: 5px 15px 5px 5px;">Total Time Left: 0s</div>
+	<div id="averageTime" style="float: left; padding: 5px 15px 5px 5px;">Average Time per order: 0s</div>
+	&copy; Copyright@ All rights Reserved by BizLeap Technology.
+	<!-- span th:text="#{title.name}" ></span> -->
+	<div style="float: right; padding: 5px 15px 5px 5px;">
+		<img th:src="@{resources/img/BizLeap.png}" width="200" height="25"
+			 class="company-logo"></img>
+	</div>
+</footer>
+<div id="mytemp" />
+<div id="loading" class=""></div>
+</body>
+</html>

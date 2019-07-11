@@ -50,7 +50,8 @@ public class DepartmentServiceResourceImpl implements DepartmentServiceResource 
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find")
-	public @ResponseBody List<Department> findByDepartmentName(HttpServletRequest request,@RequestParam(value = "name") String name) throws ServiceUnavailableException {
+	public @ResponseBody List<Department> findByDepartmentName(HttpServletRequest request,
+			@RequestParam(value = "name") String name) throws ServiceUnavailableException {
 		return departmentService.findByName(name);
 	}
 }

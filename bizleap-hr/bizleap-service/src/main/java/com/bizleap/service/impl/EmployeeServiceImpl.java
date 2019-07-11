@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	public List<Employee> getAll() throws ServiceUnavailableException {
 
-		List<Employee> employeeList = employeeDao.getAll("from Employee employee");
+		List<Employee> employeeList = employeeDao.getAll("from Employee");
 		return employeeList;
 	}
 
