@@ -50,7 +50,7 @@ public class JobServiceResourceImpl implements JobServiceResource{
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
-	public @ResponseBody List<Job> findByJobBoId(
+	public @ResponseBody Job findByJobBoId(
 			HttpServletRequest request,
 			@PathVariable("boId") String boId) throws ServiceUnavailableException {
 		return jobService.findByBoId(boId);
@@ -67,7 +67,7 @@ public class JobServiceResourceImpl implements JobServiceResource{
 	public @ResponseBody List<Job> findByJobTitle(
 			HttpServletRequest request,
 			@PathVariable("title") String title) throws ServiceUnavailableException {
-		return jobService.findByBoId(title);
+		return jobService.findByTitle(title);
 	}
 	
 }

@@ -10,7 +10,7 @@ public interface JobService {
 	
 	void saveJob(Job job) throws IOException, ServiceUnavailableException;
 	List<Job> getAll() throws ServiceUnavailableException;
-	List<Job> findByBoId(String boId) throws ServiceUnavailableException;
+	Job findByBoId(String boId) throws ServiceUnavailableException;
 	List<Job> findByTitle(String title) throws ServiceUnavailableException;
 	List<Job> findBySalary(int salary) throws ServiceUnavailableException;
 	void hibernateInitializedList(List<Job> jobList);

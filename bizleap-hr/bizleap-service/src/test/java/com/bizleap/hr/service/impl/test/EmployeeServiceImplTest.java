@@ -12,7 +12,7 @@ import com.bizleap.service.AddressService;
 import com.bizleap.service.EmployeeService;
 import com.bizleap.service.PositionService;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,7 +43,7 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		employee.setTitle("Mg");
 		employee.setFirstName("Kyaw");
 		employee.setLastName("Kyaw");
-		employee.setPosition(positionService.findByBoId("JOB002-1").get(0));
+		employee.setPosition(positionService.findByBoId("JOB002-1"));
 		employee.setEntranceDate("30-06-2019");
 		employee.setDateOfBirth("06-09-1995");
 		employee.setGender("Male");

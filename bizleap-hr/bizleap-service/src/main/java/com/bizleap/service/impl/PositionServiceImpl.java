@@ -42,13 +42,13 @@ public class PositionServiceImpl implements PositionService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Position> findByBoId(String boId) throws ServiceUnavailableException {
+	public Position findByBoId(String boId) throws ServiceUnavailableException {
 
 		String query = "from Position position where position.boId=:dataInput";
 		List<Position> positionList = positionDao.findByString(query, boId);
 		if(!CollectionUtils.isEmpty(positionList)){
 			hibernateInitializedList(positionList);
-			return positionList;
+			return positionList.get(0);
 		}
 		return null;
 	}

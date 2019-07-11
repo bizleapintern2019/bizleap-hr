@@ -50,7 +50,7 @@ public class PositionServiceResourceImpl implements PositionServiceResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/find/{boId}")
-	public @ResponseBody List<Position> findByPositionBoId(
+	public @ResponseBody Position findByPositionBoId(
 			HttpServletRequest request,
 			@PathVariable("boId") String boId) throws ServiceUnavailableException {
 		return positionService.findByBoId(boId);
