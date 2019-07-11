@@ -15,7 +15,7 @@ public interface JobServiceResource {
 
     List<Job> getAllJob(HttpServletRequest request) throws ServiceUnavailableException;
 	boolean createJob(HttpServletRequest request,Job job);
-	List<Job> findByJobBoId(HttpServletRequest request,String boId) throws ServiceUnavailableException;
+	Job findByJobBoId(HttpServletRequest request,String boId) throws ServiceUnavailableException;
 	List<Job> findByJobSalary( HttpServletRequest request, int salary) throws ServiceUnavailableException;
 	List<Job> findByJobTitle(HttpServletRequest request,String title) throws ServiceUnavailableException;
 }

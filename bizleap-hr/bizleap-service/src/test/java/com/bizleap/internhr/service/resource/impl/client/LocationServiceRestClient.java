@@ -69,6 +69,31 @@ public class LocationServiceRestClient {
 			}
 		}
 		
+		public void findByLocationName(String name) {
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			
+			HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+			logger.info("Request is: " + entity);
+			String url = SERVICEURL + "/locations/find/"+name;
+			logger.info("service url is: " + url);
+
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
+			RestTemplate restTemplate = new RestTemplate();
+			logger.info("calling webservice..." + builder);
+
+			HttpEntity<List> response = null;
+
+			try {
+				response = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, List.class);
+				logger.info("Find Location: " + response.getBody());
+			} catch (Exception e) {
+				logger.error("ERRROR - " + e.getMessage() + ", " + response);
+			}
+		}
+		
 		public void saveLocation(Location location) {
 
 			// Prepare the header

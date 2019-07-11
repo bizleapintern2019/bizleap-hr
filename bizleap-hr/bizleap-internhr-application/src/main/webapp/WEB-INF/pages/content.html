@@ -1,4 +1,4 @@
-<div id="employee-content" class="hide">
+<!-- <div id="employee-content" class="hide">
 <table class="content-table" id="content-table">
 	<tr th:each="employee : ${employeeList}" onclick="employeeDetail(this);" th:attr="id=${employee.boId}" >
 		<td><img th:src="@{/resources/img/profile.png}" width="50" ></img></td>
@@ -41,7 +41,8 @@
 	<input type="button" value="&gt;&gt;" onclick="customerSearchEnd();" th:if="${customerList!=null}" />	
 </div>
 </div>
-<div th:text="${customerSize}" id="total-customer-size" class="hide"></div>
+<div th:text="${customerSize}" id="total-customer-size" class="hide"></div> -->
+
 <div id="location-content" class="hide">
 <table class="content-table" id="content-table">
 	<tr th:each="location : ${locationList}" onclick="locationDetail(this);" th:attr="id=${location.boId}" >
@@ -51,12 +52,4 @@
 		</td>
 	</tr>
 </table>
-<div class="pagination" id="locationPagination">
-	<input type="button" value="&lt;&lt;" onclick="locationSearchFirst();" th:if="${locationList!=null}" />
-	<input type="button" value="&lt;" onclick="locationSearchPrevious();" th:if="${locationList!=null}" />
-	<span id="location-pagination-descriptor" />
-	<input type="button" value="&gt;" onclick="locationSearchNext();" th:if="${locationList!=null}" />
-	<input type="button" value="&gt;&gt;" onclick="locationSearchEnd();" th:if="${locationList!=null}" />	
 </div>
-</div>
-<div th:text="${locationSize}" id="total-location-size" class="hide"></div>

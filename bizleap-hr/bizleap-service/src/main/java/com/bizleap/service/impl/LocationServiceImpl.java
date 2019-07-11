@@ -15,16 +15,21 @@ import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.LocationDao;
+import com.bizleap.service.DepartmentService;
 import com.bizleap.service.LocationService;
 
 //@Author: Soe Min Thein
 @Service
-@Transactional(readOnly = false)
+@Transactional(readOnly = true)
 public class LocationServiceImpl implements LocationService {
 
 	@Autowired
 	private LocationDao locationDao;
-
+	
+	@Autowired
+	private DepartmentService departmentService;
+	
+	@Transactional(readOnly = false)
 	public void saveLocation(Location location) throws IOException, ServiceUnavailableException {
 		locationDao.save(location);
 	}
@@ -50,7 +55,6 @@ public class LocationServiceImpl implements LocationService {
 		return null;
 	}
 
-	@Transactional(readOnly = true)
 	public List<Location> findByName(String name) throws ServiceUnavailableException {
 
 		String query = "from Location location where location.name=:dataInput";
@@ -62,7 +66,7 @@ public class LocationServiceImpl implements LocationService {
 		return null;
 	}
 	
-	public void hibernateInitializedPosition(Position position) {
+	/*public void hibernateInitializedPosition(Position position) {
 		Hibernate.initialize(position);	
 	}
 
@@ -94,11 +98,11 @@ public class LocationServiceImpl implements LocationService {
 		for (Department department : departmentList) {
 			hibernateInitializedDepartment(department);
 		}
-	}
+	}*/
 
 	public void hibernateInitializedLocation(Location location) {
 		Hibernate.initialize(location);
-		hibernateInitializedDepartmentList(location.getDepartmentList());
+		departmentService.hibernateInitializedDepartmentList(location.getDepartmentList());
 	}
 
 	public void hibernateInitializedLocationList(List<Location> locationList) {
@@ -106,22 +110,5 @@ public class LocationServiceImpl implements LocationService {
 			hibernateInitializedLocation(location);
 		}
 	}
-
-	/*public void hibernateInitializedList(List<Location> locationList) {
-		for(Location location : locationList) {
-			Hibernate.initialize(location.getDepartmentList());
-			for(Department department : location.getDepartmentList()) {
-				Hibernate.initialize(department);
-				Hibernate.initialize(department.getJobList());
-				for(Job job : department.getJobList()) {
-					Hibernate.initialize(job.getPositionList());
-					for(Position position : job.getPositionList()) {
-						Hibernate.initialize(position.getReportToList());
-						Hibernate.initialize(position.getReportByList());
-					}
-				}
-			}
-		}
-	}*/
 }
 

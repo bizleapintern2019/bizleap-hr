@@ -6,22 +6,34 @@ import org.junit.Test;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.impl.test.LocationServiceImplTest;
 import com.bizleap.hr.service.test.ServiceTest;
-import com.bizleap.internhr.service.resource.impl.client.LocationServiceRestClient;
+import com.bizleap.internhr.service.resource.impl.client.DepartmentServiceRestClient;
 
 public class DepartmentServiceResourceImplTest extends ServiceTest {
 	
 	private Logger logger = Logger.getLogger(DepartmentServiceResourceImplTest.class);
 
-	LocationServiceRestClient locationServiceRestClient = new LocationServiceRestClient();
+	DepartmentServiceRestClient departmentServiceRestClient = new DepartmentServiceRestClient();
 	
 	@Test
-	public void testGetAllLocations() throws ServiceUnavailableException {
-		locationServiceRestClient.getAllLocations();
+	public void testGetAllDepartments() throws ServiceUnavailableException {
+		departmentServiceRestClient.getAllDepartment();
 	}
 	
 	@Test
 	public void testFindByBoId() throws ServiceUnavailableException {
-		locationServiceRestClient.findByLocationBoId("LOC001");
+		departmentServiceRestClient.findByDepartmentBoId("DEPT001");
+	}
+	
+	@Test
+	public void testFindByName() throws ServiceUnavailableException {
+		departmentServiceRestClient.findByDepartmentName("Engineering");
+	}
+	
+	@Test
+	public void testFindByParentDepartment() throws ServiceUnavailableException {
+		departmentServiceRestClient.findByParentDepartment("DEPT001");
 	}
 
 }
+
+
