@@ -10,5 +10,6 @@ public interface PositionService {
 	
 	void savePosition(Position position) throws IOException, ServiceUnavailableException;
 	List<Position> getAll() throws ServiceUnavailableException;
-	List<Position> findByBoId(String boId) throws ServiceUnavailableException;
+	Position findByBoId(String boId) throws ServiceUnavailableException;
+	void hibernateInitializedList(List<Position> positionList);
 }

@@ -14,6 +14,7 @@ import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.JobDao;
 import com.bizleap.service.JobService;
+import com.bizleap.service.PositionService;
 
 //@Author: Nyan Lin Htet
 @Service
@@ -22,6 +23,9 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobDao jobDao;
+	
+	@Autowired
+	private PositionService positionService;
 
 	public void saveJob(Job job) throws IOException, ServiceUnavailableException {
 		jobDao.save(job);
@@ -39,12 +43,12 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Job> findByBoId(String boId) throws ServiceUnavailableException {
+	public  Job findByBoId(String boId) throws ServiceUnavailableException {
 		String query = "from Job job where job.boId=:dataInput";
 		List<Job> jobList = jobDao.findByString(query, boId);
 		if(!CollectionUtils.isEmpty(jobList)) {
-			hibernateInitializedList(jobList);
-			return jobList;
+			hibernateInitializeJob(jobList.get(0));
+			return jobList.get(0);
 		}
 		return null;
 	}
@@ -71,13 +75,20 @@ public class JobServiceImpl implements JobService {
 		return null;
 	}
 
+	
+	public void hibernateInitializeJob(Job job){
+		Hibernate.initialize(job);
+	/*//	for (Position position : job.getPositionList()) {
+			Hibernate.initialize(position.getReportToList());
+			Hibernate.initialize(position.getReportByList());
+		//}
+*/		
+		positionService.hibernateInitializedList(job.getPositionList());
+	}
+	
 	public void hibernateInitializedList(List<Job> jobList) {
 		for(Job job : jobList) {
-			Hibernate.initialize(job.getPositionList());
-			for(Position position : job.getPositionList()) {
-				Hibernate.initialize(position.getReportToList());
-				Hibernate.initialize(position.getReportByList());
-			}
+			hibernateInitializeJob(job);
 		}
 	}
 }

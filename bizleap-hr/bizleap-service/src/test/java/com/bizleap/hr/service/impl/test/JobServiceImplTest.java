@@ -22,8 +22,8 @@ public class JobServiceImplTest extends ServiceTest {
 	@Autowired
 	JobService jobService;
 
-//	@Autowired
-//	JobTest jobTest;
+	//	@Autowired
+	//	JobTest jobTest;
 	@Test
 	public void testSaveJob() {
 		Job job = new Job();
@@ -60,9 +60,9 @@ public class JobServiceImplTest extends ServiceTest {
 		}
 		return 0;
 	}
-	
+
 	public void testJobList(List<Job> jobList) throws Exception {
-		
+
 		Assert.assertTrue(jobList != null && jobList.size() == 6);
 		int successCount = 0;
 		for (Job job : jobList) {
@@ -77,14 +77,14 @@ public class JobServiceImplTest extends ServiceTest {
 		}
 		Assert.assertTrue(successCount==6);
 	}
-	
+
 	@Test
 	public void testFindByBoId() {
 		try {
 
-			List<Job> jobList = jobService.findByBoId("JOB001");
-			Assert.assertTrue(CollectionUtils.isNotEmpty(jobList));
-			Assert.assertEquals(jobList.get(0).getBoId(),"JOB001");
+			Job job = jobService.findByBoId("JOB001");
+			//Assert.assertTrue(CollectionUtils.isNotEmpty(job));
+			Assert.assertEquals(job.getBoId(),"JOB001");
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		}
@@ -109,7 +109,7 @@ public class JobServiceImplTest extends ServiceTest {
 			List<Job> jobList = jobService.findBySalary(800000);
 			Assert.assertTrue(CollectionUtils.isNotEmpty(jobList));
 			Assert.assertEquals(jobList.get(0).getSalary(),800000);
-			
+
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		}

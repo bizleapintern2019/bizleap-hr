@@ -32,13 +32,18 @@ public class LocationServiceResourceImplTest extends ServiceTest {
 	}
 	
 	@Test
+	public void testFindByName() throws ServiceUnavailableException {
+		locationServiceRestClient.findByLocationName("Yangon");
+	}
+	
+	@Test
 	public void testSaveLocation() throws ServiceUnavailableException {
 		Location location = new Location();
-		location.setBoId("LOC004");
-		location.setName("Bago");
+		location.setBoId("LOC001");
+		location.setName("Yangon");
 
 		Department department = new Department();
-		department.setBoId("DEPT009");
+		department.setBoId("DEPT001");
 		department.setName("Test");
 		department.setLocation(location);
 		department.setParentDepartment(null);
