@@ -20,9 +20,11 @@ public class PositionTest extends ServiceTest {
 	public int assertPosition(Position position,String boId,String jobId,String reportTo) {
 		if(position.getBoId().equals(boId)) {
 			Assert.assertEquals(position.getJob().getBoId(), jobId);
-			String[] reportToItems = reportTo.split(",");
-			for(int i=0;i<reportToItems.length;i++){
-				Assert.assertEquals(position.getReportToList().get(i).getBoId(), reportToItems[i]);
+			if(reportTo!=null) {
+				String[] reportToItems = reportTo.split(",");
+				for(int i=0;i<reportToItems.length;i++){
+					Assert.assertEquals(position.getReportToList().get(i).getBoId(), reportToItems[i]);
+				}
 			}
 			return 1;
 		}
@@ -33,7 +35,7 @@ public class PositionTest extends ServiceTest {
 		Assert.assertTrue(positionList != null && positionList.size() == 24);
 		int successCount=0;
 		for(Position position :positionList) {
-			successCount += assertPosition(position,"JOB001-1","JOB001"," ");
+			successCount += assertPosition(position,"JOB001-1","JOB001",null);
 			successCount += assertPosition(position,"JOB002-1","JOB002","JOB001-1,JOB004-1");
 			successCount += assertPosition(position,"JOB002-2","JOB002","JOB001-1,JOB004-1,JOB005-1");
 			successCount += assertPosition(position,"JOB002-3","JOB002","JOB001-1,JOB004-1,JOB005-1");
@@ -43,7 +45,7 @@ public class PositionTest extends ServiceTest {
 			successCount += assertPosition(position,"JOB003-3","JOB003","JOB001-1,JOB004-1,JOB005-1,JOB002-2,JOB002-3");
 			successCount += assertPosition(position,"JOB003-4","JOB003","JOB001-1,JOB004-1,JOB002-1");
 			successCount += assertPosition(position,"JOB003-5","JOB003","JOB001-1,JOB004-1,JOB002-1");
-			successCount += assertPosition(position,"JOB004-1","JOB004","JOB001-1");
+			successCount += assertPosition(position,"JOB004-1","JOB004",null);
 			successCount += assertPosition(position,"JOB005-1","JOB005","JOB001-1,JOB004-1");
 			successCount += assertPosition(position,"JOB006-1","JOB006","JOB002-3,JOB002-4");
 			successCount += assertPosition(position,"JOB006-2","JOB006","JOB002-3,JOB002-4,JOB003-3,JOB003-5");

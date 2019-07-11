@@ -25,7 +25,9 @@ public class DepartmentTest extends ServiceTest {
 		
 		if(department.getBoId().equals(boId)) {
 			Assert.assertEquals(department.getName(), name);
-			Assert.assertEquals(department.getParentDepartment().getBoId(), parentDepartment);
+			if(parentDepartment!=null) {
+				Assert.assertEquals(department.getParentDepartment().getBoId(), parentDepartment);
+			}
 			return 1;
 		}
 		return 0;
@@ -36,7 +38,7 @@ public class DepartmentTest extends ServiceTest {
 		Assert.assertTrue(departmentList != null && departmentList.size() == 4);
         int successCount = 0;
         for(Department department : departmentList) {
-        	successCount+= assertDepartment(department,"DEPT001","BOD"," ");
+        	successCount+= assertDepartment(department,"DEPT001","BOD",null);
         	successCount+= assertDepartment(department,"DEPT002","Engineering","DEPT001");
         	successCount+= assertDepartment(department,"DEPT003","Internship","DEPT002");
         	successCount+= assertDepartment(department,"DEPT004","Customer Support","DEPT002");
