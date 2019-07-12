@@ -1,10 +1,26 @@
 <div id="detail-table" class="hide">
+
+<!-- Location Form -->
+	<div class="hide" id="locationForm">
+		<form action="javascript:saveLocation();" id="newLocationForm">
+			<label for="location-boid" id="label">Location BoId:</label> 
+			<input type="text" id="location-boid"/><br />
+			<label for="location-name" id="label">Location Name:</label>
+			<input type="text" id="location-name"/><br />
+			<input type="submit" value="Save" id="saveLocationForm" />
+			<input type="button" value="Cancel" id="cancelLocationForm" onclick="document.getElementById('locationForm').className = 'hide';
+			document.getElementById('location-detail-table').className = 'show';" />
+		</form>
+	</div>
+<!-- Location Form -->
+
 	<div th:if="${location!=NULL}" id="location-detail-table" class="hide">
-		<table style="width: 50%;">
+		<table style="width: 40%;">
 			<tr th:if="${location!='INVALID'}" th:value="${location.id}"
 				id="detail-location-id">
 				<td>Location BoId: </td>
 				<td th:text="${location.boId}"></td>
+				<td><input type="submit" value="Add New" id="addNewButton" onclick="addNewLocation()"/></td>
 			</tr>
 			<tr th:if="${location!='INVALID'}">
 				<td>Location Name: </td>
@@ -14,11 +30,12 @@
 	</div>
 	
 	<div th:if="${department!=NULL}" id="department-detail-table" class="hide">
-		<table style="width: 50%;">
+		<table style="width: 40%;">
 			<tr th:if="${department!='INVALID'}" th:value="${department.id}"
 				id="detail-department-id">
 				<td>Department BoId: </td>
 				<td th:text="${department.boId}" style=""></td>
+				<td><input type="submit" value="Add New" id="addNewButton" onclick="addNewDepartment()"/></td>
 			</tr>
 			<tr th:if="${department!='INVALID'}">
 				<td>Department Name: </td>
@@ -33,7 +50,7 @@
 	</div>
 	
 	<div th:if="${job!=NULL}" id="job-detail-table" class="hide">
-		<table style="width: 50%;">
+		<table style="width: 40%;">
 			<tr th:if="${job!='INVALID'}" th:value="${job.id}"
 				id="detail-job-id">
 				<td>Job BoId: </td>
@@ -51,7 +68,7 @@
 	</div>
 	
 	<div th:if="${employee!=NULL}" id="employee-detail-table" class="hide">
-		<table style="width: 50%;">
+		<table style="width: 40%;">
 			<tr th:if="${employee!='INVALID'}" th:value="${employee.id}"
 				id="detail-employee-id">
 				<td>Employee BoId: </td>

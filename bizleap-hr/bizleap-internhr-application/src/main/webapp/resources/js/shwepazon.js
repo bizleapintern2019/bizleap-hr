@@ -111,3 +111,46 @@ function getDetail(element, entityType) {
 	request.open("GET", "detail/"+ entityType + "?input=" + JSON.stringify(parameter), true);
 	request.send();
 }
+
+function addNewLocation() {
+	document.getElementById("locationForm").className = "show";
+	document.getElementById("location-detail-table").className = "hide";
+}
+
+function saveLocation() {
+	var locationBoid = document.getElementById("location-boid").value;
+	var locationName = document.getElementById("location-name").value;
+	
+	var request = new XMLHttpRequest;
+	
+	request.onreadystatechange = function() {
+		if(request.readyState != 4)
+			return;
+		if(request.status != 200) {
+			alert("Error return " + request.status);
+			return;
+		}
+		alert("Successfully saved!");
+		loadAction("", "location");
+		document.getElementById("locationForm").className = "hide";
+	}
+	
+	parameter = {};
+	parameter["boId"] = locationBoid;
+	parameter["name"] = locationName;
+	request.open("POST", "locations/new", true);
+	request.setRequestHeader('Content-Type', 'application/json');
+	request.send(JSON.stringify(parameter));
+}
+
+function addNewDepartment() {
+document.getElementById("department-detail-table").className = "hide";
+}
+
+function addNewJob() {
+document.getElementById("job-detail-table").className = "hide";
+}
+
+function addNewEmployee() {
+document.getElementById("employee-detail-table").className = "hide";
+}

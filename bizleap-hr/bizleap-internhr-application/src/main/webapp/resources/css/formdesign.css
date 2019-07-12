@@ -1,0 +1,59 @@
+#locationForm {
+   border: 1px steelblue;
+   padding: 7px;
+   border-radius: 4px; 
+   position: absolute;
+   top: 20%;
+   left: 30%; 
+   background-color: slategray;
+}
+
+#newLocationForm {
+   border-radius: 5px;
+   background-color: #f2f2f2;
+   padding: 20px;
+}
+
+#label {
+   font: 18px bold black;
+
+}
+
+input[type=text] {
+   width: 100%;
+   padding: 12px; 
+   border: 1px solid #ccc; 
+   border-radius: 4px; 
+   box-sizing: border-box; 
+   margin-top: 6px;
+   margin-bottom: 16px; 
+ }
+
+ #saveLocationForm{
+   background-color: rgb(35, 167, 39);
+   color: white;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   margin-left: 25%;
+ }
+
+ #cancelLocationForm{
+   background-color: rgb(216, 23, 23);
+   color: white;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+ }
+
+ #addNewButton {
+   background-color: tan;
+   color: white;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   margin-left: 25%;
+ }
