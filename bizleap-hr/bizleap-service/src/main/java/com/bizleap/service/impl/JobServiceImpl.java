@@ -1,6 +1,7 @@
 package com.bizleap.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bizleap.commons.domain.entity.Employee;
+import com.bizleap.commons.domain.entity.AbstractEntity;
 import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
@@ -32,6 +33,19 @@ public class JobServiceImpl implements JobService {
 		jobDao.save(job);
 	}
 
+	@Transactional(readOnly = true)
+	public List<AbstractEntity> getAllEntity() throws ServiceUnavailableException {
+		List<Job> jobList = jobDao.getAll("from Job");
+		if(!CollectionUtils.isEmpty(jobList)) {
+			hibernateInitializedList(jobList);	
+
+			List<AbstractEntity> entityList = new ArrayList<AbstractEntity>();
+			entityList.addAll(getAll());
+			return entityList;
+		}
+		return null;
+	}
+	
 	@Transactional(readOnly = true)
 	public List<Job> getAll() throws ServiceUnavailableException {
 		List<Job> jobList = jobDao.getAll("from Job");

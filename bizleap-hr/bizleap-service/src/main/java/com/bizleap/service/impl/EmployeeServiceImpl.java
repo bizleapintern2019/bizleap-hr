@@ -1,13 +1,16 @@
 package com.bizleap.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bizleap.commons.domain.entity.AbstractEntity;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.EmployeeDao;
@@ -28,6 +31,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Transactional(readOnly = false)
 	public void saveEmployee(Employee employee) throws IOException, ServiceUnavailableException {
 		employeeDao.save(employee);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<AbstractEntity> getAllEntity() throws ServiceUnavailableException {
+		List<Employee> employeeList = employeeDao.getAll("from Employee");
+		if(!CollectionUtils.isEmpty(employeeList)) {
+			hibernateInitializedList(employeeList);	
+
+			List<AbstractEntity> entityList = new ArrayList<AbstractEntity>();
+			entityList.addAll(getAll());
+			return entityList;
+		}
+		return null;
 	}
 
 	public List<Employee> getAll() throws ServiceUnavailableException {

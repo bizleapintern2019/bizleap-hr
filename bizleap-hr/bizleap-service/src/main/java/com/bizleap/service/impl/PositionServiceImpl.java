@@ -1,19 +1,17 @@
 package com.bizleap.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import com.bizleap.commons.domain.entity.Department;
+import com.bizleap.commons.domain.entity.AbstractEntity;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.Job;
-import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.PositionDao;
@@ -32,6 +30,19 @@ public class PositionServiceImpl implements PositionService {
 	
 	public void savePosition(Position position) throws IOException, ServiceUnavailableException {
 		positionDao.save(position);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<AbstractEntity> getAllEntity() throws ServiceUnavailableException {
+		List<Position> positionList = positionDao.getAll("from Position");
+		if(!CollectionUtils.isEmpty(positionList)) {
+			hibernateInitializedList(positionList);	
+
+			List<AbstractEntity> entityList = new ArrayList<AbstractEntity>();
+			entityList.addAll(getAll());
+			return entityList;
+		}
+		return null;
 	}
 	
 	@Transactional(readOnly = true)

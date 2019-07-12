@@ -1,6 +1,7 @@
 package com.bizleap.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -9,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bizleap.commons.domain.entity.Department;
-import com.bizleap.commons.domain.entity.Job;
+import com.bizleap.commons.domain.entity.AbstractEntity;
 import com.bizleap.commons.domain.entity.Location;
-import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.LocationDao;
 import com.bizleap.service.DepartmentService;
@@ -32,6 +31,19 @@ public class LocationServiceImpl implements LocationService {
 	@Transactional(readOnly = false)
 	public void saveLocation(Location location) throws IOException, ServiceUnavailableException {
 		locationDao.save(location);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<AbstractEntity> getAllEntity() throws ServiceUnavailableException {
+		List<Location> locationList = locationDao.getAll("from Location");
+		if(!CollectionUtils.isEmpty(locationList)) {
+			hibernateInitializedLocationList(locationList);	
+
+			List<AbstractEntity> entityList = new ArrayList<AbstractEntity>();
+			entityList.addAll(getAll());
+			return entityList;
+		}
+		return null;
 	}
 
 	public List<Location> getAll() throws ServiceUnavailableException {

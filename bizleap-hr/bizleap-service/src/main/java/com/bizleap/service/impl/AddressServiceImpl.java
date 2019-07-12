@@ -1,6 +1,7 @@
 package com.bizleap.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bizleap.commons.domain.entity.AbstractEntity;
 import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.AddressDao;
@@ -25,6 +27,19 @@ public class AddressServiceImpl implements AddressService {
 	@Transactional(readOnly = false)
 	public void saveAddress(Address address) throws IOException, ServiceUnavailableException {
 		addressDao.save(address);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<AbstractEntity> getAllEntity() throws ServiceUnavailableException {
+		List<Address> addressList = addressDao.getAll("from Address");
+		if(!CollectionUtils.isEmpty(addressList)) {
+			hibernateInitializedList(addressList);	
+
+			List<AbstractEntity> entityList = new ArrayList<AbstractEntity>();
+			entityList.addAll(getAll());
+			return entityList;
+		}
+		return null;
 	}
 
 	@Transactional(readOnly = true)

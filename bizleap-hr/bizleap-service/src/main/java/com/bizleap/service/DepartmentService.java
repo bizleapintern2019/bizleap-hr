@@ -6,7 +6,7 @@ import java.util.List;
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
-public interface DepartmentService {
+public interface DepartmentService extends DataService {
 	
 	void saveDepartment(Department department) throws IOException, ServiceUnavailableException;
 	List<Department> getAll() throws ServiceUnavailableException;

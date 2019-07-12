@@ -6,7 +6,7 @@ import java.util.List;
 import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
-public interface JobService {
+public interface JobService extends DataService {
 	
 	void saveJob(Job job) throws IOException, ServiceUnavailableException;
 	List<Job> getAll() throws ServiceUnavailableException;

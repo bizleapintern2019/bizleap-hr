@@ -6,7 +6,7 @@ import java.util.List;
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
-public interface LocationService {
+public interface LocationService extends DataService {
 	
 	void saveLocation(Location location) throws IOException, ServiceUnavailableException;
 	List<Location> getAll() throws ServiceUnavailableException;

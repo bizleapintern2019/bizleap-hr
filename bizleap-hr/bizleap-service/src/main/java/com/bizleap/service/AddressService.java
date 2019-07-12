@@ -6,7 +6,7 @@ import java.util.List;
 import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 
-public interface AddressService {
+public interface AddressService extends DataService {
 	
 	void saveAddress(Address address) throws IOException, ServiceUnavailableException;
 	List<Address> getAll() throws ServiceUnavailableException;
