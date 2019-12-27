@@ -4,15 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
-import org.junit.Test;
 import org.junit.Assert;
-import org.junit.Ignore;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bizleap.commons.domain.entity.Job;
-import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
@@ -48,7 +45,6 @@ public class PositionServiceImplTest extends ServiceTest {
 	@Test
 	public void testGetAllPosition() throws Exception {
 		try {
-			// logger.info(positionService.getAll());
 			testPositionList(positionService.getAll());
 		} catch (ServiceUnavailableException e) {
 			logger.info("The Message is " + e);
@@ -118,7 +114,6 @@ public class PositionServiceImplTest extends ServiceTest {
 			Position position = positionService.findPositionByEmployeeBoId("EMP001");
 			logger.info(position);
 		} catch (ServiceUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

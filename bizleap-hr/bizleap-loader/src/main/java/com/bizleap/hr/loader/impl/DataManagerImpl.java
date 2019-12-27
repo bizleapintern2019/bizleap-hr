@@ -1,36 +1,28 @@
 package com.bizleap.hr.loader.impl;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.bizleap.commons.domain.entity.Address;
 import com.bizleap.commons.domain.entity.Department;
 import com.bizleap.commons.domain.entity.Employee;
-import com.bizleap.commons.domain.entity.Error;
 import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
-import com.bizleap.hr.loader.AddressSaver;
 import com.bizleap.hr.loader.AssociationMapper;
 import com.bizleap.hr.loader.DataManager;
-import com.bizleap.hr.loader.DepartmentSaver;
-import com.bizleap.hr.loader.EmployeeSaver;
 import com.bizleap.hr.loader.ErrorHandler;
-import com.bizleap.hr.loader.JobSaver;
 import com.bizleap.hr.loader.LocationSaver;
-import com.bizleap.hr.loader.PositionSaver;
 
 //@Author: Khin Chanmyae Thu 
 @Service
 public class DataManagerImpl implements DataManager {
+	
 	@Autowired
 	private DataLoaderImpl dataLoader;
 	
@@ -39,9 +31,6 @@ public class DataManagerImpl implements DataManager {
 	
 	@Autowired
 	private AssociationMapper associationMapper;
-	
-//	@Autowired
-//	private SaverJDBC saver;
 	
 	@Autowired
 	private LocationSaver locationSaver;
@@ -116,11 +105,7 @@ public class DataManagerImpl implements DataManager {
 	}
 	
 	public void saveData() {
-		try {
-			/*for(Department department : getDepartmentList()) {
-				department.setParentDepartment(null);
-			}*/
-			
+		try {			
 			locationSaver.setLocationList(locationList);
 			locationSaver.savePass1();
 		} catch (ServiceUnavailableException e) {
@@ -133,7 +118,6 @@ public class DataManagerImpl implements DataManager {
 	public void associateData() {
 		if(!errorHandler.hasError()) {
 			associationMapper.setUpAssociations();
-			//logger.info("*****associated!!******");
 			return;
 		}
 		else if(errorHandler.hasError()) {
@@ -141,45 +125,9 @@ public class DataManagerImpl implements DataManager {
 		}
 	}
 	
-	public void printAllList() {
-		logger.info(locationList + "\n");
-		logger.info(departmentList + "\n");
-		logger.info(jobList + "\n");
-		logger.info(positionList + "\n");
-		logger.info(employeeList + "\n");
-		logger.info(addressList + "\n");
-	}
-	
-	public void testPositionList(String message) {
-		logger.info(message);
-		for(Position position: getPositionList()) {
-			logger.info("Position Boid:"+position.getBoId());
-			if(CollectionUtils.isEmpty(position.getReportToList())) 
-				continue;
-			for(Position position1: position.getReportToList()) {
-				if(position1.getEmployee() == null) {
-					logger.info("Position1111: "+position1);
-					//System.exit(0);
-				}
-			}
-			if(CollectionUtils.isEmpty(position.getReportByList())) 
-				continue;
-			for(Position position1: position.getReportByList()) {
-				if(position1.getEmployee() == null) {
-					logger.info("Position2222: "+position1);
-					//System.exit(0);
-				}
-			}
-		}
-		
-	}
-	
 	public void load() {
 		loadData();
-	//	testPositionList("after load data: ");
 		associateData();
-	//	testPositionList("after associate data: ");
-	//	printAllList();
 		saveData();
 	}
 }

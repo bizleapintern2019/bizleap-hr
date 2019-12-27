@@ -78,40 +78,6 @@ public class LocationServiceImpl implements LocationService {
 		return null;
 	}
 	
-	/*public void hibernateInitializedPosition(Position position) {
-		Hibernate.initialize(position);	
-	}
-
-	public void hibernateInitializedPositionList(List<Position> positionList) {
-		for (Position position : positionList) {
-			hibernateInitializedPosition(position);
-			Hibernate.initialize(position.getReportToList());
-			Hibernate.initialize(position.getReportByList());
-		}
-	}
-
-	public void hibernateInitializedJob(Job job) {
-		Hibernate.initialize(job);
-		hibernateInitializedPositionList(job.getPositionList());
-	}
-
-	public void hibernateInitializedJobList(List<Job> jobList) {
-		for (Job job : jobList) {
-			hibernateInitializedJob(job);
-		}
-	}
-
-	public void hibernateInitializedDepartment(Department department) {
-		Hibernate.initialize(department);
-		hibernateInitializedJobList(department.getJobList());
-	}
-	
-	public void hibernateInitializedDepartmentList(List<Department> departmentList) {
-		for (Department department : departmentList) {
-			hibernateInitializedDepartment(department);
-		}
-	}*/
-
 	public void hibernateInitializedLocation(Location location) {
 		Hibernate.initialize(location);
 		departmentService.hibernateInitializedDepartmentList(location.getDepartmentList());
@@ -123,4 +89,3 @@ public class LocationServiceImpl implements LocationService {
 		}
 	}
 }
-

@@ -31,10 +31,8 @@ public class EmployeeSaverImpl implements EmployeeSaver {
     }
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        logger.info("Saving Employee: " + getEmployeeList().size());
-        for(Employee employee : getEmployeeList()) {
+        for(Employee employee : getEmployeeList())
         	employeeService.saveEmployee(employee);
-        }
         logger.info("Saving Completed");
     }
 }

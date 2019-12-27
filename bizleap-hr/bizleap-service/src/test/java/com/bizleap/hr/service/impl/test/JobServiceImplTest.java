@@ -22,14 +22,8 @@ public class JobServiceImplTest extends ServiceTest {
 
 	@Autowired
 	JobService jobService;
-
-
-	//	@Autowired
-	//	JobTest jobTest;
-
-
+	
 	@Ignore
-
 	@Test
 	public void testSaveJob() {
 		Job job = new Job();
@@ -45,7 +39,6 @@ public class JobServiceImplTest extends ServiceTest {
 		} catch (ServiceUnavailableException e) {
 			e.printStackTrace();
 		}
-
 		logger.info(job);
 	}
 
@@ -68,7 +61,6 @@ public class JobServiceImplTest extends ServiceTest {
 	}
 
 	public void testJobList(List<Job> jobList) throws Exception {
-
 		Assert.assertTrue(jobList != null && jobList.size() == 6);
 		int successCount = 0;
 		for (Job job : jobList) {
@@ -78,8 +70,6 @@ public class JobServiceImplTest extends ServiceTest {
 			successCount+= assertJob(job,"JOB004","General Manager",400000);
 			successCount+= assertJob(job,"JOB005","Technical lead",300000);
 			successCount+= assertJob(job,"JOB006","InternShip",40000);
-			//Assert.assertTrue(successCount==1);
-			//successCount=0;
 		}
 		Assert.assertTrue(successCount==6);
 	}
@@ -87,9 +77,7 @@ public class JobServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindByBoId() {
 		try {
-
 			Job job = jobService.findByBoId("JOB001");
-			//Assert.assertTrue(CollectionUtils.isNotEmpty(job));
 			Assert.assertEquals(job.getBoId(),"JOB001");
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
@@ -99,7 +87,6 @@ public class JobServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindByTitle() {
 		try {
-
 			List<Job> jobList = jobService.findByTitle("CEO");
 			Assert.assertTrue(CollectionUtils.isNotEmpty(jobList));
 			Assert.assertEquals(jobList.get(0).getJobTitle(),"CEO");
@@ -111,11 +98,9 @@ public class JobServiceImplTest extends ServiceTest {
 	@Test
 	public void testFindBySalary() {
 		try {
-
 			List<Job> jobList = jobService.findBySalary(800000);
 			Assert.assertTrue(CollectionUtils.isNotEmpty(jobList));
 			Assert.assertEquals(jobList.get(0).getSalary(),800000);
-
 		} catch (ServiceUnavailableException e) {
 			logger.error(e);
 		}
@@ -130,5 +115,4 @@ public class JobServiceImplTest extends ServiceTest {
 			e.printStackTrace();
 		}
 	}
-
 }

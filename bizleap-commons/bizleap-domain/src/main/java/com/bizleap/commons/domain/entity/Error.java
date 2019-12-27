@@ -1,6 +1,7 @@
 package com.bizleap.commons.domain.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+//@author San Thinzar Linn, Khin Chanmyae Thu, Soe Min Thein
 
 public class Error {
 	private int lineNumber;
@@ -48,10 +49,6 @@ public class Error {
 
 	@Override
 	public String toString() {
-		//String lineString = "";
-		/*
-		 * if(getLineNumber()!=0){ lineString="at line number "+ getLineNumber(); }
-		 */
 		return new ToStringBuilder(source, null)
 				.append("\n--------------------------------------------------------------" + "\n")
 				.append("\t\t\t\t\tERROR\n")

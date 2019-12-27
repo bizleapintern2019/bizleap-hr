@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bizleap.commons.domain.entity.Job;
-import com.bizleap.commons.domain.entity.Location;
 
 public class JobServiceRestClient {
 	private static final Logger logger = Logger.getLogger(JobServiceRestClient.class);

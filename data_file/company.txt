@@ -1,4 +1,0 @@
-#CompanyId#Name#Address#Phone#Email#CEO
-COM001,Apple,California,03453432,apple@gmail.com,Alice Kim
-COM002,IBM,New York,04344252,ibm@gmail.com,Bob Gilman
-COM003,Adobe,California,04356352,adobe@gmail.com,John Mark

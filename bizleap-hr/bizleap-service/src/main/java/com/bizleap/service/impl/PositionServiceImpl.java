@@ -20,7 +20,6 @@ import com.bizleap.service.PositionService;
 
 //@Author: Kay Zin Han
 @Service
-// @Transactional(readOnly = true)
 public class PositionServiceImpl implements PositionService {
 	@Autowired
 	private PositionDao positionDao;

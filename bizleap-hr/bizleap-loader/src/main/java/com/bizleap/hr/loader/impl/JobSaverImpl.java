@@ -31,10 +31,8 @@ public class JobSaverImpl implements JobSaver{
     }
 
     public void savePass1() throws ServiceUnavailableException, IOException {
-        logger.info("Saving Job: " + getJobList().size());
-        for(Job job : getJobList()) {
+        for(Job job : getJobList())
             jobService.saveJob(job);
-        }
         logger.info("Saving Completed");
     }
 }

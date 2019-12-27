@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -24,14 +22,11 @@ public class Job extends AbstractEntity {
 	
 	private String jobTitle;
 	private int salary;
-	
-/*	@ManyToOne
-	@JoinColumn(name="departmentId")*/
+
 	@Transient
 	@JsonIgnore
 	private Department department;
 	
-//	@OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Position> positionList;
 
@@ -107,7 +102,6 @@ public class Job extends AbstractEntity {
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Title: " + getJobTitle())
 				.append("Salary: " + getSalary())
-			//	.append("Department: " + getDepartment().getName())
 				.append("Position List: " + getPositionList());
 	}
 }

@@ -21,9 +21,7 @@ import com.bizleap.hr.loader.ErrorHandler;
 // @Author: San Thinzar Linn, Yamone Zin
 @Service
 public class AssociationMapperImpl implements AssociationMapper {
-	
-	private Logger logger = Logger.getLogger(AssociationMapperImpl.class);
-	
+		
 	@Autowired
 	private DataManager dataManager;
 	
@@ -61,7 +59,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 	private void setUpLocationAssociations() {
 		for(Location location : dataManager.getLocationList()) {
 			addDepartmentToLocation(location);
-			//logger.info("Location Association: "+ location);
 		}
 	}
 
@@ -80,7 +77,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 		}
 		for(Department parentDepartment : dataManager.getDepartmentList()) {
 			if(parentDept.sameBoId(parentDepartment)) {
-				//logger.info("Real Parent Dept: "+parentDepartment);
 				department.setParentDepartment(parentDepartment);
 				return;
 			}
@@ -106,7 +102,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 			addJobToDepartment(department);
 			addParentDepartment(department);
 			addLocationToDepartment(department);
-			//logger.info("Department Association: "+ department);
 		}
 	}
 	
@@ -115,7 +110,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 			if(position.getJob().sameBoId(job)) 
 				job.addPosition(position);
 		}
-		//errorHandler.handleLinkageError("Position in job cannot be linked.", job);
 	}
 	
 	private void addDepartmentToJob(Job job) {
@@ -136,7 +130,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Job job : dataManager.getJobList()) {
 			addDepartmentToJob(job);
 			addPositionToJob(job);
-			//logger.info("Job Association: "+ job);
 		}
 	}
 	
@@ -197,7 +190,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 			addJobToPosition(position);
 			addEmployeeToPosition(position);
 			addReportToAndReportByPositions(position);
-			//logger.info("Position Association: "+ position);
 		}
 	}
 	
@@ -233,7 +225,6 @@ public class AssociationMapperImpl implements AssociationMapper {
 		for(Employee employee : dataManager.getEmployeeList()) {
 			addPositionToEmployee(employee);
 			addAddressToEmployee(employee);
-			//logger.info("Employee Association: "+ employee);
 		}
 	}
 	

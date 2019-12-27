@@ -14,7 +14,6 @@ import com.bizleap.commons.domain.entity.AbstractEntity;
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.dao.EmployeeDao;
-import com.bizleap.service.AddressService;
 import com.bizleap.service.EmployeeService;
 
 //@Author: Nyan Lin Htet
@@ -24,9 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeDao employeeDao;
-
-	@Autowired
-	private AddressService addressService;
 
 	@Transactional(readOnly = false)
 	public void saveEmployee(Employee employee) throws IOException, ServiceUnavailableException {

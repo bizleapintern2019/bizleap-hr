@@ -29,10 +29,8 @@ public class PositionSaverImpl implements PositionSaver {
     }
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        logger.info("Saving Position: " + getPositionList().size());
-        for(Position position : getPositionList()) {
+        for(Position position : getPositionList())
             positionService.savePosition(position);
-        }
         logger.info("Saving Completed");
     }
 }

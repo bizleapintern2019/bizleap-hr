@@ -16,22 +16,6 @@ public abstract class AbstractEntity {
 
 	private String boId;
 	
-//	@Column(
-//	        name = "status",
-//	        length = 10
-//	    )
-//	    @Enumerated(EnumType.STRING)
-//	    @JsonView({Summary.class})
-//	    private EntityStatus status;
-//	
-//	    public EntityStatus getStatus() {
-//			return status;
-//		}
-//
-//		public void setStatus(EntityStatus status) {
-//			this.status = status;
-//		}
-
 	public AbstractEntity() {
 		
 	}
@@ -86,7 +70,5 @@ public abstract class AbstractEntity {
 	public String toString() {
 		return ""+new ToStringBuilder(this,ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("boId:'", getBoId()+"'");
-				//.append("Status :",getStatus());
-				
 	}
 }

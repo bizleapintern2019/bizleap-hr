@@ -14,7 +14,6 @@ public class FileLoaderImpl implements FileLoader {
 	private BufferedReader dataReader;
 	private String dataLine = "";
 	private int lineNumber;
-	private Logger logger = Logger.getLogger(FileLoaderImpl.class);
 	
 	public FileLoaderImpl() {	
 	}
@@ -42,7 +41,6 @@ public class FileLoaderImpl implements FileLoader {
 	}
 	
 	public String getLine() {
-		//logger.info("Processing: "+dataLine);
 		return dataLine;
 	}
 

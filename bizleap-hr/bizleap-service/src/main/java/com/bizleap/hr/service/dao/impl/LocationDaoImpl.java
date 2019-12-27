@@ -1,7 +1,5 @@
 package com.bizleap.hr.service.dao.impl;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import com.bizleap.commons.domain.entity.Location;

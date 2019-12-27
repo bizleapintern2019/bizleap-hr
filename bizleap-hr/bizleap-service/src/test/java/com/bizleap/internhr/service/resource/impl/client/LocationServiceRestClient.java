@@ -15,7 +15,6 @@ import com.bizleap.commons.domain.entity.Location;
 public class LocationServiceRestClient {
 
 		private static final Logger logger = Logger.getLogger(LocationServiceRestClient.class);
-		//private final static String SERVICEURL = "http://167.99.57.200:8081/bizleap-clb-application";
 		private final static String SERVICEURL = "http://localhost:8080/bizleap-internhr-application";
 
 		public void getAllLocations() {
@@ -123,6 +122,5 @@ public class LocationServiceRestClient {
 			} catch (Exception e) {
 				logger.error("ERRROR is - " + e.getMessage() + ", " + response);
 			}
-
 		}
 }

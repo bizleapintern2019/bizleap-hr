@@ -1,9 +1,7 @@
 package com.bizleap.hr.service.impl.test;
 
 import java.io.IOException;
-import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,7 +16,6 @@ import com.bizleap.commons.domain.entity.Position;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.AddressService;
-
 
 public class AddressServiceImplTest extends ServiceTest {
 
@@ -236,44 +233,4 @@ public class AddressServiceImplTest extends ServiceTest {
 			testLocationInDept(address.getEmployee().getPosition().getJob().getDepartment().getLocation());
 		}
 	}
-//	@Test
-//	public void testGetAll() {
-//		try {
-//			List<Address> addressList = addressService.getAll();
-//			Assert.assertTrue(CollectionUtils.isNotEmpty(addressList));
-//			Assert.assertTrue(addressList.size()==24);
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
-	
-//	@Test
-//	public void testFindByBoId() {
-//		try {
-//			Address address = addressService.findByBoId("ADR006");
-//			Assert.assertTrue(address!=null);
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
-//	
-//	@Test
-//	public void testFindByCity() {
-//		try {
-//			List<Address> addressList = addressService.findByCity("Bago");
-//				Assert.assertTrue(addressList.size()==1);
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
-//	
-//	@Test
-//	public void testFindByState() {
-//		try {
-//			List<Address> addressList = addressService.findByState("Yangon");
-//				Assert.assertTrue(addressList.size()==1);
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
 }

@@ -11,12 +11,10 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.bizleap.commons.domain.entity.Address;
-import com.bizleap.commons.domain.entity.Location;
 
 public class AddressServiceRestClient {
 	
 	private static final Logger logger = Logger.getLogger(AddressServiceRestClient.class);
-	//private final static String SERVICEURL = "http://167.99.57.200:8081/bizleap-clb-application";
 	private final static String SERVICEURL = "http://localhost:8080/bizleap-internhr-application";
 
 	public void getAllAddress() {
@@ -249,7 +247,5 @@ public class AddressServiceRestClient {
 		} catch (Exception e) {
 			logger.error("ERRROR is - " + e.getMessage() + ", " + response);
 		}
-
 	}
-
 }

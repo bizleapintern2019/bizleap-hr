@@ -1,7 +1,5 @@
 package com.bizleap.hr.service.impl.test;
 
-
-
 import com.bizleap.commons.domain.entity.Employee;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
@@ -60,8 +58,6 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		logger.info(employee);
 	}
 	
-
-	
 	public static int testAssertEmployee(Employee employee,String boId,String firstName,String lastname,String gender) {
 		if(employee.getBoId().equals(boId)) {
 			Assert.assertEquals(firstName, employee.getFirstName());
@@ -111,7 +107,6 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		}
 	}
 	
-
 	@Test
 	public void testGetAll() {
 		try {
@@ -122,162 +117,3 @@ public class EmployeeServiceImplTest extends ServiceTest {
 		}
 	}
 }
-	
-//	@Test
-//	public void testGetAll() {
-//		try {
-//			List<Employee> employeeList = employeeService.getAll();
-//			if(!CollectionUtils.isEmpty(employeeList)){
-//				employeeService.hibernateInitializedList(employeeList);
-//				Assert.assertTrue(employeeList.size()==25);
-//			}
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
-//	
-//	@Test
-//	public void testFindByBoId() {
-//		try {
-//			List<Employee> employeeList = employeeService.findByBoId("EMP001");
-//			if(!CollectionUtils.isEmpty(employeeList)){
-//				employeeService.hibernateInitializedList(employeeList);
-//				Assert.assertTrue(employeeList.size()==2);
-//			}
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
-//	
-//	@Test
-//	public void testFindByFirstName() {
-//		try {
-//			List<Employee> employeeList = employeeService.findByFirstName("Kaung");
-//			if(!CollectionUtils.isEmpty(employeeList)){
-//				employeeService.hibernateInitializedList(employeeList);
-//				Assert.assertTrue(employeeList.size()==2);
-//			}
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
-//	
-//	@Test
-//	public void testFindByLastName() {
-//		try {
-//			List<Employee> employeeList = employeeService.findByLastName("Shein");
-//			if(!CollectionUtils.isEmpty(employeeList)){
-//				employeeService.hibernateInitializedList(employeeList);
-//				Assert.assertTrue(employeeList.size()==25);
-//			}
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
-//	
-//	@Test
-//	public void testFindByGender() {
-//		try {
-//			List<Employee> employeeList = employeeService.findByGender("Male");
-//			if(!CollectionUtils.isEmpty(employeeList)){
-//				employeeService.hibernateInitializedList(employeeList);
-//				Assert.assertTrue(employeeList.size()==14);
-//			}
-//		} catch (ServiceUnavailableException e) {
-//			logger.error("In Service Test: "+e);
-//		}
-//	}
-//public static int testAssertLocation(Location location,String boId, String name) {
-//if(location.getBoId().equals(boId)) {
-//	Assert.assertEquals(name, location.getName());
-//	return 1;
-//}
-//return 0;
-//}
-
-//public static void testLocationInDept(Location location) {
-//Assert.assertTrue(location != null);
-//int successCount=0;
-//successCount += testAssertLocation(location,"LOC001", "Yangon");
-//successCount += testAssertLocation(location,"LOC002", "Mandalay");
-//Assert.assertTrue(successCount==1);
-//}
-//
-//public static int testAssertDept(Department department,String boId,String name,String parentBoId) {
-//if(department.getBoId().equals(boId)) {
-//	Assert.assertEquals(name, department.getName());
-//	Assert.assertEquals(parentBoId, department.getParentDepartment().getBoId());
-//	return 1;
-//}
-//return 0;
-//}
-//
-//public static void testDeptInJob(Department department) {
-//Assert.assertTrue(department != null);
-//int successCount=0;
-//successCount += testAssertDept(department, "DEPT001", "BOD", null);
-//successCount += testAssertDept(department, "DEPT002", "Engineering", "DEPT001");
-//successCount += testAssertDept(department, "DEPT003", "Internship", "DEPT002");
-//successCount += testAssertDept(department, "DEPT004", "Customer Support", "DEPT002");
-//Assert.assertTrue(successCount==1);
-//}
-//
-//public static int testAssertJob(Job job, String boId,String title, int salary, String deptBoId) {
-//if(job.getBoId().equals(boId)) {
-//	Assert.assertEquals(title,job.getJobTitle());
-//	Assert.assertEquals(salary, job.getSalary());
-//	Assert.assertEquals(deptBoId, job.getDepartment().getBoId());
-//	return 1;
-//}
-//return 0;
-//}
-//
-//public static void testJobInPosition(Job job) {
-//Assert.assertTrue(job != null);
-//int successCount=0;
-//successCount += testAssertJob(job, "JOB001", "CEO", 800000, "DEPT001");
-//successCount += testAssertJob(job, "JOB002", "Senior Software Engineer", 400000, "DEPT002");
-//successCount += testAssertJob(job, "JOB003", "Software Engineer", 300000, "DEPT002");
-//successCount += testAssertJob(job, "JOB004", "General Manager", 400000, "DEPT002");
-//successCount += testAssertJob(job, "JOB005", "Technical lead", 300000, "DEPT002");
-//successCount += testAssertJob(job, "JOB006", "InternShip", 40000, "DEPT003");
-//Assert.assertTrue(successCount==1);
-//}
-//
-//public static int testAssertPosition(Position position,String boId, String jobBoId) {
-//if(position.getBoId().equals(boId)) {
-//	Assert.assertEquals(jobBoId, position.getJob().getBoId());
-//	return 1;
-//}
-//return 0;
-//}
-//
-//public static void testPositionInEmployee(Position position) {
-//Assert.assertTrue(position != null);
-//int successCount=0;
-//successCount += testAssertPosition(position, "JOB001-1", "JOB001");
-//successCount += testAssertPosition(position, "JOB002-1", "JOB002");
-//successCount += testAssertPosition(position, "JOB002-2", "JOB002");
-//successCount += testAssertPosition(position, "JOB002-3", "JOB002");
-//successCount += testAssertPosition(position, "JOB002-4", "JOB002");
-//successCount += testAssertPosition(position, "JOB003-1", "JOB003");
-//successCount += testAssertPosition(position, "JOB003-2", "JOB003");
-//successCount += testAssertPosition(position, "JOB003-3", "JOB003");
-//successCount += testAssertPosition(position, "JOB003-4", "JOB003");
-//successCount += testAssertPosition(position, "JOB003-5", "JOB003");
-//successCount += testAssertPosition(position, "JOB004-1", "JOB004");
-//successCount += testAssertPosition(position, "JOB005-1", "JOB005");
-//successCount += testAssertPosition(position, "JOB006-1", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-2", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-3", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-4", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-5", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-6", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-7", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-8", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-9", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-10", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-11", "JOB006");
-//successCount += testAssertPosition(position, "JOB006-12", "JOB006");
-//Assert.assertTrue(successCount==1);
-//}

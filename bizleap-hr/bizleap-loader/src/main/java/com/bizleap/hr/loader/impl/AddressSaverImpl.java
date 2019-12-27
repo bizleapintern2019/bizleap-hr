@@ -31,10 +31,8 @@ public class AddressSaverImpl implements AddressSaver {
     }
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-    	logger.info("Saving Address: " + getAddressList().size());
-        for(Address address : getAddressList()) {
+        for(Address address : getAddressList())
         	addressService.saveAddress(address);
-        }
         logger.info("Saving Completed");
     }
 }

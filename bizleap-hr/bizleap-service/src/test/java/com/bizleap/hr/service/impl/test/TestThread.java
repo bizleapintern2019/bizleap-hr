@@ -47,12 +47,10 @@ public class TestThread extends Thread {
 	}
 
 	public void run() {
-		logger.info("Started: "+getName());
 		while(callCount-- >= 0){
 			try {
 				logger.info("Entity Service Test: "+dataService);
 				List<AbstractEntity> entityList = dataService.getAllEntity();
-//				logger.info("Job List: "+entityList);
 				if(CollectionUtils.isNotEmpty(entityList))
 					logger.info("Entity Found: "+entityList.size());
 				else logger.info("Entity Found: 0");

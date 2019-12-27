@@ -79,29 +79,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return null;
 	}
 
-/*	public void hibernateInitializedPosition(Position position) {
-		Hibernate.initialize(position);
-	}
-
-	public void hibernateInitializedPositionList(List<Position> positionList) {
-		for (Position position : positionList) {
-			hibernateInitializedPosition(position);
-			Hibernate.initialize(position.getReportToList());
-			Hibernate.initialize(position.getReportByList());
-		}
-	}
-
-	public void hibernateInitializedJob(Job job) {
-		Hibernate.initialize(job);
-		hibernateInitializedPositionList(job.getPositionList());
-	}
-
-	public void hibernateInitializedJobList(List<Job> jobList) {
-		for (Job job : jobList) {
-			hibernateInitializedJob(job);
-		}
-	}*/
-
 	public void hibernateInitializedDepartment(Department department) {
 		Hibernate.initialize(department);
 		jobService.hibernateInitializedList(department.getJobList());

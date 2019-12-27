@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bizleap.commons.domain.entity.Department;
@@ -17,7 +16,6 @@ import com.bizleap.commons.domain.entity.Location;
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
 import com.bizleap.hr.service.test.ServiceTest;
 import com.bizleap.service.LocationService;
-
 
 public class LocationServiceImplTest extends ServiceTest {
 
@@ -87,10 +85,8 @@ public class LocationServiceImplTest extends ServiceTest {
 		Assert.assertTrue(successCount == 2);
 	}
 
-
 	@Test
 	public void testGetAllLocations() throws Exception {
-
 		try {
 			 testLocationList(locationService.getAll());
 		} catch (ServiceUnavailableException e) {

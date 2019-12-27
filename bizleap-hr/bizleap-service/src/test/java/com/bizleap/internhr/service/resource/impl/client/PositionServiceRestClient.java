@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.bizleap.commons.domain.entity.Job;
 import com.bizleap.commons.domain.entity.Position;
 
 public class PositionServiceRestClient {
@@ -100,5 +99,4 @@ public class PositionServiceRestClient {
 			logger.error("ERRROR - " + e.getMessage() + ", " + response);
 		}
 	}
-
 }

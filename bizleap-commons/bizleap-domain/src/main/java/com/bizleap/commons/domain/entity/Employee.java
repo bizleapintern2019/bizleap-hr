@@ -3,7 +3,6 @@ package com.bizleap.commons.domain.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -20,13 +19,9 @@ public class Employee extends AbstractEntity {
 	
 	private String title, firstName, lastName, entranceDate, dateOfBirth, gender, email, phone;
 	
-/*	@OneToOne
-	@JoinColumn(name="positionId")*/
 	@Transient
 	private Position position;
 	
-//	@OneToOne(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Address address;

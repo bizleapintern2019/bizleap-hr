@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,8 +13,6 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.util.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,14 +26,11 @@ public class Department extends AbstractEntity {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Department parentDepartment;
-	
-/*	@ManyToOne
-	@JoinColumn(name="locationId")*/
+
 	@JsonBackReference
 	@Transient
 	private Location location;
 	
-	//@OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Job> jobList;
 
@@ -107,25 +100,12 @@ public class Department extends AbstractEntity {
 			department.setParentDepartment(new Department(parentDepartment));
 		return department;
 	}
-	
-	private String toBoIdList(List<Job> jobList) {
-		if(jobList == null) {
-			return "";
-		}
-	
-		String boIds = " ";
-		for(Job job : jobList) {
-			boIds += job.getBoId() + " ";
-		}
-		return boIds;
-	}
 
 	@Override
 	public String toString() {
 		return "Department :" + super.toString() +
 				new ToStringBuilder(this, ToStringStyle.NO_CLASS_NAME_STYLE)
 				.append("Name: " + getName())
-				//.append("At Location: "+ getLocation())
 				.append("Parent: " +
 				(getParentDepartment()!= null ? getParentDepartment().getBoId() : "")+
 				" ;ParentDepartment Name: " +(getParentDepartment()!= null ? getParentDepartment().getName() : ""))

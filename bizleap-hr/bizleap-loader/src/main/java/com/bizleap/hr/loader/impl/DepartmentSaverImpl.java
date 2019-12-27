@@ -31,10 +31,8 @@ public class DepartmentSaverImpl implements DepartmentSaver{
     }
     
     public void savePass1() throws ServiceUnavailableException, IOException {
-        logger.info("Saving Department: " + getDepartmentList().size());
-        for(Department department : getDepartmentList()) {
+        for(Department department : getDepartmentList())
         	departmentService.saveDepartment(department);
-        }
         logger.info("Saving Completed");
     }
 }

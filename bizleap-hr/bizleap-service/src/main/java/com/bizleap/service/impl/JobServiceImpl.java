@@ -20,7 +20,6 @@ import com.bizleap.service.PositionService;
 
 //@Author: Nyan Lin Htet
 @Service
-// @Transactional(readOnly = true)
 public class JobServiceImpl implements JobService {
 
 	@Autowired
@@ -105,15 +104,9 @@ public class JobServiceImpl implements JobService {
 		Hibernate.initialize(job);
 		positionService.hibernateInitializedList(job.getPositionList());
 	}
-
 	
 	public void hibernateInitializeJob(Job job){
 		Hibernate.initialize(job);
-	/*//	for (Position position : job.getPositionList()) {
-			Hibernate.initialize(position.getReportToList());
-			Hibernate.initialize(position.getReportByList());
-		//}
-*/		
 		positionService.hibernateInitializedList(job.getPositionList());
 	}
 	

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.bizleap.hr.service.dao.AbstractDao;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
@@ -16,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.CannotCreateTransactionException;
 
 import com.bizleap.commons.domain.exception.ServiceUnavailableException;
-import com.bizleap.commons.domain.utils.Printer;
+import com.bizleap.hr.service.dao.AbstractDao;
 
 /**
  * @author

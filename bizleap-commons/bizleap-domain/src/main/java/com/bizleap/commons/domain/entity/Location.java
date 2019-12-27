@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -22,7 +19,6 @@ public class Location extends AbstractEntity {
 
 	private String name;
 	
-//	@OneToMany(mappedBy="location", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Department> departmentList;
@@ -80,18 +76,6 @@ public class Location extends AbstractEntity {
 		for(int i=0; i<departmentList.length; i++) 
 			location.getDepartmentList().add(new Department(departmentList[i]));
 		return location;
-	}
-	
-	private String toBoIdList(List<Department> departmentList) {
-		if(departmentList == null) {
-			return "";
-		}
-	
-		String boIds = "";
-		for(Department department : departmentList) {
-			boIds += department.getBoId() + " ";
-		}
-		return boIds;
 	}
 
 	@Override
